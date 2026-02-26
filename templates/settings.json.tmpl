@@ -1,0 +1,50 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/safety_guard.sh\"",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/pre_compact.sh\"",
+            "timeout": 15000
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/system_awareness.sh\"",
+            "timeout": 15000
+          }
+        ]
+      },
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/post_compact.sh\"",
+            "timeout": 15000
+          }
+        ]
+      }
+    ]
+  }
+}

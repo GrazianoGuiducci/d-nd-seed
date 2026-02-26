@@ -1,0 +1,61 @@
+---
+name: youtube-transcript
+description: >
+  Extract and analyze YouTube video transcripts. Use this skill AUTOMATICALLY
+  whenever the user shares a YouTube URL (youtube.com/watch, youtu.be, youtube.com/shorts)
+  and asks about the video content, wants a summary, or wants to know if it's relevant.
+  Always extract the transcript BEFORE analyzing or summarizing.
+user-invocable: true
+allowed-tools: [Bash, Read, WebSearch, WebFetch]
+---
+
+# YouTube Transcript Extractor
+
+When a YouTube URL appears in the conversation, **always extract the transcript first** using the project's built-in tool before attempting web searches or guessing at content.
+
+## How to Extract
+
+Run this Node.js command from the THIA directory:
+
+```bash
+cd "{{THIA_PATH}}" && node -e "
+const { extractTranscriptWithFallback } = require('./tools/youtube_transcript.js');
+extractTranscriptWithFallback('VIDEO_URL_HERE')
+  .then(r => {
+    console.log(JSON.stringify({
+      title: r.title,
+      channel: r.channel || 'N/A',
+      wordCount: r.wordCount,
+      source: r.source || 'node-native',
+      language: r.language || 'auto',
+      hasTranscript: r.hasTranscript,
+      segmentCount: r.segmentCount
+    }));
+    console.log('---TRANSCRIPT---');
+    console.log(r.plainText);
+  })
+  .catch(e => console.error('FAIL:', e.message));
+"
+```
+
+Replace `VIDEO_URL_HERE` with the actual URL.
+
+## Fallback Chain
+
+The tool tries 3 methods automatically:
+1. **Node.js** (fastest, no deps) — parses YouTube page directly
+2. **yt-dlp** (most robust) — handles consent screens, bot detection
+3. **Python youtube-transcript-api** (legacy fallback)
+
+If all 3 fail, it returns the video description as fallback content.
+
+## After Extraction
+
+Once you have the transcript:
+- **If the user asked "is this relevant/useful?"** — analyze against the project context and give a verdict
+- **If the user asked for a summary** — provide a structured summary with key points
+- **If the user shared without specific request** — summarize briefly and highlight anything relevant to your project
+
+## Timeout
+
+Set bash timeout to 120000ms (2 minutes) — yt-dlp fallback can take up to 60 seconds.

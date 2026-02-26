@@ -1,0 +1,12 @@
+{
+  "node_id": "MY_NODE",
+  "description": "Example profile — customize for your setup",
+  "project_dir": "/path/to/your/project",
+  "thia_path": "",
+  "memory_path": "",
+  "vps_url": "",
+  "sinapsi_for": "",
+  "repos": [
+    { "name": "my-project", "path": "my-project", "branch": "main" }
+  ]
+}

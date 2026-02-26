@@ -1,0 +1,9 @@
+# Generated files (don't commit node output)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local profiles with secrets
+profiles/local_*.json
