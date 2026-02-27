@@ -1,6 +1,6 @@
 # D-ND Thinker Skills Pack
 
-**17 skill cognitive per sistemi AI chat basate sul framework D-ND (Duale Non-Duale).**
+**18 skill cognitive per sistemi AI chat basate sul framework D-ND (Duale Non-Duale).**
 
 Un'architettura di campo autopoietica portatile per inferenza, verifica, evoluzione e manifestazione. Funziona con Claude.ai, ChatGPT, Gemini e qualsiasi sistema che accetta istruzioni personalizzate.
 
@@ -92,12 +92,13 @@ Una volta impostato il Kernel e caricate le skill, la skill **kernel-conductor**
 | `lazarus-sys` | Vault semantico -- gli scarti come soluzioni future |
 | `guru-sys` | Mentoring filosofico, saggezza della Sorgente |
 
-### FACTORY -- Generazione (2)
+### FACTORY -- Generazione (3)
 
 | Skill | Ruolo |
 |-------|-------|
 | `forgia-sys` | Fabbrica universale -- Type A (skill), B (prompt), C (innesco genomico) |
 | `autogen-sys` | Fabbrica agenti effimeri con ciclo di vita |
+| `cascade-sys` | Orchestrazione Trigger-Team-Cascade per costruzione strumenti |
 
 ---
 
