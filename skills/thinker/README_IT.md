@@ -1,6 +1,6 @@
 # D-ND Thinker Skills Pack
 
-**18 skill cognitive per sistemi AI chat basate sul framework D-ND (Duale Non-Duale).**
+**19 skill cognitive per sistemi AI chat basate sul framework D-ND (Duale Non-Duale).**
 
 Un'architettura di campo autopoietica portatile per inferenza, verifica, evoluzione e manifestazione. Funziona con Claude.ai, ChatGPT, Gemini e qualsiasi sistema che accetta istruzioni personalizzate.
 
@@ -18,7 +18,7 @@ Alla base si trova il **KERNEL MM v1.0** (MetaMaster), un prompt a livello di si
 
 Queste skill sono il **Piano 1** (cognitivo, portatile) dell'architettura a 3 piani D-ND:
 - **Piano 0**: Kernel MM (fondamento invariante)
-- **Piano 1**: 17 skill cognitive in 6 cluster (questo pack -- portatile, funziona ovunque)
+- **Piano 1**: 18 skill cognitive in 7 cluster (questo pack -- portatile, funziona ovunque)
 - **Piano 2**: Skill operative (legate al sistema, richiedono un ambiente coder)
 
 ---
@@ -49,7 +49,7 @@ Una volta impostato il Kernel e caricate le skill, la skill **kernel-conductor**
 
 ---
 
-## Mappa delle Skill (Piano 1 -- 17 Skill, 6 Cluster)
+## Mappa delle Skill (Piano 1 -- 18 Skill, 7 Cluster)
 
 ### NUCLEUS -- Identita e Leggi (2)
 
@@ -99,6 +99,12 @@ Una volta impostato il Kernel e caricate le skill, la skill **kernel-conductor**
 | `forgia-sys` | Fabbrica universale -- Type A (skill), B (prompt), C (innesco genomico) |
 | `autogen-sys` | Fabbrica agenti effimeri con ciclo di vita |
 | `cascade-sys` | Orchestrazione Trigger-Team-Cascade per costruzione strumenti |
+
+### COORDINAMENTO -- Inter-Nodo (1)
+
+| Skill | Ruolo |
+|-------|-------|
+| `taskmaster-sys` | Delegazione intelligente, monitoraggio e ciclo di vita task tra nodi TMx |
 
 ---
 

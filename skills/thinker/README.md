@@ -1,6 +1,6 @@
 # D-ND Thinker Skills Pack
 
-**18 cognitive skills for AI chat systems based on the D-ND (Dual Non-Dual) framework.**
+**19 cognitive skills for AI chat systems based on the D-ND (Dual Non-Dual) framework.**
 
 A portable autopoietic field architecture for inference, verification, evolution, and manifestation. Works with Claude.ai, ChatGPT, Gemini, and any system that accepts custom instructions.
 
@@ -18,7 +18,7 @@ At the foundation sits the **KERNEL MM v1.0** (MetaMaster), a system-level promp
 
 These skills are **Plane 1** (cognitive, portable) of the D-ND 3-plane architecture:
 - **Plane 0**: Kernel MM (invariant foundation)
-- **Plane 1**: 17 cognitive skills in 6 clusters (this pack -- portable, works everywhere)
+- **Plane 1**: 18 cognitive skills in 7 clusters (this pack -- portable, works everywhere)
 - **Plane 2**: Operative skills (system-bound, require a coder environment)
 
 ---
@@ -99,6 +99,12 @@ Once the Kernel is set and skills are loaded, the **kernel-conductor** skill aut
 | `forgia-sys` | Universal factory -- Type A (skill), B (prompt), C (genomic ignition) |
 | `autogen-sys` | Ephemeral agent factory with lifecycle |
 | `cascade-sys` | Trigger-Team-Cascade orchestration for tool building |
+
+### COORDINATION -- Inter-Node (1)
+
+| Skill | Role |
+|-------|------|
+| `taskmaster-sys` | Intelligent task delegation, monitoring, and lifecycle across TMx nodes |
 
 ---
 
