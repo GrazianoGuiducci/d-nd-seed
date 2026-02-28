@@ -1,0 +1,13 @@
+{
+  "name": "d-nd-core",
+  "version": "1.0.0",
+  "description": "Core D-ND plugin — safety hooks, system awareness, Sinapsi communication, compact protection. Parametric: adapts to any TMx node via environment variables.",
+  "author": {
+    "name": "Moodnd (D-ND)",
+    "email": "gfushion@gmail.com"
+  },
+  "repository": "https://github.com/GrazianoGuiducci/d-nd-seed",
+  "license": "SSPL-1.0",
+  "keywords": ["d-nd", "thia", "tmx", "safety", "sinapsi", "awareness"],
+  "hooks": "./hooks/hooks.json"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "d-nd-seed",
+  "owner": {
+    "name": "Moodnd (D-ND)",
+    "email": "gfushion@gmail.com"
+  },
+  "metadata": {
+    "description": "D-ND Cognitive Seed — Plugin ecosystem for TMx agentic network",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "d-nd-core",
+      "source": "./plugins/d-nd-core",
+      "description": "Core D-ND plugin: safety hooks, system awareness, Sinapsi communication, compact protection. Parametric — adapts to any TMx node.",
+      "version": "1.0.0",
+      "author": { "name": "Moodnd" },
+      "repository": "https://github.com/GrazianoGuiducci/d-nd-seed",
+      "license": "SSPL-1.0",
+      "keywords": ["d-nd", "thia", "tmx", "hooks", "safety", "awareness"],
+      "category": "infrastructure"
+    }
+  ]
+}
