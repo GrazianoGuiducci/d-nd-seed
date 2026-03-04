@@ -313,6 +313,9 @@ apply_template "$SCRIPT_DIR/templates/hooks/statusline_bridge.sh.tmpl" "$TARGET/
 # context_awareness.sh
 apply_template "$SCRIPT_DIR/templates/hooks/context_awareness.sh.tmpl" "$TARGET/hooks/context_awareness.sh"
 
+# share_reflex.sh
+apply_template "$SCRIPT_DIR/templates/hooks/share_reflex.sh.tmpl" "$TARGET/hooks/share_reflex.sh"
+
 # youtube-transcript skill (only if THIA_PATH is set)
 if [ -n "$THIA_PATH" ]; then
     apply_template "$SCRIPT_DIR/templates/skills/youtube-transcript/SKILL.md.tmpl" "$TARGET/skills/youtube-transcript/SKILL.md"

@@ -60,6 +60,16 @@
             "timeout": 3000
           }
         ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/share_reflex.sh\"",
+            "timeout": 3000
+          }
+        ]
       }
     ]
   }
