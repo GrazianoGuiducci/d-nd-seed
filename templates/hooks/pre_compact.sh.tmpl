@@ -126,4 +126,32 @@ if [ -n "$SEMANTIC_TAGS" ]; then
     echo "### Semantic Tags: $SEMANTIC_TAGS" >> "$CONTEXT_FILE"
 fi
 
+# --- Append reasoning chains if present ---
+REASONING_FILE="$PROJECT_DIR/.claude/hooks/active_reasoning.md"
+if [ -f "$REASONING_FILE" ]; then
+    REASONING_SIZE=$(wc -c < "$REASONING_FILE" 2>/dev/null || echo 0)
+    if [ "$REASONING_SIZE" -gt 100 ]; then
+        echo "" >> "$CONTEXT_FILE"
+        echo "=== REASONING CHAIN ===" >> "$CONTEXT_FILE"
+        echo "" >> "$CONTEXT_FILE"
+        head -c 8000 "$REASONING_FILE" >> "$CONTEXT_FILE"
+        echo "" >> "$CONTEXT_FILE"
+        echo "=== END REASONING CHAIN ===" >> "$CONTEXT_FILE"
+    fi
+fi
+
+# --- Context percentage at compaction (from statusline bridge) ---
+BRIDGE_FILE="$PROJECT_DIR/.claude/hooks/context_bridge.json"
+if [ -f "$BRIDGE_FILE" ]; then
+    if command -v python3 &>/dev/null; then
+        CPCT=$(python3 -c "import json; print(json.load(open('$BRIDGE_FILE')).get('contextPercent',0))" 2>/dev/null || echo "?")
+    elif command -v node &>/dev/null; then
+        CPCT=$(node -e "try{console.log(JSON.parse(require('fs').readFileSync('$BRIDGE_FILE','utf8')).contextPercent||0)}catch(e){console.log('?')}" 2>/dev/null)
+    else
+        CPCT="?"
+    fi
+    echo "" >> "$CONTEXT_FILE"
+    echo "Context at compaction: ${CPCT}%" >> "$CONTEXT_FILE"
+fi
+
 echo "[PRE_COMPACT] Context saved (node={{NODE_ID}}, mode=$MODE, tags=${SEMANTIC_TAGS:-none})" >&2

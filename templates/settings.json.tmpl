@@ -1,4 +1,8 @@
 {
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/statusline_bridge.sh\""
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -42,6 +46,18 @@
             "type": "command",
             "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/post_compact.sh\"",
             "timeout": 15000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/context_awareness.sh\"",
+            "timeout": 3000
           }
         ]
       }
