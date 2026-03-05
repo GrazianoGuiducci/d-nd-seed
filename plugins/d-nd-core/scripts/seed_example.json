@@ -1,0 +1,19 @@
+{
+  "name": "Example Research Seed",
+  "description": "A minimal seed to demonstrate the Domandatore autopoietic research engine",
+  "tensions": [
+    {
+      "id": "EXAMPLE_TENSION_1",
+      "type": "open_tension",
+      "claim": "The golden ratio phi appears as a fixed point of f(x) = 1 + 1/x",
+      "intensity": 0.8
+    },
+    {
+      "id": "EXAMPLE_TENSION_2",
+      "type": "unexplored_boundary",
+      "claim": "The transition between periodic and quasiperiodic potentials is continuous",
+      "intensity": 0.6
+    }
+  ],
+  "direction": "Explore whether phi has special properties in tight-binding models"
+}
