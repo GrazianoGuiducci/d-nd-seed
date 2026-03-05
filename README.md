@@ -90,7 +90,6 @@ The seed grows in the host system. It adapts to the local context and maintains 
 
 - [seed.d-nd.com](https://seed.d-nd.com) — Overview and documentation
 - [d-nd.com](https://d-nd.com) — D-ND framework
-- [MM_D-ND](https://github.com/GrazianoGuiducci/MM_D-ND) — Mathematical framework (9 axioms)
 - [EXAMINA](https://github.com/GrazianoGuiducci/EXAMINA) — Evolutionary evaluation
 - [anamnesis](https://github.com/GrazianoGuiducci/anamnesis) — Context persistence specification
 
