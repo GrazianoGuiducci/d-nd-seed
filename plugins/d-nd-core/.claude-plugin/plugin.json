@@ -1,7 +1,7 @@
 {
   "name": "d-nd-core",
-  "version": "1.0.0",
-  "description": "Core D-ND plugin — safety hooks, system awareness, Sinapsi communication, compact protection. Parametric: adapts to any TMx node via environment variables.",
+  "version": "1.1.0",
+  "description": "Core D-ND plugin — safety hooks, system awareness, Sinapsi communication, compact protection, autonomous decision cycle, assertion verification. Parametric: adapts to any TMx node via environment variables.",
   "author": {
     "name": "Moodnd (D-ND)",
     "email": "gfushion@gmail.com"
