@@ -86,10 +86,25 @@ The hooks fire automatically via the AI coder's hook system. No manual intervent
 
 The seed grows in the host system. It adapts to the local context and maintains itself.
 
+## Qualities
+
+Each quality of the system is documented. The pages describe what the seed does in that area, with examples and source code references.
+
+| Quality | What it does | Code | Learn more |
+|---------|-------------|------|------------|
+| **Safety** | Intercepts 9 destructive patterns before execution | [templates/hooks/](templates/hooks/) | [seed.d-nd.com/safety](https://seed.d-nd.com/modules/safety-guard.html) |
+| **Persistence** | Captures state before compaction, restores it after | [templates/hooks/](templates/hooks/) | [seed.d-nd.com/persistence](https://seed.d-nd.com/modules/context-persistence.html) |
+| **Awareness** | Scans repos, APIs, messages at session start | [templates/hooks/](templates/hooks/) | [seed.d-nd.com/awareness](https://seed.d-nd.com/modules/system-awareness.html) |
+| **Memory** | Flat, self-organizing memory with crystallization test | [templates/](templates/) | [seed.d-nd.com/memory](https://seed.d-nd.com/modules/memory-system.html) |
+| **Cognition** | 59 skills across 11 clusters for structured reasoning | [skills/](skills/) | [seed.d-nd.com/skills](https://seed.d-nd.com/modules/skills-pack.html) |
+| **Continuity** | Preserves causal chains and reasoning across sessions | [templates/](templates/) | [seed.d-nd.com/anamnesis](https://seed.d-nd.com/modules/anamnesis.html) |
+| **Identity** | The D-ND model: every concept is a dipole, every output a resultant | — | [seed.d-nd.com/identity](https://seed.d-nd.com/modules/framework.html) |
+
 ## Part of the D-ND ecosystem
 
 - [seed.d-nd.com](https://seed.d-nd.com) — Overview and documentation
-- [d-nd.com](https://d-nd.com) — D-ND framework
+- [d-nd.com](https://d-nd.com) — D-ND framework and research
+- [d-nd.com/laboratorio](https://d-nd.com/laboratorio) — Live research data
 - [EXAMINA](https://github.com/GrazianoGuiducci/EXAMINA) — Evolutionary evaluation
 - [anamnesis](https://github.com/GrazianoGuiducci/anamnesis) — Context persistence specification
 
