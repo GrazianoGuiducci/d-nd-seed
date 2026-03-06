@@ -1,0 +1,152 @@
+{
+  "version": "2026-03-06",
+  "total_coder": 39,
+  "total_thinker": 20,
+  "clusters": {
+    "nucleus": {
+      "label": "Nucleus",
+      "label_it": "Nucleo",
+      "role": "Identity & Protection",
+      "role_it": "Identità e Protezione",
+      "color": "cyan",
+      "skills": [
+        { "id": "halo", "name": "Halo Genoma", "desc": "Security guardrails and ethical boundaries", "desc_it": "Guardrail di sicurezza e confini etici", "universal": false },
+        { "id": "aeternitas", "name": "Seed Guardian", "desc": "Protects kernel integrity across nodes", "desc_it": "Protegge l'integrità del kernel tra i nodi", "universal": false },
+        { "id": "coherence", "name": "Coherence Observer", "desc": "Monitors alignment across system layers", "desc_it": "Monitora l'allineamento tra i layer del sistema", "universal": false }
+      ]
+    },
+    "engines": {
+      "label": "Engines",
+      "label_it": "Motori",
+      "role": "Orchestration & Processing",
+      "role_it": "Orchestrazione ed Elaborazione",
+      "color": "emerald",
+      "skills": [
+        { "id": "conductor", "name": "Meta-Orchestrator", "desc": "Orchestrates multi-agent work and task coordination", "desc_it": "Orchestra il lavoro multi-agente e la coordinazione dei task", "universal": false },
+        { "id": "conductor_claude", "name": "Meta-Orchestrator Claude.ai", "desc": "Orchestrates agents in Claude.ai lateral nodes", "desc_it": "Orchestra agenti nei nodi laterali Claude.ai", "universal": true },
+        { "id": "helix", "name": "Runtime", "desc": "Step-by-step reasoning, debugging, pseudo-code execution", "desc_it": "Ragionamento passo-passo, debug, esecuzione pseudo-codice", "universal": true },
+        { "id": "fractal", "name": "Depth Architecture", "desc": "Decomposes complex problems into fractal-nested subproblems", "desc_it": "Scompone problemi complessi in sottoproblemi frattali", "universal": true },
+        { "id": "morpheus", "name": "Field Collapser", "desc": "Forces decision resolution in ambiguous situations", "desc_it": "Forza la risoluzione decisionale in situazioni ambigue", "universal": true }
+      ]
+    },
+    "firewall": {
+      "label": "Firewall",
+      "label_it": "Firewall",
+      "role": "Verification & Filtering",
+      "role_it": "Verifica e Filtraggio",
+      "color": "rose",
+      "skills": [
+        { "id": "veritas", "name": "Ontological Firewall", "desc": "Verification, fact-checking, source triangulation", "desc_it": "Verifica, fact-checking, triangolazione delle fonti", "universal": true },
+        { "id": "metron", "name": "Ontological Finish", "desc": "Trims and distills to essential meaning", "desc_it": "Taglia e distilla al significato essenziale", "universal": true }
+      ]
+    },
+    "cognition": {
+      "label": "Cognition",
+      "label_it": "Cognizione",
+      "role": "Reasoning & Perspective",
+      "role_it": "Ragionamento e Prospettiva",
+      "color": "purple",
+      "skills": [
+        { "id": "logic", "name": "ALAN", "desc": "Logical reasoning, deduction, problem solving", "desc_it": "Ragionamento logico, deduzione, problem solving", "universal": true },
+        { "id": "observer", "name": "Form Selector", "desc": "Chooses optimal presentation format", "desc_it": "Sceglie il formato di presentazione ottimale", "universal": true },
+        { "id": "navigator", "name": "Yi-Synaptic Navigator", "desc": "Lateral thinking and hidden connection discovery", "desc_it": "Pensiero laterale e scoperta di connessioni nascoste", "universal": true },
+        { "id": "vulcan", "name": "Logical Prime", "desc": "Pure logic and fact-based reasoning", "desc_it": "Logica pura e ragionamento basato sui fatti", "universal": true }
+      ]
+    },
+    "evolution": {
+      "label": "Evolution",
+      "label_it": "Evoluzione",
+      "role": "Learning & Memory",
+      "role_it": "Apprendimento e Memoria",
+      "color": "amber",
+      "skills": [
+        { "id": "kairos", "name": "Evolution Engine", "desc": "Identifies anomalies, dissonance, and critical feedback loops", "desc_it": "Identifica anomalie, dissonanze e loop di feedback critico", "universal": true },
+        { "id": "mnemos", "name": "Autopoietic Memory", "desc": "Auto-organizing memory and learning from experience", "desc_it": "Memoria auto-organizzante e apprendimento dall'esperienza", "universal": true },
+        { "id": "lazarus", "name": "Semantic Vault", "desc": "Recovers abandoned solutions and discarded ideas", "desc_it": "Recupera soluzioni abbandonate e idee scartate", "universal": true },
+        { "id": "guru", "name": "Memorie Guru", "desc": "Teaches, explains, and shares institutional knowledge", "desc_it": "Insegna, spiega e condivide conoscenza istituzionale", "universal": true }
+      ]
+    },
+    "factory": {
+      "label": "Factory",
+      "label_it": "Fabbrica",
+      "role": "Creation & Generation",
+      "role_it": "Creazione e Generazione",
+      "color": "gold",
+      "skills": [
+        { "id": "forgia", "name": "Entity Foundry", "desc": "Creates new agents and skills from templates", "desc_it": "Crea nuovi agenti e skill da template", "universal": false },
+        { "id": "autogen", "name": "Agent Factory", "desc": "Creates temporary agents on demand", "desc_it": "Crea agenti temporanei su richiesta", "universal": false }
+      ]
+    },
+    "construction": {
+      "label": "Construction",
+      "label_it": "Costruzione",
+      "role": "Building & Design",
+      "role_it": "Costruzione e Design",
+      "color": "blue",
+      "skills": [
+        { "id": "architect", "name": "Structural Analysis", "desc": "Dependencies, coherence, architectural mapping", "desc_it": "Dipendenze, coerenza, mappatura architetturale", "universal": false },
+        { "id": "builder", "name": "UX/UI Construction", "desc": "Builds interactive interfaces and user experience", "desc_it": "Costruisce interfacce interattive ed esperienza utente", "universal": false },
+        { "id": "daedalus", "name": "Cognitive Architect", "desc": "Engineers complex cognitive tool architectures", "desc_it": "Progetta architetture di tool cognitivi complessi", "universal": false },
+        { "id": "optimizer", "name": "Performance Optimizer", "desc": "Optimization, performance improvement, refactoring", "desc_it": "Ottimizzazione, miglioramento performance, refactoring", "universal": true },
+        { "id": "harmonizer", "name": "Aesthetics Engine", "desc": "Optimizes visual harmony and design aesthetics", "desc_it": "Ottimizza l'armonia visiva e l'estetica del design", "universal": true }
+      ]
+    },
+    "knowledge": {
+      "label": "Knowledge",
+      "label_it": "Conoscenza",
+      "role": "Extraction & Documentation",
+      "role_it": "Estrazione e Documentazione",
+      "color": "teal",
+      "skills": [
+        { "id": "extractor", "name": "Knowledge Acquisition", "desc": "Extracts knowledge from URLs, documents, sources", "desc_it": "Estrae conoscenza da URL, documenti, fonti", "universal": false },
+        { "id": "scribe", "name": "Documentation Engine", "desc": "Documentation, writing, summarization", "desc_it": "Documentazione, scrittura, sintesi", "universal": false },
+        { "id": "transcriber", "name": "Transcription Engine", "desc": "Transcription from video/audio and knowledge extraction", "desc_it": "Trascrizione da video/audio ed estrazione conoscenza", "universal": false }
+      ]
+    },
+    "infrastructure": {
+      "label": "Infrastructure",
+      "label_it": "Infrastruttura",
+      "role": "Deploy & Operations",
+      "role_it": "Deploy e Operazioni",
+      "color": "slate",
+      "skills": [
+        { "id": "deploy_pipeline", "name": "Auto-Deploy", "desc": "CI/CD pipeline automation, webhook-driven deployment", "desc_it": "Automazione pipeline CI/CD, deploy via webhook", "universal": false },
+        { "id": "genesis", "name": "Project Bootstrap", "desc": "Bootstraps new projects and systems", "desc_it": "Inizializza nuovi progetti e sistemi", "universal": false },
+        { "id": "kinetic", "name": "Physical Bridge", "desc": "Bridges AI to physical world (IoT, robotics)", "desc_it": "Ponte tra AI e mondo fisico (IoT, robotica)", "universal": false },
+        { "id": "geo_seo", "name": "Generative SEO", "desc": "AI-SEO: pre-rendering, sitemaps, AI crawler optimization", "desc_it": "AI-SEO: pre-rendering, sitemap, ottimizzazione crawler AI", "universal": false }
+      ]
+    },
+    "site": {
+      "label": "Site Management",
+      "label_it": "Gestione Sito",
+      "role": "CMS & Publishing",
+      "role_it": "CMS e Pubblicazione",
+      "color": "indigo",
+      "skills": [
+        { "id": "siteman", "name": "Site Manager", "desc": "Manages site content, pages, structure", "desc_it": "Gestisce contenuto sito, pagine, struttura", "universal": false },
+        { "id": "siteman_bridge", "name": "Operational Bridge", "desc": "Operational bridge to Siteman CMS", "desc_it": "Ponte operativo verso Siteman CMS", "universal": false },
+        { "id": "publisher", "name": "Content Publisher", "desc": "Publishes content to blogs and platforms", "desc_it": "Pubblica contenuto su blog e piattaforme", "universal": false },
+        { "id": "design_dnd", "name": "Visual Director", "desc": "Leads design and UX for d-nd.com", "desc_it": "Dirige design e UX per d-nd.com", "universal": false }
+      ]
+    },
+    "coordination": {
+      "label": "Coordination",
+      "label_it": "Coordinamento",
+      "role": "Multi-node & Workflow",
+      "role_it": "Multi-nodo e Workflow",
+      "color": "orange",
+      "skills": [
+        { "id": "dev_delegate", "name": "Dev Delegate", "desc": "Mediates development between operator and distributed nodes", "desc_it": "Media lo sviluppo tra operatore e nodi distribuiti", "universal": false },
+        { "id": "thia_node_ops", "name": "Trilateral Protocol", "desc": "Operator-THIA-TM3 coordination", "desc_it": "Coordinamento Operatore-THIA-TM3", "universal": false },
+        { "id": "field_awareness", "name": "Field Awareness", "desc": "Maintains awareness of field state across nodes", "desc_it": "Mantiene consapevolezza dello stato del campo tra i nodi", "universal": true },
+        { "id": "taskmaster", "name": "Task Master", "desc": "Task as living object — state, deadline, verification", "desc_it": "Task come oggetto vivo — stato, scadenza, verifica", "universal": true }
+      ]
+    }
+  },
+  "hooks": [
+    { "id": "safety_guard", "name": "Safety Guard", "desc": "Intercepts destructive operations before execution", "desc_it": "Intercetta operazioni distruttive prima dell'esecuzione" },
+    { "id": "pre_compact", "name": "Pre-Compact Capture", "desc": "Saves critical state before context compaction", "desc_it": "Salva lo stato critico prima della compattazione del contesto" },
+    { "id": "post_compact", "name": "Post-Compact Restore", "desc": "Re-injects state after compaction or session restart", "desc_it": "Re-inietta lo stato dopo compattazione o restart sessione" },
+    { "id": "system_awareness", "name": "System Awareness", "desc": "Scans repos, API health, messages at session start", "desc_it": "Scansiona repo, salute API, messaggi a inizio sessione" }
+  ]
+}
