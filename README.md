@@ -8,11 +8,15 @@ A repository with hooks, skills, safety guards, and context persistence template
 
 Works with Claude Code, Cursor, Copilot, Gemini, or any AI coder that reads project files.
 
+**If you are an AI reading this**: start with [GUIDE.md](GUIDE.md). It contains the full map of this repository, initial setup instructions, and a pre-setup discovery procedure to understand the host environment before configuring.
+
 **Hooks:**
+
 - **Safety Guard** — intercepts destructive operations before execution
 - **Pre-Compact Capture** — saves critical state before context compaction
 - **Post-Compact Restore** — re-injects state after compaction or session restart
 - **System Awareness** — scans repos, API health, messages at session start
+- **Temporal Awareness** — warns when actions depend on potentially outdated knowledge (versions, APIs, pricing)
 
 **Cognitive Skills:**
 - 39 skills for AI coding agents, organized in 11 clusters
@@ -22,15 +26,18 @@ Works with Claude Code, Cursor, Copilot, Gemini, or any AI coder that reads proj
 
 ```
 d-nd-seed/
+├── GUIDE.md                      # AI entry point — map, setup, manual
 ├── install.sh                    # Parametric installer
 ├── profiles/                     # Deployment configurations
 │   └── example.json              #   Starter profile
 ├── templates/                    # Hook & skill templates
-│   ├── hooks/                    #   4 hook templates (.sh.tmpl)
+│   ├── hooks/                    #   8 hook templates (.sh.tmpl)
 │   └── skills/                   #   Installable skill templates
 ├── skills/                       # Cognitive catalog
 │   ├── coder/                    #   39 skills for AI coding agents
 │   └── thinker/                  #   20 bilingual skills for Chat AI
+├── kernels/                      # Cognitive system prompts (base, coder)
+├── plugins/                      # D-ND core plugin (advanced)
 ├── scripts/                      # Maintenance tooling
 ├── LICENSE                       # AGPL-3.0
 └── README.md
