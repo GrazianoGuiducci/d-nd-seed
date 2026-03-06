@@ -15,8 +15,8 @@ Works with Claude Code, Cursor, Copilot, Gemini, or any AI coder that reads proj
 - **System Awareness** — scans repos, API health, messages at session start
 
 **Cognitive Skills:**
-- 38 skills for AI coding agents, organized by the D-ND 3-plane taxonomy
-- 18 bilingual skills for Chat AI (Claude.ai, ChatGPT, Gemini)
+- 39 skills for AI coding agents, organized in 11 clusters
+- 20 bilingual skills for Chat AI (Claude.ai, ChatGPT, Gemini)
 
 ## Architecture
 
@@ -29,8 +29,8 @@ d-nd-seed/
 │   ├── hooks/                    #   4 hook templates (.sh.tmpl)
 │   └── skills/                   #   Installable skill templates
 ├── skills/                       # Cognitive catalog
-│   ├── coder/                    #   38 skills for AI coding agents
-│   └── thinker/                  #   18 bilingual skills for Chat AI
+│   ├── coder/                    #   39 skills for AI coding agents
+│   └── thinker/                  #   20 bilingual skills for Chat AI
 ├── scripts/                      # Maintenance tooling
 ├── LICENSE                       # AGPL-3.0
 └── README.md
