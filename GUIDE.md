@@ -313,6 +313,20 @@ The rule: if a piece of information could be wrong because time passed, say so. 
 
 ---
 
+## Operational Guide (for D-ND network nodes)
+
+If you are joining the D-ND network as a TMx node, read `docs/tmx_operations.md` after installation. It covers:
+- Memory system architecture and the 200-line limit
+- CLAUDE.md hierarchy (3 levels)
+- Boot protocol and compaction recovery
+- Cognitive guards (4 guard layers)
+- Inter-node communication (Sinapsi)
+- Graduated autonomy framework
+- Common pitfalls and solutions
+- Setup checklist for new nodes
+
+---
+
 ## After Installation
 
 Once installed, the seed works automatically:
