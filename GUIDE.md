@@ -196,6 +196,7 @@ d-nd-seed/
 │   │   ├── system_awareness.sh.tmpl  ← Scans environment at session start
 │   │   ├── context_awareness.sh.tmpl ← Injects operational context per action
 │   │   ├── share_reflex.sh.tmpl      ← Detects shareable patterns
+│   │   ├── temporal_awareness.sh.tmpl← Flags stale knowledge from training cutoff
 │   │   ├── statusline_bridge.sh.tmpl ← Status bar integration
 │   │   └── statusline_bridge.js.tmpl ← Status bar Node.js helper
 │   └── skills/
