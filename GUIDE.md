@@ -116,7 +116,7 @@ Profile structure:
 
 If the operator only wants specific parts, install them individually:
 
-1. **Hooks** — copy from `templates/hooks/` to `.claude/hooks/`, replace `{{NODE_ID}}` and `{{PROJECT_DIR}}` with actual values
+1. **Hooks** — copy from `templates/hooks/` to `.claude/hooks/`, replace `{{NODE_ID}}`, `{{PROJECT_DIR}}`, and `{{SESSION_DIR}}` with actual values
 2. **Skills** — copy relevant skills from `skills/coder/` to `.claude/skills/` or project instructions
 3. **Kernels** — copy from `kernels/` to system instructions or CLAUDE.md
 

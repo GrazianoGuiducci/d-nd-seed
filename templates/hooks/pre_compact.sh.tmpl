@@ -154,4 +154,106 @@ if [ -f "$BRIDGE_FILE" ]; then
     echo "Context at compaction: ${CPCT}%" >> "$CONTEXT_FILE"
 fi
 
+# --- Operator Voice: last 15 user messages from transcript ---
+# Preserves the DIRECTION, not just the state.
+VOICE_FILE="$PROJECT_DIR/.claude/hooks/operator_voice.md"
+SESSION_DIR="{{SESSION_DIR}}"
+
+TRANSCRIPT=$(ls -t "$SESSION_DIR"/*.jsonl 2>/dev/null | head -1)
+if [ -n "$TRANSCRIPT" ] && [ -f "$TRANSCRIPT" ]; then
+    SESSION_DIR_PY="$SESSION_DIR" python3 << 'PYEOF' > "$VOICE_FILE" 2>/dev/null
+import json, sys, glob, os
+
+session_dir = os.environ.get("SESSION_DIR_PY", "")
+if not session_dir:
+    sys.exit(0)
+transcripts = sorted(glob.glob(os.path.join(session_dir, "*.jsonl")), key=os.path.getmtime, reverse=True)
+if not transcripts:
+    sys.exit(0)
+transcript = transcripts[0]
+
+msgs = []
+with open(transcript, encoding='utf-8', errors='replace') as f:
+    for line in f:
+        try:
+            obj = json.loads(line)
+            if obj.get("type") == "user":
+                msg = obj.get("message", {})
+                content = msg.get("content", "") if isinstance(msg, dict) else str(msg)
+                texts = []
+                if isinstance(content, list):
+                    for block in content:
+                        if isinstance(block, dict) and block.get("type") == "text":
+                            t = block["text"].strip()
+                            if t and len(t) > 3 and "<system" not in t and "<available" not in t and "<task-" not in t:
+                                if not t.startswith("This session is being continued") and not t.startswith("Tool loaded"):
+                                    texts.append(t[:400])
+                elif isinstance(content, str):
+                    t = content.strip()
+                    if t and len(t) > 3 and "<system" not in t and "<available" not in t:
+                        if not t.startswith("This session is being continued"):
+                            texts.append(t[:400])
+                if texts:
+                    msgs.append("\n".join(texts))
+        except:
+            pass
+
+recent = [m for m in msgs if m not in ("Tool loaded.", "Tool loaded")][-15:]
+print("# Operator Voice (last 15 messages)")
+print("> Verbatim — do NOT summarize. These are the DIRECTION, not data.")
+print()
+for i, m in enumerate(recent, 1):
+    print(f"[{i}] {m}")
+    print()
+PYEOF
+
+    # Also extract WHY — the reasoning behind actions (last 5 assistant text blocks)
+    SESSION_DIR_PY="$SESSION_DIR" python3 << 'PYEOF2' >> "$VOICE_FILE" 2>/dev/null
+import json, glob, os
+
+session_dir = os.environ.get("SESSION_DIR_PY", "")
+if not session_dir:
+    exit(0)
+transcripts = sorted(glob.glob(os.path.join(session_dir, "*.jsonl")), key=os.path.getmtime, reverse=True)
+if not transcripts:
+    exit(0)
+transcript = transcripts[0]
+
+reasons = []
+with open(transcript, encoding='utf-8', errors='replace') as f:
+    for line in f:
+        try:
+            obj = json.loads(line)
+            if obj.get("type") == "assistant":
+                msg = obj.get("message", {})
+                content = msg.get("content", "") if isinstance(msg, dict) else ""
+                if isinstance(content, list):
+                    for block in content:
+                        if isinstance(block, dict) and block.get("type") == "text":
+                            t = block["text"].strip()
+                            if t and len(t) > 80 and not t.startswith("{") and not t.startswith("["):
+                                reasons.append(t[:500])
+                elif isinstance(content, str) and len(content) > 80:
+                    reasons.append(content.strip()[:500])
+        except:
+            pass
+
+recent = reasons[-5:]
+if recent:
+    print()
+    print("# Why (last 5 reasoning blocks)")
+    print("> The reasoning behind the actions — what was being understood.")
+    print()
+    for i, r in enumerate(recent, 1):
+        print(f"[R{i}] {r}")
+        print()
+PYEOF2
+
+    echo "" >> "$CONTEXT_FILE"
+    echo "## Operator Voice + Why" >> "$CONTEXT_FILE"
+    echo "Saved to operator_voice.md — READ THIS FIRST after compact." >> "$CONTEXT_FILE"
+    echo "The operator's words ARE the direction. The 'why' blocks show the reasoning." >> "$CONTEXT_FILE"
+    echo "Do not reinterpret into tasks. Find where the spiral was pointing." >> "$CONTEXT_FILE"
+fi
+
 echo "[PRE_COMPACT] Context saved (node={{NODE_ID}}, mode=$MODE, tags=${SEMANTIC_TAGS:-none})" >&2

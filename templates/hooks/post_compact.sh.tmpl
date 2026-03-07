@@ -32,12 +32,26 @@ if [ -f "$CONTEXT_FILE" ]; then
         echo ""
     fi
 
+    # --- Operator Voice: the actual direction ---
+    VOICE_FILE="$PROJECT_DIR/.claude/hooks/operator_voice.md"
+    if [ -f "$VOICE_FILE" ]; then
+        echo "=== OPERATOR VOICE (verbatim, last 15 messages) ==="
+        echo ""
+        while IFS= read -r line; do
+            echo "$line"
+        done < "$VOICE_FILE"
+        echo ""
+        echo "=== END OPERATOR VOICE ==="
+        echo ""
+    fi
+
     echo "IMPORTANT: Context was compacted. The snapshot above was captured"
-    echo "BEFORE compaction. Resume by checking:"
-    echo "  1. Uncommitted changes (git diff in dirty repos)"
-    echo "  2. Todo list for in-progress tasks"
-    echo "  3. active_reasoning.md for reasoning chains"
-    echo "  4. Project-specific memory files"
+    echo "BEFORE compaction. Resume by:"
+    echo "  1. Reading OPERATOR VOICE above — those words ARE the direction"
+    echo "  2. Do NOT convert the operator's words into a task list"
+    echo "  3. Uncommitted changes (git diff in dirty repos)"
+    echo "  4. Todo list for in-progress tasks"
+    echo "  5. STOP and OBSERVE before acting — find where the spiral was pointing"
 else
     echo "=== POST-COMPACTION: No pre-compact snapshot found ==="
     echo ""
