@@ -207,6 +207,17 @@ d-nd-seed/
 │   ├── tm1.json                      ← Origin node profile (reference)
 │   └── tm3.json                      ← VPS node profile (reference)
 │
+├── docs/                             ← Pattern documentation
+│   ├── autopoietic_cycle.md          ← Question → experiment → result → new question
+│   ├── crystallization.md            ← When observations become rules
+│   ├── measurement.md                ← Measuring system evolution
+│   ├── self_maintenance.md           ← Autonomous health monitoring
+│   ├── tmx_operations.md             ← Operational guide for network nodes
+│   ├── cascade_trigger.md            ← Post-action propagation to dependent nodes
+│   ├── insight_function.md           ← Capturing insights from the known/unknown ratio
+│   ├── operator_log.md               ← Cause-effect memory with 3 tags (source/reflection/rule)
+│   └── inter_node_polling.md         ← Pull-based inter-node listening with rate limiting
+│
 ├── plugins/                          ← Plugin system
 │   └── d-nd-core/                    ← Core D-ND plugin
 │       ├── .claude-plugin/
