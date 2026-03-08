@@ -70,6 +70,16 @@
             "timeout": 3000
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/cascade_check.sh\"",
+            "timeout": 5000
+          }
+        ]
       }
     ]
   }

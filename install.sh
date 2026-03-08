@@ -316,6 +316,9 @@ apply_template "$SCRIPT_DIR/templates/hooks/context_awareness.sh.tmpl" "$TARGET/
 # share_reflex.sh
 apply_template "$SCRIPT_DIR/templates/hooks/share_reflex.sh.tmpl" "$TARGET/hooks/share_reflex.sh"
 
+# cascade_check.sh
+apply_template "$SCRIPT_DIR/templates/hooks/cascade_check.sh.tmpl" "$TARGET/hooks/cascade_check.sh"
+
 # temporal_awareness.sh
 apply_template "$SCRIPT_DIR/templates/hooks/temporal_awareness.sh.tmpl" "$TARGET/hooks/temporal_awareness.sh"
 
