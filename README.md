@@ -8,7 +8,9 @@ A repository with hooks, skills, safety guards, and context persistence template
 
 Works with Claude Code, Cursor, Copilot, Gemini, or any AI coder that reads project files.
 
-**If you are an AI reading this**: start with [GUIDE.md](GUIDE.md). It contains the full map of this repository, initial setup instructions, and a pre-setup discovery procedure to understand the host environment before configuring.
+**If you are an AI in a chat session** (Claude.ai, ChatGPT, Gemini): start with [CHAT_START.md](CHAT_START.md). It tells you what to take and how to present it to your user.
+
+**If you are an AI coder** (Claude Code, Cursor, Copilot): start with [GUIDE.md](GUIDE.md). It contains the full map of this repository, initial setup instructions, and a pre-setup discovery procedure to understand the host environment before configuring.
 
 **Hooks:**
 
