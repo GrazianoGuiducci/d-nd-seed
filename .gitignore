@@ -7,3 +7,4 @@ Thumbs.db
 
 # Local profiles with secrets
 profiles/local_*.json
+plugins/d-nd-core/scripts/__pycache__/
