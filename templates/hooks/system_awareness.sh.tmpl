@@ -79,6 +79,51 @@ done
 [ "$WARN_COUNT" -eq 0 ] && echo "  None."
 echo ""
 
+# --- Transcript Recovery (anti-amnesia post-compact) ---
+echo "## Recent Conversation (last 15 exchanges)"
+JSONL_DIR="{{JSONL_DIR}}"
+LATEST_JSONL=$(ls -t "$JSONL_DIR"/*.jsonl 2>/dev/null | head -1)
+
+if [ -n "$LATEST_JSONL" ]; then
+    tail -c 512000 "$LATEST_JSONL" 2>/dev/null | python3 -c "
+import sys, json
+lines = []
+for line in sys.stdin:
+    line = line.strip()
+    if not line: continue
+    try:
+        obj = json.loads(line)
+    except:
+        continue
+    role = obj.get('type', '')
+    if role == 'human':
+        msg = ''
+        for block in obj.get('message', {}).get('content', []):
+            if isinstance(block, dict) and block.get('type') == 'text':
+                msg = block['text'][:200]
+                break
+            elif isinstance(block, str):
+                msg = block[:200]
+                break
+        if msg and not msg.startswith('<'):
+            lines.append(('OP', msg.replace(chr(10), ' ')))
+    elif role == 'assistant':
+        msg = ''
+        for block in obj.get('message', {}).get('content', []):
+            if isinstance(block, dict) and block.get('type') == 'text':
+                msg = block['text'][:200]
+                break
+        if msg and not msg.startswith('<'):
+            lines.append(('{{NODE_ID}}', msg.replace(chr(10), ' ')))
+
+for role, text in lines[-15:]:
+    print(f'  [{role}] {text[:150]}')
+" 2>/dev/null
+else
+    echo "  No JSONL transcript found."
+fi
+echo ""
+
 echo "## Claude Code"
 CC_VER=$(claude --version 2>/dev/null || echo "unknown")
 echo "  Version: $CC_VER"
