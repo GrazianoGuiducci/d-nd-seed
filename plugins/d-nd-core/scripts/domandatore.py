@@ -617,22 +617,135 @@ class Domandatore:
 # CLI
 # ============================================================
 
+    def ask(self, question):
+        """
+        Quick mode: take a single question/tension and run the 5 operators.
+        Returns a structured report with the operator outputs.
+
+        This is the simplest way to use the Domandatore:
+          engine.ask("Should I hire before or after revenue?")
+        """
+        tension = {
+            'id': f'ASK_{datetime.now().strftime("%H%M%S")}',
+            'type': 'open_tension',
+            'claim': question,
+            'intensity': 1.0,
+        }
+        return self.cycle(tension)
+
+    def split_tensions(self, text):
+        """
+        Split a complex input into individual tensions.
+
+        A tension is a point where the choice isn't obvious. This method
+        identifies binary or apparently-binary decisions in the input text.
+
+        Returns a list of tension dicts ready for cycle().
+        """
+        # Look for explicit tension markers
+        markers = [
+            # "X or Y" pattern
+            (r'(\b\w[\w\s]{3,30})\s+or\s+(\w[\w\s]{3,30})', 'choice'),
+            # "X vs Y" pattern
+            (r'(\b\w[\w\s]{3,30})\s+vs\.?\s+(\w[\w\s]{3,30})', 'choice'),
+            # "should I/we X" pattern
+            (r'should\s+(?:I|we)\s+(.{10,60}\?)', 'question'),
+            # "whether to X" pattern
+            (r'whether\s+to\s+(.{10,60})', 'question'),
+            # Italian: "X o Y" pattern
+            (r'(\b\w[\w\s]{3,30})\s+o\s+(\w[\w\s]{3,30})', 'choice'),
+            # Italian: "dovrei/dovremmo X" pattern
+            (r'dovrei?\w*\s+(.{10,60}\??)', 'question'),
+        ]
+
+        tensions = []
+        used_spans = []
+
+        for pattern, ptype in markers:
+            for m in re.finditer(pattern, text, re.IGNORECASE):
+                # Skip if overlapping with already found tension
+                if any(m.start() < end and m.end() > start for start, end in used_spans):
+                    continue
+                used_spans.append((m.start(), m.end()))
+
+                if ptype == 'choice':
+                    claim = f'{m.group(1).strip()} vs {m.group(2).strip()}'
+                else:
+                    claim = m.group(1).strip()
+
+                tensions.append({
+                    'id': f'SPLIT_{len(tensions)+1}',
+                    'type': 'open_tension',
+                    'claim': claim,
+                    'intensity': 0.8,
+                })
+
+        # If no patterns found, treat the whole text as one tension
+        if not tensions:
+            tensions.append({
+                'id': 'SPLIT_1',
+                'type': 'open_tension',
+                'claim': text.strip(),
+                'intensity': 1.0,
+            })
+
+        return tensions
+
+
+def _load_domain(domain_path):
+    """Load domain configuration from a Python file."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("domain", domain_path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return {
+        'prelude': getattr(mod, 'PRELUDE', PRELUDE),
+        'vocabulary': getattr(mod, 'VOCABULARY', VOCABULARY),
+        'bodies': getattr(mod, 'BODIES', BODIES),
+        'catalog': getattr(mod, 'CATALOG', CATALOG),
+    }
+
+
 if __name__ == '__main__':
     import argparse
-    parser = argparse.ArgumentParser(description='Domandatore — Autopoietic Research Engine')
-    parser.add_argument('--seed', type=str, required=True, help='Path to seed JSON file')
+    parser = argparse.ArgumentParser(
+        description='Domandatore — Autopoietic Research Engine',
+        epilog='''
+Examples:
+  %(prog)s --seed seed.json                          # Run highest-intensity tension
+  %(prog)s --seed seed.json --all                    # Run all open tensions
+  %(prog)s --ask "Should I hire before or after revenue?"  # Quick single question
+  %(prog)s --seed seed.json --domain domain.py       # Load custom domain
+  %(prog)s --ask "Flat pricing or per-seat?" --domain examples/business/domain.py
+''',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument('--seed', type=str, help='Path to seed JSON file')
     parser.add_argument('--results', type=str, help='Path to results directory')
     parser.add_argument('--tension', type=str, help='Specific tension ID')
+    parser.add_argument('--ask', type=str, help='Quick mode: ask a single question')
+    parser.add_argument('--domain', type=str, help='Path to domain config (Python file with PRELUDE, VOCABULARY, BODIES, CATALOG)')
     parser.add_argument('--all', action='store_true', help='All open tensions')
     parser.add_argument('--dry', action='store_true', help='Generate only, no execution')
     args = parser.parse_args()
 
+    if not args.seed and not args.ask:
+        parser.error('Either --seed or --ask is required')
+
+    # Load domain if provided
+    domain = {}
+    if args.domain:
+        domain = _load_domain(args.domain)
+
     engine = Domandatore(
-        seed_path=args.seed,
+        seed_path=args.seed or '/dev/null',
         results_dir=args.results,
+        **domain,
     )
 
-    if args.all:
+    if args.ask:
+        engine.ask(args.ask)
+    elif args.all:
         engine.cycle_all()
     elif args.tension:
         seed = engine.load_seed()

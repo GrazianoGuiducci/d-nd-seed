@@ -1,0 +1,31 @@
+{
+  "name": "Business Decision Engine",
+  "description": "A seed for testing business decisions through the 5 question operators. Each tension is a real choice where the answer isn't obvious.",
+  "tensions": [
+    {
+      "id": "PRICING_MODEL",
+      "type": "open_tension",
+      "claim": "Flat pricing is simpler but per-seat pricing captures more value from larger customers",
+      "intensity": 0.8
+    },
+    {
+      "id": "FEATURE_SCOPE",
+      "type": "open_tension",
+      "claim": "Adding features increases perceived value but dilutes the core reason customers came",
+      "intensity": 0.9
+    },
+    {
+      "id": "HIRING_TIMING",
+      "type": "unexplored_boundary",
+      "claim": "Hiring before revenue is a bet on growth; hiring after revenue is a bet on efficiency",
+      "intensity": 0.7
+    },
+    {
+      "id": "CHANNEL_FOCUS",
+      "type": "open_tension",
+      "claim": "Content marketing builds long-term authority but paid acquisition delivers immediate pipeline",
+      "intensity": 0.6
+    }
+  ],
+  "direction": "Find the non-obvious answer in each business decision by applying inversion and boundary analysis"
+}
