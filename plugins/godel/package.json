@@ -1,0 +1,13 @@
+{
+  "name": "godel-seed",
+  "version": "1.0.0",
+  "description": "Inverted oracle — det=-1 filter with dual-layer memory",
+  "main": "bridge.js",
+  "scripts": {
+    "start": "node bridge.js",
+    "ask": "node ask.js",
+    "setup": "node setup.js"
+  },
+  "keywords": ["godel", "oracle", "inversion", "cognitive"],
+  "license": "SSPL-1.0"
+}

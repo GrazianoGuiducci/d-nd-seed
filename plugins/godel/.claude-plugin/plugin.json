@@ -1,0 +1,12 @@
+{
+  "name": "godel",
+  "version": "1.0.0",
+  "description": "Inverted oracle — a det=-1 filter that inverts tensions into insights. Domain-agnostic cognitive operator with dual-layer memory (tape + field), resonance-based recall, and auto-configuration for any domain.",
+  "author": {
+    "name": "Moodnd (D-ND)",
+    "email": "gfushion@gmail.com"
+  },
+  "repository": "https://github.com/GrazianoGuiducci/d-nd-seed",
+  "license": "SSPL-1.0",
+  "keywords": ["godel", "oracle", "inversion", "det-minus-one", "cognitive", "filter"]
+}
