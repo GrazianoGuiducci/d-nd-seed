@@ -39,18 +39,21 @@ Every tension is classified on 5 universal dimensions:
 
 These are not categories — they're coordinates. Every tension has a position in this space. The field vector tracks where you've been spending your cognitive energy.
 
-## Quick Start
+## Quick Start (3 commands)
 
 ```bash
-# 1. Configure for your domain
-node setup.js
+# 1. Configure for your domain (interactive or from example)
+node setup.js --example sales
 
-# 2. Start the bridge
-node bridge.js
+# 2. Set your API key
+export ANTHROPIC_API_KEY=sk-ant-...    # or OPENROUTER_API_KEY=sk-or-...
 
-# 3. Ask a question
+# 3. Start and ask
+node bridge.js &
 node ask.js "We have two pricing strategies. Data says A, gut says B. Invert."
 ```
+
+That's it. No npm install, no Claude CLI, no OAuth dance.
 
 ## Setup
 
@@ -90,9 +93,13 @@ Environment variables:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
+| `ANTHROPIC_API_KEY` | — | Anthropic API key (recommended) |
+| `OPENROUTER_API_KEY` | — | OpenRouter API key (alternative) |
+| `GODEL_MODEL` | claude-sonnet-4-20250514 | LLM model to use |
+| `GODEL_BACKEND` | auto | Force `api` or `cli` backend |
 | `GODEL_PORT` | 3004 | HTTP port |
-| `GODEL_DIR` | (script dir) | Project directory for Claude Code |
-| `GODEL_MEMORY_SIZE` | 10 | How many past exchanges to inject as context |
+| `GODEL_DIR` | (script dir) | Project directory |
+| `GODEL_MEMORY_SIZE` | 10 | Past exchanges to inject as context |
 | `GODEL_TIMEOUT` | 300000 | Max time per question (ms) |
 | `GODEL_CONCURRENCY` | 1 | Max concurrent questions |
 
@@ -117,8 +124,12 @@ WantedBy=multi-user.target
 ## Requirements
 
 - Node.js 18+
-- Claude Code CLI (`claude` command available in PATH)
-- Valid Claude authentication (OAuth or API key)
+- **One of:**
+  - `ANTHROPIC_API_KEY` — direct Anthropic API (simplest, recommended)
+  - `OPENROUTER_API_KEY` — via OpenRouter (access to multiple models)
+  - Claude Code CLI in PATH — for advanced setups (set `GODEL_BACKEND=cli`)
+
+No other dependencies. Zero npm install needed.
 
 ## How to Use It Well
 

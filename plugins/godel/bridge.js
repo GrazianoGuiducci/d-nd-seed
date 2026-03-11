@@ -2,11 +2,17 @@
  * bridge.js — Godel Bridge (domain-agnostic)
  *
  * HTTP server that receives questions, injects memory+field context,
- * calls an LLM via Claude Code CLI, parses structured meta from output,
+ * calls an LLM, parses structured meta from output,
  * and maintains dual-layer memory (tape + field).
  *
+ * Two LLM backends (auto-detected):
+ *   1. API mode (default): direct Anthropic/OpenRouter API call. Needs ANTHROPIC_API_KEY or OPENROUTER_API_KEY.
+ *   2. CLI mode: Claude Code CLI. Needs `claude` in PATH + auth.
+ *
+ * Set GODEL_BACKEND=cli to force CLI mode. Otherwise API mode is used if a key is found.
+ *
  * Port: configurable via GODEL_PORT env (default 3004)
- * Identity: reads IDENTITY.md from same directory as system prompt
+ * Identity: reads CLAUDE.md from same directory as system prompt
  *
  * Endpoints:
  *   POST /ask     — send a question, get an inverted answer
@@ -17,6 +23,7 @@
  */
 
 const http = require('http');
+const https = require('https');
 const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -28,15 +35,42 @@ const PROJECT_DIR = process.env.GODEL_DIR || __dirname;
 const DATA_DIR = path.join(PROJECT_DIR, 'data');
 const MEMORY_FILE = path.join(DATA_DIR, 'godel_memory.jsonl');
 const FIELD_FILE = path.join(DATA_DIR, 'godel_field.json');
+const IDENTITY_FILE = path.join(PROJECT_DIR, 'CLAUDE.md');
 const MEMORY_CONTEXT_SIZE = parseInt(process.env.GODEL_MEMORY_SIZE || '10', 10);
 const MAX_TIMEOUT = parseInt(process.env.GODEL_TIMEOUT || String(5 * 60 * 1000), 10);
 const MAX_CONCURRENT = parseInt(process.env.GODEL_CONCURRENCY || '1', 10);
+
+// LLM backend detection
+const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY || '';
+const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY || '';
+const MODEL = process.env.GODEL_MODEL || 'claude-sonnet-4-20250514';
+const FORCED_BACKEND = process.env.GODEL_BACKEND || '';
+
+function detectBackend() {
+    if (FORCED_BACKEND === 'cli') return 'cli';
+    if (FORCED_BACKEND === 'api') return 'api';
+    if (ANTHROPIC_KEY) return 'api';
+    if (OPENROUTER_KEY) return 'api';
+    return 'cli'; // fallback
+}
+
+const BACKEND = detectBackend();
 
 // Ensure data directory exists
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
 let activeTasks = 0;
 let taskHistory = [];
+
+// Load identity (system prompt) once at startup
+let SYSTEM_PROMPT = '';
+try {
+    if (fs.existsSync(IDENTITY_FILE)) {
+        SYSTEM_PROMPT = fs.readFileSync(IDENTITY_FILE, 'utf8');
+    }
+} catch (e) {
+    console.warn('[GODEL] Could not load CLAUDE.md:', e.message);
+}
 
 // --- Parsing GODEL_META from output ---
 
@@ -218,9 +252,82 @@ function saveToMemory(question, answer, meta, mode) {
     }
 }
 
-// --- LLM runner (Claude Code CLI) ---
+// --- LLM backends ---
 
-function runClaudeCode(prompt) {
+// Backend 1: Direct API call (Anthropic or OpenRouter)
+function callAPI(systemPrompt, userPrompt) {
+    return new Promise((resolve, reject) => {
+        const isOpenRouter = !ANTHROPIC_KEY && OPENROUTER_KEY;
+        const apiKey = ANTHROPIC_KEY || OPENROUTER_KEY;
+        const hostname = isOpenRouter ? 'openrouter.ai' : 'api.anthropic.com';
+        const apiPath = isOpenRouter ? '/api/v1/chat/completions' : '/v1/messages';
+        const model = process.env.GODEL_MODEL || (isOpenRouter ? 'anthropic/claude-sonnet-4-20250514' : 'claude-sonnet-4-20250514');
+
+        let body;
+        if (isOpenRouter) {
+            body = JSON.stringify({
+                model,
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt },
+                ],
+                max_tokens: 4096,
+            });
+        } else {
+            body = JSON.stringify({
+                model,
+                max_tokens: 4096,
+                system: systemPrompt,
+                messages: [{ role: 'user', content: userPrompt }],
+            });
+        }
+
+        const options = {
+            hostname,
+            port: 443,
+            path: apiPath,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(isOpenRouter
+                    ? { 'Authorization': `Bearer ${apiKey}` }
+                    : { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' }),
+            },
+            timeout: MAX_TIMEOUT,
+        };
+
+        const req = https.request(options, (res) => {
+            let data = '';
+            res.on('data', (chunk) => { data += chunk; });
+            res.on('end', () => {
+                try {
+                    const parsed = JSON.parse(data);
+                    let output = '';
+                    if (isOpenRouter) {
+                        output = parsed.choices?.[0]?.message?.content || '';
+                    } else {
+                        output = (parsed.content || []).map(b => b.text || '').join('');
+                    }
+                    if (!output && parsed.error) {
+                        reject(new Error(parsed.error.message || JSON.stringify(parsed.error)));
+                        return;
+                    }
+                    resolve({ exit_code: 0, output: output.trim(), error: '' });
+                } catch (e) {
+                    reject(new Error('API response parse error: ' + e.message));
+                }
+            });
+        });
+
+        req.on('error', reject);
+        req.on('timeout', () => { req.destroy(); reject(new Error('API timeout')); });
+        req.write(body);
+        req.end();
+    });
+}
+
+// Backend 2: Claude Code CLI
+function callCLI(prompt) {
     return new Promise((resolve, reject) => {
         const args = [
             '--output-format', 'text',
@@ -230,7 +337,6 @@ function runClaudeCode(prompt) {
         ];
 
         const env = { ...process.env, HOME: process.env.HOME || '/root' };
-        // Remove env vars that trigger "nested session" check
         for (const key of Object.keys(env)) {
             if (key.startsWith('CLAUDE')) delete env[key];
         }
@@ -249,22 +355,26 @@ function runClaudeCode(prompt) {
         proc.stderr.on('data', (d) => { stderr += d.toString(); });
 
         proc.on('close', (code) => {
-            resolve({
-                exit_code: code,
-                output: stdout.trim(),
-                error: stderr.trim(),
-            });
+            resolve({ exit_code: code, output: stdout.trim(), error: stderr.trim() });
         });
 
-        proc.on('error', (err) => {
-            reject(err);
-        });
+        proc.on('error', (err) => reject(err));
 
         setTimeout(() => {
             try { proc.kill('SIGTERM'); } catch (e) {}
             reject(new Error('Timeout'));
         }, MAX_TIMEOUT);
     });
+}
+
+// Unified LLM call
+async function callLLM(userPrompt) {
+    if (BACKEND === 'api') {
+        return callAPI(SYSTEM_PROMPT, userPrompt);
+    } else {
+        // CLI mode: system prompt is in CLAUDE.md, read by Claude Code automatically
+        return callCLI(userPrompt);
+    }
 }
 
 // --- HTTP Server ---
@@ -277,6 +387,8 @@ const server = http.createServer(async (req, res) => {
         const field = loadField();
         res.end(JSON.stringify({
             service: 'godel-bridge',
+            backend: BACKEND,
+            model: BACKEND === 'api' ? (process.env.GODEL_MODEL || MODEL) : 'claude-cli',
             active: activeTasks,
             history: taskHistory.length,
             uptime: process.uptime(),
@@ -309,7 +421,7 @@ const server = http.createServer(async (req, res) => {
                 const taskId = `godel_${Date.now()}`;
                 const start = Date.now();
 
-                console.log(`[GODEL] Task ${taskId}: ${question.slice(0, 80)}...`);
+                console.log(`[GODEL] Task ${taskId} (${BACKEND}): ${question.slice(0, 80)}...`);
 
                 const field = loadField();
                 const allMemory = loadAllMemory();
@@ -322,7 +434,7 @@ const server = http.createServer(async (req, res) => {
                 prompt += question;
 
                 try {
-                    let result = await runClaudeCode(prompt);
+                    let result = await callLLM(prompt);
                     let elapsed = ((Date.now() - start) / 1000).toFixed(1);
 
                     if (result.error) console.log(`[GODEL] stderr: ${result.error.slice(0, 200)}`);
@@ -334,14 +446,13 @@ const server = http.createServer(async (req, res) => {
                         || (!result.output.trim() && result.exit_code !== 0);
 
                     if (isLoop) {
-                        console.log(`[GODEL] Loop detected — escalation: forcing collapse`);
+                        console.log(`[GODEL] Loop detected — forcing collapse`);
                         const collapsePrompt = `Do NOT explore files. Do NOT use tools. Respond ONLY with text. The question was: "${question.slice(0, 500)}". You went into a loop. Apply det(M)=-1: invert the viewpoint. Produce ONLY the resultant in max 3 sentences and the GODEL_META block. No analysis, no preambles.`;
-                        result = await runClaudeCode(collapsePrompt);
+                        result = await callLLM(collapsePrompt);
                         elapsed = ((Date.now() - start) / 1000).toFixed(1);
                         console.log(`[GODEL] Collapse in ${elapsed}s`);
                     }
 
-                    // Parse structured meta and update field
                     const meta = parseGodelMeta(result.output);
                     const cleanOutput = stripGodelMeta(result.output);
 
@@ -420,5 +531,11 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, '127.0.0.1', () => {
-    console.log(`[GODEL] Bridge online on :${PORT}. Dual-layer memory active.`);
+    console.log(`[GODEL] Bridge online on :${PORT}. Backend: ${BACKEND}. Dual-layer memory active.`);
+    if (BACKEND === 'api') {
+        console.log(`[GODEL] Model: ${process.env.GODEL_MODEL || MODEL}. API: ${ANTHROPIC_KEY ? 'Anthropic' : 'OpenRouter'}`);
+    }
+    if (!SYSTEM_PROMPT) {
+        console.warn('[GODEL] WARNING: No CLAUDE.md found. Run "node setup.js" first to configure identity.');
+    }
 });
