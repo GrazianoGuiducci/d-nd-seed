@@ -1,0 +1,24 @@
+#!/bin/bash
+# Update the current task in the session thread.
+# Usage: bash thread_task.sh "Task description"
+# Node: {{NODE_ID}}
+
+THREAD_FILE="{{PROJECT_DIR}}/.claude/hooks/session_thread.md"
+TASK="${1:-no task}"
+NOW=$(date '+%H:%M')
+
+if [ ! -f "$THREAD_FILE" ]; then
+    cat > "$THREAD_FILE" << EOF
+# Session Thread
+> Thread of the current session. Auto-updated.
+> Read by post-compact to resume without losing trajectory.
+
+## Current task
+[$NOW] $TASK
+
+## Recent actions
+EOF
+else
+    sed -i "/^## Current task/,/^## /{/^## Current task/!{/^## /!d}}" "$THREAD_FILE"
+    sed -i "/^## Current task/a [$NOW] $TASK" "$THREAD_FILE"
+fi

@@ -45,13 +45,25 @@ if [ -f "$CONTEXT_FILE" ]; then
         echo ""
     fi
 
-    echo "IMPORTANT: Context was compacted. The snapshot above was captured"
-    echo "BEFORE compaction. Resume by:"
-    echo "  1. Reading OPERATOR VOICE above — those words ARE the direction"
-    echo "  2. Do NOT convert the operator's words into a task list"
-    echo "  3. Uncommitted changes (git diff in dirty repos)"
-    echo "  4. Todo list for in-progress tasks"
-    echo "  5. STOP and OBSERVE before acting — find where the spiral was pointing"
+    # --- Session Thread Re-injection (the thread) ---
+    THREAD_FILE="$PROJECT_DIR/.claude/hooks/session_thread.md"
+    if [ -f "$THREAD_FILE" ]; then
+        echo "=== SESSION THREAD ==="
+        echo ""
+        while IFS= read -r line; do
+            echo "$line"
+        done < "$THREAD_FILE"
+        echo ""
+        echo "=== END SESSION THREAD ==="
+        echo ""
+    fi
+
+    echo "IMPORTANT: Context was compacted. The SESSION THREAD above shows"
+    echo "what you were doing and what comes next. Resume from the thread."
+    echo "If the thread is empty, check:"
+    echo "  1. OPERATOR VOICE above — those words ARE the direction"
+    echo "  2. Uncommitted changes (git diff in dirty repos)"
+    echo "  3. Todo list for in-progress tasks"
 else
     echo "=== POST-COMPACTION: No pre-compact snapshot found ==="
     echo ""

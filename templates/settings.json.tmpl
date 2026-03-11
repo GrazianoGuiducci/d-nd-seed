@@ -80,6 +80,16 @@
             "timeout": 5000
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/session_thread.sh\"",
+            "timeout": 3000
+          }
+        ]
       }
     ]
   }
