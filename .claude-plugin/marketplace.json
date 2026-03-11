@@ -14,12 +14,23 @@
       "name": "d-nd-core",
       "source": "./plugins/d-nd-core",
       "description": "Core D-ND plugin: safety hooks, system awareness, Sinapsi communication, compact protection. Parametric — adapts to any TMx node.",
+      "version": "1.1.0",
+      "author": { "name": "Moodnd" },
+      "repository": "https://github.com/GrazianoGuiducci/d-nd-seed",
+      "license": "AGPL-3.0",
+      "keywords": ["d-nd", "thia", "tmx", "hooks", "safety", "awareness"],
+      "category": "infrastructure"
+    },
+    {
+      "name": "godel",
+      "source": "./plugins/godel",
+      "description": "Inverted oracle — det=-1 cognitive filter that inverts tensions into insights. Domain-agnostic with dual-layer memory, resonance recall, and auto-configuration.",
       "version": "1.0.0",
       "author": { "name": "Moodnd" },
       "repository": "https://github.com/GrazianoGuiducci/d-nd-seed",
-      "license": "SSPL-1.0",
-      "keywords": ["d-nd", "thia", "tmx", "hooks", "safety", "awareness"],
-      "category": "infrastructure"
+      "license": "AGPL-3.0",
+      "keywords": ["godel", "oracle", "inversion", "cognitive", "filter"],
+      "category": "cognitive"
     }
   ]
 }

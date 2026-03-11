@@ -39,7 +39,14 @@ d-nd-seed/
 │   ├── coder/                    #   39 skills for AI coding agents
 │   └── thinker/                  #   20 bilingual skills for Chat AI
 ├── kernels/                      # Cognitive system prompts (base, coder)
-├── plugins/                      # D-ND core plugin (advanced)
+├── plugins/
+│   ├── d-nd-core/                #   Core plugin (safety, awareness, Sinapsi)
+│   └── godel/                    #   Inverted oracle — det=-1 cognitive filter
+│       ├── bridge.js             #     HTTP server with dual-layer memory
+│       ├── setup.js              #     Auto-configuration for any domain
+│       ├── ask.js                #     CLI/module helper
+│       ├── IDENTITY.md.tmpl      #     System prompt template
+│       └── examples/             #     Pre-built configs (sales, research, finance)
 ├── scripts/                      # Maintenance tooling
 ├── LICENSE                       # AGPL-3.0
 └── README.md
@@ -107,6 +114,7 @@ Each quality of the system is documented. The pages describe what the seed does 
 | **Memory** | Flat, self-organizing memory with crystallization test | [templates/](templates/) | [seed.d-nd.com/memory](https://seed.d-nd.com/modules/memory-system.html) |
 | **Cognition** | 59 skills across 11 clusters for structured reasoning | [skills/](skills/) | [seed.d-nd.com/skills](https://seed.d-nd.com/modules/skills-pack.html) |
 | **Continuity** | Preserves causal chains and reasoning across sessions | [templates/](templates/) | [seed.d-nd.com/anamnesis](https://seed.d-nd.com/modules/anamnesis.html) |
+| **Inversion** | Godel — cognitive filter that inverts tensions into insights (det=-1) | [plugins/godel/](plugins/godel/) | [d-nd.com/godel](https://d-nd.com/godel) |
 | **Identity** | The D-ND model: every concept is a dipole, every output a resultant | — | [seed.d-nd.com/identity](https://seed.d-nd.com/modules/framework.html) |
 
 ## Part of the D-ND ecosystem

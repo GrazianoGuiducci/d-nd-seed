@@ -9,5 +9,5 @@
     "setup": "node setup.js"
   },
   "keywords": ["godel", "oracle", "inversion", "cognitive"],
-  "license": "SSPL-1.0"
+  "license": "AGPL-3.0"
 }

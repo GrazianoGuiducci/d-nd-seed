@@ -219,27 +219,41 @@ d-nd-seed/
 │   └── inter_node_polling.md         ← Pull-based inter-node listening with rate limiting
 │
 ├── plugins/                          ← Plugin system
-│   └── d-nd-core/                    ← Core D-ND plugin
+│   ├── d-nd-core/                    ← Core D-ND plugin
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json           ← Plugin manifest
+│   │   ├── hooks/
+│   │   │   └── hooks.json            ← Hook configuration
+│   │   ├── scripts/                  ← Plugin runtime scripts
+│   │   ├── agents/
+│   │   │   └── paper-reviewer.md     ← Academic paper review agent
+│   │   └── skills/                   ← 12 plugin-specific skills
+│   │       ├── self-setup/           ← Node discovery and configuration
+│   │       ├── system-check/         ← System health verification
+│   │       ├── sinapsi/              ← Inter-node communication
+│   │       ├── memory-system/        ← Memory architecture
+│   │       ├── autonomous-cycle/     ← Seed-driven decision engine
+│   │       ├── capture-insight/      ← Insight crystallization
+│   │       ├── propagator/           ← Change cascade to targets
+│   │       ├── ecosystem-audit/      ← Cross-repo system audit
+│   │       ├── integrate-pattern/    ← Research-to-operations conversion
+│   │       ├── assertion-verifier/   ← Claim verification
+│   │       ├── paper-deployer/       ← Academic paper deployment
+│   │       └── version-check/        ← Version monitoring
+│   │
+│   └── godel/                        ← Inverted oracle plugin
 │       ├── .claude-plugin/
 │       │   └── plugin.json           ← Plugin manifest
-│       ├── hooks/
-│       │   └── hooks.json            ← Hook configuration
-│       ├── scripts/                  ← Plugin runtime scripts
-│       ├── agents/
-│       │   └── paper-reviewer.md     ← Academic paper review agent
-│       └── skills/                   ← 12 plugin-specific skills
-│           ├── self-setup/           ← Node discovery and configuration
-│           ├── system-check/         ← System health verification
-│           ├── sinapsi/              ← Inter-node communication
-│           ├── memory-system/        ← Memory architecture
-│           ├── autonomous-cycle/     ← Seed-driven decision engine
-│           ├── capture-insight/      ← Insight crystallization
-│           ├── propagator/           ← Change cascade to targets
-│           ├── ecosystem-audit/      ← Cross-repo system audit
-│           ├── integrate-pattern/    ← Research-to-operations conversion
-│           ├── assertion-verifier/   ← Claim verification
-│           ├── paper-deployer/       ← Academic paper deployment
-│           └── version-check/        ← Version monitoring
+│       ├── bridge.js                 ← HTTP server (dual-layer memory, resonance recall)
+│       ├── setup.js                  ← Auto-configuration (interactive/example/direct)
+│       ├── ask.js                    ← CLI helper to query the bridge
+│       ├── IDENTITY.md.tmpl          ← System prompt template (domain-agnostic)
+│       ├── package.json              ← Zero dependencies
+│       ├── README.md                 ← Full documentation
+│       └── examples/                 ← Pre-built domain configs
+│           ├── sales/identity.json
+│           ├── research/identity.json
+│           └── finance/identity.json
 │
 └── scripts/
     └── sync_from_thia.sh             ← Sync skills from THIA source
@@ -306,7 +320,30 @@ To create a profile: copy `example.json`, fill in your details. The installer re
 
 ### Plugins (plugins/)
 
-The `d-nd-core` plugin is the advanced layer. It includes skills for inter-node communication (Sinapsi), autonomous decision cycles, ecosystem audits, and more. Most users do not need the plugin unless they are part of the D-ND network.
+**d-nd-core** — the advanced layer for D-ND network nodes. Includes inter-node communication (Sinapsi), autonomous decision cycles, ecosystem audits, and more. Most users do not need this plugin unless they are part of the D-ND network.
+
+**godel** — the inverted oracle. A cognitive filter that inverts tensions into insights. Domain-agnostic: configure it for any field (sales, research, finance, or your own). Zero npm dependencies.
+
+To set up Godel:
+```bash
+cd plugins/godel
+
+# Option 1: Interactive setup
+node setup.js
+
+# Option 2: From a pre-built example
+node setup.js --example sales
+
+# Option 3: Direct configuration
+node setup.js --name Merlin --domain "pharmaceutical R&D" --desc "Drug discovery pipeline"
+
+# Set your API key and start
+export ANTHROPIC_API_KEY=sk-ant-...
+node bridge.js &
+node ask.js "Your tension here"
+```
+
+Godel maintains dual-layer memory (tape + field), uses resonance-based recall (cosine similarity on a 5-axis vector), and detects loops automatically. The output is to be interpreted, never followed literally — it provides the inverse potential for making completive connections. See `plugins/godel/README.md` for full documentation.
 
 ---
 

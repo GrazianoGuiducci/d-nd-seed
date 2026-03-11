@@ -65,6 +65,15 @@ console.log('MEMORY_PATH=\"' + (p.memory_path || '') + '\"');
 console.log('VPS_URL=\"' + (p.vps_url || '') + '\"');
 console.log('SINAPSI_FOR=\"' + (p.sinapsi_for || '') + '\"');
 
+// Godel plugin config
+const g = p.godel || {};
+console.log('GODEL_ENABLED=\"' + (g.enabled ? 'true' : '') + '\"');
+console.log('GODEL_EXAMPLE=\"' + (g.example || '') + '\"');
+console.log('GODEL_NAME=\"' + (g.name || '') + '\"');
+console.log('GODEL_DOMAIN=\"' + (g.domain || '') + '\"');
+console.log('GODEL_DESC=\"' + (g.description || '') + '\"');
+console.log('GODEL_PORT=\"' + (g.port || '3004') + '\"');
+
 // Repos as bash array entries
 const repos = (p.repos || []);
 const repoArray = repos.map(r => '    \"' + r.name + ':' + r.path + ':' + r.branch + '\"').join('\n');
@@ -329,6 +338,50 @@ else
     echo "  SKIP: youtube-transcript (no THIA_PATH in profile)"
 fi
 
+# --- Godel plugin ---
+if [ -n "$GODEL_ENABLED" ]; then
+    echo ""
+    echo "Installing Godel plugin..."
+    GODEL_SRC="$SCRIPT_DIR/plugins/godel"
+    GODEL_DST="$PROJECT_DIR/godel"
+
+    if [ -z "$DRY_RUN" ]; then
+        mkdir -p "$GODEL_DST"
+        # Copy core files
+        for F in bridge.js ask.js setup.js package.json IDENTITY.md.tmpl README.md; do
+            cp "$GODEL_SRC/$F" "$GODEL_DST/" 2>/dev/null
+        done
+        # Copy examples
+        cp -r "$GODEL_SRC/examples" "$GODEL_DST/" 2>/dev/null
+        # Copy plugin manifest
+        mkdir -p "$GODEL_DST/.claude-plugin"
+        cp "$GODEL_SRC/.claude-plugin/plugin.json" "$GODEL_DST/.claude-plugin/" 2>/dev/null
+
+        # Auto-configure if example or domain is specified
+        if [ -n "$GODEL_EXAMPLE" ]; then
+            (cd "$GODEL_DST" && node setup.js --example "$GODEL_EXAMPLE") 2>/dev/null
+            echo "  OK: Godel configured from example '$GODEL_EXAMPLE'"
+        elif [ -n "$GODEL_DOMAIN" ]; then
+            SETUP_ARGS="--domain \"$GODEL_DOMAIN\""
+            [ -n "$GODEL_NAME" ] && SETUP_ARGS="--name \"$GODEL_NAME\" $SETUP_ARGS"
+            [ -n "$GODEL_DESC" ] && SETUP_ARGS="$SETUP_ARGS --desc \"$GODEL_DESC\""
+            (cd "$GODEL_DST" && eval node setup.js $SETUP_ARGS) 2>/dev/null
+            echo "  OK: Godel configured for domain '$GODEL_DOMAIN'"
+        else
+            echo "  OK: Godel copied (run 'node godel/setup.js' to configure)"
+        fi
+
+        echo "  Files: $GODEL_DST/"
+        echo "  Port: ${GODEL_PORT:-3004}"
+        echo "  Start: cd $GODEL_DST && node bridge.js"
+    else
+        echo "  [DRY-RUN] Would install Godel to: $GODEL_DST/"
+    fi
+else
+    echo ""
+    echo "SKIP: Godel plugin (add 'godel.enabled: true' to profile to install)"
+fi
+
 # --- Set permissions ---
 if [ -z "$DRY_RUN" ]; then
     chmod +x "$TARGET/hooks/"*.sh 2>/dev/null
@@ -358,4 +411,10 @@ echo ""
 echo "Next steps:"
 echo "  1. Review generated files in $TARGET/"
 echo "  2. Configure permissions in $TARGET/settings.local.json"
+if [ -n "$GODEL_ENABLED" ]; then
+echo "  3. Set ANTHROPIC_API_KEY (or OPENROUTER_API_KEY) for Godel"
+echo "  4. Start Godel: cd $PROJECT_DIR/godel && node bridge.js"
+echo "  5. Start a new Claude Code session — hooks will activate automatically"
+else
 echo "  3. Start a new Claude Code session — hooks will activate automatically"
+fi

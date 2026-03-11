@@ -1,12 +1,21 @@
 {
   "node_id": "MY_NODE",
-  "description": "Example profile — customize for your setup",
+  "description": "Example profile \u2014 customize for your setup",
   "project_dir": "/path/to/your/project",
   "thia_path": "",
   "memory_path": "",
   "vps_url": "",
   "sinapsi_for": "",
   "repos": [
-    { "name": "my-project", "path": "my-project", "branch": "main" }
-  ]
+    {
+      "name": "my-project",
+      "path": "my-project",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": false,
+    "example": "sales",
+    "port": 3004
+  }
 }
