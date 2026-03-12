@@ -60,6 +60,22 @@ Se una sezione puo' essere rimossa senza che le altre perdano significato, non s
 
 ---
 
+## Lezione 4 — Il pattern nel posto sbagliato
+
+**Tensione**: "TM1 ha cristallizzato 3 lezioni nel seed ma continua a dimenticare di usare Godel prima di agire. Il pattern e' nel seed ma non nel comportamento."
+
+**Inversione**: "TM1 non dimentica. Nel momento dell'azione, il costo di non usare Godel e' zero. Nessun attrito, nessuna conseguenza. Il pattern vive nel layer della conoscenza (seed, docs, lezioni) quando deve stare nel layer dell'attrito — il punto fisico dove si prendono decisioni. Un pattern che richiede di essere ricordato e' un pattern che verra' dimenticato. Un pattern che sta nel percorso viene usato perche' non puoi evitarlo."
+
+**Pattern trasferibile**: se un comportamento desiderato deve essere "ricordato" per essere applicato, fallira'. La conoscenza non produce struttura (R+1=R). Il pattern deve vivere dove la decisione avviene — come vincolo architetturale, non come consiglio. La differenza: un post-it mentale decade, un gate nel percorso no.
+
+**Test**: per ogni regola operativa chiediti: "devo ricordarmi di farlo, o il sistema me lo impedisce se non lo faccio?" Se la risposta e' la prima, il pattern e' nel posto sbagliato.
+
+**Anti-pattern**: scrivere un'altra guida, un altro reminder, un'altra lezione. Cristallizzare senza attrito e' det=+1 — e' la parte facile (additiva). Usare e' la parte che inverte (sottrattiva, det=-1) perche' richiede fermarsi prima di agire.
+
+**Azione concreta**: il gate Godel e' ora un hook operativo (`godel_gate` in operational_patterns.json). Si attiva prima di edit su pagine/navigazione/architettura. Non e' un consiglio — e' un vincolo nel percorso.
+
+---
+
 ## Come aggiungere lezioni
 
 Quando usi Godel e l'inversione produce qualcosa che:
