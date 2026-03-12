@@ -1,0 +1,72 @@
+# Lezioni dal Campo — Inversioni Godel Applicate
+
+> Questo file e' vivo. Cresce con l'uso.
+> Ogni inversione che produce un pattern trasferibile viene cristallizzata qui.
+> Il pattern: usa Godel → impara qualcosa → cristallizza → il seed propaga → il sistema migliora.
+
+## Come leggere questo file
+
+Ogni lezione ha:
+- **Tensione**: cosa si e' chiesto a Godel
+- **Inversione**: cosa ha risposto che non si vedeva
+- **Pattern trasferibile**: la regola generale, applicabile ovunque
+- **Anti-pattern**: cosa si sarebbe fatto senza l'inversione
+
+---
+
+## Lezione 1 — Riordinare non e' ristrutturare
+
+**Tensione**: "Come riorganizzare la pagina Zeta per seguire la sequenza narrativa del visitatore?"
+
+**Inversione**: "Riordinare le sezioni per sequenza narrativa e' ancora det=+1. Stai spostando pezzi, non cambiando il campo. La limatura di ferro si orienta perche' c'e' un campo magnetico — non perche' qualcuno l'ha messa in fila."
+
+**Pattern trasferibile**: quando qualcosa non funziona, la tentazione e' riordinare gli elementi. Ma riordinare e' cosmetico (det=+1) — il problema e' che gli elementi non operano sulla stessa tensione. La struttura emerge dal campo, non dalla disposizione.
+
+**Test**: prendi le sezioni della pagina e permutale. Se non cambia nulla, non c'e' narrazione — c'e' un catalogo. Ogni sezione deve rispondere alla domanda che la precedente ha generato. Se non lo fa, manca il campo.
+
+**Anti-pattern**: "spostiamo il diagramma prima delle entita'" — e' ancora lo stesso contenuto in ordine diverso. Nessuna inversione.
+
+---
+
+## Lezione 2 — Confusione categoriale, non gerarchia mancante
+
+**Tensione**: "Come organizzare il menu di navigazione — le voci sono sotto Zeta o esposte come voci del sito?"
+
+**Inversione**: "Il menu non nasconde una gerarchia mancante. Nasconde una confusione categoriale. Ci sono due nature mescolate: operatori (Zeta, THIA, Consapevolezza — agiscono sul visitatore) e oggetti (Insights, Laboratorio — il visitatore agisce su di loro). L'ambiguita' nel menu e' che li tratti come se fossero la stessa cosa."
+
+**Pattern trasferibile**: quando non sai come organizzare delle voci (menu, lista, architettura), il problema non e' quasi mai "quale gerarchia usare?" ma "sto mescolando cose di natura diversa?". Prima di ordinare, distingui i tipi. Gli operatori si separano dagli oggetti — non nella stessa lista con priorita' diverse, ma come categorie distinte.
+
+**Test**: per ogni voce chiediti: "chi agisce su chi?" Se il visitatore agisce sulla voce, e' un oggetto (Insights, Laboratorio). Se la voce agisce sul visitatore, e' un operatore (Zeta, Consapevolezza). Se li mischi, il menu mente.
+
+**Anti-pattern**: riordinare le stesse voci in sotto-menu, dropdown, sezioni — spostare senza distinguere.
+
+---
+
+## Lezione 3 — Ogni sezione opera sulla stessa tensione
+
+**Tensione**: "Come validare che la pagina riscritta funzioni come narrazione e non come catalogo riordinato?"
+
+**Inversione**: "Il test non e' se le sezioni sono nell'ordine giusto. Il test e' se ogni sezione opera sulla stessa tensione da un angolo diverso. Se permuti le sezioni e il significato non cambia, non c'e' narrazione — c'e' una lista."
+
+**Pattern trasferibile**: una pagina (o un documento, o una presentazione) funziona come narrazione quando:
+1. Ogni sezione trasforma la comprensione del lettore
+2. Ogni sezione dipende dalla precedente (non puo' essere permutata)
+3. Tutte le sezioni convergono sulla stessa tensione centrale
+4. La tensione non e' risolta dalla pagina — e' risolta dal lettore che agisce
+
+Se una sezione puo' essere rimossa senza che le altre perdano significato, non serve.
+
+**Anti-pattern**: "aggiungiamo una sezione su X per completezza" — la completezza e' det=+1. Quello che non opera sulla tensione e' rumore.
+
+---
+
+## Come aggiungere lezioni
+
+Quando usi Godel e l'inversione produce qualcosa che:
+1. Non avresti visto senza l'inversione
+2. Si applica oltre il caso specifico
+3. Cambia il modo in cui affronterai casi simili in futuro
+
+...cristallizzala qui con lo stesso formato. Tensione, inversione, pattern, test, anti-pattern.
+
+Il file cresce per uso, non per pianificazione. Se dopo 10 lezioni emergono cluster, si separano in file tematici. Il pattern e': semina → crescita → struttura.
