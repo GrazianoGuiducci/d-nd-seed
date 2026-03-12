@@ -52,16 +52,27 @@ print(cmd.split('\n')[0][:60])
 esac
 
 NOW=$(date '+%H:%M' 2>/dev/null || echo "??:??")
+TODAY=$(date '+%Y-%m-%d' 2>/dev/null || echo "unknown")
 
-# Create file if it doesn't exist
+# Create file if missing, or reset on new day
+NEEDS_RESET=false
 if [ ! -f "$THREAD_FILE" ]; then
+    NEEDS_RESET=true
+else
+    FILE_DATE=$(head -3 "$THREAD_FILE" | grep -oP '\d{4}-\d{2}-\d{2}' | head -1)
+    if [ "$FILE_DATE" != "$TODAY" ]; then
+        NEEDS_RESET=true
+    fi
+fi
+
+if [ "$NEEDS_RESET" = "true" ]; then
     cat > "$THREAD_FILE" << EOF
-# Session Thread
-> Thread of the current session. Auto-updated.
-> Read by post-compact to resume without losing trajectory.
+# Session Thread ($TODAY)
+> Thread of the current session. Auto-updated by session_thread.sh.
+> Included in pre-compact snapshot for semantic recovery.
 
 ## Current task
-(no task set — update with: bash {{PROJECT_DIR}}/.claude/hooks/thread_task.sh "task description")
+(no task set)
 
 ## Recent actions
 EOF
