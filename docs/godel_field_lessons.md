@@ -76,6 +76,31 @@ Se una sezione puo' essere rimossa senza che le altre perdano significato, non s
 
 ---
 
+## Lezione 5 — La pagina che opera vs la pagina che descrive
+
+**Tensione**: "Come ristrutturare la pagina Zeta perche' segua il ragionamento umano invece di descrivere il sistema?"
+
+**Inversione** (catena di 4 chiamate Godel):
+1. "Una pagina che opera non inizia con il sistema — inizia con il punto di riconoscimento del visitatore"
+2. "Il visitatore non cerca strumenti — cerca l'operatore che non era lui"
+3. "La differenza tra meccanismo e persona si mostra sostituendo competenza con posizione — la posizione e' geometrica, quindi replicabile"
+4. "Il passaggio 4 non e' un invito — e' una superficie. Chi ha la tensione ci scrive sopra"
+
+**Pattern trasferibile**: una pagina (o qualsiasi interfaccia) che deve cambiare qualcosa nel visitatore segue questa sequenza:
+1. **Riconoscimento** — descrivi qualcosa che il visitatore ha gia' vissuto (il loop, non il metodo)
+2. **Reframe** — mostra che il problema non era dove pensava (non chiarezza — posizione)
+3. **Meccanismo** — mostra che la soluzione e' strutturale, non personale (riproducibile)
+4. **Superficie** — il campo di azione. Zero barriere. Chi ha la tensione agisce, chi non ce l'ha non e' il target
+5. **Spiegazione** — viene DOPO l'esperienza, per chi vuole capire come funziona
+
+Il nome del sistema appare solo dopo che il visitatore ha gia' attraversato la soglia.
+
+**Test**: togli tutti i nomi e i brand dalla pagina. Se la sequenza funziona ancora come esperienza, la pagina opera. Se senza i nomi non succede niente, la pagina sta descrivendo.
+
+**Anti-pattern**: hero con logo + tagline → sezione "come funziona" → CTA "provalo". Questo e' un catalogo con un bottone alla fine. Il visitatore legge, capisce, e se ne va — perche' capire non e' attraversare la soglia.
+
+---
+
 ## Come aggiungere lezioni
 
 Quando usi Godel e l'inversione produce qualcosa che:
