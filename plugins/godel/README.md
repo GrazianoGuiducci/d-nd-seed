@@ -142,6 +142,7 @@ The quality of the inversion equals the quality of the tension.
 **The rule:** give it the point where it hurts, where the choice is not obvious, where the data and your gut disagree. That's where det=-1 produces value.
 
 See the identity template (`IDENTITY.md.tmpl`) for anti-patterns and detailed guidelines.
+See `GUIDE.md` for the full operational guide — how to think with Godel, autologica, iterative challenging, and anti-patterns.
 
 ## Part of d-nd-seed
 
