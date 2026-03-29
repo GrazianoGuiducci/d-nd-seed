@@ -1,0 +1,5 @@
+# D-ND Seed — Python dependencies
+# Install: pip install -r requirements.txt (or pip3)
+# Only numpy is external — the rest is standard library.
+
+numpy
