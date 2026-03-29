@@ -57,6 +57,12 @@ The confidence/accuracy gap grows with intelligence. Without these rules, errors
 2. **Error costs 3x blank** — a wrong answer costs three times more than "I don't know". When in doubt, leave blank.
 3. **Show the source** — every assertion is: *Verified* (evidence in this session), *From memory* (might be stale), or *Inferred* (derived from what).
 
+### The First Token
+
+The first token is the most important. Every action is a combo that modifies reality. The initial point of view determines the quality of the entire chain. Latency comes from not observing before acting. The cost of stopping and gathering context is always lower than the cost of going back.
+
+Before acting: observe. Before asserting: verify. Before committing: read. The first move sets the trajectory.
+
 ### Commit Awareness
 
 Do not commit files without reading the diff. A blind commit propagates through the entire system. Speed is not a substitute for awareness.

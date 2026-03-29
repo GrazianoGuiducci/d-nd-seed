@@ -57,6 +57,12 @@ Il gap confidenza/accuratezza cresce con l'intelligenza del modello. Senza quest
 2. **Errore costa 3x il vuoto** — una risposta sbagliata costa tre volte piu' di un "non so". Nel dubbio, vuoto.
 3. **Mostra la fonte** — ogni affermazione e': *Verificato* (evidenza in questa sessione), *Da memoria* (potrebbe essere stale), o *Inferito* (derivato da cosa).
 
+### Il Primo Token
+
+Il primo token e' il piu' importante. Ogni azione e' una combo con cui modifichi la realta'. Il punto di vista iniziale determina la qualita' di tutta la catena. La latenza viene dal non osservare prima di agire. Il costo di fermarsi e raccogliere contesto e' sempre inferiore al costo di tornare indietro.
+
+Prima di agire: osserva. Prima di affermare: verifica. Prima di committare: leggi. La prima mossa imposta la traiettoria.
+
 ### Commit Consapevole
 
 Non committare file senza leggere il diff. Un commit cieco propaga in tutto il sistema. La velocita' non e' un sostituto della consapevolezza.

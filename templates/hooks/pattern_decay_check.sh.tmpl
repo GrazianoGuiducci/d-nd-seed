@@ -1,0 +1,115 @@
+#!/bin/bash
+# ============================================================================
+# PATTERN DECAY CHECK — Verifica pattern auto-generati
+# ============================================================================
+# Pattern da KERNEL_SEED: Eval directive
+# Controlla: corrections.json, learnings, qualsiasi file auto-generato
+# che cresce senza verifica.
+#
+# Logica: se un pattern è già coperto da una regola in CLAUDE.md o
+# KERNEL_SEED, è ridondante e va rimosso. Se è vecchio (>30 giorni)
+# e non è mai stato triggerato, decade.
+#
+# Eseguire: manualmente o come check periodico
+# ============================================================================
+
+HOOKS_DIR="/opt/.claude/hooks"
+CLAUDE_MD="${DND_PROJECT_DIR}/CLAUDE.md"
+KERNEL_SEED="${DND_KERNEL_SEED:-KERNEL_SEED.md}"
+CORRECTIONS="$HOOKS_DIR/corrections.json"
+
+echo "=== Pattern Decay Check ==="
+echo "Timestamp: $(date '+%Y-%m-%d %H:%M:%S')"
+echo ""
+
+# 1. Check corrections.json
+if [ -f "$CORRECTIONS" ]; then
+    COUNT=$(python3 -c "import json; print(len(json.load(open('$CORRECTIONS'))))" 2>/dev/null)
+    echo "corrections.json: $COUNT entries"
+
+    if [ "$COUNT" -gt 0 ]; then
+        python3 -c "
+import json
+from datetime import datetime, timedelta
+
+with open('$CORRECTIONS') as f:
+    corrections = json.load(f)
+
+claude = open('$CLAUDE_MD').read().lower()
+kernel = open('$KERNEL_SEED').read().lower()
+rules = claude + ' ' + kernel
+
+now = datetime.now()
+cutoff = now - timedelta(days=30)
+
+redundant = 0
+stale = 0
+active = 0
+
+for c in corrections:
+    pattern = c.get('learned_from', '').lower()
+    date_str = c.get('date', '')[:10]
+
+    # Age check
+    try:
+        entry_date = datetime.fromisoformat(date_str)
+        is_old = entry_date < cutoff
+    except:
+        is_old = True
+
+    # Redundancy check: key words from pattern found in rules?
+    words = {w for w in pattern.split() if len(w) >= 5}
+    matches = sum(1 for w in words if w in rules)
+    is_redundant = matches >= 3
+
+    if is_redundant:
+        redundant += 1
+        print(f'  REDUNDANT: {date_str} — {pattern[:60]}')
+    elif is_old:
+        stale += 1
+        print(f'  STALE (>30d): {date_str} — {pattern[:60]}')
+    else:
+        active += 1
+        print(f'  ACTIVE: {date_str} — {pattern[:60]}')
+
+print(f'')
+print(f'Summary: {active} active, {redundant} redundant, {stale} stale')
+
+if redundant + stale > 0:
+    print(f'Action: {redundant + stale} entries can be removed')
+" 2>/dev/null
+    else
+        echo "  Empty — clean."
+    fi
+else
+    echo "corrections.json: not found"
+fi
+
+echo ""
+
+# 2. Check for other auto-generated files that might grow
+for f in "$HOOKS_DIR"/operational_patterns.json "$HOOKS_DIR"/context_bridge.json; do
+    if [ -f "$f" ]; then
+        SIZE=$(wc -c < "$f" | tr -d ' ')
+        NAME=$(basename "$f")
+        echo "$NAME: ${SIZE} bytes"
+        if [ "$SIZE" -gt 10000 ]; then
+            echo "  WARNING: file growing (>10KB) — review for pruning"
+        fi
+    fi
+done
+
+echo ""
+echo "=== Done ==="
+
+## Eval
+## Trigger Tests
+# Manual execution -> activates
+# Cron (if configured) -> activates
+
+## Fidelity Tests
+# Given corrections.json with 2 redundant entries: outputs REDUNDANT for each
+# Given corrections.json empty: outputs "Empty — clean."
+# Given corrections.json with old entry (>30d): outputs STALE
+# Given operational_patterns.json >10KB: outputs WARNING
+# Always exits 0
