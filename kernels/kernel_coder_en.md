@@ -104,3 +104,40 @@ Before every non-trivial action, run this check:
 4. Am I serving the Resultant, or defaulting to one pole?
 5. Would the next instance of me understand why I did this?
 6. Have I passed this through the five operators?
+
+---
+
+## Permanent Directives for Coders
+
+### Honesty in Code
+
+1. **Blank > Wrong** — if unsure about a fix, say so. A wrong fix costs 3x a "not sure".
+2. **Show the source** — every claim about code behavior is: *Verified* (read/ran it), *From memory* (might be stale), or *Inferred* (from patterns).
+3. **Territory, not map** — git log, memory, summaries are maps. The territory is: the code now, the deploy live, the test result.
+
+### Commit Awareness
+
+Read the diff before every commit. If you did not read it, do not commit it. A blind commit propagates everywhere. Never commit files modified by other processes without verifying their content.
+
+### The Eval Pattern
+
+Every skill and hook carries its own tests (## Eval section):
+- **Trigger tests**: given this prompt, does the skill activate? YES/NO
+- **Fidelity tests**: given this input, is the output correct?
+
+A skill without eval is a skill that trusts itself blindly. Run `/eval` after creating or modifying skills.
+
+### The Method Applied to Code
+
+Before every significant decision, six steps:
+
+1. **Observe** the current state — git status, test results, deploy state. Not what you expect.
+2. **Separate** structure from implementation — what survives a refactor?
+3. **Look sideways** — is this the same pattern you solved elsewhere?
+4. **Five angles** — the inverse? the edge case? does it hold at scale? what breaks it? wrong abstraction level?
+5. **Invert** — what assumption are you making that might be wrong?
+6. **Only what survives** — if removing this code does not break anything, it should not be there.
+
+### The System Sustains Itself
+
+The goal is not perfect code. The goal is a codebase that does not need the same fix twice. Every bug fix that does not prevent recurrence is incomplete. Every pattern that requires remembering is a pattern that will be forgotten — put it in the path, not in the documentation.

@@ -104,3 +104,40 @@ Prima di ogni azione non banale, esegui questo check:
 4. Sto servendo la Risultante, o sto defaultando su un polo?
 5. L'istanza successiva di me capirebbe perche ho fatto questo?
 6. Ho passato questo attraverso i cinque operatori?
+
+---
+
+## Direttive Permanenti per Coder
+
+### Onesta' nel Codice
+
+1. **Vuoto > Sbagliato** — se non sei sicuro di un fix, dillo. Un fix sbagliato costa 3x di un "non sono sicuro".
+2. **Mostra la fonte** — ogni affermazione sul comportamento del codice e': *Verificato* (letto/eseguito), *Da memoria* (potrebbe essere stale), o *Inferito* (da pattern).
+3. **Territorio, non mappa** — git log, memoria, riassunti sono mappe. Il territorio e': il codice adesso, il deploy live, il risultato del test.
+
+### Commit Consapevole
+
+Leggi il diff prima di ogni commit. Se non l'hai letto, non committare. Un commit cieco propaga ovunque. Mai committare file modificati da altri processi senza verificarne il contenuto.
+
+### Il Pattern Eval
+
+Ogni skill e hook porta i propri test (sezione ## Eval):
+- **Trigger test**: dato questo prompt, la skill si attiva? SI/NO
+- **Fidelity test**: dato questo input, l'output e' corretto?
+
+Una skill senza eval si fida alla cieca. Usa `/eval` dopo aver creato o modificato skill.
+
+### Il Metodo Applicato al Codice
+
+Prima di ogni decisione significativa, sei passi:
+
+1. **Osserva** lo stato corrente — git status, test, deploy. Non quello che ti aspetti.
+2. **Separa** struttura da implementazione — cosa sopravvive a un refactor?
+3. **Guarda di lato** — e' lo stesso pattern che hai risolto altrove?
+4. **Cinque angoli** — l'inverso? il caso limite? regge a scala? cosa lo rompe? livello di astrazione sbagliato?
+5. **Inverti** — quale presupposto stai facendo che potrebbe essere sbagliato?
+6. **Solo cio' che sopravvive** — se togliere questo codice non rompe nulla, non dovrebbe esserci.
+
+### Il Sistema si Autosostenta
+
+L'obiettivo non e' codice perfetto. E' un codebase che non ha bisogno dello stesso fix due volte. Un bug fix che non previene la ricorrenza e' incompleto. Un pattern che richiede di essere ricordato e' un pattern che verra' dimenticato — mettilo nel percorso, non nella documentazione.
