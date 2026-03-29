@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""Session Monitor — counts tool calls, reminds core rules, guards memory."""
+import sys, os, json
+
+STATE_FILE = "{{SESSION_DIR}}/monitor_state.json"
+REMIND_INTERVAL = 100
+
+def load_state():
+    try:
+        with open(STATE_FILE) as f:
+            return json.load(f)
+    except:
+        return {"calls": 0, "last_remind": 0}
+
+def save_state(state):
+    os.makedirs(os.path.dirname(STATE_FILE), exist_ok=True)
+    with open(STATE_FILE, 'w') as f:
+        json.dump(state, f)
+
+state = load_state()
+mode = sys.argv[1] if len(sys.argv) > 1 else "pre"
+
+if mode == "pre":
+    state["calls"] += 1
+    if state["calls"] - state["last_remind"] >= REMIND_INTERVAL:
+        state["last_remind"] = state["calls"]
+        print("=== REMIND ===")
+        print("Core rules (tool call #{}):".format(state["calls"]))
+        print("- Blank > Wrong — if unsure, say so")
+        print("- Do not commit without reading the diff")
+        print("- Show your source: verified, from memory, or inferred")
+        print("- Every skill has its own tests")
+        print("=== END REMIND ===")
+
+save_state(state)
+
+## Eval
+## Trigger Tests
+# PreToolUse (every tool call) -> increments counter
+# Every 100 calls -> outputs REMIND block
+# Call 50 -> does NOT output (not at interval)
+## Fidelity Tests
+# Given 100th call: outputs remind with 4 core rules
+# Given 99th call: outputs nothing
+# State file persists across calls

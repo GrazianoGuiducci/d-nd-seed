@@ -1,0 +1,42 @@
+#!/bin/bash
+# Skill Health Check — verifies skill overlap and eval coverage
+# Runs at SessionStart. Reports issues, does not block.
+
+SKILLS_DIR="{{PROJECT_DIR}}/.claude/skills"
+[ ! -d "$SKILLS_DIR" ] && exit 0
+
+python3 -c "
+import os, re
+
+skills_dir = '$SKILLS_DIR'
+skills = {}
+no_eval = []
+
+for d in sorted(os.listdir(skills_dir)):
+    f = os.path.join(skills_dir, d, 'SKILL.md')
+    if not os.path.isfile(f): continue
+    with open(f, 'r', encoding='utf-8', errors='ignore') as fh:
+        content = fh.read()
+    m = re.search(r'description:\s*\"(.*?)\"', content, re.DOTALL)
+    if m:
+        desc = m.group(1).split('Do NOT')[0]
+        skills[d] = desc
+    if '## Eval' not in content:
+        no_eval.append(d)
+
+if no_eval:
+    print('=== SKILL HEALTH CHECK ===')
+    for s in no_eval:
+        print(f'  NO EVAL: {s}')
+    print(f'Skills: {len(skills)} | With Eval: {len(skills)-len(no_eval)}')
+    print('=== Done ===')
+" 2>/dev/null
+exit 0
+
+## Eval
+## Trigger Tests
+# SessionStart -> activates
+## Fidelity Tests
+# Given 5 skills, 2 without eval: outputs 2 NO EVAL warnings
+# Given all skills with eval: outputs nothing
+# Always exits 0

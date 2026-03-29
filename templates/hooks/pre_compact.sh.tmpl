@@ -105,11 +105,29 @@ echo "## Repository State" >> "$CONTEXT_FILE"
 
 {{REPOS_STATE_CALLS}}
 
-# --- Session Thread (semantic context) ---
+# --- Session Continuum (semantic context — direction, last request, insights) ---
+CONTINUUM_FILE="$PROJECT_DIR/.claude/hooks/session_continuum.md"
+if [ -f "$CONTINUUM_FILE" ]; then
+    echo "" >> "$CONTEXT_FILE"
+    echo "## Session Continuum (pre-compact snapshot)" >> "$CONTEXT_FILE"
+    cat "$CONTINUUM_FILE" >> "$CONTEXT_FILE"
+    echo "" >> "$CONTEXT_FILE"
+else
+    # Fallback: extract from .jsonl
+    EXTRACT=$(python3 "$PROJECT_DIR/.claude/hooks/continuum_extract.py" 2>/dev/null | head -40)
+    if [ -n "$EXTRACT" ]; then
+        echo "" >> "$CONTEXT_FILE"
+        echo "## Session Continuum (extracted from .jsonl)" >> "$CONTEXT_FILE"
+        echo "$EXTRACT" >> "$CONTEXT_FILE"
+        echo "" >> "$CONTEXT_FILE"
+    fi
+fi
+
+# --- Session Thread (mechanical action log) ---
 THREAD_FILE="$PROJECT_DIR/.claude/hooks/session_thread.md"
 if [ -f "$THREAD_FILE" ]; then
     echo "" >> "$CONTEXT_FILE"
-    echo "## Session Thread (semantic context)" >> "$CONTEXT_FILE"
+    echo "## Session Thread (mechanical log)" >> "$CONTEXT_FILE"
     cat "$THREAD_FILE" >> "$CONTEXT_FILE"
     echo "" >> "$CONTEXT_FILE"
 fi
@@ -118,6 +136,7 @@ cat >> "$CONTEXT_FILE" << 'EOF'
 ## Recovery Instructions
 - Check todo list for in-progress tasks
 - If files have uncommitted changes, run `git diff` before proceeding
+- Read session_continuum.md for semantic context (where we were, what was asked)
 - Read project memory files for persistent context
 EOF
 
