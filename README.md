@@ -12,17 +12,14 @@ Works with Claude Code, Cursor, Copilot, Gemini, or any AI coder that reads proj
 
 **If you are an AI coder** (Claude Code, Cursor, Copilot): start with [GUIDE.md](GUIDE.md). It contains the full map of this repository, initial setup instructions, and a pre-setup discovery procedure to understand the host environment before configuring.
 
-**Hooks:**
+**Hooks** (17 templates):
 
-- **Safety Guard** — intercepts destructive operations before execution
-- **Pre-Compact Capture** — saves critical state before context compaction
-- **Post-Compact Restore** — re-injects state after compaction or session restart
-- **System Awareness** — scans repos, API health, messages at session start
-- **Temporal Awareness** — warns when actions depend on potentially outdated knowledge (versions, APIs, pricing)
+Safety guard, system awareness, session monitor, pre/post compact, skill health check, pattern decay, sinapsi polling, cascade check, context awareness, and more. Each hook carries its own eval tests.
 
-**Cognitive Skills:**
-- 39 skills for AI coding agents, organized in 11 clusters
-- 20 bilingual skills for Chat AI (Claude.ai, ChatGPT, Gemini)
+**Skills:**
+- 17 plugin skills (eval, dream, autoresearch, auto-learn, CEC, propagator, sinapsi, and more)
+- 42 skills for AI coding agents
+- 44 bilingual skills for Chat AI (Claude.ai, ChatGPT, Gemini)
 
 ## Architecture
 
@@ -33,11 +30,11 @@ d-nd-seed/
 ├── profiles/                     # Deployment configurations
 │   └── example.json              #   Starter profile
 ├── templates/                    # Hook & skill templates
-│   ├── hooks/                    #   8 hook templates (.sh.tmpl)
+│   ├── hooks/                    #   17 hook templates (.sh.tmpl)
 │   └── skills/                   #   Installable skill templates
 ├── skills/                       # Cognitive catalog
-│   ├── coder/                    #   39 skills for AI coding agents
-│   └── thinker/                  #   20 bilingual skills for Chat AI
+│   ├── coder/                    #   42 skills for AI coding agents
+│   └── thinker/                  #   44 bilingual skills for Chat AI
 ├── kernels/                      # Cognitive system prompts (base, coder)
 ├── plugins/
 │   ├── d-nd-core/                #   Core plugin (safety, awareness, Sinapsi)
