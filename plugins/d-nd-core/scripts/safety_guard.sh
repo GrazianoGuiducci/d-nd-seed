@@ -14,7 +14,7 @@ TOOL_NAME=$(echo "$INPUT" | node -e "const d=JSON.parse(require('fs').readFileSy
 TOOL_INPUT=$(echo "$INPUT" | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')); console.log(JSON.stringify(d.tool_input||{}))" 2>/dev/null)
 
 WARNING=""
-VPS_IP="${DND_VPS_IP:-31.97.35.9}"
+VPS_IP="${DND_VPS_IP:-${DND_VPS_IP:-localhost}}"
 
 if [ "$TOOL_NAME" = "Bash" ]; then
     COMMAND=$(echo "$TOOL_INPUT" | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')); console.log(d.command||'')" 2>/dev/null)

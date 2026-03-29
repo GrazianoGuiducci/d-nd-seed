@@ -4,7 +4,7 @@
   "project_dir": "C:/Users/metam/ANTI_G_Project",
   "thia_path": "C:/Users/metam/ANTI_G_Project/THIA",
   "memory_path": "$HOME/.claude/projects/c--Users-metam-ANTI-G-Project/memory",
-  "vps_url": "http://31.97.35.9:3002",
+  "vps_url": "http://${DND_VPS_IP}:3002",
   "sinapsi_for": "TM1",
   "repos": [
     {

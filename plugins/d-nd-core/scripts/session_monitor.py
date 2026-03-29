@@ -206,7 +206,7 @@ def maybe_save_seed(state):
                 'content': content
             }).encode()
             req = urllib.request.Request(SINAPSI_URL, data=body, method='POST',
-                headers={'Content-Type': 'application/json', 'X-THIA-Token': SINAPSI_TOKEN})
+                headers={'Content-Type': 'application/json', 'X-Auth-Token': SINAPSI_TOKEN})
             urllib.request.urlopen(req, timeout=3, context=ctx)
         except Exception:
             pass

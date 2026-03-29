@@ -26,7 +26,7 @@ if [ -f "$CONTEXT_FILE" ]; then
 
     # --- Session Checkpoints from Sinapsi (memo type) ---
     if [ -n "$SINAPSI_URL" ] && [ -n "$SINAPSI_TOKEN" ]; then
-        MEMO_DATA=$(curl -s --max-time 3 "$SINAPSI_URL?for=$NODE_ID&reader=$NODE_ID" -H "X-THIA-Token: $SINAPSI_TOKEN" 2>/dev/null)
+        MEMO_DATA=$(curl -s --max-time 3 "$SINAPSI_URL?for=$NODE_ID&reader=$NODE_ID" -H "X-Auth-Token: $SINAPSI_TOKEN" 2>/dev/null)
         if [ -n "$MEMO_DATA" ]; then
             MEMO_SUMMARY=$(echo "$MEMO_DATA" | node -e "
 let raw='';
@@ -48,7 +48,7 @@ console.log('=== END CHECKPOINTS ===');
         fi
 
         # --- Live Sinapsi check (unread messages) ---
-        LIVE_SINAPSI=$(curl -s --max-time 3 "$SINAPSI_URL?for=$NODE_ID&unread=true&reader=$NODE_ID" -H "X-THIA-Token: $SINAPSI_TOKEN" 2>/dev/null)
+        LIVE_SINAPSI=$(curl -s --max-time 3 "$SINAPSI_URL?for=$NODE_ID&unread=true&reader=$NODE_ID" -H "X-Auth-Token: $SINAPSI_TOKEN" 2>/dev/null)
         if [ -n "$LIVE_SINAPSI" ]; then
             LIVE_SUMMARY=$(echo "$LIVE_SINAPSI" | node -e "
 let raw='';

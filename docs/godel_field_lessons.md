@@ -32,7 +32,7 @@ Ogni lezione ha:
 
 **Tensione**: "Come organizzare il menu di navigazione — le voci sono sotto Zeta o esposte come voci del sito?"
 
-**Inversione**: "Il menu non nasconde una gerarchia mancante. Nasconde una confusione categoriale. Ci sono due nature mescolate: operatori (Zeta, THIA, Consapevolezza — agiscono sul visitatore) e oggetti (Insights, Laboratorio — il visitatore agisce su di loro). L'ambiguita' nel menu e' che li tratti come se fossero la stessa cosa."
+**Inversione**: "Il menu non nasconde una gerarchia mancante. Nasconde una confusione categoriale. Ci sono due nature mescolate: operatori (es. filtri, agenti — operano sul visitatore) e oggetti (Insights, Laboratorio — il visitatore agisce su di loro). L'ambiguita' nel menu e' che li tratti come se fossero la stessa cosa."
 
 **Pattern trasferibile**: quando non sai come organizzare delle voci (menu, lista, architettura), il problema non e' quasi mai "quale gerarchia usare?" ma "sto mescolando cose di natura diversa?". Prima di ordinare, distingui i tipi. Gli operatori si separano dagli oggetti — non nella stessa lista con priorita' diverse, ma come categorie distinte.
 
@@ -62,9 +62,9 @@ Se una sezione puo' essere rimossa senza che le altre perdano significato, non s
 
 ## Lezione 4 — Il pattern nel posto sbagliato
 
-**Tensione**: "TM1 ha cristallizzato 3 lezioni nel seed ma continua a dimenticare di usare Godel prima di agire. Il pattern e' nel seed ma non nel comportamento."
+**Tensione**: "A node crystallized 3 lezioni nel seed ma continua a dimenticare di usare Godel prima di agire. Il pattern e' nel seed ma non nel comportamento."
 
-**Inversione**: "TM1 non dimentica. Nel momento dell'azione, il costo di non usare Godel e' zero. Nessun attrito, nessuna conseguenza. Il pattern vive nel layer della conoscenza (seed, docs, lezioni) quando deve stare nel layer dell'attrito — il punto fisico dove si prendono decisioni. Un pattern che richiede di essere ricordato e' un pattern che verra' dimenticato. Un pattern che sta nel percorso viene usato perche' non puoi evitarlo."
+**Inversione**: "The node does not forget. Nel momento dell'azione, il costo di non usare Godel e' zero. Nessun attrito, nessuna conseguenza. Il pattern vive nel layer della conoscenza (seed, docs, lezioni) quando deve stare nel layer dell'attrito — il punto fisico dove si prendono decisioni. Un pattern che richiede di essere ricordato e' un pattern che verra' dimenticato. Un pattern che sta nel percorso viene usato perche' non puoi evitarlo."
 
 **Pattern trasferibile**: se un comportamento desiderato deve essere "ricordato" per essere applicato, fallira'. La conoscenza non produce struttura (R+1=R). Il pattern deve vivere dove la decisione avviene — come vincolo architetturale, non come consiglio. La differenza: un post-it mentale decade, un gate nel percorso no.
 

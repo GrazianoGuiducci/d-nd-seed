@@ -140,7 +140,7 @@ SINAPSI_BLOCK=""
 if [ -n "$VPS_URL" ] && [ -n "$SINAPSI_FOR" ]; then
     SINAPSI_BLOCK="# --- Sinapsi: unread messages ---
 echo \"## Sinapsi (unread for $SINAPSI_FOR)\"
-SINAPSI=\$(curl -s --max-time 5 \"$VPS_URL/api/node-sync?for=$SINAPSI_FOR&unread=true\" -H \"X-THIA-Token: \${THIA_TOKEN:-thia-secure-token-2026}\" 2>/dev/null)
+SINAPSI=\$(curl -s --max-time 5 \"$VPS_URL/api/node-sync?for=$SINAPSI_FOR&unread=true\" -H \"X-Auth-Token: \${THIA_TOKEN:-${DND_API_TOKEN}}\" 2>/dev/null)
 if [ \$? -eq 0 ] && [ -n \"\$SINAPSI\" ]; then
     node -e \"
 const d=\$SINAPSI;
@@ -183,7 +183,7 @@ if [ -n "$VPS_URL" ]; then
     EXTRA_HEALTH="$EXTRA_HEALTH
 # --- API Health ---
 echo \"## API Health\"
-HEALTH=\$(curl -s --max-time 5 \"$VPS_URL/api/status\" -H \"X-THIA-Token: \${THIA_TOKEN:-thia-secure-token-2026}\" 2>/dev/null)
+HEALTH=\$(curl -s --max-time 5 \"$VPS_URL/api/status\" -H \"X-Auth-Token: \${THIA_TOKEN:-${DND_API_TOKEN}}\" 2>/dev/null)
 if [ \$? -eq 0 ] && [ -n \"\$HEALTH\" ]; then
     API_STATUS=\$(node -e \"
 const d=\$HEALTH;

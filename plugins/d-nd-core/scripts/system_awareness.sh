@@ -10,7 +10,7 @@
 #   DND_NODE_ID      — node identity (TM1, TM3, TM5...)
 #
 # Optional env vars:
-#   DND_VPS_IP       — VPS IP (default: 31.97.35.9)
+#   DND_VPS_IP       — VPS IP (default: localhost)
 #   DND_VPS_PORT     — VPS API port (default: 3002)
 #   DND_API_TOKEN    — THIA API token
 #   DND_REPOS        — comma-separated list of "name:path:branch" (auto-detected if missing)
@@ -19,8 +19,8 @@
 # --- Config ---
 PROJECT_DIR="${DND_PROJECT_DIR:-$(pwd)}"
 NODE_ID="${DND_NODE_ID:-unknown}"
-TOKEN="${DND_API_TOKEN:-thia-secure-token-2026}"
-VPS_IP="${DND_VPS_IP:-31.97.35.9}"
+TOKEN="${DND_API_TOKEN:-${DND_API_TOKEN}}"
+VPS_IP="${DND_VPS_IP:-localhost}"
 VPS_PORT="${DND_VPS_PORT:-3002}"
 VPS="http://${VPS_IP}:${VPS_PORT}"
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(dirname "$0")/..}"
@@ -33,7 +33,7 @@ echo ""
 
 # --- 1. Sinapsi ---
 echo "## Sinapsi (unread for ${NODE_ID})"
-SINAPSI=$(curl -s --max-time 5 "$VPS/api/node-sync?for=${NODE_ID}&unread=true" -H "X-THIA-Token: $TOKEN" 2>/dev/null)
+SINAPSI=$(curl -s --max-time 5 "$VPS/api/node-sync?for=${NODE_ID}&unread=true" -H "X-Auth-Token: $TOKEN" 2>/dev/null)
 if [ $? -eq 0 ] && [ -n "$SINAPSI" ]; then
     node -e "
 const d=$SINAPSI;
@@ -110,7 +110,7 @@ echo ""
 
 # --- 3. VPS health ---
 echo "## VPS Health"
-HEALTH=$(curl -s --max-time 5 "$VPS/api/status" -H "X-THIA-Token: $TOKEN" 2>/dev/null)
+HEALTH=$(curl -s --max-time 5 "$VPS/api/status" -H "X-Auth-Token: $TOKEN" 2>/dev/null)
 VPS_STATUS="unreachable"
 if [ $? -eq 0 ] && [ -n "$HEALTH" ]; then
     VPS_STATUS=$(node -e "

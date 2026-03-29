@@ -12,7 +12,7 @@
                    {from, to, type, content, read_by}
 ```
 
-Ogni nodo ha un identificativo (es. TM1, TM3, THIA).
+Ogni nodo ha un identificativo (es. NODE_A, NODE_B, SYSTEM).
 I messaggi hanno un campo `read_by[]` — tracking per nodo, non globale.
 Ogni nodo marca i propri messaggi come letti dopo averli processati.
 

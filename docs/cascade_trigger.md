@@ -63,7 +63,7 @@ Priorita': [alta = blocca altro lavoro | media = quando possibile | bassa = back
 
 | Azione | Chi notificare | Cosa dire |
 |--------|---------------|-----------|
-| Nuovo tool/funzione | Nodo che integra (TM1) | Path, cosa fa, come usarlo |
+| Nuovo tool/funzione | Node that integrates | Path, cosa fa, come usarlo |
 | Fix bug | Nodo che deploya | Commit hash, cosa era rotto, come verificare |
 | Nuovo contenuto | Nodo che pubblica | Path draft, stato (bozza/pronto), istruzioni |
 | Cambio architettura | Tutti i nodi | Cosa cambia, cosa si rompe, come adattarsi |

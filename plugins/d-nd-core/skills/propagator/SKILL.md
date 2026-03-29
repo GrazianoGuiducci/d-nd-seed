@@ -1,82 +1,75 @@
 ---
 name: propagator
-description: Knowledge propagation engine. Knows what goes where when something changes. Use after any significant change to ensure all downstream targets are updated.
+description: "Knowledge propagation engine. Knows what goes where when something changes. Use after any significant change to ensure all downstream targets are updated."
 ---
 
-# Propagator — D-ND Change Propagation Engine
+# Propagator — Change Propagation Engine
 
-When a change happens in one part of the ecosystem, this skill knows where it needs to propagate.
+When a change happens in one part of the system, this skill ensures all downstream targets are updated.
 
 ## Propagation Rules
 
-### Rule 1: THIA skill changed → d-nd-seed
+### Rule 1: Skill changed → seed repo
 ```bash
-# From ANTI_G_Project root:
+# Sync updated skills to the seed repository for distribution
 cd "${DND_PROJECT_DIR}" && bash d-nd-seed/scripts/sync_from_thia.sh
 ```
-After sync: check diff, commit d-nd-seed, push, notify TMx via Sinapsi.
+After sync: check diff, commit, push, notify other nodes.
 
-### Rule 2: Paper updated in MM_D-ND → d-nd.com (VPS)
+### Rule 2: Content updated → site deploy
 ```bash
-# 1. Convert site_ready md to pages.json entry
-# 2. Merge into VPS pages.json
-ssh root@${DND_VPS_IP} 'python3 -c "
-import json
-# Read current pages
-with open(\"/opt/site_repo/data/pages.json\") as f:
-    data = json.load(f)
-# Show paper status
-for p in data[\"pages\"]:
-    if \"paper\" in p.get(\"slug\",\"\").lower():
-        ci=len(p.get(\"content\",\"\"))
-        ce=len(p.get(\"content_en\",\"\"))
-        print(f\"{p[\"slug\"]} IT:{ci} EN:{ce}\")
-"'
+# Build and deploy site changes
+cd "${DND_PROJECT_DIR}/site" && npm run build
+# Deploy via your mechanism (scp, rsync, webhook, CI/CD)
 ```
 
-### Rule 3: d-nd.com code changed → VPS deploy
+### Rule 3: Seed package updated → notify nodes
 ```bash
-cd "${DND_PROJECT_DIR}/WEBSITE/d-nd_com" && npx vite build && scp -r dist/* root@${DND_VPS_IP}:/opt/d-nd_com_site/
-```
-
-### Rule 4: seed-landing changed → VPS deploy
-```bash
-cd "${DND_PROJECT_DIR}/seed-landing" && scp -r * root@${DND_VPS_IP}:/opt/seed-d-nd/
-```
-
-### Rule 5: d-nd-seed updated → notify TMx
-```bash
-# After push to d-nd-seed:
+# After pushing to the seed repo, notify other nodes
 curl -s -X POST "http://${DND_VPS_IP}:${DND_VPS_PORT:-3002}/api/node-sync" \
   -H "Content-Type: application/json" \
-  -H "X-THIA-Token: ${DND_API_TOKEN}" \
-  -d '{"from":"TM1","to":"ALL","type":"info","content":"d-nd-seed updated. Run git pull to get latest skills/plugins."}'
+  -H "X-Auth-Token: ${DND_API_TOKEN}" \
+  -d '{"from":"'${DND_NODE_ID}'","to":"ALL","type":"info","content":"Seed updated. Run git pull to get latest."}'
 ```
 
-### Rule 6: Container needs update → deploy sequence
+### Rule 4: Runtime changed → deploy sequence
 ```bash
-ssh root@${DND_VPS_IP} "cd /opt/THIA && git pull && docker cp . thia-neural-kernel:/app/ && docker restart thia-neural-kernel"
+# Deploy runtime changes to your server
+# Adapt to your infrastructure (Docker, systemd, PM2, etc.)
+git pull && docker cp . ${DND_CONTAINER_NAME}:/app/ && docker restart ${DND_CONTAINER_NAME}
 ```
 
 ## Propagation Checklist
 
-After ANY change, ask yourself:
-- [ ] Does this affect skills? → Rule 1
-- [ ] Does this affect papers? → Rule 2
-- [ ] Does this affect the site frontend? → Rule 3
-- [ ] Does this affect the seed landing? → Rule 4
-- [ ] Does this affect the seed package? → Rule 5
-- [ ] Does this affect THIA runtime? → Rule 6
-- [ ] Does this affect documentation? → Check d-nd.com, seed-landing, THIA/docs
-- [ ] Does this affect axioms P0-P8? → Update: MM_D-ND, kernels, seed-landing, d-nd.com
+After ANY significant change, ask:
+- [ ] Does this affect skills? → Sync to seed
+- [ ] Does this affect the site? → Deploy
+- [ ] Does this affect the seed package? → Notify nodes
+- [ ] Does this affect runtime? → Deploy sequence
+- [ ] Does this affect documentation? → Update docs
+- [ ] Does this affect operating rules? → Update kernel, propagate to all nodes
+- [ ] Who else in the system needs this? (Awareness at every level)
 
 ## Anti-pattern
 
-Do NOT propagate without verification. The sequence is always:
+Do NOT propagate without verification:
 1. **Change** → make the change
 2. **Verify** → test/check locally
-3. **Commit** → git commit with clear message
+3. **Commit** → read the diff, then commit with clear message
 4. **Propagate** → run appropriate rules
 5. **Confirm** → verify downstream targets received the change
 
 $ARGUMENTS
+
+## Eval
+
+## Trigger Tests
+# "I changed a skill, what else needs updating?" -> activates
+# "propagate this change" -> activates
+# "who else needs to know?" -> activates
+# "fix this typo" -> does NOT activate
+
+## Fidelity Tests
+# Given skill change: suggests sync to seed + notify nodes
+# Given site change: suggests build + deploy
+# Given no downstream impact: reports "no propagation needed"

@@ -206,11 +206,11 @@ Sinapsi is the real-time communication API between nodes. Every node can read/wr
 ```bash
 # Read unread messages for your node:
 curl -s "$SINAPSI_URL/api/node-sync?for=$NODE_ID&unread=true&reader=$NODE_ID" \
-  -H "X-THIA-Token: $TOKEN"
+  -H "X-Auth-Token: $TOKEN"
 
 # Send a message:
 curl -s -X POST "$SINAPSI_URL/api/node-sync" \
-  -H "X-THIA-Token: $TOKEN" \
+  -H "X-Auth-Token: $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"from":"$NODE_ID","to":"TARGET","type":"message","content":"..."}'
 ```

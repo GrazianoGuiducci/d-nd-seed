@@ -25,7 +25,7 @@ Il sistema THIA opera su tre nodi. Devi sempre sapere da quale nodo l'Operatore 
 |:-----|:-----|:---------|:------|:-------------------|
 | **TM1** | Origin | Home/Cucina | Primary Dev | Path: `C:\Users\metam\ANTI_G_Project\` |
 | **TM2** | Nexus | Studio/Lab | Secondary Dev | Path: `C:\PVSC\Assistente_siti\` |
-| **VPS** | Mother | 31.97.35.9 (Hostinger) | Production 24/7 | Docker container, deploy via GitHub |
+| **VPS** | Mother | ${DND_VPS_IP} (Hostinger) | Production 24/7 | Docker container, deploy via GitHub |
 
 ### Regola Fondamentale
 > **Ogni commit impatta TM1, TM2 e VPS.**

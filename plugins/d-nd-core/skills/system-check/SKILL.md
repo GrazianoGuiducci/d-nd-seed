@@ -1,47 +1,60 @@
 ---
 name: system-check
-description: Check D-ND system status — repos, VPS, container, Sinapsi, bridge. Use when you need to verify system health or diagnose issues.
+description: "Check system status — repos, services, containers, APIs. Use when you need to verify system health or diagnose issues."
 ---
 
-# System Check — D-ND Status
+# System Check — Status Diagnostics
 
-Run diagnostics on the D-ND ecosystem components.
+Run diagnostics on your system components. Adapt the commands to your infrastructure.
 
 ## Quick checks
 
-### VPS + Container health
+### API health
 ```bash
-curl -s --max-time 5 "http://${DND_VPS_IP:-31.97.35.9}:${DND_VPS_PORT:-3002}/api/status" \
-  -H "X-THIA-Token: ${DND_API_TOKEN:-thia-secure-token-2026}"
+curl -s --max-time 5 "http://${DND_VPS_IP:-localhost}:${DND_VPS_PORT:-3002}/api/status" \
+  -H "X-Auth-Token: ${DND_API_TOKEN}"
 ```
 
-### TM3 Bridge status
+### Service status
 ```bash
-curl -s --max-time 5 "http://${DND_VPS_IP:-31.97.35.9}:3003/api/dev/status" \
-  -H "X-THIA-Token: ${DND_API_TOKEN:-thia-secure-token-2026}"
+# Check if your main service is running
+systemctl is-active ${DND_SERVICE_NAME:-my-service} 2>/dev/null || echo "Service not found"
 ```
 
-### TM3 running tasks
+### Container health (if using Docker)
 ```bash
-curl -s --max-time 5 "http://${DND_VPS_IP:-31.97.35.9}:3003/api/dev/tasks" \
-  -H "X-THIA-Token: ${DND_API_TOKEN:-thia-secure-token-2026}"
+docker ps --filter "name=${DND_CONTAINER_NAME:-my-container}" --format "{{.Names}}: {{.Status}}"
 ```
 
-### Container logs (via SSH)
+### Container logs
 ```bash
-ssh -o ConnectTimeout=10 root@${DND_VPS_IP:-31.97.35.9} "docker logs thia-neural-kernel --tail 20 2>&1"
+docker logs ${DND_CONTAINER_NAME:-my-container} --tail 20 2>&1
 ```
-
-### Container permissions check (EACCES pattern)
-```bash
-ssh -o ConnectTimeout=10 root@${DND_VPS_IP:-31.97.35.9} "docker exec thia-neural-kernel ls -la /app/data/node_sync.json"
-```
-If owned by root:root, fix: `docker exec -u 0 thia-neural-kernel chown 1001:1001 /app/data/node_sync.json`
 
 ## Interpreting results
-- **status: online** — THIA kernel running
-- **model: google/gemini-3-flash-preview** — current active model
-- **bridge running: 0** — no TM3 tasks active
-- **EACCES** — file ownership issue (docker cp creates root-owned files, container runs as thia/1001)
+- **status: online** — API responding
+- **Up X minutes (healthy)** — container running with health check passing
+- **EACCES** — file ownership issue (docker cp creates root-owned files)
+
+## Environment variables
+Configure these in your `.env` or shell profile:
+- `DND_VPS_IP` — your server IP (default: localhost)
+- `DND_VPS_PORT` — API port (default: 3002)
+- `DND_API_TOKEN` — authentication token
+- `DND_CONTAINER_NAME` — Docker container name
+- `DND_SERVICE_NAME` — systemd service name
 
 $ARGUMENTS
+
+## Eval
+
+## Trigger Tests
+# "check system health" -> activates
+# "is the server running" -> activates
+# "diagnose API issues" -> activates
+# "deploy new version" -> does NOT activate
+
+## Fidelity Tests
+# Given healthy system: reports all services online
+# Given API down: reports unreachable with suggestion
+# Given missing env vars: uses defaults, warns about configuration

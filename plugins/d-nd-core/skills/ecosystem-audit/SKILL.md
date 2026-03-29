@@ -77,7 +77,7 @@ Check inter-node communication:
 ```bash
 echo "=== Sinapsi Health ==="
 curl -s "http://${DND_VPS_IP}:${DND_VPS_PORT:-3002}/api/node-sync?unread=true" \
-  -H "X-THIA-Token: ${DND_API_TOKEN}" | python3 -c "
+  -H "X-Auth-Token: ${DND_API_TOKEN}" | python3 -c "
 import sys,json
 msgs = json.load(sys.stdin)
 if isinstance(msgs, list):

@@ -1,6 +1,6 @@
 ---
 name: self-setup
-description: First-run setup for D-ND plugin. Maps the local environment, detects capabilities, configures node identity. Run once after installation or when environment changes.
+description: "First-run setup for D-ND plugin. Maps the local environment, detects capabilities, configures node identity. Run once after installation or when environment changes."
 ---
 
 # D-ND Self-Setup — Node Discovery & Configuration
@@ -9,10 +9,9 @@ Run this after installing the d-nd-core plugin to configure it for your environm
 
 ## What it does
 
-1. **Identity**: Determines your TMx node ID
-2. **Environment scan**: Detects available repos, tools, access
-3. **Capability mapping**: Tests SSH, Docker, VPS connectivity
-4. **Configuration**: Writes `.env.d-nd` with discovered settings
+1. **Environment scan**: Detects available repos, tools, access
+2. **Capability mapping**: Tests SSH, Docker, API connectivity
+3. **Configuration**: Writes `.env.d-nd` with discovered settings
 
 ## Setup procedure
 
@@ -41,17 +40,17 @@ echo "## Capabilities"
 command -v ssh >/dev/null 2>&1 && echo "  SSH: available" || echo "  SSH: not available"
 command -v docker >/dev/null 2>&1 && echo "  Docker: available" || echo "  Docker: not available"
 command -v node >/dev/null 2>&1 && echo "  Node.js: $(node --version 2>/dev/null)" || echo "  Node.js: not available"
+command -v python3 >/dev/null 2>&1 && echo "  Python: $(python3 --version 2>/dev/null)" || echo "  Python: not available"
 command -v git >/dev/null 2>&1 && echo "  Git: $(git --version 2>/dev/null)" || echo "  Git: not available"
 echo ""
 
-# Test VPS connectivity
-echo "## VPS Connectivity"
-curl -s --max-time 3 "http://31.97.35.9:3002/api/status" -H "X-THIA-Token: thia-secure-token-2026" >/dev/null 2>&1 \
-    && echo "  VPS API: reachable" || echo "  VPS API: unreachable"
-curl -s --max-time 3 "http://31.97.35.9:3003/api/dev/status" -H "X-THIA-Token: thia-secure-token-2026" >/dev/null 2>&1 \
-    && echo "  TM3 Bridge: reachable" || echo "  TM3 Bridge: unreachable"
-ssh -o ConnectTimeout=3 -o BatchMode=yes root@31.97.35.9 "echo ok" 2>/dev/null \
-    && echo "  SSH: connected" || echo "  SSH: no access"
+# Test API connectivity (if configured)
+if [ -n "$DND_VPS_IP" ]; then
+    echo "## API Connectivity"
+    curl -s --max-time 3 "http://${DND_VPS_IP}:${DND_VPS_PORT:-3002}/api/status" \
+        -H "X-Auth-Token: ${DND_API_TOKEN}" >/dev/null 2>&1 \
+        && echo "  API: reachable" || echo "  API: unreachable"
+fi
 ```
 
 ### Step 2 — Set identity
@@ -60,11 +59,11 @@ Based on discovery results, set these environment variables in your shell profil
 
 ```bash
 # D-ND Node Configuration
-export DND_NODE_ID="TMx"          # Your node ID (TM1, TM3, TM5, or new)
-export DND_PROJECT_DIR="/path/to" # Base project directory
-export DND_VPS_IP="31.97.35.9"    # VPS IP
-export DND_VPS_PORT="3002"        # VPS API port
-export DND_API_TOKEN="thia-secure-token-2026"  # API auth token
+export DND_NODE_ID="MY_NODE"          # Your node identifier
+export DND_PROJECT_DIR="/path/to"     # Base project directory
+export DND_VPS_IP=""                  # Server IP (if applicable)
+export DND_VPS_PORT="3002"            # API port (if applicable)
+export DND_API_TOKEN=""               # API auth token (if applicable)
 ```
 
 ### Step 3 — Verify
@@ -73,12 +72,27 @@ Run `/d-nd-core:system-check` to verify everything works.
 
 ## Node roles
 
-| Node | Identity | Typical capabilities |
-|------|----------|---------------------|
-| TM1 | Origin | Full access: SSH, Docker, all repos, deploy |
-| TM2 | Nexus | Lab: local THIA copy, test environment |
-| TM3 | Dev | VPS-based: Claude Code CLI, limited repos |
-| TM5 | Lorenzo | Design: CSS/layout, egemon.ai, Qwykken |
-| New | auto | Discovered at setup, operator assigns role |
+Nodes are identified by their capabilities, not by fixed names:
+
+| Capability | Description |
+|-----------|-------------|
+| **Full access** | SSH, Docker, all repos, deploy |
+| **Development** | Code editor, local repos, test environment |
+| **Satellite** | Autonomous project, receives seed updates |
+| **Specialized** | Specific domain (design, finance, research) |
+
+The operator assigns the role. The system adapts.
 
 $ARGUMENTS
+
+## Eval
+
+## Trigger Tests
+# "set up my node" -> activates
+# "configure d-nd" -> activates
+# "first time setup" -> activates
+# "deploy" -> does NOT activate
+
+## Fidelity Tests
+# Given fresh environment: detects repos, capabilities, outputs config template
+# Given configured environment: reports current config, suggests updates if needed

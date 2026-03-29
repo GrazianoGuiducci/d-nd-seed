@@ -70,7 +70,7 @@ L'inversione si applica alla tensione, non all'analisi.
   Godel fornisce il potenziale inverso. Tu decidi cosa farne.
 - L'output di Godel e' input per il Domandatore, non conclusione.
 
-**Tool**: Godel bridge (:3004) o via Sinapsi a TM3.
+**Tool**: Inversion tool (if available) or via inter-node messaging.
 
 ### 6. CRISTALLIZZAZIONE — Solo cio' che sopravvive
 
