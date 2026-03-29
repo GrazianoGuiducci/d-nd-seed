@@ -72,3 +72,14 @@ for p in data[\"pages\"]:
 - **Markdown images in HTML**: The frontend (`PageComponent.tsx`) converts `<p>![alt](src)</p>` to `<figure>` at render time. But prefer proper HTML in source.
 
 $ARGUMENTS
+
+## Eval
+
+## Trigger Tests
+# Appropriate prompts for this skill -> activates
+# Unrelated prompts -> does NOT activate
+
+## Fidelity Tests
+# Given valid input: produces expected output
+# Given edge case: handles gracefully
+# Always reports what was done

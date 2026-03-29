@@ -159,3 +159,14 @@ Il seme genera la struttura. La struttura contiene il riferimento al seme. Il se
 - **Non è opzionale** — senza memoria, ogni sessione parte da zero (P6: la memoria è presenza)
 
 $ARGUMENTS
+
+## Eval
+
+## Trigger Tests
+# Appropriate prompts for this skill -> activates
+# Unrelated prompts -> does NOT activate
+
+## Fidelity Tests
+# Given valid input: produces expected output
+# Given edge case: handles gracefully
+# Always reports what was done

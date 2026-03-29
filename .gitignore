@@ -9,3 +9,4 @@ Thumbs.db
 profiles/local_*.json
 plugins/d-nd-core/scripts/__pycache__/
 __pycache__/
+__pycache__/

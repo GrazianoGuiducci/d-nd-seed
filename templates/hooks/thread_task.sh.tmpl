@@ -22,3 +22,10 @@ else
     sed -i "/^## Current task/,/^## /{/^## Current task/!{/^## /!d}}" "$THREAD_FILE"
     sed -i "/^## Current task/a [$NOW] $TASK" "$THREAD_FILE"
 fi
+
+## Eval
+## Trigger Tests
+# Appropriate event -> activates
+## Fidelity Tests
+# Given valid input: produces expected output
+# Always exits 0

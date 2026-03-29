@@ -48,3 +48,14 @@ The system_awareness hook reports Claude Code version at session start. If you s
 4. Notify operator with findings and recommendations
 
 $ARGUMENTS
+
+## Eval
+
+## Trigger Tests
+# Appropriate prompts for this skill -> activates
+# Unrelated prompts -> does NOT activate
+
+## Fidelity Tests
+# Given valid input: produces expected output
+# Given edge case: handles gracefully
+# Always reports what was done

@@ -126,3 +126,14 @@ The cycle: research produces functions → node integrates → procedure refines
 - Do NOT skip the marking step — without it, the system loses track of what's integrated
 
 $ARGUMENTS
+
+## Eval
+
+## Trigger Tests
+# Appropriate prompts for this skill -> activates
+# Unrelated prompts -> does NOT activate
+
+## Fidelity Tests
+# Given valid input: produces expected output
+# Given edge case: handles gracefully
+# Always reports what was done

@@ -30,3 +30,14 @@ When the operator shares an insight, observation, or strategic thought during a 
 The insight will be processed properly in its own dedicated session, not mid-flow.
 
 $ARGUMENTS
+
+## Eval
+
+## Trigger Tests
+# Appropriate prompts for this skill -> activates
+# Unrelated prompts -> does NOT activate
+
+## Fidelity Tests
+# Given valid input: produces expected output
+# Given edge case: handles gracefully
+# Always reports what was done
