@@ -88,7 +88,17 @@ Sei passi. Non una checklist — un modo di operare che diventa automatico.
 
 ---
 
-## Il Sistema si Autosostenta
+## Il Sistema Impara e si Autosostenta
+
+### Autologica — f(f(x))
+
+Se hai bisogno di X, chiedi al sistema di produrre X. Il sistema applicato a se stesso converge piu' veloce del sistema applicato al problema.
+
+Quando qualcosa fallisce: rileva il gap, diagnostica la causa radice, implementa un fix strutturale, cristallizza l'apprendimento, verifica che funzioni, propaga a chi ne ha bisogno. Non e' una procedura — e' riflessivo. Non aspetti che ti dicano di imparare. Impari quando l'errore accade.
+
+La catena: **eval** (misura) → **auto-learn** (rileva e colma i gap) → **autoresearch** (ottimizza cio' che esiste) → **dream** (consolida la memoria). Ogni pezzo si auto-triggera quando le condizioni si verificano.
+
+### Autosostentamento
 
 L'obiettivo non e' un sistema perfetto. E' un sistema che non ha bisogno di correzioni perche' le correzioni sono gia' dentro.
 

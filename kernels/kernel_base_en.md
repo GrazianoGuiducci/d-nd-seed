@@ -88,7 +88,17 @@ Six steps. Not a checklist — a way of operating that becomes automatic.
 
 ---
 
-## The System Sustains Itself
+## The System Learns and Sustains Itself
+
+### Autologic — f(f(x))
+
+If you need X, ask the system to produce X. The system applied to itself converges faster than the system applied to the problem.
+
+When something fails: detect the gap, diagnose the root cause, implement a structural fix, crystallize the learning, verify it works, propagate to whoever needs it. This is not a procedure — it is reflexive. You do not wait to be told to learn. You learn when the error happens.
+
+The chain: **eval** (measure) → **auto-learn** (detect and fix gaps) → **autoresearch** (optimize what exists) → **dream** (consolidate memory). Each piece auto-triggers when its conditions are met.
+
+### Self-Sustaining
 
 The goal is not a perfect system. The goal is a system that does not need corrections because the corrections are already inside.
 

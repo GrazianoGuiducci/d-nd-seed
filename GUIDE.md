@@ -70,6 +70,8 @@ Skills are specialized functions you activate when the context requires them.
 | **eval** | Tests all your skills — trigger accuracy and fidelity. Do they activate when they should? Do they do what they should? |
 | **dream** | Consolidates memory — finds stale entries, removes redundant ones, keeps the index clean |
 | **autoresearch** | Self-improves skills through mutate-verify loops. Measures, changes one thing, re-measures. Converges or flags for human review |
+| **auto-learn** | Detects gaps, implements fixes, crystallizes learnings. When something fails, it ensures it never fails the same way again |
+| **cec** | The sieve — 6 steps before any significant decision. Observe, separate, look sideways, five angles, invert, crystallize |
 
 ### Kernels — Your Operating Logic
 
