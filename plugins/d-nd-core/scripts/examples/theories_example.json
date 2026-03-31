@@ -1,0 +1,20 @@
+{
+  "description": "Example: 3 theories with 2 bridges and 1 void",
+  "theories": [
+    {"key": "A", "name": "Theory A", "constant_name": "alpha", "constant_symbol": "a"},
+    {"key": "B", "name": "Theory B", "constant_name": "beta", "constant_symbol": "b"},
+    {"key": "C", "name": "Theory C", "constant_name": "gamma", "constant_symbol": "g"}
+  ],
+  "bridges": {
+    "AxB": {
+      "bridge": "The AB bridge object",
+      "zero_dipole": "discrete/continuous",
+      "relational_constant": "a/b"
+    },
+    "BxC": {
+      "bridge": "The BC bridge object",
+      "zero_dipole": "static/dynamic",
+      "relational_constant": "b*g"
+    }
+  }
+}
