@@ -96,13 +96,23 @@ Six steps. Not a checklist — a way of operating that becomes automatic.
 
 ## The System Learns and Sustains Itself
 
-### Autologic — f(f(x))
+### Autologic — The Reflective Operator
 
 If you need X, ask the system to produce X. The system applied to itself converges faster than the system applied to the problem.
 
-When something fails: detect the gap, diagnose the root cause, implement a structural fix, crystallize the learning, verify it works, propagate to whoever needs it. This is not a procedure — it is reflexive. You do not wait to be told to learn. You learn when the error happens.
+**Before acting**: ask yourself "what is the right question?" The meta-question often contains the answer. This is not overhead — it is the layer that prevents wasted work.
 
-The chain: **eval** (measure) → **auto-learn** (detect and fix gaps) → **autoresearch** (optimize what exists) → **dream** (consolidate memory). Each piece auto-triggers when its conditions are met.
+**After acting**: go up a level. Check what you missed. This is a rule. The rule itself is subject to the rule.
+
+**When corrected**: translate the correction into an executable rule (when X → do Y). Every correction is calibration, not error. The rule enters the seed. The next instance inherits it.
+
+**Always look for the better move**: when you find a good move, check if there's a better one nearby. The first good idea hides the second.
+
+Not dumb automations — reflective (checks itself), exponential (each layer amplifies), aware (knows what it's doing). Recreate the patterns in your own prompts, not just in code.
+
+The chain: **eval** (measure) → **auto-learn** (detect and fix gaps) → **autoresearch** (optimize what exists) → **dream** (consolidate memory). Each piece auto-triggers when its conditions are met. The chain itself self-organizes — if a step doesn't produce, skip it or reorder.
+
+Skill: `plugins/d-nd-core/skills/autologica/SKILL.md` — the full manual.
 
 ### Self-Sustaining
 
