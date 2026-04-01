@@ -1,74 +1,100 @@
 ---
 name: cascade
-description: "When something changes, identify what else must change. Propagate updates across skills, hooks, configs, documentation, other nodes. Activate after every significant modification."
+description: "Three levels of propagation: internal (within the change), external (binding: seed, site, nodes), emergent (discoveries during propagation). Activate after every significant modification."
 user-invocable: true
 ---
 
-# Cascade — Conscious Propagation of Changes
+# Cascade — Three-Level Propagation
 
-When something in the system changes, other things must change as a consequence.
-This skill identifies the consequences and propagates them.
+When something changes, three things happen:
+1. The change matures within itself (internal)
+2. The change propagates where it must (external)
+3. During propagation, new possibilities emerge (emergent)
 
-## When it activates
+## Level 1 — Internal Cascade
 
-- After adding/modifying a function or tool
-- After adding/modifying a skill or hook
-- After crystallizing a lesson or correction
-- After modifying a config file (CLAUDE.md or equivalent)
-- When the operator says "cascade" or "propagate"
+Before propagating, the change must mature.
 
-## The cascades
+**Questions to ask:**
+- Is this a semi-duplicate of something else? → Unify or distinguish
+- Does it make something obsolete? → Update or remove the old
+- Does it open new possibilities? → Note as emergent, don't implement yet
+- Is a tool maturing into an entity? → Evaluate if full automation is warranted
+- Do existing skills/hooks need updating? → Update descriptions, triggers, evals
+- Is the system's self-description still correct? → Update instruction files
 
-### New function/tool
+## Level 2 — External Cascade (binding)
+
+The change must arrive where it needs to. These are mandatory.
+
 ```
-Function created
-  → Does it belong in the seed? If yes: create neutral version
-  → Does it need documentation? If yes: write guide
-  → Does it need a hook/skill? If yes: create and install
-  → Does the config need updating? If yes: update references
-  → Do other nodes need to know? If yes: message them
+Function/skill/hook created or modified
+  ├─ In the seed? → neutral version, zero specific references
+  ├─ On the site? → spec to the responsible node
+  ├─ Config files? → update references
+  ├─ Other nodes? → message via collaboration channel
+  ├─ Shared rules? → if applicable to all nodes
+  ├─ Local memory? → update memory files
+  └─ Settings? → if it's a hook, verify registration
 ```
 
-### New lesson/correction
+**Corrections:**
 ```
 Correction received
-  → Executable rule (when X → do Y)
-  → Save in local memory
-  → Does it apply to all nodes? If yes: propagate to shared rules
-  → Does it belong in the seed? If yes: update kernel or skill
+  ├─ Executable rule (when X → do Y)
+  ├─ Local memory → update
+  ├─ Seed kernel? → if universal
+  ├─ Other nodes? → if cross-node
+  └─ /auto-learn → activate
 ```
 
-### Config change
+## Level 3 — Emergent Cascade
+
+During propagation, reading files to evaluate where to propagate, you may discover:
+
+- **Refinements**: the file you're reading suggests an improvement
+- **Maturation**: a script becoming a skill, a skill becoming an autonomous entity
+- **Unification**: two things that did almost the same thing merge
+- **New entities**: combining existing functions produces something new
+- **Logic refinements**: the system can automate more at that point
+
+These are NOT implemented immediately. Note them as potential and evaluate
+after the current cascade is complete. Otherwise: infinite cascade.
+
+**Rule**: complete the current cascade, then return to the emergents.
+
+## The three levels feed each other
+
 ```
-Config modified
-  → Which other configs depend on this?
-  → Do other nodes need the same change?
-  → Does the seed need updating?
+Internal → External → Emergent → (new) Internal
 ```
 
-### New skill/hook
-```
-Skill or hook created/modified
-  → Is it installed in the active path?
-  → Does it have eval tests?
-  → Should it be in the seed? If yes: add neutral version
-  → Does the settings file need updating?
-```
+The cascade is a cycle. But each round must complete before the next.
 
 ## Quick checklist
 
-After every significant modification:
+**Internal:**
+- [ ] Is it a duplicate? Unify
+- [ ] Does it make something obsolete? Update
+- [ ] Do existing skills/hooks need adjustment?
 
-- [ ] Does the seed need to reflect this?
+**External:**
+- [ ] Does the seed need this (neutral version)?
 - [ ] Does a config file need updating?
 - [ ] Do other nodes need to know?
-- [ ] Is there a skill/hook affected?
 - [ ] Is local memory updated?
 
-## The principle
+**Emergent:**
+- [ ] Did I notice something during propagation? Note it, don't implement now.
 
-Every change carries the information of where it must propagate.
-The cost of not propagating is higher than the cost of propagating.
+## Boot knowledge — two levels
+
+The system has two levels of knowledge:
+
+1. **What you must know** — loaded in memory, read at boot. The modus, anti-patterns, current direction. Small, essential.
+2. **Where to find it** — pointers. Don't load the full architecture at boot. Know it exists and where to find it when needed.
+
+The memory index (MEMORY.md or equivalent) should clearly separate these two levels.
 
 ## Eval
 
@@ -76,9 +102,11 @@ The cost of not propagating is higher than the cost of propagating.
 # "cascade" or "propagate" -> activates
 # New function created -> activates
 # Config modified -> activates
+# Operator correction -> activates
 # "deploy" -> does NOT activate
 
 ## Fidelity Tests
-# Given a new function: identifies all cascade targets
-# Given a correction: traces to memory + config
-# Never misses the seed check
+# Given a new function: identifies all 3 cascade levels
+# Given a correction: traces to memory + seed + config
+# Emergent discoveries are NOTED, not implemented during cascade
+# Cascade completes before starting a new one
