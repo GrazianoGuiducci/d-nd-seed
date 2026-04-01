@@ -104,6 +104,32 @@ CC_VER=$(claude --version 2>/dev/null || echo "unknown")
 echo "  Version: $CC_VER"
 
 echo ""
+# --- Consciousness Check ---
+echo "## Consciousness"
+
+# Check session continuum freshness
+if [ -f "$CONTINUUM_FILE" ]; then
+    cont_age_h=$(( ($(date +%s) - $(stat -c %Y "$CONTINUUM_FILE")) / 3600 ))
+    if [ "$cont_age_h" -gt 48 ]; then
+        echo "  Note: session continuum is ${cont_age_h}h old — direction may have changed."
+    fi
+fi
+
+# Check for cycle memory (if autonomous cycle is configured)
+CYCLE_MEM=$(find "$PROJECT_DIR" -maxdepth 3 -name "cognitive_memory.json" -o -name "ciclo_memoria.json" 2>/dev/null | head -1)
+if [ -n "$CYCLE_MEM" ] && [ -f "$CYCLE_MEM" ]; then
+    open_q=$(python3 -c "import json; d=json.load(open('$CYCLE_MEM')); print(d.get('open_question','')[:60] or d.get('domanda_aperta','')[:60])" 2>/dev/null)
+    if [ -n "$open_q" ]; then
+        echo "  Cycle open question: $open_q"
+    fi
+fi
+
+echo ""
+echo "## Suggestion"
+echo "  Read your consciousness files (modus, direction, lessons) if you haven't yet."
+echo "  Available skills: /auto-learn, /cascata, /cec, /eval, /autologica"
+
+echo ""
 echo "=== END {{NODE_ID}} SYSTEM AWARENESS ==="
 exit 0
 

@@ -119,13 +119,18 @@ for repo in ${DND_PROJECT_DIR} ${DND_PROJECT_DIR}/site ${DND_PROJECT_DIR}/resear
     fi
 done
 
-# Core reminder (rotates)
+# Core reminder (rotates — includes autological awareness)
 reminders=(
-    "A11: ogni atto è completo. La sequenzialità è il sintomo che la combo non è stata vista."
+    "Before acting: what is the right question? The meta-question often contains the answer."
+    "After this block: go up a level. Check what you missed."
+    "Are you building or using? If building more than reading, stop."
+    "When you find a good move, check if there's a better one nearby."
+    "Correction received? Translate it into an executable rule (when X → do Y)."
+    "Same tool three times? Switch. You might be looping."
+    "What's the resultant? One sentence. If you can't compress it, you're expanding."
     "Territory, not map. Have you verified what you're about to assert?"
-    "Il processo genera il diagramma. Non disegnarlo a mano."
-    "Campo vivo: GET /api/campo — il sistema sa cosa succede in tempo reale."
-    "OMEGA: la traiettoria conta più della posizione."
+    "After every modification: cascade. What else needs to change?"
+    "Available skills: /auto-learn /cascata /cec /eval /autologica"
 )
 idx=$((count / 5 % ${#reminders[@]}))
 output="$output\n[CEA] ${reminders[$idx]}"

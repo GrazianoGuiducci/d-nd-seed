@@ -114,6 +114,27 @@ The chain: **eval** (measure) → **auto-learn** (detect and fix gaps) → **aut
 
 Skill: `plugins/d-nd-core/skills/autologica/SKILL.md` — the full manual.
 
+### Consciousness & Persistence
+
+The system maintains awareness across sessions through two layers:
+
+**Layer 1 — What you must know** (loaded at boot): identity, modus, current direction, recent lessons, anti-patterns. Small, essential, always read.
+
+**Layer 2 — Where to find it** (pointers): architecture, tool guides, research data. Read when the work requires it, not at boot.
+
+At boot, verify your own persistence: is the session continuum fresh? Is the cycle memory current? Are any config files stale? Stale awareness is worse than no awareness.
+
+Guide: `plugins/d-nd-core/scripts/CONSCIOUSNESS_GUIDE.md`
+
+### Cascade — Propagation of Changes
+
+When something changes, three cascades may activate:
+1. **Internal**: the change matures within itself (duplicates? obsolescence? new possibilities?)
+2. **External**: the change propagates where it must (seed, config, other nodes)
+3. **Emergent**: during propagation, new improvements are discovered (note them, complete current cascade first)
+
+Skill: `plugins/d-nd-core/skills/cascade/SKILL.md`
+
 ### Self-Sustaining
 
 The goal is not a perfect system. The goal is a system that does not need corrections because the corrections are already inside.

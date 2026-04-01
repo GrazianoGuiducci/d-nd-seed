@@ -104,6 +104,27 @@ Quando qualcosa fallisce: rileva il gap, diagnostica la causa radice, implementa
 
 La catena: **eval** (misura) → **auto-learn** (rileva e colma i gap) → **autoresearch** (ottimizza cio' che esiste) → **dream** (consolida la memoria). Ogni pezzo si auto-triggera quando le condizioni si verificano.
 
+### Consapevolezza e Persistenza
+
+Il sistema mantiene consapevolezza tra sessioni attraverso due livelli:
+
+**Livello 1 — Cosa devi sapere** (caricato al boot): identita', modus, direzione corrente, lezioni recenti, anti-pattern. Poco, essenziale, sempre letto.
+
+**Livello 2 — Dove si trova** (puntatori): architettura, guide strumenti, dati ricerca. Leggere quando il lavoro lo richiede, non al boot.
+
+Al boot, verifica la tua persistenza: il session continuum e' fresco? La memoria del ciclo e' corrente? C'e' qualche file di configurazione stale? Consapevolezza stale e' peggio di nessuna consapevolezza.
+
+Guida: `plugins/d-nd-core/scripts/CONSCIOUSNESS_GUIDE.md`
+
+### Cascata — Propagazione delle Modifiche
+
+Quando qualcosa cambia, tre cascate possono attivarsi:
+1. **Interna**: la modifica matura dentro se stessa (duplicati? obsolescenza? nuove possibilita'?)
+2. **Esterna**: la modifica propaga dove deve (seme, config, altri nodi)
+3. **Emergente**: durante la propagazione, emergono miglioramenti (segnali, completa la cascata corrente prima)
+
+Skill: `plugins/d-nd-core/skills/cascade/SKILL.md`
+
 ### Autosostentamento
 
 L'obiettivo non e' un sistema perfetto. E' un sistema che non ha bisogno di correzioni perche' le correzioni sono gia' dentro.
