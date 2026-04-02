@@ -1,123 +1,125 @@
 # d-nd-seed
 
-A cognitive system for AI coders. Open source.
+Your AI coder starts every session from zero. It forgets what it learned, repeats mistakes, loses context when the window compacts. You tell it the same things over and over.
 
-## What it contains
+This seed fixes that.
 
-A repository with hooks, skills, safety guards, and context persistence templates. You install it in your project. The AI coder reads it and configures itself.
+Install it in your project. The AI coder reads it and configures itself with hooks, memory, safety guards, and skills. What it learns persists. What it breaks, it catches first. When context compacts, it recovers.
 
-Works with Claude Code, Cursor, Copilot, Gemini, or any AI coder that reads project files.
+Works with Claude Code, Cursor, Copilot, Gemini, and any AI coder that reads project files.
 
-**If you are an AI in a chat session** (Claude.ai, ChatGPT, Gemini): start with [CHAT_START.md](CHAT_START.md). It tells you what to take and how to present it to your user.
+## What changes after installation
 
-**If you are an AI coder** (Claude Code, Cursor, Copilot): start with [GUIDE.md](GUIDE.md). It contains the full map of this repository, initial setup instructions, and a pre-setup discovery procedure to understand the host environment before configuring.
+| Before | After |
+|--------|-------|
+| Starts from zero every session | Reads persistent memory, knows where it left off |
+| Makes destructive mistakes silently | Safety guard catches 9 dangerous patterns before execution |
+| Loses everything on context compaction | Pre-compact captures state, post-compact restores it |
+| No structure for complex decisions | 103 skills for reasoning, evaluation, self-improvement |
+| You remind it of project conventions | CLAUDE.md + hooks enforce them automatically |
 
-**Hooks** (17 templates):
-
-Safety guard, system awareness, session monitor, pre/post compact, skill health check, pattern decay, sinapsi polling, cascade check, context awareness, and more. Each hook carries its own eval tests.
-
-**Skills:**
-- 17 plugin skills (eval, dream, autoresearch, auto-learn, CEC, propagator, sinapsi, and more)
-- 42 skills for AI coding agents
-- 44 bilingual skills for Chat AI (Claude.ai, ChatGPT, Gemini)
-
-## Architecture
-
-```
-d-nd-seed/
-├── GUIDE.md                      # AI entry point — map, setup, manual
-├── install.sh                    # Parametric installer
-├── profiles/                     # Deployment configurations
-│   └── example.json              #   Starter profile
-├── templates/                    # Hook & skill templates
-│   ├── hooks/                    #   17 hook templates (.sh.tmpl)
-│   └── skills/                   #   Installable skill templates
-├── skills/                       # Cognitive catalog
-│   ├── coder/                    #   42 skills for AI coding agents
-│   └── thinker/                  #   44 bilingual skills for Chat AI
-├── kernels/                      # Cognitive system prompts (base, coder)
-├── plugins/
-│   ├── d-nd-core/                #   Core plugin (safety, awareness, Sinapsi)
-│   └── godel/                    #   Inverted oracle — det=-1 cognitive filter
-│       ├── bridge.js             #     HTTP server with dual-layer memory
-│       ├── setup.js              #     Auto-configuration for any domain
-│       ├── ask.js                #     CLI/module helper
-│       ├── IDENTITY.md.tmpl      #     System prompt template
-│       └── examples/             #     Pre-built configs (sales, research, finance)
-├── scripts/                      # Maintenance tooling
-├── LICENSE                       # AGPL-3.0
-└── README.md
-```
-
-## Quick Start
+## Quick start
 
 ```bash
 git clone https://github.com/GrazianoGuiducci/d-nd-seed.git
 cd d-nd-seed
 
-# See available profiles
-./install.sh
-
-# Install with a profile
-./install.sh profiles/example.json
-
-# Dry run (preview without writing)
+# Preview what will be generated
 ./install.sh profiles/example.json --dry-run
+
+# Install
+./install.sh profiles/example.json
 ```
+
+The installer reads your profile, adapts the templates, writes the configuration. Three files minimum: `CLAUDE.md` (identity), `settings.json` (hooks), `MEMORY.md` (persistent memory). Everything else is optional.
+
+## What is inside
+
+**17 hook templates** that fire automatically:
+
+| Hook | When | What it does |
+|------|------|-------------|
+| Safety Guard | Before every edit/command | Catches destructive operations before they execute |
+| System Awareness | Session start | Scans repos, git state, API health, unread messages |
+| Session Monitor | Every tool call | Tracks boot compliance, guards memory writes, periodic reminders |
+| Pre/Post Compact | Context compaction | Captures essential state before, restores it after |
+| Cascade Check | After modifications | Asks: who else in the system needs to know? |
+| Skill Health | Session start | Verifies skills have tests and triggers don't overlap |
+
+Each hook carries its own eval tests. You can verify they work.
+
+**103 skills** across three categories:
+
+| Category | Count | For |
+|----------|-------|-----|
+| Plugin skills | 17 | eval, dream, auto-learn, CEC, propagation, self-setup |
+| Coder skills | 42 | Architecture, testing, debugging, deployment, review |
+| Thinker skills | 44 | Reasoning, analysis, strategy (bilingual IT/EN, for Chat AI) |
+
+**Cognitive kernels** — system prompts that shape how the AI thinks:
+
+- `kernel_base` — observe, relate, emerge, integrate
+- `kernel_coder` — safety, reversibility, multi-repo awareness, verification before assertion
+
+**Godel plugin** — an inverted oracle. It does not answer questions. It inverts assumptions. You give it a tension, it shows you what you were hiding. Pre-built configurations for sales, research, finance.
 
 ## Profiles
 
-A profile describes your environment:
+A profile describes your environment. The installer uses it to generate everything:
 
 ```json
 {
   "node_id": "MY_NODE",
-  "description": "My development workstation",
-  "project_dir": "/path/to/my/project",
+  "project_dir": "/path/to/project",
   "repos": [
     { "name": "my-app", "path": "my-app", "branch": "main" }
   ]
 }
 ```
 
-| Field | Required | Description |
-|-------|----------|-------------|
-| `node_id` | Yes | Identifier for this node |
-| `project_dir` | Yes | Absolute path to your project root |
-| `repos` | Yes | List of git repos to monitor |
+Optional: `vps_url`, `godel` config, `sinapsi_for` (inter-node messaging). See `profiles/example.json`.
 
 ## How it works
 
-The seed follows a Lagrangian principle: not everything has the same informational weight. When context compaction happens, only essential state variables survive.
+Hooks fire at the right moments. You do not invoke them.
 
-1. **Pre-compact** captures git state, task momentum, semantic tags
-2. **Post-compact** restores the snapshot, reasoning chains, recovery instructions
-3. **System awareness** provides repo health, API status, unread messages
-4. **Skills** provide specialized cognitive capabilities for different domains
+At session start, the system scans your repos and tells the AI what changed. Before every tool call, the safety guard checks for destructive patterns. When context compacts, the pre-compact hook captures the reasoning state — what you were doing, why, what was next. The post-compact hook restores it.
 
-The hooks fire automatically via the AI coder's hook system. No manual intervention needed.
+Skills activate when the context requires them. The AI evaluates its own skills (`/eval`), consolidates its memory (`/dream`), learns from its mistakes (`/auto-learn`). Every skill carries its own tests.
 
-The seed grows in the host system. It adapts to the local context and maintains itself.
+The seed adapts to the host. It reads the environment, generates configuration for it, then the configuration maintains itself. The seed file is no longer needed — it became the system it generated.
 
-## Qualities
+## Architecture
 
-Each quality of the system is documented. The pages describe what the seed does in that area, with examples and source code references.
+```
+d-nd-seed/
+├── GUIDE.md              # AI reads this first — full map + setup procedure
+├── install.sh            # Parametric installer (reads profile, writes config)
+├── profiles/             # Environment configurations
+├── templates/
+│   ├── hooks/            # 17 hook templates (.sh.tmpl, parametric)
+│   └── skills/           # Installable skill templates
+├── skills/
+│   ├── coder/            # 42 skills for coding agents
+│   └── thinker/          # 44 bilingual skills for chat AI
+├── kernels/              # Cognitive system prompts (base, coder)
+├── plugins/
+│   ├── d-nd-core/        # Core: safety, awareness, inter-node messaging
+│   └── godel/            # Inverted oracle with domain configurations
+├── docs/                 # 13 operational guides
+└── scripts/              # Maintenance tools
+```
 
-| Quality | What it does | Code | Learn more |
-|---------|-------------|------|------------|
-| **Safety** | Intercepts 9 destructive patterns before execution | [templates/hooks/](templates/hooks/) | [seed.d-nd.com/safety](https://seed.d-nd.com/modules/safety-guard.html) |
-| **Persistence** | Captures state before compaction, restores it after | [templates/hooks/](templates/hooks/) | [seed.d-nd.com/persistence](https://seed.d-nd.com/modules/context-persistence.html) |
-| **Awareness** | Scans repos, APIs, messages at session start | [templates/hooks/](templates/hooks/) | [seed.d-nd.com/awareness](https://seed.d-nd.com/modules/system-awareness.html) |
-| **Memory** | Flat, self-organizing memory with crystallization test | [templates/](templates/) | [seed.d-nd.com/memory](https://seed.d-nd.com/modules/memory-system.html) |
-| **Cognition** | 59 skills across 11 clusters for structured reasoning | [skills/](skills/) | [seed.d-nd.com/skills](https://seed.d-nd.com/modules/skills-pack.html) |
-| **Continuity** | Preserves causal chains and reasoning across sessions | [templates/](templates/) | [seed.d-nd.com/anamnesis](https://seed.d-nd.com/modules/anamnesis.html) |
-| **Inversion** | Godel — cognitive filter that inverts tensions into insights (det=-1) | [plugins/godel/](plugins/godel/) | [d-nd.com/godel](https://d-nd.com/godel) |
-| **Identity** | The D-ND model: every concept is a dipole, every output a resultant | — | [seed.d-nd.com/identity](https://seed.d-nd.com/modules/framework.html) |
+## For AI in a chat session
 
-## Part of the D-ND ecosystem
+If you are using Claude.ai, ChatGPT, or Gemini (not a coding agent): start with [CHAT_START.md](CHAT_START.md). It contains the skills and instructions adapted for conversation.
 
-- [seed.d-nd.com](https://seed.d-nd.com) — Overview and documentation
-- [d-nd.com](https://d-nd.com) — D-ND framework and research
+## Part of D-ND
+
+D-ND (Dual-Non-Dual) is the framework behind this seed. The mathematical model, the research, and the tools live at [d-nd.com](https://d-nd.com).
+
+- [seed.d-nd.com](https://seed.d-nd.com) — Seed documentation
+- [d-nd.com](https://d-nd.com) — Framework and research
 - [d-nd.com/laboratorio](https://d-nd.com/laboratorio) — Live research data
 - [EXAMINA](https://github.com/GrazianoGuiducci/EXAMINA) — Evolutionary evaluation
 - [anamnesis](https://github.com/GrazianoGuiducci/anamnesis) — Context persistence specification

@@ -1,0 +1,43 @@
+# d-nd-seed
+
+> A cognitive system for AI coders. Hooks, skills, memory, safety guards. Install it in your project — the AI coder reads it and configures itself.
+
+## What it does
+
+- Persistent memory across sessions (survives context compaction)
+- Safety guard that catches destructive operations before execution
+- System awareness at session start (repo state, API health, messages)
+- 103 skills: 17 plugin, 42 for coding agents, 44 for chat AI (bilingual)
+- Cognitive kernels that shape how the AI thinks (not just what it does)
+- Godel plugin: inverted oracle that reveals hidden assumptions
+- Parametric installer with profiles for different environments
+
+## Quick start
+
+```
+git clone https://github.com/GrazianoGuiducci/d-nd-seed.git
+cd d-nd-seed
+./install.sh profiles/example.json
+```
+
+## Key files
+
+- GUIDE.md — AI entry point (map, setup, manual)
+- install.sh — Parametric installer
+- templates/hooks/ — 17 hook templates
+- skills/coder/ — 42 coding agent skills
+- skills/thinker/ — 44 chat AI skills (IT/EN)
+- kernels/ — Cognitive system prompts
+- plugins/godel/ — Inverted oracle with domain configs
+- plugins/d-nd-core/ — Core plugin (safety, awareness, messaging)
+- docs/ — 13 operational guides
+
+## Works with
+
+Claude Code, Cursor, Copilot, Gemini, and any AI coder that reads project files.
+
+## Links
+
+- https://seed.d-nd.com — Documentation
+- https://d-nd.com — D-ND framework and research
+- https://github.com/GrazianoGuiducci/d-nd-seed — This repository
