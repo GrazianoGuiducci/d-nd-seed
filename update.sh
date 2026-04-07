@@ -48,19 +48,32 @@ for tmpl in "$SEED_DIR"/templates/hooks/*.tmpl; do
     name=$(basename "$tmpl" .tmpl)
     target="$PROJECT_DIR/.claude/hooks/$name"
 
+    # Instantiate template variables if profile exists
+    instantiate() {
+        local content="$1"
+        if [ -f "$PROJECT_DIR/.claude/seed_profile.json" ]; then
+            local pdir=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$PROJECT_DIR/.claude/seed_profile.json','utf8')).project_dir||'.')" 2>/dev/null || echo "$PROJECT_DIR")
+            local nid=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$PROJECT_DIR/.claude/seed_profile.json','utf8')).node_id||'UNKNOWN')" 2>/dev/null || echo "UNKNOWN")
+            content=$(echo "$content" | sed "s|{{PROJECT_DIR}}|$pdir|g; s|{{NODE_ID}}|$nid|g")
+        fi
+        echo "$content"
+    }
+
     if [ ! -f "$target" ]; then
         echo "  + $name (new)"
-        cp "$tmpl" "$target"
+        instantiate "$(cat "$tmpl")" > "$target"
         chmod +x "$target" 2>/dev/null
         ADDED=$((ADDED + 1))
     elif [ "$tmpl" -nt "$target" ]; then
         # Template is newer — check if user modified the target
         if git -C "$PROJECT_DIR" diff --quiet -- ".claude/hooks/$name" 2>/dev/null; then
             echo "  ~ $name (updated)"
-            cp "$tmpl" "$target"
+            instantiate "$(cat "$tmpl")" > "$target"
             UPDATED=$((UPDATED + 1))
         else
             echo "  . $name (skipped — user modified)"
+            cp "$tmpl" "${target}.new"
+            echo "    → saved as ${name}.new for manual review"
             SKIPPED=$((SKIPPED + 1))
         fi
     fi

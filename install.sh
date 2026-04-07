@@ -19,14 +19,20 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROFILE="$1"
 DRY_RUN=""
 
-if [ "$2" = "--dry-run" ]; then
-    DRY_RUN="true"
-fi
+UPDATE_MODE=""
+for arg in "$@"; do
+    [ "$arg" = "--dry-run" ] && DRY_RUN="true"
+    [ "$arg" = "--update" ] && UPDATE_MODE="true"
+done
 
 if [ -z "$PROFILE" ]; then
     echo "D-ND Seed Installer"
     echo ""
-    echo "Usage: ./install.sh <profile.json> [--dry-run]"
+    echo "Usage: ./install.sh <profile.json> [--dry-run] [--update]"
+    echo ""
+    echo "  --dry-run   Show what would be written without changing anything"
+    echo "  --update    Only add NEW files. Existing files are preserved."
+    echo "              Changed files are saved as .new for manual review."
     echo ""
     echo "Available profiles:"
     ls -1 "$SCRIPT_DIR/profiles/"*.json 2>/dev/null | while read f; do
@@ -229,11 +235,29 @@ apply_template() {
     CONTENT=$(echo "$CONTENT" | sed "s|{{PRIMARY_REPOS}}|$PRIMARY_REPOS|g")
 
     if [ -n "$DRY_RUN" ]; then
-        echo "  [DRY-RUN] Would write: $OUTPUT_FILE"
+        if [ -f "$OUTPUT_FILE" ]; then
+            echo "  [DRY-RUN] EXISTS: $OUTPUT_FILE (would skip in --update)"
+        else
+            echo "  [DRY-RUN] NEW: $OUTPUT_FILE"
+        fi
         return
     fi
 
     mkdir -p "$(dirname "$OUTPUT_FILE")"
+
+    # In update mode: don't overwrite existing files — save as .new
+    if [ -n "$UPDATE_MODE" ] && [ -f "$OUTPUT_FILE" ]; then
+        # Check if content is different
+        EXISTING=$(cat "$OUTPUT_FILE")
+        if [ "$EXISTING" = "$CONTENT" ]; then
+            echo "  SAME: $OUTPUT_FILE (unchanged)"
+        else
+            echo "$CONTENT" > "${OUTPUT_FILE}.new"
+            echo "  UPDATE: ${OUTPUT_FILE}.new (review and merge manually)"
+        fi
+        return
+    fi
+
     echo "$CONTENT" > "$OUTPUT_FILE"
     echo "  OK: $OUTPUT_FILE"
 }
@@ -389,6 +413,12 @@ if [ -n "$GODEL_ENABLED" ]; then
 else
     echo ""
     echo "SKIP: Godel plugin (add 'godel.enabled: true' to profile to install)"
+fi
+
+# --- Save profile reference for update.sh ---
+if [ -z "$DRY_RUN" ]; then
+    cp "$PROFILE" "$TARGET/seed_profile.json" 2>/dev/null
+    echo "Profile saved to $TARGET/seed_profile.json (for update.sh)."
 fi
 
 # --- Set permissions ---
