@@ -1,0 +1,26 @@
+{
+  "_doc": "Awareness context for this project. Read by the CEA hook when this zone is active.",
+  "zone": "{{ZONE_NAME}}",
+  "boot": {
+    "script": "scripts/boot_check.sh",
+    "description": "Shows project status: last run, errors, key state"
+  },
+  "test": {
+    "script": "scripts/test.sh",
+    "description": "The only valid test before declaring ready"
+  },
+  "context_files": [
+    {"path": "docs/STATE.md", "what": "Current project state and direction"},
+    {"path": "CLAUDE.md", "what": "Project identity, conventions, guardrails"}
+  ],
+  "anti_patterns": [
+    "Don't test in your own environment and declare ready — use the project's test script",
+    "Don't modify core logic without running the test suite",
+    "Don't assume state from memory — verify from the actual files"
+  ],
+  "before_any_change": [
+    "Run the boot script to see real state",
+    "After modifying, run the test script",
+    "If the test doesn't pass, don't commit"
+  ]
+}

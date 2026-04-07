@@ -50,17 +50,19 @@
         ]
       }
     ],
-    "PostToolUse": [
+    "UserPromptSubmit": [
       {
         "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/context_awareness.sh\"",
-            "timeout": 3000
+            "command": "bash \"{{PROJECT_DIR}}/.claude/hooks/cea_hook.sh\"",
+            "timeout": 5000
           }
         ]
-      },
+      }
+    ],
+    "PostToolUse": [
       {
         "matcher": "Write",
         "hooks": [

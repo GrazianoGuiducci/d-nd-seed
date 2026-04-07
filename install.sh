@@ -322,6 +322,11 @@ apply_template "$SCRIPT_DIR/templates/hooks/statusline_bridge.sh.tmpl" "$TARGET/
 # context_awareness.sh
 apply_template "$SCRIPT_DIR/templates/hooks/context_awareness.sh.tmpl" "$TARGET/hooks/context_awareness.sh"
 
+# cea_hook.sh + awareness templates
+apply_template "$SCRIPT_DIR/templates/hooks/cea_hook.sh.tmpl" "$TARGET/hooks/cea_hook.sh"
+apply_template "$SCRIPT_DIR/templates/awareness.json.tmpl" "$TARGET/hooks/awareness.json.example"
+apply_template "$SCRIPT_DIR/templates/awareness_map.json.tmpl" "$TARGET/hooks/awareness_map.json.example"
+
 # share_reflex.sh
 apply_template "$SCRIPT_DIR/templates/hooks/share_reflex.sh.tmpl" "$TARGET/hooks/share_reflex.sh"
 

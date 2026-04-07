@@ -1,0 +1,137 @@
+#!/bin/bash
+# CEA Hook — Cognitive Exponential Awareness (autological)
+#
+# Fires on UserPromptSubmit. Context-aware awareness injection.
+#
+# PATTERN: each project carries an awareness.json with its own boot
+# instructions. The hook finds it, reads it, runs the boot if present.
+# Context is not hardcoded here — it comes from the projects.
+#
+# Awareness resolution:
+# 1. Keyword in prompt -> zone map -> awareness.json of the project
+# 2. Fallback: always-on checks (dirty repos, reminders)
+
+COUNT_FILE="/tmp/cea_hook_count"
+
+# Fire every 5th prompt
+count=$(cat "$COUNT_FILE" 2>/dev/null || echo 0)
+count=$((count + 1))
+echo "$count" > "$COUNT_FILE"
+[ $((count % 5)) -ne 0 ] && exit 0
+
+output=""
+
+# ─── AWARENESS RESOLUTION ─────────────────────────────────
+# Each project with awareness.json registers its own context.
+# The hook finds the most relevant one.
+
+# Read user prompt from stdin
+user_input=$(cat 2>/dev/null || echo "")
+
+# Load awareness map from config if it exists
+AWARENESS_CONFIG="{{PROJECT_DIR}}/.claude/hooks/awareness_map.json"
+awareness_file=""
+
+if [ -f "$AWARENESS_CONFIG" ]; then
+    # awareness_map.json maps keywords to awareness.json paths
+    # Format: {"keywords": {"lab": "/path/to/awareness.json", ...}}
+    detected_path=$(python3 -c "
+import json, sys
+config = json.load(open('$AWARENESS_CONFIG'))
+keywords = config.get('keywords', {})
+prompt = '''$user_input'''.lower()
+for kw, path in keywords.items():
+    if kw.lower() in prompt:
+        print(path)
+        sys.exit(0)
+" 2>/dev/null)
+    if [ -n "$detected_path" ] && [ -f "$detected_path" ]; then
+        awareness_file="$detected_path"
+    fi
+fi
+
+# Fallback: check for awareness.json in the current project
+if [ -z "$awareness_file" ] && [ -f "{{PROJECT_DIR}}/awareness.json" ]; then
+    awareness_file="{{PROJECT_DIR}}/awareness.json"
+fi
+
+# ─── AWARENESS INJECTION ─────────────────────────────────
+
+if [ -n "$awareness_file" ]; then
+    # Read zone name
+    zone_name=$(python3 -c "import json; print(json.load(open('$awareness_file')).get('zone','?'))" 2>/dev/null || echo "?")
+    output="$output\n[CEA-ZONE: $zone_name — awareness auto-loaded]"
+
+    # Run boot script if present
+    boot_script=$(python3 -c "import json; print(json.load(open('$awareness_file')).get('boot',{}).get('script',''))" 2>/dev/null)
+    if [ -n "$boot_script" ]; then
+        project_root=$(dirname "$awareness_file")
+        boot_path="$project_root/$boot_script"
+        if [ -f "$boot_path" ]; then
+            BOOT_OUT=$(bash "$boot_path" 2>/dev/null | head -8)
+            if [ -n "$BOOT_OUT" ]; then
+                output="$output\n  STATUS:"
+                while IFS= read -r line; do
+                    output="$output\n  $line"
+                done <<< "$BOOT_OUT"
+            fi
+        fi
+    fi
+
+    # Before-any-change reminders
+    anti_patterns=$(python3 -c "
+import json
+a = json.load(open('$awareness_file'))
+steps = a.get('before_any_change', [])
+for s in steps[:3]:
+    print(f'  {s}')
+" 2>/dev/null)
+    if [ -n "$anti_patterns" ]; then
+        output="$output\n  BEFORE MODIFYING:"
+        while IFS= read -r line; do
+            output="$output\n  $line"
+        done <<< "$anti_patterns"
+    fi
+fi
+
+# ─── ALWAYS-ON CHECKS ─────────────────────────────────
+
+# Dirty repos check
+if [ -d "{{PROJECT_DIR}}/.git" ]; then
+    dirty=$(cd "{{PROJECT_DIR}}" && git status --short 2>/dev/null | wc -l)
+    if [ "$dirty" -gt 5 ]; then
+        name=$(basename "{{PROJECT_DIR}}")
+        output="$output\n[CEA] $name: $dirty uncommitted files."
+    fi
+fi
+
+# Core reminder (rotates)
+reminders=(
+    "Before acting: what is the right question? The meta-question often contains the answer."
+    "Territory, not map. Have you verified what you're about to assert?"
+    "If building more than reading, stop. Observe first."
+    "After every modification: cascade. What else needs to change?"
+    "Same approach three times? Switch. You might be looping."
+    "What's the resultant? One sentence. If you can't compress it, you're expanding."
+)
+idx=$((count / 5 % ${#reminders[@]}))
+output="$output\n[CEA] ${reminders[$idx]}"
+
+# Output
+if [ -n "$output" ]; then
+    echo -e "$output"
+fi
+
+# ============================================================================
+## Eval
+# ============================================================================
+
+## Trigger Tests
+# UserPromptSubmit (every 5th) -> activates
+
+## Fidelity Tests
+# Given awareness_map.json with keyword "lab" -> resolves awareness.json, runs boot
+# Given no map but project awareness.json exists -> uses it as fallback
+# Given no awareness.json anywhere -> only always-on checks fire
+# Throttled: only fires every 5th prompt
+# Always exits 0
