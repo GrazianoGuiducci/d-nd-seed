@@ -112,6 +112,10 @@ d-nd-seed/
 └── scripts/              # Maintenance tools
 ```
 
+## Upgrading
+
+If you're running a previous version, see [UPGRADING.md](UPGRADING.md) for breaking changes and migration steps.
+
 ## How the system works at maturity
 
 The seed installs the structure. What grows from it is described in [OPERATIONAL_MATURITY.md](docs/OPERATIONAL_MATURITY.md) — how the system thinks, protects itself, and evolves after installation. Seven patterns that transfer across any node.
