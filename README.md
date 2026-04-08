@@ -110,6 +110,10 @@ d-nd-seed/
 └── scripts/              # Maintenance tools
 ```
 
+## How the system works at maturity
+
+The seed installs the structure. What grows from it is described in [OPERATIONAL_MATURITY.md](docs/OPERATIONAL_MATURITY.md) — how the system thinks, protects itself, and evolves after installation. Seven patterns that transfer across any node.
+
 ## For AI in a chat session
 
 If you are using Claude.ai, ChatGPT, or Gemini (not a coding agent): start with [CHAT_START.md](CHAT_START.md). It contains the skills and instructions adapted for conversation.
