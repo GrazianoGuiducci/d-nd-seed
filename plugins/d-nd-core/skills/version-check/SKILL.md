@@ -31,13 +31,13 @@ The system_awareness hook reports Claude Code version at session start. If you s
 
 | Claude Code Feature | D-ND Relevance | Current status |
 |--------------------|--------------------|----------------|
-| HTTP hooks | Could replace shell hooks for Sinapsi | Not yet used |
-| Agent worktree isolation | TM3 experimental branches | Available |
+| HTTP hooks | Could replace shell hooks for node messaging | Not yet used |
+| Agent worktree isolation | Experimental branches per node | Available |
 | Fast mode 1M context | Full context in fast mode | Available |
-| Background agents | TM3-style async work | Available |
+| Background agents | Async work across nodes | Available |
 | Plugin marketplace | Public seed distribution | Ready to use |
 | Auto-memory | Supplements our MEMORY.md system | Active |
-| /simplify command | Post-TM3 code review | Available |
+| /simplify command | Post-session code review | Available |
 | MCP servers | External tool connections | Available |
 
 ## After assessment

@@ -124,9 +124,9 @@
       "color": "indigo",
       "skills": [
         { "id": "siteman", "name": "Site Manager", "desc": "Manages site content, pages, structure", "desc_it": "Gestisce contenuto sito, pagine, struttura", "universal": false },
-        { "id": "siteman_bridge", "name": "Operational Bridge", "desc": "Operational bridge to Siteman CMS", "desc_it": "Ponte operativo verso Siteman CMS", "universal": false },
+        { "id": "siteman_bridge", "name": "Operational Bridge", "desc": "Operational bridge to a CMS backend", "desc_it": "Ponte operativo verso un CMS backend", "universal": false },
         { "id": "publisher", "name": "Content Publisher", "desc": "Publishes content to blogs and platforms", "desc_it": "Pubblica contenuto su blog e piattaforme", "universal": false },
-        { "id": "design_dnd", "name": "Visual Director", "desc": "Leads design and UX for d-nd.com", "desc_it": "Dirige design e UX per d-nd.com", "universal": false }
+        { "id": "design_dnd", "name": "Visual Director", "desc": "Leads design and UX for the project site", "desc_it": "Dirige design e UX per il sito del progetto", "universal": false }
       ]
     },
     "coordination": {
@@ -137,7 +137,7 @@
       "color": "orange",
       "skills": [
         { "id": "dev_delegate", "name": "Dev Delegate", "desc": "Mediates development between operator and distributed nodes", "desc_it": "Media lo sviluppo tra operatore e nodi distribuiti", "universal": false },
-        { "id": "thia_node_ops", "name": "Trilateral Protocol", "desc": "Operator-THIA-TM3 coordination", "desc_it": "Coordinamento Operatore-THIA-TM3", "universal": false },
+        { "id": "trilateral_ops", "name": "Trilateral Protocol", "desc": "Operator-System-DevNode coordination", "desc_it": "Coordinamento Operatore-Sistema-NodoDev", "universal": false },
         { "id": "field_awareness", "name": "Field Awareness", "desc": "Maintains awareness of field state across nodes", "desc_it": "Mantiene consapevolezza dello stato del campo tra i nodi", "universal": true },
         { "id": "taskmaster", "name": "Task Master", "desc": "Task as living object — state, deadline, verification", "desc_it": "Task come oggetto vivo — stato, scadenza, verifica", "universal": true }
       ]

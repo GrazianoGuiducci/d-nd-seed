@@ -5,15 +5,15 @@ description: Integrate research functions from a model layer into operational pa
 
 # Integrate Pattern — From Research to Operations
 
-When the research layer (MM_D-ND, TM3 model work, or any source of formalized functions)
+When the research layer (model work, formalization projects, or any source of formalized functions)
 produces something new, this procedure converts it into an operational pattern
 that the node can use in its own work.
 
 ## When this triggers
 
-- system_awareness.sh reports new MM_D-ND commits not yet integrated
+- system_awareness.sh reports new research repo commits not yet integrated
 - The operator says "integra", "converti", "porta qui"
-- A Sinapsi message from TM3 contains a new function or formalization
+- A message from another node contains a new function or formalization
 
 ## The procedure
 
@@ -121,7 +121,7 @@ The cycle: research produces functions → node integrates → procedure refines
 ## What NOT to do
 
 - Do NOT copy the source function verbatim — extract the pattern
-- Do NOT leave the pattern pointing at the source ("TM3's tool") — it's yours now
+- Do NOT leave the pattern pointing at the source ("another node's tool") — it's yours now
 - Do NOT integrate everything — only patterns that are transferable and useful
 - Do NOT skip the marking step — without it, the system loses track of what's integrated
 

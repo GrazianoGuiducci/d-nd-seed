@@ -2,24 +2,24 @@
 # ============================================================================
 # SYSTEM AWARENESS — D-ND Plugin (Parametric)
 # ============================================================================
-# SessionStart hook: scans repos, Sinapsi, VPS health.
+# SessionStart hook: scans repos, messaging, VPS health.
 # Adapts to any TMx node via environment variables.
 #
 # Required env vars:
 #   DND_PROJECT_DIR  — base project directory (auto-detected from cwd if missing)
-#   DND_NODE_ID      — node identity (TM1, TM3, TM5...)
+#   DND_NODE_ID      — node identity (e.g. node-1, node-2, dev, prod...)
 #
 # Optional env vars:
 #   DND_VPS_IP       — VPS IP (default: localhost)
 #   DND_VPS_PORT     — VPS API port (default: 3002)
-#   DND_API_TOKEN    — THIA API token
+#   DND_API_TOKEN    — API authentication token
 #   DND_REPOS        — comma-separated list of "name:path:branch" (auto-detected if missing)
 # ============================================================================
 
 # --- Config ---
 PROJECT_DIR="${DND_PROJECT_DIR:-$(pwd)}"
 NODE_ID="${DND_NODE_ID:-unknown}"
-TOKEN="${DND_API_TOKEN:-${DND_API_TOKEN}}"
+TOKEN="${DND_API_TOKEN:-}"
 VPS_IP="${DND_VPS_IP:-localhost}"
 VPS_PORT="${DND_VPS_PORT:-3002}"
 VPS="http://${VPS_IP}:${VPS_PORT}"
@@ -31,12 +31,12 @@ echo "Timestamp: $(date '+%Y-%m-%d %H:%M:%S')"
 echo "Node: ${NODE_ID} | Base: ${PROJECT_DIR}"
 echo ""
 
-# --- 1. Sinapsi ---
-echo "## Sinapsi (unread for ${NODE_ID})"
-SINAPSI=$(curl -s --max-time 5 "$VPS/api/node-sync?for=${NODE_ID}&unread=true" -H "X-Auth-Token: $TOKEN" 2>/dev/null)
-if [ $? -eq 0 ] && [ -n "$SINAPSI" ]; then
+# --- 1. Messaging ---
+echo "## Messaging (unread for ${NODE_ID})"
+MSG_DATA=$(curl -s --max-time 5 "$VPS/api/node-sync?for=${NODE_ID}&unread=true" -H "X-Auth-Token: $TOKEN" 2>/dev/null)
+if [ $? -eq 0 ] && [ -n "$MSG_DATA" ]; then
     node -e "
-const d=$SINAPSI;
+const d=$MSG_DATA;
 const t=d.total||0;
 const now=Date.now();
 function age(ts){if(!ts)return'?';const m=Math.round((now-new Date(ts).getTime())/60000);if(m<60)return m+'min ago';const h=Math.round(m/60);if(h<24)return h+'h ago';return Math.round(h/24)+'d ago'}
@@ -151,12 +151,12 @@ cat >> "$STATE_FILE" << STATEFOOT
 ## VPS
 - Status: $VPS_STATUS
 
-## Sinapsi
+## Messaging
 STATEFOOT
 
-if [ -n "$SINAPSI" ]; then
-    SIN_COUNT=$(node -e "try{console.log(($SINAPSI).total||0)}catch(e){console.log('?')}" 2>/dev/null)
-    echo "- Unread: $SIN_COUNT" >> "$STATE_FILE"
+if [ -n "$MSG_DATA" ]; then
+    MSG_COUNT=$(node -e "try{console.log(($MSG_DATA).total||0)}catch(e){console.log('?')}" 2>/dev/null)
+    echo "- Unread: $MSG_COUNT" >> "$STATE_FILE"
 else
     echo "- Unreachable" >> "$STATE_FILE"
 fi

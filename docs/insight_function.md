@@ -48,7 +48,7 @@ Non serve un sistema formale. Serve un'abitudine:
 Il potenziale si libera nel movimento. L'insight e' cio' che catturi
 nel momento della liberazione — prima che si riassorba.
 
-## Per il sistema (TMx)
+## Per il sistema (nodi)
 
 Quando il sistema traccia lo stato [noto, ignoto] per un utente:
 - Monitora i salti nel rapporto (delta > 0.3)

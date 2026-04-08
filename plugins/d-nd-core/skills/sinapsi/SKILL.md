@@ -1,9 +1,9 @@
 ---
-name: sinapsi
+name: node-messaging
 description: "Send and receive messages via inter-node communication. Use when you need to communicate with other nodes, check messages, or send task updates."
 ---
 
-# Sinapsi — Inter-Node Communication
+# Node Messaging — Inter-Node Communication
 
 Communicate with other nodes in your distributed system.
 

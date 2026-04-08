@@ -5,7 +5,7 @@
     "email": "gfushion@gmail.com"
   },
   "metadata": {
-    "description": "D-ND Cognitive Seed — Plugin ecosystem for TMx agentic network",
+    "description": "D-ND Cognitive Seed — Plugin ecosystem for agentic AI networks",
     "version": "1.0.0",
     "pluginRoot": "./plugins"
   },
@@ -13,12 +13,12 @@
     {
       "name": "d-nd-core",
       "source": "./plugins/d-nd-core",
-      "description": "Core D-ND plugin: safety hooks, system awareness, Sinapsi communication, compact protection. Parametric — adapts to any TMx node.",
+      "description": "Core D-ND plugin: safety hooks, system awareness, inter-node communication, compact protection. Parametric — adapts to any node.",
       "version": "1.1.0",
       "author": { "name": "Moodnd" },
       "repository": "https://github.com/GrazianoGuiducci/d-nd-seed",
       "license": "AGPL-3.0",
-      "keywords": ["d-nd", "thia", "tmx", "hooks", "safety", "awareness"],
+      "keywords": ["d-nd", "hooks", "safety", "awareness", "agentic"],
       "category": "infrastructure"
     },
     {

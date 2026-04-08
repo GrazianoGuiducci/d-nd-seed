@@ -1,0 +1,24 @@
+{
+  "_comment": "EXAMPLE: Dev/server node on a VPS. Customize for your setup.",
+  "node_id": "DEV",
+  "description": "Example — Dev node on VPS (Linux)",
+  "project_dir": "/opt",
+  "thia_path": "",
+  "memory_path": "",
+  "vps_url": "http://localhost:3000",
+  "sinapsi_for": "DEV",
+  "repos": [
+    {
+      "name": "my-project",
+      "path": "my-project",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": true,
+    "name": "Godel",
+    "domain": "system development",
+    "description": "Architecture, tools, infrastructure",
+    "port": 3004
+  }
+}

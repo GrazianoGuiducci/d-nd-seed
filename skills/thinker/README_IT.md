@@ -104,7 +104,7 @@ Una volta impostato il Kernel e caricate le skill, la skill **kernel-conductor**
 
 | Skill | Ruolo |
 |-------|-------|
-| `taskmaster-sys` | Delegazione intelligente, monitoraggio e ciclo di vita task tra nodi TMx |
+| `taskmaster-sys` | Delegazione intelligente, monitoraggio e ciclo di vita task tra nodi |
 
 ---
 

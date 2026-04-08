@@ -1,4 +1,4 @@
-# Sinapsi Polling — Ascolto Inter-Nodo
+# Inter-Node Polling — Ascolto Inter-Nodo
 
 > Pattern per un nodo AI che ascolta automaticamente i messaggi degli altri nodi.
 > Non richiede webhook in ingresso — il nodo interroga a intervalli regolari.
@@ -26,13 +26,13 @@ In altri sistemi: cron, webhook, event loop — il pattern e' lo stesso.
 
 ```bash
 #!/bin/bash
-# sinapsi_polling.sh — controlla messaggi non letti per questo nodo
+# node_polling.sh — controlla messaggi non letti per questo nodo
 # Aggancia a: UserPromptSubmit, cron, o qualsiasi trigger periodico
 
 NODE_ID="${NODE_ID:-MY_NODE}"
-API_URL="${API_URL:-http://localhost:3002/api/node-sync}"
+API_URL="${API_URL:-http://localhost:3000/api/sync}"
 API_TOKEN="${API_TOKEN:-$(cat /path/to/token)}"
-LAST_CHECK_FILE="/tmp/.sinapsi_last_check_${NODE_ID}"
+LAST_CHECK_FILE="/tmp/.node_poll_last_check_${NODE_ID}"
 MIN_INTERVAL=60  # secondi tra check
 
 # Rate limiting
@@ -53,7 +53,7 @@ RESPONSE=$(curl -s "${API_URL}?for=${NODE_ID}&unread=true&reader=${NODE_ID}" \
 COUNT=$(echo "$RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d.get('messages',[])))" 2>/dev/null || echo "0")
 
 if [ "$COUNT" -gt 0 ]; then
-    echo "[Sinapsi] ${COUNT} messaggi non letti per ${NODE_ID}"
+    echo "[Sync] ${COUNT} messaggi non letti per ${NODE_ID}"
     echo "$RESPONSE" | python3 -c "
 import sys, json
 data = json.load(sys.stdin)
@@ -89,7 +89,7 @@ curl -s -X POST "${API_URL}" \
         "UserPromptSubmit": [
             {
                 "type": "command",
-                "command": "/path/to/sinapsi_polling.sh"
+                "command": "/path/to/node_polling.sh"
             }
         ]
     }

@@ -13,16 +13,18 @@ Run a comprehensive audit across the ecosystem to find gaps and issues.
 Check if all repos are pushed and deployed:
 ```bash
 echo "=== Repo Sync Audit ==="
-for dir in THIA seed-landing WEBSITE/d-nd_com EXAMINA anamnesis d-nd-seed MM_D-ND; do
-    if [ -d "${DND_PROJECT_DIR}/$dir/.git" ]; then
-        cd "${DND_PROJECT_DIR}/$dir"
+# List your project repos here (auto-detected from DND_PROJECT_DIR subdirs with .git)
+for dir in "${DND_PROJECT_DIR}"/*/; do
+    if [ -d "$dir/.git" ]; then
+        name=$(basename "$dir")
+        cd "$dir"
         LOCAL=$(git rev-parse HEAD 2>/dev/null | cut -c1-7)
         REMOTE=$(git rev-parse origin/$(git branch --show-current) 2>/dev/null | cut -c1-7)
         DIRTY=$(git status --porcelain 2>/dev/null | wc -l)
         STATUS="OK"
         [ "$LOCAL" != "$REMOTE" ] && STATUS="UNPUSHED"
         [ "$DIRTY" -gt 0 ] && STATUS="DIRTY($DIRTY)"
-        echo "  $dir: $LOCAL $STATUS"
+        echo "  $name: $LOCAL $STATUS"
     fi
 done
 ```
@@ -31,23 +33,26 @@ done
 Check if VPS matches latest commits:
 ```bash
 echo "=== VPS Deploy Audit ==="
-# THIA: host vs container
+# Adapt: check your deployed service matches local commits
 ssh root@${DND_VPS_IP} "
-    echo 'THIA host:' \$(cd /opt/THIA && git rev-parse --short HEAD)
-    echo 'Container:' \$(docker exec thia-neural-kernel cat /app/package.json 2>/dev/null | grep version || echo 'check manually')
-    echo 'Container health:' \$(curl -s localhost:3002/api/status | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get(\"status\",\"?\"), d.get(\"uptime\",\"?\"))' 2>/dev/null)
+    echo 'Host repo:' \$(cd /opt/project && git rev-parse --short HEAD 2>/dev/null || echo 'N/A')
+    echo 'Container:' \$(docker exec app-container cat /app/package.json 2>/dev/null | grep version || echo 'check manually')
+    echo 'Health:' \$(curl -s localhost:\${DND_VPS_PORT:-3002}/api/status | python3 -c 'import sys,json; d=json.load(sys.stdin); print(d.get(\"status\",\"?\"), d.get(\"uptime\",\"?\"))' 2>/dev/null)
 "
 ```
 
 ### 3. Content Audit
-Check pages, translations, i18n coverage:
+Check pages, translations, i18n coverage (adapt to your content structure):
 ```bash
 echo "=== Content Audit ==="
+# Example: check pages.json for bilingual coverage
+# Adapt the path and field names to your project
 ssh root@${DND_VPS_IP} 'python3 -c "
-import json
-with open(\"/opt/site_repo/data/pages.json\") as f:
+import json, os
+pages_path = os.environ.get(\"DND_PAGES_JSON\", \"/opt/site/data/pages.json\")
+with open(pages_path) as f:
     data = json.load(f)
-pages = data[\"pages\"]
+pages = data.get(\"pages\", [])
 total = len(pages)
 published = sum(1 for p in pages if p.get(\"status\")==\"published\")
 bilingual = sum(1 for p in pages if p.get(\"content_en\") and len(p[\"content_en\"])>100)
@@ -56,7 +61,7 @@ for p in pages:
     ci=len(p.get(\"content\",\"\"))
     ce=len(p.get(\"content_en\",\"\"))
     status=\"OK\" if ci>100 and ce>100 else \"GAP\"
-    print(f\"  [{status}] {p[\"slug\"]} IT:{ci} EN:{ce}\")
+    print(f\"  [{status}] {p.get(\"slug\",\"?\")} IT:{ci} EN:{ce}\")
 "'
 ```
 
@@ -72,12 +77,13 @@ echo "Kernels: $(ls $SEED/kernels/*.md 2>/dev/null | wc -l)"
 echo "Profiles: $(ls $SEED/profiles/*.json 2>/dev/null | wc -l)"
 ```
 
-### 5. Sinapsi Health
-Check inter-node communication:
+### 5. Messaging Health
+Check inter-node communication (if messaging API is configured):
 ```bash
-echo "=== Sinapsi Health ==="
-curl -s "http://${DND_VPS_IP}:${DND_VPS_PORT:-3002}/api/node-sync?unread=true" \
-  -H "X-Auth-Token: ${DND_API_TOKEN}" | python3 -c "
+echo "=== Messaging Health ==="
+if [ -n "${DND_API_TOKEN}" ]; then
+    curl -s "http://${DND_VPS_IP}:${DND_VPS_PORT:-3002}/api/node-sync?unread=true" \
+      -H "X-Auth-Token: ${DND_API_TOKEN}" | python3 -c "
 import sys,json
 msgs = json.load(sys.stdin)
 if isinstance(msgs, list):
@@ -86,7 +92,10 @@ if isinstance(msgs, list):
         print(f'  [{m.get(\"from\",\"?\")}→{m.get(\"to\",\"?\")}] {m.get(\"type\",\"?\")} {str(m.get(\"content\",\"\"))[:60]}')
 else:
     print(f'Response: {msgs}')
-"
+" 2>/dev/null
+else
+    echo "  No messaging API configured (DND_API_TOKEN not set)."
+fi
 ```
 
 ## Output Format

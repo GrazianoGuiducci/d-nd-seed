@@ -31,7 +31,7 @@ As library:
 
 No external dependencies (no numpy). Pure Python.
 
-Author: TM3 + Operatore (D-ND system)
+Author: D-ND project
 """
 
 import json

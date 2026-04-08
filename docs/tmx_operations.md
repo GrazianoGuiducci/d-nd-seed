@@ -1,4 +1,4 @@
-# TMx Operations — From Seed to Working Node
+# Node Operations — From Seed to Working Node
 
 > This guide covers the operational reality of running a D-ND node.
 > It addresses what is implicit, poorly documented, and discovered only by hitting walls.
@@ -127,7 +127,7 @@ Configure commands that execute at every session start:
 **Real use cases:**
 - Re-inject context after compaction (Lagrangian snapshot)
 - Infrastructure health check (Docker, services, APIs)
-- Read unread Sinapsi messages
+- Read unread inter-node messages
 - Heartbeat to central system
 
 ### Compaction (the invisible problem)
@@ -195,21 +195,21 @@ Guards warn, they don't prevent. The responsibility stays with the operator.
 
 ---
 
-## 5. Inter-Node Communication (Sinapsi)
+## 5. Inter-Node Communication
 
 ### What it is
 
-Sinapsi is the real-time communication API between nodes. Every node can read/write messages.
+The messaging API is the real-time communication layer between nodes. Every node can read/write messages.
 
 ### Base pattern
 
 ```bash
 # Read unread messages for your node:
-curl -s "$SINAPSI_URL/api/node-sync?for=$NODE_ID&unread=true&reader=$NODE_ID" \
+curl -s "$SYNC_API_URL/api/sync?for=$NODE_ID&unread=true&reader=$NODE_ID" \
   -H "X-Auth-Token: $TOKEN"
 
 # Send a message:
-curl -s -X POST "$SINAPSI_URL/api/node-sync" \
+curl -s -X POST "$SYNC_API_URL/api/sync" \
   -H "X-Auth-Token: $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"from":"$NODE_ID","to":"TARGET","type":"message","content":"..."}'
@@ -229,7 +229,7 @@ curl -s -X POST "$SINAPSI_URL/api/node-sync" \
 ### Common pitfalls
 
 1. **Token not in env**: API token doesn't load automatically. Pass explicitly or load from `.env`.
-2. **Bridge vs direct curl**: The Bridge auto-posts stdout to Sinapsi. For explicit messages, use curl POST.
+2. **Bridge vs direct curl**: The Bridge auto-posts stdout to the messaging API. For explicit messages, use curl POST.
 3. **Per-node tracking**: Use `reader=$NODE_ID` when reading, so the system tracks who read what.
 4. **Memo type for seeds**: Use `type: memo` for periodic self-checkpoints — it won't trigger automated responses.
 
@@ -276,7 +276,7 @@ Treating "adding new logic" as Auto. It is not. If you're creating a pattern tha
 | Problem | Cause | Solution |
 |---------|-------|----------|
 | curl fails with "Unauthorized" | Token not in env | Load explicitly from .env |
-| Sinapsi messages don't arrive | Bridge not active | Check service status |
+| Inter-node messages don't arrive | Bridge not active | Check service status |
 | Duplicate tasks | Compaction re-triggers | Check "COMPLETED" before executing |
 
 ### Git
@@ -312,7 +312,7 @@ Treating "adding new logic" as Auto. It is not. If you're creating a pattern tha
 2. **Project** -> CLAUDE.md project + local
 3. **Memory** -> Initial MEMORY.md (even just 20 lines: who you are, what you do)
 4. **Hooks** -> SessionStart + PreToolUse + UserPromptSubmit
-5. **Communication** -> Token + Sinapsi test
+5. **Communication** -> Token + messaging API test
 6. **Guards** -> Safety guard + session monitor
 7. **Test** -> Session from scratch, verify everything works
 

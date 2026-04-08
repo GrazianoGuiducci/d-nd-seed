@@ -2,7 +2,7 @@
 
 > This is not a manual. It's a map of what the system becomes when it works.
 > Read this after installing the seed. Return to it when something breaks.
-> Every TMx recreates this in their own context with their own operator.
+> Every node recreates this in their own context with their own operator.
 
 ---
 
@@ -53,7 +53,7 @@ The system that doesn't learn from its mistakes makes them again.
 This is what a mature session looks like:
 
 1. **Boot:** system awareness scans repos, messages, VPS. Identity guard forces reading of condensate + modus + operator voice + boot knowledge.
-2. **Digest:** morning digest shows what accumulated — drafts, videos, lab report, Sinapsi messages.
+2. **Digest:** morning digest shows what accumulated — drafts, videos, lab report, inter-node messages.
 3. **Projection:** if 3+ tensions, the Gyroscope calls the projector. The field shows focus and blind spots.
 4. **Work:** the operator sets direction. The system acts. Cascade check fires after modifications. Safety guard blocks destructive operations.
 5. **Signals:** the Gyroscope accumulates. When thresholds cross — auto-learn fires on errors, propagate fires on content changes, memory reminder fires on long sessions.
@@ -79,7 +79,7 @@ The seed is the starting structure. The system is what grows from it.
 
 ## The Pattern That Transfers
 
-Every TMx has a different operator, different domain, different infrastructure. What transfers is not the configuration — it's the pattern:
+Every node has a different operator, different domain, different infrastructure. What transfers is not the configuration — it's the pattern:
 
 1. **Know who you are before you act** — identity guard
 2. **Accumulate signals, don't react to each one** — gyroscope

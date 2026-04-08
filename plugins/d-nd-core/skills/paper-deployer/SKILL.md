@@ -68,7 +68,7 @@ for p in data[\"pages\"]:
 
 - **Two pages.json files exist on VPS**: `/opt/site_repo/data/pages.json` (served by nginx, authoritative) and `/opt/d-nd_com_site/data/pages.json` (bundled in dist, fallback). Always update site_repo.
 - **Container bind mount**: `/opt/site_repo` is mounted as `/app/site` in the container. They share the same filesystem.
-- **Siteman Consumer**: writes to the same file via bind mount. Preserves all fields on write. Safe.
+- **CMS consumer**: writes to the same file via bind mount. Preserves all fields on write. Safe.
 - **Markdown images in HTML**: The frontend (`PageComponent.tsx`) converts `<p>![alt](src)</p>` to `<figure>` at render time. But prefer proper HTML in source.
 
 $ARGUMENTS

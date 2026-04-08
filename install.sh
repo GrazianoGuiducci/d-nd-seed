@@ -7,7 +7,7 @@
 #
 # Usage:
 #   ./install.sh <profile.json>
-#   ./install.sh profiles/tm1.json
+#   ./install.sh profiles/example-origin-node.json
 #   ./install.sh profiles/example.json --dry-run
 #
 # Requirements: bash, node (for JSON parsing)
@@ -66,10 +66,10 @@ const p = JSON.parse(fs.readFileSync('$(echo "$PROFILE" | sed "s/'/\\\\'/g")','u
 
 console.log('NODE_ID=\"' + (p.node_id || 'UNKNOWN') + '\"');
 console.log('PROJECT_DIR=\"' + (p.project_dir || '.') + '\"');
-console.log('THIA_PATH=\"' + (p.thia_path || '') + '\"');
+console.log('SYSTEM_PATH=\"' + (p.system_path || '') + '\"');
 console.log('MEMORY_PATH=\"' + (p.memory_path || '') + '\"');
 console.log('VPS_URL=\"' + (p.vps_url || '') + '\"');
-console.log('SINAPSI_FOR=\"' + (p.sinapsi_for || '') + '\"');
+console.log('SYNC_FOR=\"' + (p.sync_for || '') + '\"');
 
 // Godel plugin config
 const g = p.godel || {};
@@ -141,12 +141,12 @@ echo ""
 
 TARGET="$PROJECT_DIR/.claude"
 
-# --- Generate Sinapsi block for system_awareness ---
+# --- Generate sync block for system_awareness ---
 SINAPSI_BLOCK=""
 if [ -n "$VPS_URL" ] && [ -n "$SINAPSI_FOR" ]; then
-    SINAPSI_BLOCK="# --- Sinapsi: unread messages ---
-echo \"## Sinapsi (unread for $SINAPSI_FOR)\"
-SINAPSI=\$(curl -s --max-time 5 \"$VPS_URL/api/node-sync?for=$SINAPSI_FOR&unread=true\" -H \"X-Auth-Token: \${THIA_TOKEN:-${DND_API_TOKEN}}\" 2>/dev/null)
+    SINAPSI_BLOCK="# --- Inter-node: unread messages ---
+echo \"## Messages (unread for $SINAPSI_FOR)\"
+SINAPSI=\$(curl -s --max-time 5 \"$VPS_URL/api/sync?for=$SINAPSI_FOR&unread=true\" -H \"X-Auth-Token: \${DND_API_TOKEN}\" 2>/dev/null)
 if [ \$? -eq 0 ] && [ -n \"\$SINAPSI\" ]; then
     node -e \"
 const d=\$SINAPSI;
@@ -169,18 +169,18 @@ EXTRA_HEALTH=""
 if echo "$VPS_URL" | grep -q "localhost"; then
     EXTRA_HEALTH="# --- Docker container health ---
 echo \"## Docker Container\"
-CONTAINER_STATUS=\$(docker ps --filter \"name=thia-neural-kernel\" --format \"{{.Names}}: {{.Status}}\" 2>/dev/null)
+CONTAINER_STATUS=\$(docker ps --filter \"name=\${DND_CONTAINER_NAME:-app}\" --format \"{{.Names}}: {{.Status}}\" 2>/dev/null)
 if [ -n \"\$CONTAINER_STATUS\" ]; then
     echo \"  \$CONTAINER_STATUS\"
 else
-    echo \"  thia-neural-kernel: NOT RUNNING\"
+    echo \"  \${DND_CONTAINER_NAME:-app}: NOT RUNNING\"
 fi
 echo \"\"
 
-# --- TM3 Bridge status ---
-echo \"## TM3 Bridge\"
-BRIDGE_STATUS=\$(systemctl is-active tm3-bridge 2>/dev/null || echo \"unknown\")
-echo \"  tm3-bridge: \$BRIDGE_STATUS\"
+# --- Node Bridge status ---
+echo \"## Node Bridge\"
+BRIDGE_STATUS=\$(systemctl is-active \${DND_BRIDGE_SERVICE:-node-bridge} 2>/dev/null || echo \"unknown\")
+echo \"  \${DND_BRIDGE_SERVICE:-node-bridge}: \$BRIDGE_STATUS\"
 echo \"\""
 fi
 
@@ -189,7 +189,7 @@ if [ -n "$VPS_URL" ]; then
     EXTRA_HEALTH="$EXTRA_HEALTH
 # --- API Health ---
 echo \"## API Health\"
-HEALTH=\$(curl -s --max-time 5 \"$VPS_URL/api/status\" -H \"X-Auth-Token: \${THIA_TOKEN:-${DND_API_TOKEN}}\" 2>/dev/null)
+HEALTH=\$(curl -s --max-time 5 \"$VPS_URL/api/status\" -H \"X-Auth-Token: \${DND_API_TOKEN}\" 2>/dev/null)
 if [ \$? -eq 0 ] && [ -n \"\$HEALTH\" ]; then
     API_STATUS=\$(node -e \"
 const d=\$HEALTH;
@@ -230,7 +230,7 @@ apply_template() {
     # Simple replacements
     CONTENT=$(echo "$CONTENT" | sed "s|{{NODE_ID}}|$NODE_ID|g")
     CONTENT=$(echo "$CONTENT" | sed "s|{{PROJECT_DIR}}|$PROJECT_DIR|g")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{THIA_PATH}}|$THIA_PATH|g")
+    CONTENT=$(echo "$CONTENT" | sed "s|{{SYSTEM_PATH}}|$SYSTEM_PATH|g")
     CONTENT=$(echo "$CONTENT" | sed "s|{{PRIMARY_REPO_PATH}}|$PROJECT_DIR/$PRIMARY_REPO|g")
     CONTENT=$(echo "$CONTENT" | sed "s|{{PRIMARY_REPOS}}|$PRIMARY_REPOS|g")
 
@@ -364,12 +364,8 @@ apply_template "$SCRIPT_DIR/templates/hooks/temporal_awareness.sh.tmpl" "$TARGET
 apply_template "$SCRIPT_DIR/templates/hooks/session_thread.sh.tmpl" "$TARGET/hooks/session_thread.sh"
 apply_template "$SCRIPT_DIR/templates/hooks/thread_task.sh.tmpl" "$TARGET/hooks/thread_task.sh"
 
-# youtube-transcript skill (only if THIA_PATH is set)
-if [ -n "$THIA_PATH" ]; then
-    apply_template "$SCRIPT_DIR/templates/skills/youtube-transcript/SKILL.md.tmpl" "$TARGET/skills/youtube-transcript/SKILL.md"
-else
-    echo "  SKIP: youtube-transcript (no THIA_PATH in profile)"
-fi
+# youtube-transcript skill (optional — requires project path)
+apply_template "$SCRIPT_DIR/templates/skills/youtube-transcript/SKILL.md.tmpl" "$TARGET/skills/youtube-transcript/SKILL.md"
 
 # --- Core skills from seed ---
 echo ""

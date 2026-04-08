@@ -15,10 +15,10 @@ When a YouTube URL appears in the conversation, **always extract the transcript 
 
 ## How to Extract
 
-Run this Node.js command from the THIA directory:
+Run this Node.js command from your project directory:
 
 ```bash
-cd "{{THIA_PATH}}" && node -e "
+cd "{{PROJECT_PATH}}" && node -e "
 const { extractTranscriptWithFallback } = require('./tools/youtube_transcript.js');
 extractTranscriptWithFallback('VIDEO_URL_HERE')
   .then(r => {

@@ -41,7 +41,7 @@ if [ "$TOOL_NAME" = "Bash" ]; then
 
     # Docker restart
     if echo "$COMMAND" | grep -qiE 'docker\s+restart'; then
-        WARNING="CONTAINER RESTART: Il container si riavviera. THIA sara offline per qualche secondo. Sei consapevole?"
+        WARNING="CONTAINER RESTART: Il container si riavviera. Il servizio sara offline per qualche secondo. Sei consapevole?"
     fi
 
     # Modifying .env files
@@ -54,7 +54,7 @@ if [ "$TOOL_NAME" = "Edit" ] || [ "$TOOL_NAME" = "Write" ]; then
     FILE_PATH=$(echo "$TOOL_INPUT" | node -e "const d=JSON.parse(require('fs').readFileSync(0,'utf8')); console.log(d.file_path||'')" 2>/dev/null)
 
     # Critical system files
-    if echo "$FILE_PATH" | grep -qiE 'boot_kthia\.js|COMMANDMENTS\.md|SYSTEM_PROMPT|\.env'; then
+    if echo "$FILE_PATH" | grep -qiE 'COMMANDMENTS\.md|SYSTEM_PROMPT|\.env'; then
         WARNING="CRITICAL FILE: Stai modificando un file core del sistema ($FILE_PATH). Serve conferma operatore."
     fi
 fi

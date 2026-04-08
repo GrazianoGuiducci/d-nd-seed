@@ -115,7 +115,7 @@ Rate limit consigliato: 1 check ogni 5 minuti per non rallentare il flusso.
 ## Adattamento
 
 Il trasporto del trigger puo' essere:
-- API REST (come Sinapsi)
+- API REST (e.g. a messaging/sync endpoint)
 - Messaggio in file condiviso (come COWORK_CHANNEL.md via git)
 - Message queue (Redis, RabbitMQ)
 - Notifica diretta (Telegram, Slack, email)

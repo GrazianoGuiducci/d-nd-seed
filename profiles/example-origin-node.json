@@ -1,0 +1,29 @@
+{
+  "_comment": "EXAMPLE: Origin/primary node on a local workstation. Customize for your setup.",
+  "node_id": "ORIGIN",
+  "description": "Example — Origin node on local workstation",
+  "project_dir": "/path/to/your/project",
+  "thia_path": "",
+  "memory_path": "",
+  "vps_url": "http://${YOUR_VPS_IP}:3000",
+  "sinapsi_for": "ORIGIN",
+  "repos": [
+    {
+      "name": "my-project",
+      "path": "my-project",
+      "branch": "main"
+    },
+    {
+      "name": "my-docs",
+      "path": "docs",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": true,
+    "name": "Godel",
+    "domain": "your-domain/focus-area",
+    "description": "Your domain description",
+    "port": 3004
+  }
+}

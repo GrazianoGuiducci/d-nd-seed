@@ -1,11 +1,10 @@
 ---
-name: geo-seo-sys
+name: geo-seo
 description: "Generative Engine Optimization — AI-SEO Layer Generator. Activate when the user needs to make a website visible to AI crawlers, generate pre-rendered pages, create sitemaps, or optimize content for AI discovery. Works with any SPA or static site."
 triggers: [seo, geo, ai seo, ai crawlers, pre-rendering, sitemap, robots.txt, schema.org, json-ld, ai visibility, bot detection, prerender, ai funnel]
 metadata:
-  author: D-ND
   version: 1.0.0
-  lineage: Derived from d-nd.com AI-SEO implementation (2026-02-28)
+  lineage: Derived from production AI-SEO implementation
 ---
 
 # SKILL: GEO-SEO-SYS (Generative Engine Optimization v1.0)
@@ -155,17 +154,17 @@ organization       → Organization
 
 ## 6. Automation Hook
 This skill should be triggered automatically when:
-- A new page is published (Siteman post-publish hook)
+- A new page is published (CMS post-publish hook)
 - Content is updated in the CMS/pages.json
 - A deploy is executed
 
 The generator script (`generate_ai_pages.py`) is idempotent — safe to run on every deploy.
 
 ## 7. Collaborations
-- Receives content from **siteman** (content management system)
-- Feeds into **architect-sys** for structural analysis of the generated pages
-- Complements **builder-sys** (UI/UX for humans) with AI-facing layer
-- Works with **dev-delegate** for deployment coordination across nodes
+- Receives content from the **content management system** (CMS, JSON files, markdown)
+- Feeds into **architect** for structural analysis of the generated pages
+- Complements **builder** (UI/UX for humans) with AI-facing layer
+- Works with **deploy-pipeline** for deployment coordination
 
 ## 8. Limits and Error Handling
 - This skill generates STATIC files. It does not modify the SPA source code.

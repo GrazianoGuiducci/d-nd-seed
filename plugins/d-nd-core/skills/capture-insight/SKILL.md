@@ -10,7 +10,7 @@ When the operator shares an insight, observation, or strategic thought during a 
 ## Protocol (30 seconds max)
 
 1. **Capture**: Append a 2-3 line note to `memory/brand_voice.md` or relevant memory file
-2. **Route**: If actionable, create a one-line task entry in `memory/backlog.md` or send to TM3 via Sinapsi
+2. **Route**: If actionable, create a one-line task entry in `memory/backlog.md` or send to the relevant node via messaging
 3. **Ack**: Reply "Noted: [1-line summary]. Back to [current task]."
 4. **Continue**: Return immediately to the current work
 
@@ -23,9 +23,9 @@ When the operator shares an insight, observation, or strategic thought during a 
 
 ## Routing rules
 - **Brand/copy/voice** → `brand_voice.md` + backlog if actionable
-- **Technical idea** → backlog + optionally delegate to TM3
+- **Technical idea** → backlog + optionally delegate to another node
 - **Strategic/commercial** → `hub_vision.md` + backlog
-- **Architecture/pattern** → `thia_evolution.md` or CLAUDE.md
+- **Architecture/pattern** → `evolution.md` or CLAUDE.md
 
 The insight will be processed properly in its own dedicated session, not mid-flow.
 

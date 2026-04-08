@@ -5,7 +5,7 @@
 # Detects WHAT you're working on and provides the RIGHT tools.
 # The beehive: the right instrument at the right moment.
 
-TERRITORY_CACHE="/tmp/tm3_territory_cache.json"
+TERRITORY_CACHE="/tmp/dnd_territory_cache.json"
 COUNT_FILE="/tmp/cea_hook_count"
 
 # Fire every 5th prompt
@@ -48,42 +48,38 @@ fi
 
 if [ "$zone" = "diagram" ]; then
     output="$output\n[CEA-ZONE: Diagrammi]"
-    output="$output\n  Studio simbolismo: ${DND_PROJECT_DIR}/research/tools/data/STUDIO_SIMBOLISMO_DND.md"
-    output="$output\n  Diagrammi operatore (dipolo+coni): chiedere all'operatore"
-    output="$output\n  Registry: components/diagrams/PageDiagramRegistry.tsx (13 diagrammi)"
-    output="$output\n  UniversalDiagram: renderizza da spec JSON — non serve componente custom"
-    output="$output\n  Processo: contenuto pagina → CEC → risultante → spec → renderer"
-    output="$output\n  A11: il diagramma nasce con la pagina, non dopo"
+    output="$output\n  Diagram assets: ${DND_PROJECT_DIR}/research/tools/data/"
+    output="$output\n  Universal renderer: renderizza da spec JSON — no custom component needed"
+    output="$output\n  Process: page content → analysis → spec → renderer"
+    output="$output\n  Principle: the diagram is born with the page, not after"
 fi
 
 if [ "$zone" = "content" ]; then
-    output="$output\n[CEA-ZONE: Contenuto]"
-    output="$output\n  COPY_RULES: ${DND_PROJECT_DIR}/docs/core/COPY_RULES.md"
-    output="$output\n  CLAUDE.md sito: ${DND_PROJECT_DIR}/site/CLAUDE.md (tono, struttura, anti-pattern)"
-    output="$output\n  A11: POST /api/pages arricchisce automaticamente (concetti, rilevanza, leads_to)"
-    output="$output\n  Campo vivo: GET /api/campo — sai cosa succede nel sistema"
-    output="$output\n  KG search: GET /api/search?q=... — trova pagine correlate"
-    output="$output\n  Livello omega: pattern, non istanza. Se invecchia in 3 mesi, livello sbagliato."
+    output="$output\n[CEA-ZONE: Content]"
+    output="$output\n  Copy rules: ${DND_PROJECT_DIR}/docs/core/COPY_RULES.md"
+    output="$output\n  Site guide: ${DND_PROJECT_DIR}/site/CLAUDE.md (tone, structure, anti-patterns)"
+    output="$output\n  Content API: POST /api/pages — auto-enriches (concepts, relevance, links)"
+    output="$output\n  Live field: GET /api/campo — system state overview"
+    output="$output\n  Search: GET /api/search?q=... — find related pages"
+    output="$output\n  Omega level: pattern, not instance. If it ages in 3 months, wrong level."
 fi
 
 if [ "$zone" = "research" ]; then
-    output="$output\n[CEA-ZONE: Ricerca]"
-    output="$output\n  Seme corrente: ${DND_PROJECT_DIR}/research/tools/data/seme.json"
-    output="$output\n  Condensato: ${DND_PROJECT_DIR}/research/CONDENSATO.md (A1-A11, F1-F6, C1-C3)"
-    output="$output\n  Strumenti: CEC (:3008), Domandatore, Controprove, Godel (:3004)"
-    output="$output\n  Autoricerca: dnd_autoricerca.py — campo vivo, A11 combo"
-    output="$output\n  Lab data: /data/lab_data.json — 14 domini, traiettoria, multi-scala"
-    output="$output\n  Auto-publish: scripts/auto_publish.py — Lab → pagine con diagramma"
+    output="$output\n[CEA-ZONE: Research]"
+    output="$output\n  Current seed: ${DND_PROJECT_DIR}/research/tools/data/seme.json"
+    output="$output\n  Condensate: ${DND_PROJECT_DIR}/research/CONDENSATO.md"
+    output="$output\n  Tools: CEC, Domandatore, Controprove, Godel (see STRUMENTI.json)"
+    output="$output\n  Lab data: /data/lab_data.json"
+    output="$output\n  Auto-publish: scripts/auto_publish.py — Lab to pages pipeline"
 fi
 
 if [ "$zone" = "infra" ]; then
-    output="$output\n[CEA-ZONE: Infrastruttura]"
-    output="$output\n  ARCHITECTURE: ${DND_PROJECT_DIR}/docs/ARCHITECTURE.md"
-    output="$output\n  CAPABILITY_MANIFEST: ${DND_PROJECT_DIR}/docs/nodes/CAPABILITY_MANIFEST.json"
+    output="$output\n[CEA-ZONE: Infrastructure]"
+    output="$output\n  Architecture: ${DND_PROJECT_DIR}/docs/ARCHITECTURE.md"
+    output="$output\n  Capability manifest: ${DND_PROJECT_DIR}/docs/nodes/CAPABILITY_MANIFEST.json"
     output="$output\n  Deploy: ./deploy.sh hotdeploy <file> (syntax check + copy + restart)"
-    output="$output\n  Site Guardian: scripts/site_guardian.py (auto-fix dopo deploy)"
-    output="$output\n  Webhook: /opt/github-webhook/webhook.js"
-    output="$output\n  pages.json: SEMPRE formato {pages:[], metadata:{}} — mai array puro"
+    output="$output\n  Guardian: scripts/site_guardian.py (auto-fix after deploy)"
+    output="$output\n  Data format: pages.json MUST be {pages:[], metadata:{}} — never bare array"
 fi
 
 # ─── ALWAYS-ON CHECKS ─────────────────────────────────
@@ -96,12 +92,12 @@ if [ -f "$TERRITORY_CACHE" ]; then
     fi
 fi
 
-# Unread Sinapsi
-SINAPSI_CACHE="/tmp/tm3_sinapsi_unread"
-if [ -f "$SINAPSI_CACHE" ]; then
-    unread=$(cat "$SINAPSI_CACHE" 2>/dev/null)
+# Unread messages (inter-node)
+MESSAGING_CACHE="/tmp/dnd_messaging_unread"
+if [ -f "$MESSAGING_CACHE" ]; then
+    unread=$(cat "$MESSAGING_CACHE" 2>/dev/null)
     if [ "$unread" -gt 0 ] 2>/dev/null; then
-        output="$output\n[CEA] $unread unread Sinapsi message(s)."
+        output="$output\n[CEA] $unread unread message(s) from other nodes."
     fi
 fi
 

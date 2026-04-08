@@ -2,7 +2,7 @@
 """
 seed_cycle.py — Generic Seed-Driven Autonomous Decision Engine
 
-Extracted from MM_D-ND tools (dnd_next.py + dipartimento.py) by TM3.
+Adapted from the D-ND research tools.
 Generalized for any project that uses the D-ND seed pattern.
 
 The cycle: load seed -> load sources -> analyze -> decide -> execute -> verify -> update seed

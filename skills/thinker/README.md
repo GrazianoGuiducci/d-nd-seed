@@ -104,7 +104,7 @@ Once the Kernel is set and skills are loaded, the **kernel-conductor** skill aut
 
 | Skill | Role |
 |-------|------|
-| `taskmaster-sys` | Intelligent task delegation, monitoring, and lifecycle across TMx nodes |
+| `taskmaster-sys` | Intelligent task delegation, monitoring, and lifecycle across nodes |
 
 ---
 

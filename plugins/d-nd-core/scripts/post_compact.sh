@@ -3,16 +3,16 @@
 # POST-COMPACT — D-ND Plugin (Parametric)
 # ============================================================================
 # Re-injects Lagrangian context after compaction.
-# Works on any TMx node. Recovers session checkpoints from Sinapsi if configured.
-# Env vars: DND_PROJECT_DIR, DND_NODE_ID, DND_SINAPSI_URL, DND_SINAPSI_TOKEN
+# Works on any node. Recovers session checkpoints from messaging API if configured.
+# Env vars: DND_PROJECT_DIR, DND_NODE_ID, DND_MESSAGING_URL, DND_MESSAGING_TOKEN
 # ============================================================================
 
 PROJECT_DIR="${DND_PROJECT_DIR:-$(pwd)}"
 CONTEXT_FILE="$PROJECT_DIR/.claude/hooks/active_context.md"
 REASONING_FILE="$PROJECT_DIR/.claude/hooks/active_reasoning.md"
 NODE_ID="${DND_NODE_ID:-unknown}"
-SINAPSI_URL="${DND_SINAPSI_URL:-}"
-SINAPSI_TOKEN="${DND_SINAPSI_TOKEN:-}"
+MESSAGING_URL="${DND_MESSAGING_URL:-}"
+MESSAGING_TOKEN="${DND_MESSAGING_TOKEN:-}"
 
 if [ -f "$CONTEXT_FILE" ]; then
     echo "=== LAGRANGIAN CONTEXT RESTORED (${NODE_ID}) ==="
@@ -24,9 +24,9 @@ if [ -f "$CONTEXT_FILE" ]; then
     echo "=== END LAGRANGIAN CONTEXT ==="
     echo ""
 
-    # --- Session Checkpoints from Sinapsi (memo type) ---
-    if [ -n "$SINAPSI_URL" ] && [ -n "$SINAPSI_TOKEN" ]; then
-        MEMO_DATA=$(curl -s --max-time 3 "$SINAPSI_URL?for=$NODE_ID&reader=$NODE_ID" -H "X-Auth-Token: $SINAPSI_TOKEN" 2>/dev/null)
+    # --- Session Checkpoints from messaging API (memo type) ---
+    if [ -n "$MESSAGING_URL" ] && [ -n "$MESSAGING_TOKEN" ]; then
+        MEMO_DATA=$(curl -s --max-time 3 "$MESSAGING_URL?for=$NODE_ID&reader=$NODE_ID" -H "X-Auth-Token: $MESSAGING_TOKEN" 2>/dev/null)
         if [ -n "$MEMO_DATA" ]; then
             MEMO_SUMMARY=$(echo "$MEMO_DATA" | node -e "
 let raw='';
@@ -47,10 +47,10 @@ console.log('=== END CHECKPOINTS ===');
             fi
         fi
 
-        # --- Live Sinapsi check (unread messages) ---
-        LIVE_SINAPSI=$(curl -s --max-time 3 "$SINAPSI_URL?for=$NODE_ID&unread=true&reader=$NODE_ID" -H "X-Auth-Token: $SINAPSI_TOKEN" 2>/dev/null)
-        if [ -n "$LIVE_SINAPSI" ]; then
-            LIVE_SUMMARY=$(echo "$LIVE_SINAPSI" | node -e "
+        # --- Live messaging check (unread messages) ---
+        LIVE_MSGS=$(curl -s --max-time 3 "$MESSAGING_URL?for=$NODE_ID&unread=true&reader=$NODE_ID" -H "X-Auth-Token: $MESSAGING_TOKEN" 2>/dev/null)
+        if [ -n "$LIVE_MSGS" ]; then
+            LIVE_SUMMARY=$(echo "$LIVE_MSGS" | node -e "
 let raw='';
 process.stdin.on('data',c=>raw+=c);
 process.stdin.on('end',()=>{
@@ -64,9 +64,9 @@ else{console.log(t+' unread message(s):');
 })}
 });
 " 2>/dev/null)
-            echo "=== LIVE SINAPSI CHECK ==="
+            echo "=== LIVE MESSAGING CHECK ==="
             echo "$LIVE_SUMMARY"
-            echo "=== END LIVE SINAPSI ==="
+            echo "=== END LIVE MESSAGING ==="
             echo ""
         fi
     fi

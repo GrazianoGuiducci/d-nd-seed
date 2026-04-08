@@ -3,7 +3,7 @@
 session_monitor.py — PreToolUse guard + periodic seed (D-ND Seed)
 
 Gate strutturale su ogni tool call. Generico: funziona su qualsiasi nodo.
-Configurazione via env vars: DND_PROJECT_DIR, DND_NODE_ID, DND_SINAPSI_URL, DND_SINAPSI_TOKEN.
+Configurazione via env vars: DND_PROJECT_DIR, DND_NODE_ID, DND_MESSAGING_URL, DND_MESSAGING_TOKEN.
 
 Layer 1 (riflesso):
   1. QUESTION GUARD: domanda + Edit/Write → blocca
@@ -13,7 +13,7 @@ Layer 1 (riflesso):
 Layer 2 (appreso):
   4. CORRECTION PATTERNS: situazioni che hanno gia' prodotto errori → blocca
 
-Periodic seed: every ~50 tool calls, writes checkpoint to Sinapsi (memo type)
+Periodic seed: every ~50 tool calls, writes checkpoint to messaging API (memo type)
 + local active_reasoning.md file.
 """
 
@@ -26,8 +26,8 @@ from datetime import datetime
 # --- Configuration via environment ---
 PROJECT_DIR = Path(os.environ.get('DND_PROJECT_DIR', os.getcwd()))
 NODE_ID = os.environ.get('DND_NODE_ID', 'unknown')
-SINAPSI_URL = os.environ.get('DND_SINAPSI_URL', '')
-SINAPSI_TOKEN = os.environ.get('DND_SINAPSI_TOKEN', '')
+MESSAGING_URL = os.environ.get('DND_MESSAGING_URL', '')
+MESSAGING_TOKEN = os.environ.get('DND_MESSAGING_TOKEN', '')
 
 HOOKS_DIR = PROJECT_DIR / '.claude' / 'hooks'
 STATE_FILE = HOOKS_DIR / 'monitor_state.json'
@@ -195,8 +195,8 @@ def maybe_save_seed(state):
     if actions:
         content += "\nRecent: " + "; ".join(actions[-5:])
 
-    # Write to Sinapsi as memo (if configured)
-    if SINAPSI_URL and SINAPSI_TOKEN:
+    # Write to messaging API as memo (if configured)
+    if MESSAGING_URL and MESSAGING_TOKEN:
         try:
             import urllib.request
             import ssl
@@ -205,8 +205,8 @@ def maybe_save_seed(state):
                 'from': NODE_ID, 'to': NODE_ID, 'type': 'memo',
                 'content': content
             }).encode()
-            req = urllib.request.Request(SINAPSI_URL, data=body, method='POST',
-                headers={'Content-Type': 'application/json', 'X-Auth-Token': SINAPSI_TOKEN})
+            req = urllib.request.Request(MESSAGING_URL, data=body, method='POST',
+                headers={'Content-Type': 'application/json', 'X-Auth-Token': MESSAGING_TOKEN})
             urllib.request.urlopen(req, timeout=3, context=ctx)
         except Exception:
             pass

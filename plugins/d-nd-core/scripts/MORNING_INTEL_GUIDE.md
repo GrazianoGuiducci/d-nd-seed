@@ -63,9 +63,9 @@ Register in `.claude/settings.json` under `SessionStart` hooks.
 
 | Node Role | Sources | Search Topics |
 |-----------|---------|---------------|
-| **Dev/Siteman** (TM1) | KB entries, pending videos, site health | Claude Code updates, AI frameworks, npm security |
-| **Infrastructure** (TM3) | System health, autoricerca results, git activity | Server security, Docker updates, model releases |
-| **Research** (MM_D-ND) | Journal entries, new tensions, paper status | Related papers, math competitions, physics discoveries |
+| **Dev/Site** | KB entries, pending items, site health | Claude Code updates, AI frameworks, npm security |
+| **Infrastructure** | System health, research results, git activity | Server security, Docker updates, model releases |
+| **Research** | Journal entries, new tensions, paper status | Related papers, domain discoveries |
 | **Client projects** | Client domain news, competitor activity | Industry news, regulation changes |
 
 ## The Principle

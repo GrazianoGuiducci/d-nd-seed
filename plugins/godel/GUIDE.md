@@ -320,10 +320,10 @@ Usare con parsimonia — rischio loop se non c'e' lente.
 
 ---
 
-## Configurazione per TMx — 3 vincoli dall'inversione autologica
+## 3 vincoli dall'inversione autologica
 
 Questi vincoli sono emersi da un'inversione autologica: Godel applicato a Godel
-nel flusso operativo di TM1. Non sono teoria — sono correzioni operative.
+nel flusso operativo. Non sono teoria — sono correzioni operative.
 
 ### 1. Tensione nuda, non contesto arricchito
 
