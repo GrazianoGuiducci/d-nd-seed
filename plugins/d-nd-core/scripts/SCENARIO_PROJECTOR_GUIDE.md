@@ -29,6 +29,18 @@ python scenario_projector.py --json
 
 # Campo dipolare (claim + anti-claim per ogni tensione)
 python scenario_projector.py --field
+
+# Cross-check — verifica strutturale del campo
+python scenario_projector.py --cross-check
+
+# Cross-check su una singola tensione
+python scenario_projector.py --cross-check --tension TENSION_ID
+
+# Strategia — dove concentrare lo sforzo
+python scenario_projector.py --strategy
+
+# Piano d'azione — azioni prioritizzate
+python scenario_projector.py --action-plan
 ```
 
 ## Uso come libreria
@@ -58,6 +70,24 @@ result = sp.explore(verbose=False)
 dipoles = sp.dipole_field()
 ids, matrix = sp.assonance_matrix()
 trajectory = sp.lagrangian_trajectory()
+
+# Cross-check — verifica da più angoli
+checks = sp.cross_check()               # tutto il campo
+checks = sp.cross_check('TENSION_ID')    # singola tensione
+# checks[i] → {id, verdict, is_pillar, support_ratio, contradictions, ...}
+
+# Strategia — dove concentrare lo sforzo
+strat = sp.strategy()
+# strat['focus'] — cluster di convergenza (dove concentrarsi)
+# strat['blind_spots'] — isolati/deboli (cosa potresti perdere)
+# strat['risks'] — anti-claim delle tensioni più connesse
+# strat['leverage'] — pilastri confermati (dove investire)
+# strat['completed'] — saturi (fatto)
+
+# Piano d'azione — azioni prioritizzate
+plan = sp.action_plan()
+# plan['actions'] — lista di azioni con type/what/why/risk/priority
+# plan['summary'] — conteggi per tipo
 ```
 
 ## Formato seme
@@ -93,6 +123,57 @@ che italiane (`tensioni`, `direzione`, `porta`, `stato`).
 | basso | Poche connessioni |
 | isolato | Nessuna connessione |
 | saturo | Risolto (confermato/falsificato) |
+
+## Cross-check — verifica strutturale
+
+Il cross-check verifica ogni tensione da 4 angoli:
+
+1. **Vicinato**: chi risuona con questo dipolo?
+2. **Rimozione**: se tolgo questa tensione, quanto scende la connettività?
+3. **Supporto**: quanti vicini sono ad alto potenziale?
+4. **Contraddizione**: l'anti-claim risuona con il claim di qualche vicino?
+
+**Verdetti**:
+
+| Verdetto | Significato |
+|----------|-------------|
+| `confirmed` | Pilastro strutturale con alto supporto |
+| `supported` | Supportato dai vicini ma non è un pilastro |
+| `contested` | L'anti-claim contraddice almeno un vicino |
+| `weak` | Poco supporto, non isolato |
+| `unverifiable` | Isolato — nessun vicino per verificare |
+
+Un pilastro (`is_pillar=true`) ha 4+ connessioni e 3+ vicini.
+Se lo rimuovi, il campo perde struttura.
+
+## Strategia — dove concentrare lo sforzo
+
+La strategia estrae 5 categorie di insight:
+
+- **Focus**: cluster di convergenza ordinati per densità. Dove le tensioni si addensano c'è energia.
+- **Leva**: pilastri confermati. Investire qui propaga nel campo (cascata).
+- **Rischi**: anti-claim delle tensioni più connesse. Se cadono queste, il campo si ristruttura.
+- **Punti ciechi**: isolati o deboli. Potrebbero nascondere qualcosa di non esplorato.
+- **Completati**: saturi. Fatto — liberano potenziale per altro.
+
+## Piano d'azione — dalla proiezione alle azioni
+
+Il piano traduce la strategia in azioni concrete, ciascuna con:
+
+- **what**: cosa fare
+- **why**: perché (dalla struttura del campo)
+- **risk**: cosa potrebbe andare storto (dall'anti-claim)
+- **priority**: dalla posizione nella traiettoria
+- **ids**: tensioni coinvolte
+
+4 tipi di azione:
+
+| Tipo | Simbolo | Da dove viene |
+|------|---------|---------------|
+| `focus` | ▶ | Cluster di convergenza |
+| `risk` | ✗ | Contraddizioni strutturali |
+| `blind_spot` | ? | Tensioni isolate |
+| `leverage` | ✓ | Pilastri confermati |
 
 ## Come si auto-evolve
 

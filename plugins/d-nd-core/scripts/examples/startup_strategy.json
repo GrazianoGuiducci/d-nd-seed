@@ -1,0 +1,57 @@
+{
+  "name": "SaaS Startup — Series A Strategy",
+  "description": "A B2B SaaS startup post-seed with $2M ARR, 50 customers, preparing Series A. The projector maps structural tensions to reveal where to focus, what risks are hidden, and which moves propagate.",
+  "context": "startup_strategy",
+  "direction": "Scale from $2M to $8M ARR in 18 months while maintaining unit economics and team coherence",
+  "tensions": [
+    {
+      "id": "PRODUCT_MARKET_FIT",
+      "claim": "Core product solves a real pain for mid-market companies but enterprise deals require features we don't have yet",
+      "gate": "confirmed"
+    },
+    {
+      "id": "PRICING_UPMARKET",
+      "claim": "Moving upmarket increases ACV but lengthens sales cycles and requires dedicated account management"
+    },
+    {
+      "id": "HIRING_SPEED",
+      "claim": "Hiring fast to capture market window but each bad hire costs 6 months and poisons culture"
+    },
+    {
+      "id": "ENGINEERING_DEBT",
+      "claim": "Technical debt from MVP phase slows new feature development but rewriting now delays revenue growth"
+    },
+    {
+      "id": "SINGLE_CHANNEL",
+      "claim": "80% of leads come from one channel — high efficiency but existential risk if that channel degrades"
+    },
+    {
+      "id": "FOUNDER_BOTTLENECK",
+      "claim": "Founders close 90% of deals — deep customer insight but zero scalability past 20 deals per quarter"
+    },
+    {
+      "id": "BURN_RATE",
+      "claim": "Current burn gives 14 months runway — enough to hit milestones but no margin for error or pivot"
+    },
+    {
+      "id": "CHURN_SIGNAL",
+      "claim": "Monthly churn at 3% is acceptable for now but compounds to 31% annual — unsustainable at scale"
+    },
+    {
+      "id": "PLATFORM_VS_TOOL",
+      "claim": "Customers want a platform but platforms take 3x longer to build and the tool already works"
+    },
+    {
+      "id": "COMPETITOR_FUNDING",
+      "claim": "Main competitor just raised $30M — they'll outspend us on marketing but their product is weaker"
+    },
+    {
+      "id": "DATA_MOAT",
+      "claim": "Each customer generates data that improves the product for all — network effect but requires critical mass we don't have"
+    },
+    {
+      "id": "INTERNATIONAL",
+      "claim": "European market is underserved and willing to pay but localization and compliance cost 2 engineers for 6 months"
+    }
+  ]
+}

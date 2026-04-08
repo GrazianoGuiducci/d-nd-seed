@@ -1,0 +1,64 @@
+{
+  "name": "Portfolio Management — Multi-Asset Rebalancing",
+  "description": "A diversified portfolio with structural tensions between asset classes, risk targets, and market conditions. The projector reveals correlated risks, concentration blind spots, and structural pillars of the allocation.",
+  "context": "portfolio_management",
+  "direction": "Optimize risk-adjusted returns while maintaining liquidity and regulatory compliance in a rising rate environment",
+  "tensions": [
+    {
+      "id": "EQUITY_CONCENTRATION",
+      "claim": "Tech sector is 40% of equity allocation — highest returns last 3 years but concentration risk if sector rotates"
+    },
+    {
+      "id": "BOND_DURATION",
+      "claim": "Long duration bonds offer higher yield but rising rates cause mark-to-market losses that pressure total return"
+    },
+    {
+      "id": "LIQUIDITY_PREMIUM",
+      "claim": "Private credit yields 300bp over public markets but locks capital for 3-5 years and is hard to value accurately"
+    },
+    {
+      "id": "HEDGE_COST",
+      "claim": "Options hedging protects downside but costs 1.5% annually which compounds into significant drag on long-term returns"
+    },
+    {
+      "id": "CORRELATION_BREAKDOWN",
+      "claim": "Equity-bond correlation turned positive — the diversification benefit that justified the allocation no longer holds"
+    },
+    {
+      "id": "REBALANCING_FREQUENCY",
+      "claim": "Monthly rebalancing captures mean reversion but transaction costs and tax events reduce the net benefit to near zero"
+    },
+    {
+      "id": "ESG_MANDATE",
+      "claim": "ESG constraints exclude 15% of the investable universe — improves narrative but reduces diversification and may hurt returns"
+    },
+    {
+      "id": "CURRENCY_EXPOSURE",
+      "claim": "International allocation provides diversification but unhedged currency risk adds 8% volatility — hedging costs eat the yield advantage"
+    },
+    {
+      "id": "CASH_DRAG",
+      "claim": "5% cash buffer for redemptions earns money market rates but opportunity cost is 400bp versus fully invested portfolio"
+    },
+    {
+      "id": "FACTOR_CROWDING",
+      "claim": "Value and momentum factors are historically cheap but crowded positioning means the reversal when it comes will be violent"
+    },
+    {
+      "id": "VOLATILITY_REGIME",
+      "claim": "Implied volatility is low suggesting complacency but selling vol generates income that boosts Sharpe ratio in calm markets"
+    },
+    {
+      "id": "BENCHMARK_TRACKING",
+      "claim": "Tracking error budget is 200bp — enough for active bets but performance is measured against benchmark, creating career risk for managers"
+    },
+    {
+      "id": "TAIL_RISK",
+      "claim": "Tail risk hedging is expensive in normal times but a 3-sigma event would draw down 25% and trigger forced selling"
+    },
+    {
+      "id": "LEVERAGE_EFFICIENCY",
+      "claim": "Moderate leverage (1.3x) improves capital efficiency but increases drawdown depth and introduces margin call risk in stress scenarios"
+    }
+  ]
+}

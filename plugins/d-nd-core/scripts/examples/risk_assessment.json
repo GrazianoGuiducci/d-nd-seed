@@ -1,0 +1,56 @@
+{
+  "name": "Risk Assessment — Digital Transformation",
+  "description": "A mid-size company migrating from legacy systems to cloud-native. The projector maps risk correlations, reveals cascade risks, and identifies which mitigations are structural pillars vs theater.",
+  "context": "risk_assessment",
+  "direction": "Complete migration within 12 months without business disruption while maintaining compliance and team morale",
+  "tensions": [
+    {
+      "id": "PARALLEL_RUN",
+      "claim": "Running old and new systems in parallel reduces risk but doubles infrastructure cost and splits team attention"
+    },
+    {
+      "id": "DATA_MIGRATION",
+      "claim": "Legacy data has 15 years of accumulated inconsistencies — cleaning during migration is necessary but delays go-live by 3 months"
+    },
+    {
+      "id": "VENDOR_LOCK",
+      "claim": "Cloud provider offers managed services that accelerate delivery but create dependency that limits future negotiating leverage"
+    },
+    {
+      "id": "TEAM_SKILLS",
+      "claim": "Current team knows legacy systems deeply but cloud-native requires skills they don't have — training vs hiring vs consulting"
+    },
+    {
+      "id": "COMPLIANCE_GAP",
+      "claim": "Cloud architecture meets current regulations but regulatory landscape is shifting and new rules may require architectural changes"
+    },
+    {
+      "id": "BUSINESS_CONTINUITY",
+      "claim": "Zero-downtime migration requires feature parity which takes 6 months longer than building cloud-native from scratch"
+    },
+    {
+      "id": "SECURITY_SURFACE",
+      "claim": "Cloud expands attack surface but enables better monitoring — net security depends on team maturity not architecture"
+    },
+    {
+      "id": "STAKEHOLDER_FATIGUE",
+      "claim": "Transformation projects lose executive sponsorship after 9 months — our timeline is 12 months with no early wins planned"
+    },
+    {
+      "id": "INTEGRATION_DEBT",
+      "claim": "37 integrations with partners and internal systems — each is a potential failure point during cutover"
+    },
+    {
+      "id": "COST_OVERRUN",
+      "claim": "Budget has 15% contingency but similar projects in the industry average 40% overrun — we are underestimating complexity"
+    },
+    {
+      "id": "CHANGE_RESISTANCE",
+      "claim": "End users resist new workflows even when objectively better — adoption failure kills more transformations than technology failure"
+    },
+    {
+      "id": "ROLLBACK_PLAN",
+      "claim": "Rollback capability is essential but maintaining it constrains architectural decisions and adds 20% to development effort"
+    }
+  ]
+}

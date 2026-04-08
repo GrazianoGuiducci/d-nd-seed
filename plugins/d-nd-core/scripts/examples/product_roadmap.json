@@ -1,0 +1,60 @@
+{
+  "name": "Product Roadmap — Q3 Prioritization",
+  "description": "A product team with 3 squads deciding what to build next quarter. 15 feature requests, limited capacity. The projector reveals which features are structural pillars (build these first) vs isolated wishes.",
+  "context": "product_roadmap",
+  "direction": "Maximize customer retention and expansion revenue with 3 squads over one quarter",
+  "tensions": [
+    {
+      "id": "SSO_ENTERPRISE",
+      "claim": "SSO is table stakes for enterprise deals but only 12% of current customers need it — building for future pipeline not current users"
+    },
+    {
+      "id": "MOBILE_APP",
+      "claim": "Mobile usage is growing 15% month over month but the mobile experience requires rethinking the entire interaction model"
+    },
+    {
+      "id": "API_V2",
+      "claim": "API v1 has 40 integration partners but the architecture limits what partners can build — v2 unlocks new use cases but breaks existing integrations"
+    },
+    {
+      "id": "ONBOARDING_FLOW",
+      "claim": "Time to value is 14 days — halving it doubles activation rate but requires simplifying features customers eventually need"
+    },
+    {
+      "id": "ANALYTICS_DASHBOARD",
+      "claim": "Customers ask for analytics but what they really want is proof of ROI to justify renewal to their CFO"
+    },
+    {
+      "id": "WORKFLOW_AUTOMATION",
+      "claim": "Automation reduces manual work by 60% for power users but increases complexity for new users who haven't learned the basics"
+    },
+    {
+      "id": "MULTI_TENANT",
+      "claim": "Multi-tenant architecture enables agency use case which is 30% of pipeline but changes the permission model fundamentally"
+    },
+    {
+      "id": "PERF_OPTIMIZATION",
+      "claim": "Dashboard loads in 4 seconds — acceptable but competitors load in 1 second and perception of speed equals perception of quality"
+    },
+    {
+      "id": "AI_FEATURES",
+      "claim": "AI suggestions increase engagement 2x in pilot but model accuracy at 78% means 1 in 5 suggestions is wrong and erodes trust"
+    },
+    {
+      "id": "BILLING_OVERHAUL",
+      "claim": "Current billing can't handle usage-based pricing which is what enterprise wants but billing migration is invisible to users and high risk"
+    },
+    {
+      "id": "COLLABORATION",
+      "claim": "Real-time collaboration is the top requested feature but multiplayer architecture is a 6-month rewrite of the core data layer"
+    },
+    {
+      "id": "LOCALIZATION",
+      "claim": "French and German markets represent 25% of pipeline but localization isn't just translation — it's date formats, compliance, payment methods"
+    },
+    {
+      "id": "SELF_SERVE_UPGRADE",
+      "claim": "Self-serve upgrade path would reduce sales team dependency but current users expect white-glove onboarding for premium tiers"
+    }
+  ]
+}

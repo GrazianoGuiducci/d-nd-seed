@@ -1,0 +1,64 @@
+{
+  "name": "Investment Due Diligence — Series B SaaS",
+  "description": "Due diligence on a Series B SaaS company. The projector cross-checks the investment thesis from multiple structural angles, revealing contradictions the pitch deck hides.",
+  "context": "due_diligence",
+  "direction": "Determine whether the company's growth trajectory is structurally sustainable or dependent on non-repeatable factors",
+  "tensions": [
+    {
+      "id": "REVENUE_QUALITY",
+      "claim": "ARR grew 3x last year but 40% came from 3 enterprise deals — concentration risk disguised as hypergrowth"
+    },
+    {
+      "id": "NET_RETENTION",
+      "claim": "Net revenue retention is 130% but driven by price increases not usage expansion — customers pay more for the same thing"
+    },
+    {
+      "id": "GROSS_MARGIN",
+      "claim": "Gross margin is 72% but includes significant professional services revenue booked as subscription"
+    },
+    {
+      "id": "CAC_PAYBACK",
+      "claim": "CAC payback is 14 months which looks healthy but channel costs are rising 20% quarter over quarter"
+    },
+    {
+      "id": "TEAM_DEPTH",
+      "claim": "Engineering team is strong but 3 of 5 senior engineers joined in the last 6 months — untested under pressure"
+    },
+    {
+      "id": "MARKET_TIMING",
+      "claim": "Market is shifting toward their category but timing advantage lasts 18 months before incumbents respond"
+    },
+    {
+      "id": "PRODUCT_DIFFERENTIATION",
+      "claim": "Product has unique workflow engine but the moat is in the data network effect which requires 500+ customers to activate"
+    },
+    {
+      "id": "FOUNDER_MARKET_FIT",
+      "claim": "Founders have deep domain expertise but neither has scaled a company past 100 employees before"
+    },
+    {
+      "id": "COMPETITIVE_LANDSCAPE",
+      "claim": "Two well-funded competitors exist but are targeting different segments — the segments may converge at scale"
+    },
+    {
+      "id": "BURN_MULTIPLE",
+      "claim": "Burn multiple is 1.8x which is efficient but leaves no budget for the sales team expansion the plan requires"
+    },
+    {
+      "id": "CUSTOMER_DEPENDENCY",
+      "claim": "Largest customer is 15% of revenue and their contract renews in 4 months — losing them resets the growth narrative"
+    },
+    {
+      "id": "REGULATORY_TAILWIND",
+      "claim": "New regulations make their compliance features mandatory but regulatory timelines are unpredictable and often delayed"
+    },
+    {
+      "id": "TECHNOLOGY_RISK",
+      "claim": "Core ML model is proprietary but built on open-source foundations that improve weekly — the proprietary advantage may erode"
+    },
+    {
+      "id": "VALUATION_ANCHOR",
+      "claim": "Asking 25x ARR based on growth rate but comparable exits are at 12-15x — premium requires proving durability of growth"
+    }
+  ]
+}
