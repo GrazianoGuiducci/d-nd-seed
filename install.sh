@@ -371,6 +371,53 @@ else
     echo "  SKIP: youtube-transcript (no THIA_PATH in profile)"
 fi
 
+# --- Core skills from seed ---
+echo ""
+echo "Installing core skills..."
+for skill_dir in "$SCRIPT_DIR"/plugins/d-nd-core/skills/*/; do
+    [ -d "$skill_dir" ] || continue
+    name=$(basename "$skill_dir")
+    skill_target="$TARGET/skills/$name"
+
+    if [ -n "$DRY_RUN" ]; then
+        if [ -d "$skill_target" ]; then
+            echo "  [DRY-RUN] EXISTS: $skill_target/"
+        else
+            echo "  [DRY-RUN] NEW: $skill_target/"
+        fi
+        continue
+    fi
+
+    if [ -n "$UPDATE_MODE" ] && [ -d "$skill_target" ]; then
+        echo "  SAME: $name (already installed)"
+    else
+        mkdir -p "$skill_target"
+        cp -r "$skill_dir"* "$skill_target/" 2>/dev/null
+        echo "  OK: $name"
+    fi
+done
+
+# --- Projector scripts (copy to accessible location) ---
+PROJECTOR_SRC="$SCRIPT_DIR/plugins/d-nd-core/scripts"
+PROJECTOR_DST="$PROJECT_DIR/d-nd-tools"
+if [ -f "$PROJECTOR_SRC/scenario_projector.py" ]; then
+    echo ""
+    echo "Installing projector tools..."
+    if [ -z "$DRY_RUN" ]; then
+        mkdir -p "$PROJECTOR_DST/examples"
+        cp "$PROJECTOR_SRC/scenario_projector.py" "$PROJECTOR_DST/"
+        cp "$PROJECTOR_SRC/SCENARIO_PROJECTOR_GUIDE.md" "$PROJECTOR_DST/" 2>/dev/null
+        # Copy domain pre-configs and automation pattern
+        for f in "$PROJECTOR_SRC"/examples/*.json "$PROJECTOR_SRC"/examples/*.py "$PROJECTOR_SRC"/examples/*.md; do
+            [ -f "$f" ] && cp "$f" "$PROJECTOR_DST/examples/"
+        done
+        echo "  OK: $PROJECTOR_DST/ (projector + ${#} domain seeds + automation pattern)"
+        echo "  Usage: python $PROJECTOR_DST/scenario_projector.py --help"
+    else
+        echo "  [DRY-RUN] Would install projector to: $PROJECTOR_DST/"
+    fi
+fi
+
 # --- Godel plugin ---
 if [ -n "$GODEL_ENABLED" ]; then
     echo ""
@@ -450,10 +497,15 @@ echo ""
 echo "Next steps:"
 echo "  1. Review generated files in $TARGET/"
 echo "  2. Configure permissions in $TARGET/settings.local.json"
+STEP=3
 if [ -n "$GODEL_ENABLED" ]; then
-echo "  3. Set ANTHROPIC_API_KEY (or OPENROUTER_API_KEY) for Godel"
-echo "  4. Start Godel: cd $PROJECT_DIR/godel && node bridge.js"
-echo "  5. Start a new Claude Code session — hooks will activate automatically"
-else
-echo "  3. Start a new Claude Code session — hooks will activate automatically"
+echo "  $STEP. Set ANTHROPIC_API_KEY (or OPENROUTER_API_KEY) for Godel"
+STEP=$((STEP + 1))
+echo "  $STEP. Start Godel: cd $PROJECT_DIR/godel && node bridge.js"
+STEP=$((STEP + 1))
 fi
+if [ -n "$PROJECTOR_DST" ] && [ -f "$PROJECTOR_SRC/scenario_projector.py" ]; then
+echo "  $STEP. Try the projector: python $PROJECTOR_DST/scenario_projector.py --seed $PROJECTOR_DST/examples/startup_strategy.json --action-plan"
+STEP=$((STEP + 1))
+fi
+echo "  $STEP. Start a new Claude Code session — hooks will activate automatically"

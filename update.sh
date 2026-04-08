@@ -95,6 +95,38 @@ for skill_dir in "$SEED_DIR"/plugins/d-nd-core/skills/*/; do
 done
 echo ""
 
+# --- Update projector tools ---
+echo "## Projector"
+PROJECTOR_SRC="$SEED_DIR/plugins/d-nd-core/scripts"
+PROJECTOR_DST="$PROJECT_DIR/d-nd-tools"
+if [ -d "$PROJECTOR_DST" ] && [ -f "$PROJECTOR_SRC/scenario_projector.py" ]; then
+    # Update main script if seed is newer
+    if [ "$PROJECTOR_SRC/scenario_projector.py" -nt "$PROJECTOR_DST/scenario_projector.py" ]; then
+        cp "$PROJECTOR_SRC/scenario_projector.py" "$PROJECTOR_DST/"
+        cp "$PROJECTOR_SRC/SCENARIO_PROJECTOR_GUIDE.md" "$PROJECTOR_DST/" 2>/dev/null
+        echo "  ~ scenario_projector.py (updated)"
+        UPDATED=$((UPDATED + 1))
+    fi
+    # Add new example seeds
+    mkdir -p "$PROJECTOR_DST/examples"
+    for f in "$PROJECTOR_SRC"/examples/*.json "$PROJECTOR_SRC"/examples/*.py "$PROJECTOR_SRC"/examples/*.md; do
+        [ -f "$f" ] || continue
+        fname=$(basename "$f")
+        if [ ! -f "$PROJECTOR_DST/examples/$fname" ]; then
+            cp "$f" "$PROJECTOR_DST/examples/"
+            echo "  + examples/$fname (new)"
+            ADDED=$((ADDED + 1))
+        elif [ "$f" -nt "$PROJECTOR_DST/examples/$fname" ]; then
+            cp "$f" "$PROJECTOR_DST/examples/"
+            echo "  ~ examples/$fname (updated)"
+            UPDATED=$((UPDATED + 1))
+        fi
+    done
+elif [ ! -d "$PROJECTOR_DST" ] && [ -f "$PROJECTOR_SRC/scenario_projector.py" ]; then
+    echo "  Projector not installed. Run install.sh to add it."
+fi
+echo ""
+
 # --- Summary ---
 echo "## Summary"
 echo "  Added: $ADDED"
