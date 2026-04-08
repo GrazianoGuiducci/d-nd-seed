@@ -263,25 +263,33 @@ accumulateInsight(context, result, source);
 
 ### Pattern 4: Inside the Cognitive Cycle (CEC)
 
-The projector is the bridge between "I have tensions" and "I know what to do":
+The projector takes the **risultante** (output of the CEC sieve) and projects forward:
 
 ```
-Domandatore → generates 5 discriminating operators on a tension
+Tension enters
     ↓
-Projector → maps the field (4 lenses: focus, leverage, risk, blind spot)
+CEC (the sieve — 6 phases, contains everything):
+    ├── Condizioni    — observe the field
+    ├── Firma         — extract invariant structure
+    ├── Espansione    — 5 discriminating angles (Domandatore)
+    ├── Inversione    — flip the hidden assumption (Godel)
+    ├── Verifica      — 6 independent tests
+    └── Risultante    — what survives doubt
     ↓
-CEC → deepens the focus cluster (6 steps on the main convergence)
+Projector → takes the risultante, applies 4 lenses (focus, leverage, risk, blind spot)
     ↓
-Godel → inverts the risks (det=-1 on contradictions)
+Direction → where the risultante points, what to do, what risks remain
     ↓
-Crystallization → the seed updates
+Seed updates → the cycle restarts with new tensions
 ```
+
+The projector does NOT come before the CEC. It comes after. It works on filtered, crystallized tensions — the output of the sieve — not on raw input.
 
 Integration via `projector_phase.py`:
 ```python
 from projector_phase import projector_phase
 
-# In your cognitive cycle, after crystallization
+# In your cognitive cycle, AFTER crystallization (not before)
 result = projector_phase(seed_path='seed.json')
 # Returns: confirmed count, contested count, leverage points, blind spots
 ```
@@ -415,7 +423,7 @@ This guide is the territory. The narrative for a website, a presentation, or a p
 **What the guide says** → **What the narrative shows**:
 - "Cross-check reveals structure" → "Your tensions have a pattern you can't see"
 - "4 lenses extract insight" → "Where to invest, what to protect, what you're missing"
-- "The projector maps, it doesn't predict" → "The structure was already there — now it's visible"
+- "The projector takes the risultante and projects forward" → "From what survived, here's where it leads"
 - "Iterate: add, resolve, re-run" → "Every decision updates the map"
 
 The narrative doesn't describe the projector. It describes what happens to the person who uses it. They arrive with a mess of competing decisions. They leave with a structural map: pillars to protect, cracks to investigate, blind spots to explore, and a prioritized action plan.

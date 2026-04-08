@@ -117,23 +117,29 @@ plan = sp.action_plan()
 
 ## Nel ciclo cognitivo
 
-Le 4 lenti si inseriscono nel ciclo naturale:
+Le 4 lenti si applicano DOPO il crivello, sulla risultante:
 
 ```
-Domandatore → genera tensioni (i 5 operatori)
+Tensione entra
     ↓
-Proiettore → mappa il campo (le 4 lenti)
+CEC (il crivello — 6 fasi):
+    ├── Condizioni     — osserva il campo
+    ├── Firma          — estrai la struttura invariante
+    ├── Espansione     — 5 angoli discriminanti (Domandatore)
+    ├── Inversione     — ribalta il presupposto (Godel)
+    ├── Verifica       — 6 test indipendenti
+    └── Risultante     — ciò che sopravvive
     ↓
-CEC → approfondisce i focus (6 passi sul cluster principale)
+Proiettore → prende la risultante, applica le 4 lenti
     ↓
-Godel → inverte i rischi (det=-1 sulle contraddizioni)
+Direzione → dove porta, cosa conviene, rischi, punti ciechi
     ↓
-Cristallizzazione → il seme si aggiorna
+Il seme si aggiorna → il ciclo ricomincia
 ```
 
-Il proiettore è il bridge tra "ho le tensioni" e "so cosa fare".
-Il Domandatore genera. Il proiettore struttura. Il CEC approfondisce.
-Godel inverte. Il seme cristallizza.
+Il proiettore non è il bridge tra tensioni e decisione — è il passo che prende
+ciò che è sopravvissuto al crivello e proietta dove porta. Il CEC filtra.
+Il proiettore proietta dalla risultante.
 
 ---
 
@@ -151,12 +157,12 @@ Godel inverte. Il seme cristallizza.
 
 ## Relazione con gli altri strumenti
 
-| Strumento | Genera | Struttura | Approfondisce | Inverte |
-|-----------|--------|-----------|---------------|---------|
-| Domandatore | ✓ | | | |
-| Proiettore (4 lenti) | | ✓ | | |
-| CEC | | | ✓ | |
-| Godel | | | | ✓ |
+| Strumento | Dove nel ciclo | Cosa fa |
+|-----------|---------------|---------|
+| Domandatore | Fase Espansione del CEC | Genera 5 angoli discriminanti |
+| Godel | Fase Inversione del CEC | Inverte il presupposto nascosto |
+| CEC (crivello) | Il ciclo intero (6 fasi) | Filtra: solo ciò che sopravvive |
+| Proiettore (4 lenti) | Dopo il CEC, sulla risultante | Proietta: dove porta, rischi, leve, punti ciechi |
 
 Ciascuno fa una cosa. Insieme coprono il ciclo completo.
 Non serve usarli tutti — serve usare quello giusto per il momento.
