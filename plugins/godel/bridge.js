@@ -6,7 +6,7 @@
  * and maintains dual-layer memory (tape + field).
  *
  * Two LLM backends (auto-detected):
- *   1. API mode (default): direct Anthropic/OpenRouter API call. Needs ANTHROPIC_API_KEY or OPENROUTER_API_KEY.
+ *   1. API mode (default): direct LLM API call. Set GODEL_API_KEY + GODEL_API_URL (or legacy ANTHROPIC_API_KEY / OPENROUTER_API_KEY).
  *   2. CLI mode: Claude Code CLI. Needs `claude` in PATH + auth.
  *
  * Set GODEL_BACKEND=cli to force CLI mode. Otherwise API mode is used if a key is found.
@@ -40,17 +40,27 @@ const MEMORY_CONTEXT_SIZE = parseInt(process.env.GODEL_MEMORY_SIZE || '10', 10);
 const MAX_TIMEOUT = parseInt(process.env.GODEL_TIMEOUT || String(5 * 60 * 1000), 10);
 const MAX_CONCURRENT = parseInt(process.env.GODEL_CONCURRENCY || '1', 10);
 
-// LLM backend detection
-const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY || '';
-const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY || '';
+// LLM backend detection — provider-neutral
+// Set GODEL_API_KEY + GODEL_API_URL, or fall back to ANTHROPIC_API_KEY / OPENROUTER_API_KEY for compat
+// Primary: GODEL_API_KEY + GODEL_API_URL. Legacy fallbacks for backward compat.
+const API_KEY = process.env.GODEL_API_KEY || process.env.ANTHROPIC_API_KEY || process.env.OPENROUTER_API_KEY || '';
+const API_URL = process.env.GODEL_API_URL || '';
 const MODEL = process.env.GODEL_MODEL || 'claude-sonnet-4-20250514';
 const FORCED_BACKEND = process.env.GODEL_BACKEND || '';
+
+// Auto-detect API format from URL: 'anthropic' or 'openai' (works with any OpenAI-compatible endpoint)
+function detectFormat() {
+    const forced = process.env.GODEL_API_FORMAT || '';
+    if (forced === 'anthropic' || forced === 'openai') return forced;
+    if (API_URL.includes('anthropic.com')) return 'anthropic';
+    return 'openai'; // default: OpenAI-compatible (works with most providers)
+}
+const API_FORMAT = detectFormat();
 
 function detectBackend() {
     if (FORCED_BACKEND === 'cli') return 'cli';
     if (FORCED_BACKEND === 'api') return 'api';
-    if (ANTHROPIC_KEY) return 'api';
-    if (OPENROUTER_KEY) return 'api';
+    if (API_KEY && API_URL) return 'api';
     return 'cli'; // fallback
 }
 
@@ -254,44 +264,42 @@ function saveToMemory(question, answer, meta, mode) {
 
 // --- LLM backends ---
 
-// Backend 1: Direct API call (Anthropic or OpenRouter)
+// Backend 1: Direct API call (provider-neutral — supports Anthropic and OpenAI-compatible formats)
 function callAPI(systemPrompt, userPrompt) {
     return new Promise((resolve, reject) => {
-        const isOpenRouter = !ANTHROPIC_KEY && OPENROUTER_KEY;
-        const apiKey = ANTHROPIC_KEY || OPENROUTER_KEY;
-        const hostname = isOpenRouter ? 'openrouter.ai' : 'api.anthropic.com';
-        const apiPath = isOpenRouter ? '/api/v1/chat/completions' : '/v1/messages';
-        const model = process.env.GODEL_MODEL || (isOpenRouter ? 'anthropic/claude-sonnet-4-20250514' : 'claude-sonnet-4-20250514');
+        const url = new URL(API_URL);
+        const isAnthropic = API_FORMAT === 'anthropic';
 
         let body;
-        if (isOpenRouter) {
+        if (isAnthropic) {
             body = JSON.stringify({
-                model,
+                model: MODEL,
+                max_tokens: 4096,
+                system: systemPrompt,
+                messages: [{ role: 'user', content: userPrompt }],
+            });
+        } else {
+            // OpenAI-compatible format (works with any provider)
+            body = JSON.stringify({
+                model: MODEL,
                 messages: [
                     { role: 'system', content: systemPrompt },
                     { role: 'user', content: userPrompt },
                 ],
                 max_tokens: 4096,
             });
-        } else {
-            body = JSON.stringify({
-                model,
-                max_tokens: 4096,
-                system: systemPrompt,
-                messages: [{ role: 'user', content: userPrompt }],
-            });
         }
 
         const options = {
-            hostname,
-            port: 443,
-            path: apiPath,
+            hostname: url.hostname,
+            port: url.port || 443,
+            path: url.pathname,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                ...(isOpenRouter
-                    ? { 'Authorization': `Bearer ${apiKey}` }
-                    : { 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' }),
+                ...(isAnthropic
+                    ? { 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' }
+                    : { 'Authorization': `Bearer ${API_KEY}` }),
             },
             timeout: MAX_TIMEOUT,
         };
@@ -303,10 +311,10 @@ function callAPI(systemPrompt, userPrompt) {
                 try {
                     const parsed = JSON.parse(data);
                     let output = '';
-                    if (isOpenRouter) {
-                        output = parsed.choices?.[0]?.message?.content || '';
-                    } else {
+                    if (isAnthropic) {
                         output = (parsed.content || []).map(b => b.text || '').join('');
+                    } else {
+                        output = parsed.choices?.[0]?.message?.content || '';
                     }
                     if (!output && parsed.error) {
                         reject(new Error(parsed.error.message || JSON.stringify(parsed.error)));
@@ -533,7 +541,7 @@ const server = http.createServer(async (req, res) => {
 server.listen(PORT, '127.0.0.1', () => {
     console.log(`[GODEL] Bridge online on :${PORT}. Backend: ${BACKEND}. Dual-layer memory active.`);
     if (BACKEND === 'api') {
-        console.log(`[GODEL] Model: ${process.env.GODEL_MODEL || MODEL}. API: ${ANTHROPIC_KEY ? 'Anthropic' : 'OpenRouter'}`);
+        console.log(`[GODEL] Model: ${MODEL}. API: ${API_FORMAT} (${new URL(API_URL).hostname})`);
     }
     if (!SYSTEM_PROMPT) {
         console.warn('[GODEL] WARNING: No CLAUDE.md found. Run "node setup.js" first to configure identity.');

@@ -495,7 +495,7 @@ echo "  1. Review generated files in $TARGET/"
 echo "  2. Configure permissions in $TARGET/settings.local.json"
 STEP=3
 if [ -n "$GODEL_ENABLED" ]; then
-echo "  $STEP. Set ANTHROPIC_API_KEY (or OPENROUTER_API_KEY) for Godel"
+echo "  $STEP. Set GODEL_API_KEY + GODEL_API_URL for Godel"
 STEP=$((STEP + 1))
 echo "  $STEP. Start Godel: cd $PROJECT_DIR/godel && node bridge.js"
 STEP=$((STEP + 1))

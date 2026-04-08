@@ -45,8 +45,9 @@ These are not categories — they're coordinates. Every tension has a position i
 # 1. Configure for your domain (interactive or from example)
 node setup.js --example sales
 
-# 2. Set your API key
-export ANTHROPIC_API_KEY=sk-ant-...    # or OPENROUTER_API_KEY=sk-or-...
+# 2. Set your API key and endpoint
+export GODEL_API_KEY=your-api-key
+export GODEL_API_URL=https://api.your-provider.com/v1/chat/completions
 
 # 3. Start and ask
 node bridge.js &
@@ -93,8 +94,9 @@ Environment variables:
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ANTHROPIC_API_KEY` | — | Anthropic API key (recommended) |
-| `OPENROUTER_API_KEY` | — | OpenRouter API key (alternative) |
+| `GODEL_API_KEY` | — | API key for your LLM provider |
+| `GODEL_API_URL` | — | Full API endpoint URL |
+| `GODEL_API_FORMAT` | auto | `anthropic` or `openai` (auto-detected from URL) |
 | `GODEL_MODEL` | claude-sonnet-4-20250514 | LLM model to use |
 | `GODEL_BACKEND` | auto | Force `api` or `cli` backend |
 | `GODEL_PORT` | 3004 | HTTP port |
@@ -125,8 +127,8 @@ WantedBy=multi-user.target
 
 - Node.js 18+
 - **One of:**
-  - `ANTHROPIC_API_KEY` — direct Anthropic API (simplest, recommended)
-  - `OPENROUTER_API_KEY` — via OpenRouter (access to multiple models)
+  - `GODEL_API_KEY` + `GODEL_API_URL` — any LLM API (auto-detects format from URL)
+  - Legacy: `ANTHROPIC_API_KEY` or `OPENROUTER_API_KEY` still work for backward compatibility
   - Claude Code CLI in PATH — for advanced setups (set `GODEL_BACKEND=cli`)
 
 No other dependencies. Zero npm install needed.
