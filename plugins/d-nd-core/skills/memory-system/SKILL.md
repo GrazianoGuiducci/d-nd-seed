@@ -101,29 +101,44 @@ Il collasso. Le memorie potenziali diventano entry concrete:
 ### Φ₄ Integrazione (post-sessione)
 La nuova memoria modifica la topologia del campo. La prossima istanza parte da un campo più coerente. Il ciclo si ripiega: l'output di oggi è il campo iniziale di domani.
 
-## Test P6 — L'Algoritmo del Ricordo
+## Test di Persistenza — Quando Scrivere
 
 Prima di scrivere qualsiasi cosa nella memoria persistente:
 
 ```
 INPUT → nuovo fatto/decisione/pattern
 
-1. È una REGOLA che varrà anche domani?
-   → Sì: INVARIANTE → MEMORY.md (se c'è spazio) o file topic dedicato
+1. È una REGOLA STRUTTURALE (varrà anche domani)?
+   → Sì: INVARIANTE → MEMORY.md o file topic dedicato
 
-2. È un PATTERN confermato da più sessioni?
-   → Sì: TOPIC → file topic appropriato (crea se serve)
+2. È un PATTERN confermato da 3+ occorrenze?
+   → Sì: TOPIC → file topic appropriato
 
-3. È un FATTO della sessione corrente?
-   → Utile per ricostruzione: session_log.md
-   → Utile solo adesso: non scrivere
+3. È transitorio (solo questa sessione)?
+   → Non scrivere. La sessione finisce, il fatto muore.
 
 4. Contraddice una memoria esistente?
-   → Sì: AGGIORNA la memoria esistente (non aggiungere la contraddizione)
+   → AGGIORNA la vecchia (non aggiungere la contraddizione — il territorio vince)
 
-5. Duplica una memoria esistente?
-   → Sì: NON SCRIVERE (P7 — il superfluo si rimuove)
+5. Duplica?
+   → NON SCRIVERE (P7)
 ```
+
+### Regole di onestà nella memoria
+
+La memoria non è infallibile. Ogni entry è una mappa, non il territorio.
+
+- **Blank > Wrong**: se non sei sicuro che un fatto sia ancora vero, non scriverlo. Verificare prima.
+- **Errore 3x**: una memoria sbagliata costa 3 volte più di un vuoto — chi la legge domani la prenderà per vera.
+- **Mostra la fonte**: ogni entry porta implicitamente la sua fonte. Se l'hai verificata in sessione → solida. Se la ricordi da ieri → potrebbe essere stale. Se la deduci → dichiaralo.
+- **Territorio vince**: quando una memoria contraddice il codice attuale, il codice ha ragione. Aggiorna la memoria, non il codice.
+
+### Cascata nella memoria
+
+Dopo ogni scrittura significativa in memoria, chiediti: **chi altro nel sistema deve averlo?**
+- Se è una regola universale → va nel seed o nei file condivisi, non nella memoria locale
+- Se è specifico di questo progetto → memory locale, ma notifica se altri nodi lavorano sullo stesso codice
+- Se è specifico di questa sessione → non propagare
 
 ## Compressione (P7)
 
@@ -133,6 +148,8 @@ Quando un file supera il suo limite naturale:
 2. **Unisci duplicati** — due entry che dicono la stessa cosa → una entry densa
 3. **Archivia il transitorio** — decisioni superate, stati passati → taglia o sposta in archivio
 4. **Verifica la risultante** — dopo la compressione, il file dice ancora tutto il necessario?
+
+Verifica concreta: leggi il file compresso e chiediti "se domani parto da qui, mi manca qualcosa di critico?" Se sì, la compressione ha tagliato troppo.
 
 Il limite naturale varia per file:
 - MEMORY.md: 200 righe (hard limit, auto-troncato)

@@ -28,12 +28,18 @@ Understand what the function does at three levels:
 ### 2. Extract the universal pattern
 
 The function was written for a specific context (research, model validation, etc.).
-Strip the context. Keep the pattern.
+Strip the context. Keep the pattern. The extraction method:
+
+1. **Name the dipole**: what two forces does this function hold in tension? (e.g., "speed vs accuracy", "known vs unknown")
+2. **Find the invariant**: what is true regardless of the specific domain? (e.g., "tracking the boundary between known and unknown improves decisions")
+3. **Test transferability**: apply the pattern mentally to a completely different domain. Does it still make sense? If not, it's not universal — it's domain-specific.
 
 Example:
-- Source: `dnd_M_operator.py` — tracks knowledge state [noto, ignoto], applies f(x)=1+1/x
-- Pattern: after every significant action, check if your known/unknown ratio changed
-- Application: any node doing any work can track its own knowledge boundaries
+- Source: a function that tracks knowledge state [known, unknown] and applies iterative refinement
+- Dipole: knowing vs not-knowing
+- Invariant: after every significant action, check if your known/unknown boundary shifted
+- Transfer test: applies to code review (what do I know about this codebase?), to debugging (what have I ruled out?), to planning (what assumptions haven't been tested?)
+- Pattern: **boundary tracking** — after significant actions, re-evaluate the boundary between confirmed and unconfirmed
 
 ### 3. Convert to operational format
 
@@ -117,6 +123,15 @@ What the node learns during integration becomes procedural knowledge for:
 3. Other nodes (they receive the seed and know how to configure themselves)
 
 The cycle: research produces functions → node integrates → procedure refines → seed updates → other nodes receive.
+
+## Cascade after integration
+
+A new integrated pattern changes the field. Ask:
+- **Internal**: does this pattern affect existing patterns in `operational_patterns.json`? (conflicts, overlaps, reinforcements)
+- **External**: should other nodes or projects know about this pattern? If it's truly universal, it belongs in the seed — not just in your local config.
+- **Emergent**: does this pattern, combined with existing ones, reveal something new? Two patterns that separately are useful might together point to a principle.
+
+Integrate first, then cascade. Not the reverse — you need to understand the pattern before you can propagate it correctly.
 
 ## What NOT to do
 
