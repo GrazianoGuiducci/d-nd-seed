@@ -1,0 +1,82 @@
+{
+  "type": "flow",
+  "title": {"it": "Il Crivello — Il filtro cognitivo", "en": "The Sieve — The cognitive filter"},
+  "entities": [
+    {
+      "id": "tensione",
+      "label": "Tensione",
+      "color": "#f87171",
+      "context": {
+        "it": "Quando qualcosa non si risolve — una decisione bloccata, un'idea che non trova forma — tutto comincia qui.",
+        "en": "When something does not resolve — a stuck decision, an idea that can't find shape — everything starts here."
+      }
+    },
+    {
+      "id": "condizioni",
+      "label": "Condizioni",
+      "color": "#60a5fa",
+      "context": {
+        "it": "Prima di filtrare, osserviamo cosa c'è. Non cosa dovrebbe esserci. Il territorio reale, non la mappa.",
+        "en": "Before filtering, we observe what is there. Not what should be. The real territory, not the map."
+      },
+      "group": "crivello"
+    },
+    {
+      "id": "espansione",
+      "label": "Espansione",
+      "color": "#fbbf24",
+      "context": {
+        "it": "Cinque prospettive indipendenti aprono il campo. Il duale, il confine, la scala, la rottura, il dominio.",
+        "en": "Five independent perspectives open the field. The dual, the boundary, the scale, the break, the domain."
+      },
+      "group": "crivello"
+    },
+    {
+      "id": "inversione",
+      "label": "Inversione",
+      "color": "#f87171",
+      "context": {
+        "it": "Ciò che diamo per vero viene esplicitato e invertito. Il residuo è la domanda che non ci stavamo facendo.",
+        "en": "What we take as true is made explicit and inverted. The residue is the question we were not asking."
+      },
+      "group": "crivello"
+    },
+    {
+      "id": "risultante",
+      "label": "Risultante",
+      "color": "#4ade80",
+      "context": {
+        "it": "Dopo sei fasi resta solo ciò che il sistema perderebbe senza. Non un riassunto — una cristallizzazione.",
+        "en": "After six phases, only what the system would lose without remains. Not a summary — a crystallization."
+      }
+    },
+    {
+      "id": "proiettore",
+      "label": "Proiettore",
+      "color": "#22d3ee",
+      "context": {
+        "it": "La risultante entra nel proiettore. Quattro lenti: dove porta, cosa conviene, dove si rompe, cosa non vediamo.",
+        "en": "The resultant enters the projector. Four lenses: where it leads, what makes sense, where it breaks, what we don't see."
+      },
+      "link": "/campo"
+    },
+    {
+      "id": "direzione",
+      "label": "Direzione",
+      "color": "#4ade80",
+      "context": {
+        "it": "Non un piano — una traiettoria che era già lì, ora visibile. Il seme si aggiorna e il ciclo ricomincia.",
+        "en": "Not a plan — a trajectory that was already there, now visible. The seed updates and the cycle restarts."
+      }
+    }
+  ],
+  "interactions": [
+    {"from": "tensione", "to": "condizioni", "type": "flow"},
+    {"from": "condizioni", "to": "espansione", "type": "flow"},
+    {"from": "espansione", "to": "inversione", "type": "flow"},
+    {"from": "inversione", "to": "risultante", "type": "flow"},
+    {"from": "risultante", "to": "proiettore", "type": "flow"},
+    {"from": "proiettore", "to": "direzione", "type": "flow"},
+    {"from": "direzione", "to": "tensione", "type": "flow", "label": {"it": "il ciclo ricomincia", "en": "the cycle restarts"}}
+  ]
+}

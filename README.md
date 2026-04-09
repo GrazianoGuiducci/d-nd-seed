@@ -65,6 +65,8 @@ Each hook carries its own eval tests. You can verify they work.
 
 **Scenario Projector** — maps the hidden structure in competing tensions. 4 structural lenses (focus, leverage, risk, blind spot), 5 pre-configured domains, action plans with domain-specific language. [Complete guide](plugins/d-nd-core/scripts/PROJECTOR_COMPLETE_GUIDE.md).
 
+**Diagram Generator** — reads article content and generates interactive conceptual diagrams. Two modes: LLM-powered (intelligent, understands narrative) and structural (rule-based, works offline). Output: JSON spec with neon nodes, directional relations, contextual copy. [Complete guide](plugins/d-nd-core/scripts/DIAGRAM_GENERATOR_GUIDE.md).
+
 ## Profiles
 
 A profile describes your environment. The installer uses it to generate everything:

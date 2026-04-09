@@ -107,6 +107,7 @@ export GODEL_API_URL=https://api.your-provider.com/v1/chat/completions
 
 | Version | Date | Summary |
 |---------|------|---------|
+| v3.1 | 2026-04-09 | Diagram generator, observer positioning, visual_spec bilingual |
 | v3.0 | 2026-04-08 | Provider-neutral, fully public, cognitive evolution |
 | v2.2 | 2026-04-06 | Projector + structural lenses + automation pattern |
 | v2.1 | 2026-04-01 | CEA hook, operator interaction guide, safe update mode |
