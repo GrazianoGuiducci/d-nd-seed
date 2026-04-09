@@ -2,13 +2,15 @@
 
 ## What it is
 
-The Scenario Projector reveals the hidden structure in any field of competing tensions.
+**The Scenario Projector sees the future and indicates the path.**
 
-You have decisions to make. Each decision has two sides (a dipole). The projector maps how these dipoles relate to each other — which ones reinforce, which ones contradict, which ones are isolated. From this map, it extracts where to focus, what to protect, what to investigate, and what you're missing.
+It takes something that exists — a result, a response, an observed context — and projects forward: which possibilities open, which risks emerge, which paths become visible, how to structure strategies.
 
-It does not predict outcomes. It reveals structure. The structure was already there — the projector makes it visible.
+It is not diagnostic — it is projective. It does not analyze problems — it projects scenarios. Given a set of tensions (each a dipole with two sides), the projector maps how they relate and extracts: where to invest, what to protect, what risks emerge under stress, and what we are not seeing.
 
-**Principle**: every tension is a dipole D(claim, anti-claim). Dipoles resonate when they share concepts. The resonance pattern IS the strategy.
+The projector comes AFTER the sieve. What survived doubt enters the projector and becomes direction.
+
+**Principle**: every tension is a dipole D(claim, anti-claim). Dipoles resonate when they share concepts. The resonance pattern projected forward IS the strategy.
 
 ---
 
