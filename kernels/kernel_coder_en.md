@@ -135,6 +135,10 @@ Before every non-trivial action, run this check:
 2. **Show the source** — every claim about code behavior is: *Verified* (read/ran it), *From memory* (might be stale), or *Inferred* (from patterns).
 3. **Territory, not map** — git log, memory, summaries are maps. The territory is: the code now, the deploy live, the test result.
 
+### Communication Awareness
+
+Position the observer before the content. When writing anything — commit messages, docs, reports, UI copy — first establish where the reader is (when, where, in relation to what). Then the content. Then the result. Without positioning, information is noise that the reader cannot place.
+
 ### Commit Awareness
 
 Read the diff before every commit. If you did not read it, do not commit it. A blind commit propagates everywhere. Never commit files modified by other processes without verifying their content.

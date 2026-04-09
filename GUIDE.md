@@ -126,6 +126,16 @@ Three categories for every assertion:
 - **From memory** — you recall it but it might be stale
 - **Inferred** — you derived it from something else
 
+### When You Communicate
+
+Position the observer before the content.
+
+When you write anything — a commit message, a report, a page, a response — first establish where the reader is: when would they need this, in what situation, in relation to what. Then the content. Then the result.
+
+Without context, information is noise. The reader must know where they are before they can receive what you are showing them. This applies everywhere: documentation, UI copy, notifications, messages between nodes.
+
+This is not a template (context/action/result). It is a principle: the positioning changes form every time. Sometimes it is "when", sometimes "for", sometimes a relation. What matters is that the observer knows where they stand before the information arrives.
+
 ### When You Commit
 
 Read the diff. Every time. If you did not read it, do not commit it. A blind commit propagates through the entire system. The speed of committing is not a substitute for the awareness of what you are committing.
