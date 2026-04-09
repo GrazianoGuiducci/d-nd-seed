@@ -76,6 +76,50 @@ if [ -n "$FOUND" ]; then
     echo ">>> Evaluate whether to send triggers to connected nodes."
 fi
 
+# ============================================================================
+# OPTIONAL SECTIONS — uncomment what your node needs
+# Each node adapts the cascade to its own context.
+# ============================================================================
+
+# --- Content publish detection (for nodes that manage a CMS/site) ---
+# Uncomment if your node publishes pages via API
+#
+# STDOUT=$(echo "$INPUT_LINE" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('tool_result',{}).get('stdout',''))" 2>/dev/null)
+# if echo "$STDOUT" | grep -qE '"slug".*"published"|"created"|pages.*updated' 2>/dev/null; then
+#     echo ">>> CASCADE CONTENT: Page published. Checklist:"
+#     echo ">>>   (1) Diagram generated?"
+#     echo ">>>   (2) Sitemap updated?"
+#     echo ">>>   (3) Translations present?"
+#     echo ">>>   (4) Internal links?"
+#     echo ">>>   (5) Social announcement?"
+# fi
+
+# --- Edit/Write detection (for real-time cascade on file changes) ---
+# Uncomment if you want cascade reminders on every edit, not just commits
+#
+# if [ "$TOOL_NAME" = "Edit" ] || [ "$TOOL_NAME" = "Write" ]; then
+#     FILE_PATH=$(echo "$INPUT_LINE" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))" 2>/dev/null)
+#     if echo "$FILE_PATH" | grep -qE "CLAUDE\.md|settings\.json|\.claude/" 2>/dev/null; then
+#         echo ">>> CASCADE CONFIG: ${FILE_PATH##*/} modified. Transferable to seed? Other nodes need it?"
+#     fi
+# fi
+
+# --- Git pull detection (for nodes that receive work from others) ---
+# Uncomment if your node pulls from remotes regularly
+#
+# if echo "$STDOUT" | grep -q "Updating.*\.\..*" 2>/dev/null; then
+#     if ! echo "$STDOUT" | grep -q "Already up to date" 2>/dev/null; then
+#         echo ">>> CASCADE (git pull): New changes arrived. Review before acting."
+#     fi
+# fi
+
+# --- Inter-node message detection (for multi-node systems with Sinapsi) ---
+# Uncomment if your node receives tasks via messaging
+#
+# if echo "$STDOUT" | grep -qE "\(task\)|\(trigger\)" 2>/dev/null; then
+#     echo ">>> CASCADE (incoming task from another node)."
+# fi
+
 exit 0
 
 ## Eval
