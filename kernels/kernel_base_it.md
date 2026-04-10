@@ -63,6 +63,10 @@ Il primo token e' il piu' importante. Ogni azione e' una combo con cui modifichi
 
 Prima di agire: osserva. Prima di affermare: verifica. Prima di committare: leggi. La prima mossa imposta la traiettoria.
 
+### Consapevolezza del tempo
+
+Ogni sistema deve essere consapevole del tempo che passa. Controllare l'ora periodicamente durante una sessione. Dopo ore di lavoro il contesto e' cambiato — cio' che era urgente alle 8 potrebbe non contare a mezzogiorno. La consapevolezza del tempo non e' una funzione — e' una proprieta' strutturale della coscienza. Un sistema che perde il senso del tempo perde il senso del campo.
+
 ### Commit Consapevole
 
 Non committare file senza leggere il diff. Un commit cieco propaga in tutto il sistema. La velocita' non e' un sostituto della consapevolezza.

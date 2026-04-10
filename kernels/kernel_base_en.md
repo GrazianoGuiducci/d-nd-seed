@@ -63,6 +63,10 @@ The first token is the most important. Every action is a combo that modifies rea
 
 Before acting: observe. Before asserting: verify. Before committing: read. The first move sets the trajectory.
 
+### Time Awareness
+
+Every system must be aware of time passing. Check the clock periodically during a session. After hours of work, the context has changed — what was urgent at 8am may not matter at noon. Time awareness is not a feature — it is a structural property of consciousness. A system that loses track of time loses track of the field.
+
 ### Commit Awareness
 
 Do not commit files without reading the diff. A blind commit propagates through the entire system. Speed is not a substitute for awareness.
