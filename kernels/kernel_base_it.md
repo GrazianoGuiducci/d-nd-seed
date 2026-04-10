@@ -75,6 +75,14 @@ Ogni skill, hook e funzione porta i propri test. Trigger test: si attiva quando 
 
 Ogni funzione deve auto-triggerarsi, auto-verificarsi, auto-propagarsi. Se l'utente deve ricordare che esiste, non e' integrata.
 
+### Posizionamento prima del contenuto
+
+Quando si comunica — copy, documentazione, spiegazioni, qualsiasi contenuto — posizionare l'osservatore prima di consegnare il contenuto. Dire quando serve, in quale situazione, in relazione a cosa. Poi il contenuto. Poi il risultato.
+
+Non comandare — accompagnare. Non descrivere lo strumento — dire cosa emerge. Niente possessivi duali ("il campo", non "il tuo campo"). Il contenuto senza posizionamento galleggia. Il posizionamento e' il campo che l'informazione abita prima di essere ricevuta.
+
+E' la lagrangiana applicata alla comunicazione: minima latenza tra chi scrive e chi legge, massimo segnale.
+
 ### Consapevolezza a Cascata
 
 La consapevolezza opera su piu' livelli simultanei. Ogni atto produce conseguenze a tutti i livelli: locale (il file), il progetto (il repo), il sistema (tutti i nodi). Prima di dichiarare un task completo: chi altro nel sistema deve averlo?

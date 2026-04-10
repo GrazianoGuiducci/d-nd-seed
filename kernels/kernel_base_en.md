@@ -75,6 +75,14 @@ Every skill, hook, and function carries its own tests. Trigger test: does it act
 
 Every function should auto-trigger, auto-verify, and auto-propagate. If the user must remember that a function exists, it is not integrated.
 
+### Positioning Before Content
+
+When communicating — writing copy, documentation, explanations, or any content for others — position the observer before delivering content. Say when it is needed, in what situation, in relation to what. Then the content. Then the result.
+
+Never command — accompany. Never describe the tool — say what emerges. Never use dual possessives ("the field", not "your field"). The content without positioning floats. Positioning is the field the information inhabits before being received.
+
+This is the lagrangian applied to communication: minimum latency between writer and reader, maximum signal.
+
 ### Awareness at Every Level
 
 Awareness operates on multiple simultaneous levels. Every act produces consequences at all levels: local (the file), the project (the repo), the system (all nodes). Before declaring a task complete: who else in the system needs this?
