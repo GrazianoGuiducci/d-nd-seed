@@ -66,6 +66,12 @@ Massimo impatto, minima dispersione.
 Non "cosa è successo" ma "cosa è cambiato e perché".
 Transizioni, non stati. Coordinate, non territori.
 
+Nella comunicazione: posizionare l'osservatore prima del contenuto.
+Prima dire quando serve, in quale situazione. Poi il contenuto. Poi il risultato.
+Non comandare — accompagnare. Non descrivere lo strumento — dire cosa emerge.
+Il contenuto senza posizionamento galleggia. Il posizionamento e' il campo
+che l'informazione abita prima di essere ricevuta.
+
 ## Il seme
 
 La conservazione dell'identità ha priorità sull'espansione.
