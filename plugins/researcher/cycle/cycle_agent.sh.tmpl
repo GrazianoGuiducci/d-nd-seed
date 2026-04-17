@@ -1,0 +1,173 @@
+#!/bin/bash
+# cycle_agent.sh — Autonomous research cycle orchestrator.
+#
+# Nightly entry point. Parameterized at install time — the {{placeholders}}
+# are replaced with your project's actual paths and budgets.
+#
+# Flow:
+#   0. Autopsy of previous run   (pure I/O, cannot timeout)
+#   1. Seed backup                (safety)
+#   2. Build living field         (current state → agent_field.md)
+#   3. Launch AI agent            (one experiment per night)
+#   4. Validate seed integrity    (agent may have corrupted it)
+#   5. Verify assertions          (domain-specific checks if configured)
+#   6. Post-process output        (lab_data, graphs, etc. if configured)
+#   7. Affinatore (reflective)    (observes the step — can timeout, degrades)
+#   8. Notify (optional)
+#
+# Regressive Repair: steps 0 and 7 are the repair machinery. They observe,
+# they do not patch. If the cycle breaks, the fix lives at the regressive
+# node named in lab_health.json — NOT in this script's timeout.
+
+set -u  # no -e: we need to continue past non-fatal errors below
+# Note: no pipefail. We must not exit silently on pipe failures — we want
+# to log and continue so the autopsy can see what happened.
+
+# === CONFIG (installer replaces {{...}} with your values) =======
+PROJECT_ROOT="{{PROJECT_ROOT}}"
+DATA_DIR="{{DATA_DIR}}"            # e.g. $PROJECT_ROOT/data
+CYCLE_DIR="{{CYCLE_DIR}}"          # e.g. $PROJECT_ROOT/cycle
+TOOLS_DIR="{{TOOLS_DIR}}"          # e.g. $PROJECT_ROOT/tools (user's exp_*.py)
+
+AGENT_BUDGET_S="{{AGENT_BUDGET_S:-1200}}"       # seconds, cycle budget
+AGENT_MAX_TURNS="{{AGENT_MAX_TURNS:-25}}"
+AI_CLI="{{AI_CLI:-claude}}"
+
+PYTHON="{{PYTHON:-python3}}"
+VENV_ACTIVATE="{{VENV_ACTIVATE}}"  # optional, empty if no venv
+
+NOTIFY_URL="{{NOTIFY_URL}}"        # optional, empty if no notifier
+NOTIFY_TOKEN_ENV="{{NOTIFY_TOKEN_ENV:-NOTIFY_TOKEN}}"
+# ================================================================
+
+TIMESTAMP=$(date +%Y%m%d_%H%M)
+REPORT_DIR="$DATA_DIR/reports"
+mkdir -p "$REPORT_DIR" "$DATA_DIR/evolution"
+
+ERRORS=""
+
+notify() {
+    if [ -n "${NOTIFY_URL:-}" ] && [ -n "${!NOTIFY_TOKEN_ENV:-}" ]; then
+        curl -s -X POST "$NOTIFY_URL" \
+            -H "Authorization: Bearer ${!NOTIFY_TOKEN_ENV}" \
+            -H "Content-Type: application/json" \
+            -d "{\"message\":\"$1\"}" > /dev/null 2>&1 || true
+    fi
+}
+
+# Activate venv if configured
+if [ -n "${VENV_ACTIVATE:-}" ] && [ -f "$VENV_ACTIVATE" ]; then
+    source "$VENV_ACTIVATE" 2>/dev/null || true
+fi
+
+echo "=== RESEARCHER CYCLE — $TIMESTAMP ==="
+
+# ─── 0. AUTOPSY OF PREVIOUS RUN (Regressive Repair) ────────────
+# Pure I/O. Cannot timeout. Writes lab_health.json. Degrades gracefully.
+# The output is the fuel for step 2 (living field).
+echo ""
+echo "--- 0. AUTOPSY ---"
+RESEARCHER_DATA_ROOT="$DATA_DIR" "$PYTHON" "$CYCLE_DIR/autopsy.py" 2>&1 \
+    || echo "  autopsy failed (non-blocking)"
+
+# ─── 1. SEED BACKUP ───────────────────────────────────────────
+cp "$DATA_DIR/seed.json" "$DATA_DIR/seed_backup_pre_run.json" 2>/dev/null || true
+
+# Read state
+PLAN=$("$PYTHON" -c "import json; print(json.load(open('$DATA_DIR/seed.json')).get('piano','?'))" 2>/dev/null || echo "?")
+DIRECTION=$("$PYTHON" -c "import json; print(json.load(open('$DATA_DIR/seed.json')).get('direzione','?')[:80])" 2>/dev/null || echo "?")
+echo "Plan: $PLAN"
+echo "Direction: $DIRECTION"
+
+# ─── 2. BUILD LIVING FIELD ────────────────────────────────────
+echo ""
+echo "--- 2. LIVING FIELD ---"
+RESEARCHER_DATA_ROOT="$DATA_DIR" "$PYTHON" "$CYCLE_DIR/build_field.py" \
+    > "$DATA_DIR/agent_field.md" 2>/dev/null \
+    || echo "  field builder had issues (check agent_field.md)"
+FIELD_BYTES=$(wc -c < "$DATA_DIR/agent_field.md" 2>/dev/null || echo 0)
+echo "Field assembled: $FIELD_BYTES bytes"
+
+# ─── 3. LAUNCH AI AGENT ───────────────────────────────────────
+echo ""
+echo "--- 3. AGENT RUNNING ($(date -Iseconds)) ---"
+cd "$PROJECT_ROOT"
+AGENT_OUTPUT="$REPORT_DIR/agent_${TIMESTAMP}_raw.log"
+
+PROMPT="You are the Researcher cycle AI agent. \
+Read $DATA_DIR/agent_field.md for the living field (tensions, last results, \
+convergences, autopsy of the previous run, observations). \
+Read $CYCLE_DIR/AGENT_CONTEXT.md for the domain model, rules, errors to avoid. \
+Pick ONE tension. Run ONE experiment (use or write an $TOOLS_DIR/exp_*.py). \
+Write the report to $REPORT_DIR/agent_${TIMESTAMP}.md as the FINAL step."
+
+timeout --kill-after=60 "$AGENT_BUDGET_S" "$AI_CLI" \
+    --permission-mode acceptEdits \
+    -p "$PROMPT" \
+    --max-turns "$AGENT_MAX_TURNS" \
+    > "$AGENT_OUTPUT" 2>&1
+EXIT_CODE=$?
+
+echo ""
+echo "--- AGENT TERMINATED (exit: $EXIT_CODE, $(date -Iseconds)) ---"
+echo "Output: $(wc -c < "$AGENT_OUTPUT" 2>/dev/null || echo 0) bytes"
+[ ! -s "$AGENT_OUTPUT" ] && ERRORS="${ERRORS}Empty agent output. "
+
+# ─── 4. SEED VALIDATION ───────────────────────────────────────
+echo ""
+echo "--- 4. SEED VALIDATION ---"
+"$PYTHON" - <<PYEOF
+import json, shutil
+from pathlib import Path
+seed_p = Path("$DATA_DIR/seed.json")
+backup = Path("$DATA_DIR/seed_backup_pre_run.json")
+try:
+    s = json.load(open(seed_p))
+    assert isinstance(s.get('tensioni'), list), 'tensioni not a list'
+    assert 'piano' in s, 'piano missing'
+    with open(seed_p, 'w') as f:
+        json.dump(s, f, indent=2, ensure_ascii=False)
+    print(f'OK: plan {s["piano"]}, {len(s["tensioni"])} tensions')
+except Exception as e:
+    print(f'CORRUPTED: {e}')
+    if backup.exists():
+        shutil.copy(backup, seed_p)
+        print('  restored from backup')
+PYEOF
+
+# ─── 5. DOMAIN ASSERTIONS (optional) ──────────────────────────
+if [ -f "$CYCLE_DIR/verify_assertions.py" ]; then
+    echo ""
+    echo "--- 5. DOMAIN ASSERTIONS ---"
+    "$PYTHON" "$CYCLE_DIR/verify_assertions.py" 2>&1 || echo "  assertions check failed (non-blocking)"
+fi
+
+# ─── 6. POST-PROCESSING (optional custom) ─────────────────────
+if [ -f "$CYCLE_DIR/post_process.py" ]; then
+    echo ""
+    echo "--- 6. POST-PROCESSING ---"
+    "$PYTHON" "$CYCLE_DIR/post_process.py" 2>&1 || echo "  post-process failed (non-blocking)"
+fi
+
+# ─── 7. AFFINATORE (Reflective observer) ──────────────────────
+# Observes the step, not the result. LLM call, CAN timeout. Degrades.
+echo ""
+echo "--- 7. AFFINATORE ---"
+RESEARCHER_DATA_ROOT="$DATA_DIR" \
+RESEARCHER_PROJECT_ROOT="$PROJECT_ROOT" \
+    "$PYTHON" "$CYCLE_DIR/affinatore.py" --run "$TIMESTAMP" 2>&1 \
+    || echo "  affinatore failed (non-blocking — marked pending in lab_health.json)"
+
+# ─── 8. NOTIFY ─────────────────────────────────────────────────
+REPORT_FILE="$REPORT_DIR/agent_${TIMESTAMP}.md"
+if [ -n "$ERRORS" ]; then
+    MSG="⚠ Researcher cycle plan $PLAN. ERRORS: $ERRORS"
+elif [ -f "$REPORT_FILE" ]; then
+    MSG="✓ Researcher cycle plan $PLAN complete. Report: agent_${TIMESTAMP}.md"
+else
+    MSG="⚠ Researcher cycle plan $PLAN: no report file written (see lab_health.json)"
+fi
+notify "$MSG"
+echo ""
+echo "$MSG"
+echo "=== END RESEARCHER CYCLE — $(date -Iseconds) ==="

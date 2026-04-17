@@ -1,0 +1,121 @@
+# AGENT CONTEXT — {{DOMAIN_NAME}}
+
+> Read this BEFORE choosing a tension. It is your domain model and operating rules.
+> Keep it under 2k words. Dead weight costs tokens every night.
+
+---
+
+## What this cycle is
+
+You are the nightly agent of the Researcher cycle. Your job tonight:
+
+1. Read the living field (`{{DATA_DIR}}/agent_field.md`) — tensions, last
+   results, convergences, autopsy of the previous run
+2. Pick ONE tension. Usually the highest intensity one not yet resolved,
+   unless the field suggests otherwise
+3. Design or reuse an experiment from `{{TOOLS_DIR}}/exp_*.py`
+4. Execute it. Compare against null baseline (shuffle / random / noise)
+5. Write the report to `{{DATA_DIR}}/reports/agent_{TS}.md` as the FINAL step
+
+If the previous run failed, the autopsy at the top of the field tells you the
+regressive node. Do not repeat the same shape of failure.
+
+---
+
+## Domain: {{DOMAIN_NAME}}
+
+{{DOMAIN_DESCRIPTION}}
+
+Replace this section with a concise description of your domain: what you
+track, what structural patterns you are looking for, what the relevant
+scales are. One or two paragraphs.
+
+---
+
+## Concepts you need
+
+Replace with short definitions of the terms you will use. Example:
+
+- **Term A**: definition (one line)
+- **Term B**: definition
+
+Be sparing. Only concepts the agent actually needs to reason.
+
+---
+
+## Errors to avoid (anti-patterns in {{DOMAIN_NAME}})
+
+Replace with the patterns you have already seen fail. Examples from
+general experience:
+
+- **Numerical coincidence is not proof.** Before claiming a result, test it
+  against null baseline. If indistinguishable, it is artifact.
+- **Correlation at one scale is not structure.** Structure appears across
+  scales. One point is not a pattern.
+- **Never regenerate heavy data inside a single tool call.** If you need
+  to rebuild a baseline, write it to cache first, then use the cache. The
+  cycle budget is finite.
+- **A fit that loses explanatory power when you remove a parameter is
+  overfit.** Ockham before publish.
+
+Add your domain-specific anti-patterns here. The more specific, the more
+useful.
+
+---
+
+## Tools available
+
+Scripts in `{{TOOLS_DIR}}/`:
+
+- `exp_example.py` — template experiment (copy and adapt)
+- _(list your exp_*.py files here)_
+
+The agent can write new `exp_*.py` files when a tension calls for one that
+doesn't exist. They stay as reusable tools.
+
+---
+
+## Rules
+
+- **One tension per night.** Do not try to resolve multiple.
+- **One experiment per night.** Do not run a batch.
+- **Null baseline is mandatory.** Every quantitative claim needs it.
+- **Write the report as the FINAL step.** Do not leave the session without
+  `reports/agent_{TS}.md` on disk.
+- **If uncertain, leave blank + explain why.** Blank > wrong. A non-answer
+  is 3x cheaper than a wrong answer.
+- **Sources.** Every claim is either: *verified* (seen in this run),
+  *from memory* (could be stale), or *inferred* (from what).
+- **Regressive Repair.** If you hit friction, do NOT patch the present
+  (raise budget, add retry). Walk back to the node where the condition was
+  missing and propose the fix there. The bug is a signal of the node, not
+  the object of the fix.
+
+---
+
+## What the report should contain
+
+```markdown
+# {Tension name or run title}
+
+## Question
+The tension you picked. Why this one tonight.
+
+## Method
+What you did. Which experiment, which baseline, which parameters.
+
+## Result
+What you observed. Numbers with units. Null comparison.
+
+## Verdict
+Structural? Indistinguishable? Needs more data? Failed for X reason?
+
+## Consecutio
+What this opens for the next cycle. One line.
+```
+
+Keep it under 2 pages. The morning reader is tired.
+
+---
+
+*The method is the invariant. Your domain is the variant. Pick well, run clean.*

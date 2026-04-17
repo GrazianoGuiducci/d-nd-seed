@@ -1,0 +1,36 @@
+{
+  "_comment": "EXAMPLE: Researcher profile. Autonomous nightly research cycle for a structured domain. Customize DOMAIN_NAME, DIRECTION, paths, and budget for your setup.",
+  "node_id": "RESEARCHER",
+  "description": "Example — Autonomous research cycle (Seed Researcher plugin)",
+
+  "project_dir": "./my-research",
+  "memory_path": "./my-research/.claude/memory",
+
+  "plugins": ["researcher", "godel"],
+
+  "researcher": {
+    "domain_name": "YOUR_DOMAIN",
+    "direction": "One sentence on what you are tracking. Replace this.",
+    "data_dir": "./my-research/data",
+    "tools_dir": "./my-research/tools",
+    "cycle_dir": "./my-research/cycle",
+    "ai_cli": "claude",
+    "python": "python3",
+    "venv_activate": "",
+    "agent_budget_s": 1200,
+    "agent_max_turns": 25,
+    "affinatore_budget_s": 300,
+    "recent_reports_n": 3,
+    "cron_schedule": "30 3 * * *",
+    "notify_url": "",
+    "notify_token_env": "NOTIFY_TOKEN"
+  },
+
+  "godel": {
+    "enabled": true,
+    "name": "Operator",
+    "domain": "YOUR_DOMAIN discrimination",
+    "description": "Filter that inverts — asks the discriminant question instead of answering",
+    "port": 3004
+  }
+}

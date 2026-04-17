@@ -1,0 +1,20 @@
+{
+  "piano": 1,
+  "direzione": "Tracking structural invariants in [YOUR DOMAIN] — what patterns hold across scale, noise, and time.",
+  "tensioni": [
+    {
+      "id": "FIRST_TENSION",
+      "intensita": 0.9,
+      "claim": "A falsifiable statement about your domain. The shorter and more precise, the better.",
+      "porta": "autonomia",
+      "stato": "aperta"
+    },
+    {
+      "id": "SECOND_TENSION",
+      "intensita": 0.7,
+      "claim": "Another open question. Each tension should be self-contained: one night, one experiment.",
+      "porta": "autonomia",
+      "stato": "aperta"
+    }
+  ]
+}
