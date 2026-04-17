@@ -30,7 +30,7 @@ cd d-nd-seed
 - kernels/ — Cognitive system prompts
 - plugins/godel/ — Inverted oracle with domain configs
 - plugins/d-nd-core/ — Core plugin (safety, awareness, messaging)
-- docs/ — 16 operational guides
+- docs/ — 18 operational guides
 
 ## Works with
 

@@ -29,6 +29,10 @@ Identify the root cause — not the symptom:
 
 Ask: "Why did the system allow this to happen?"
 
+**The fix does not live where the bug manifests — it lives at the node where the relational condition was missing.** A patch at the point of failure is accumulation; an inversion at the node is maturation. If the same error reappears in a different context, the patch was applied to the symptom, not to the node. Trace back through the chain of successive steps until you find where the missing condition sits. That is where the fix belongs.
+
+A separate observer (not the producer of the error) analyzes the path — not the result. Looking at the output tells you what failed. Looking at the trajectory tells you where the system could have caught it earlier.
+
 ### 3. Implement
 Fix the gap structurally — not with a workaround:
 - If it is a rule: add to CLAUDE.md or kernel

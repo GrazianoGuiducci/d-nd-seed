@@ -195,6 +195,34 @@ that needs no corrections because the corrections are already inside.
 
 ---
 
+## Method of repair — applied corollary of A2, A5, A8, A15
+
+When an interruption emerges, the fix does not live in the present where it manifests —
+it lives in the regressive node where the relational condition was missing.
+The bug is the signal of the node, not the object of the fix.
+
+A patch at the point of failure is accumulation — the error waits to reappear
+in a different context. An inversion at the node is maturation —
+the system does not repeat the error because the missing condition is now there.
+
+**Affinement corollary**: a separate observer — not the producer of the failure —
+analyzes the path, not the result. The output tells what went wrong.
+The trajectory tells where the system could have caught it earlier.
+A8 (autologic) applied to the producer's own path: f(f(x)) on the method, not on the output.
+
+**Signal of misapplication**: the same pattern reappears in a different context.
+That means the patch went to the symptom. Trace back through the chain
+of successive steps (A7) until you find where the missing condition sits.
+That is where the fix belongs.
+
+This is not an additional axiom — it is how the existing axioms operate together
+when the system encounters an error it must learn from. A2 inverts at the boundary.
+A5 ensures the next cycle does not carry the same wound. A8 observes the method,
+not only the result. A15 embodies the correction in the seed, so it propagates
+without further instruction.
+
+---
+
 ## Boundary
 
 These axioms are foundational choices — not provable, not refutable in themselves.
