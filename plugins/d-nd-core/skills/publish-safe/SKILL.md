@@ -1,7 +1,6 @@
 ---
 name: publish-safe
 description: "Five mechanical gates for any content publish pipeline with CMS + rendering layers. Prevents false security: 'API returned 200' does not mean 'visitor sees clean content'. Use when writing content to a multi-layer serving system (CMS API, static files, prerendered HTML, cached copies)."
-user-invocable: true
 ---
 
 # Publish Safe — Five-gate pattern
@@ -41,13 +40,33 @@ to a consumer, not just the primary content body. Pages typically carry:
 - `description` / `description_en` (injected into `<meta name="description">`,
   `og:description`, `twitter:description` — crawlers and AI ingest these)
 - `title` / `title_en`, `summary`, alt-text fields on embedded media
+- `visual_spec`, `diagram_spec`, or any structured JSON field that
+  produces rendered text (diagram titles, labels, tooltips, detail
+  sentences) — these ship as HTML inside the page and are visible to
+  both humans and LLMs
 - Any field interpolated into SEO templates or OpenGraph tags
 
 Gate-1 misses here are invisible: the body looks clean, the meta layer
 ships with mojibake or bias, and crawler/AI indexing picks up the bad
 version because the API echo only reported the body's cleanliness. If
-the stack has a meta layer, sanitize must include it by scope
-declaration — not as a later patch.
+the stack has a meta layer or an embedded structured-content layer
+(like `visual_spec`), sanitize must include it by scope declaration —
+not as a later patch.
+
+**Server-generated fields caveat.** Some fields are regenerated
+server-side after the write (e.g., a CMS extractor re-derives the field
+from the body and overwrites what the client sent). If the gate scans
+these at write time but the server regenerates them downstream with a
+different process, the gate output is stale — the server version
+shipped, not the sanitized one. Two rules:
+
+1. **Sanitize at the source of regeneration, not at the API boundary.**
+   If `visual_spec` is re-extracted from the body by a server process,
+   the server's extraction logic must contain the same sanitization
+   rules as Gate 1. Gate 1 alone at the API client is not enough.
+2. **Gate 4 VERIFY must scan the final layer, post-regeneration.** Do
+   not trust that what the client sent is what the consumer reads.
+   Re-fetch after the server has regenerated and verify.
 
 If input still contains known-bad sequences after sanitize, raise — do not
 pass poisoned content through the gate.
