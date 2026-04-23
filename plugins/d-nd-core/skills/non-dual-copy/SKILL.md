@@ -1,7 +1,6 @@
 ---
 name: non-dual-copy
 description: "Pre-commit check for public-facing copy (knowledge base definitions, page content, docs). Detects apologetic hedging — phrases that declare 'degrees of truth' (possible/necessary, current/future, one-of-many/the) and open a dualistic framing the model transcends. Use when drafting or reviewing any copy that describes the model, its transductions, or its tools."
-user-invocable: true
 ---
 
 # Non-Dual Copy — no hedge, facts over declared degrees of truth
@@ -138,6 +137,42 @@ The skill is the pattern applied to itself.
 # Given "we might say the matrix represents a dipole" -> skill flags "we might say"
 # Given "Paper Zero is the formalization" -> skill does NOT flag (factual pointer)
 # Given "A specific transduction: the matrix..." -> skill does NOT flag (factual-descriptive, specificity from context)
+
+## Expected false-positive tests — context exclusions
+# These patterns should NOT flag (the marker is content, not a hedge on the model):
+#
+# Narrative question — marker is part of the question, not a hedge:
+#   "cosa non si potrebbe calcolare?" -> "si potrebbe" is part of a rhetorical question
+#   "what could not be computed?" -> "could not" is interrogative, not modal hedge
+#   Heuristic: if the sentence ends with "?" or the marker is preceded by an
+#   interrogative stem ("cosa", "chi", "what", "who", "how"), exclude.
+#
+# Workflow step — marker describes a phase of the reader's action, not of the lab:
+#   "Non giudicare in questa fase — accumulare materia prima" -> "in questa fase" refers to
+#     a step the reader is currently in (workflow instruction), not to the lab's contingency
+#   "In this phase, collect evidence — analysis comes later" -> same pattern
+#   Heuristic: if the marker is followed by workflow verbs ("accumulare", "raccogliere",
+#   "costruire", "produrre", "collect", "gather", "build", "produce") or by an em-dash
+#   followed by an imperative verb, exclude.
+#
+# Quoted or cited content — marker inside quotes referencing external source:
+#   "The paper says 'one of many possible interpretations'" -> flagged text is a citation
+#   Heuristic: exclude if the marker falls inside quotation marks or within a citation block.
+
+## Regex refinement guidance
+
+When integrating this skill into a mechanical gate, do not apply raw regex
+alone — the four anti-pattern forms have legitimate uses (narrative questions,
+workflow instructions, quoted citations) that a naive regex will flag.
+
+Two-pass approach:
+1. Raw regex pass identifies candidate matches.
+2. Context pass filters candidates using the three heuristics above
+   (interrogative stem, workflow verb, quotation enclosure).
+
+If the context pass cannot be implemented, the gate should stay advisory
+(warn, not block) until the false-positive rate drops below a threshold
+(e.g., <5% of matches in a held-out corpus).
 
 ## Regex patterns for mechanical detection (Gate 1 integration)
 

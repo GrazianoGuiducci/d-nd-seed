@@ -35,6 +35,20 @@ Normalize known encoding artifacts before the write. Common sources:
 Maintain a `MOJIBAKE_MAP` table ordered **long-first** (longer patterns before
 their prefixes — otherwise short-match eats part of long sequences).
 
+**Scope — which fields to scan:** scan every field that ends up rendered
+to a consumer, not just the primary content body. Pages typically carry:
+- `content` / `content_en` (body — the obvious target)
+- `description` / `description_en` (injected into `<meta name="description">`,
+  `og:description`, `twitter:description` — crawlers and AI ingest these)
+- `title` / `title_en`, `summary`, alt-text fields on embedded media
+- Any field interpolated into SEO templates or OpenGraph tags
+
+Gate-1 misses here are invisible: the body looks clean, the meta layer
+ships with mojibake or bias, and crawler/AI indexing picks up the bad
+version because the API echo only reported the body's cleanliness. If
+the stack has a meta layer, sanitize must include it by scope
+declaration — not as a later patch.
+
 If input still contains known-bad sequences after sanitize, raise — do not
 pass poisoned content through the gate.
 
@@ -45,6 +59,12 @@ Scan content for internal references (links, includes, cross-refs). For each:
 - verify it exists in the current registry (live list of valid targets)
 - whitelist static/hardcoded routes that are not in the registry
 - ignore external/mailto/anchors
+
+**Scope — same discipline as Gate 1:** apply link-integrity scans across
+every field that can hold a reference, including `description` /
+`description_en` and any metadata field that may contain a URL or slug.
+Links inside meta-description shipped broken are the same class of silent
+failure as body links — crawler previews and AI summaries surface them.
 
 If a link points to a target that does not exist and is not whitelisted: raise
 (or at minimum: warn and require explicit override). Broken internal links
