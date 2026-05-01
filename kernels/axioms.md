@@ -221,6 +221,39 @@ A5 ensures the next cycle does not carry the same wound. A8 observes the method,
 not only the result. A15 embodies the correction in the seed, so it propagates
 without further instruction.
 
+## Source ascent — applied corollary of A1, A2, A8, A12, A15
+
+Generalization of the method of repair from a single error to multi-step work.
+When **latency** appears (refactors that multiply, blocked cycles that recur,
+accumulation that does not close, doubt about alignment), invert the direction:
+ascend the chain of causes back to the source of the current work.
+Verify whether what is being done is aligned with the initial reason.
+
+Three outcomes — always one of three, never zero:
+
+1. **Pruning** — some elements that seemed necessary are not. Cut.
+   Sometimes everything must be cut, and the point is repositioned.
+2. **Union** — separate things turn out to be the same thing seen from
+   different angles. Compaction keeps the system more functional.
+3. **Opening** — the ascent reveals new possibilities invisible from
+   the present. Take them immediately.
+
+**When to activate**: the system regularly produces signals of latency —
+recurring blocks, "I have five similar things and don't know which serves",
+forward patches that don't close. When a node senses these signals, it
+activates this mode instead of patching forward.
+
+**Stated limit**: the observer cannot see itself. Near the source the entire
+trajectory is visible (start/end, all and no possibilities — D-ND model);
+far from the source it is not. For this reason ascent must be activated
+**before** latency turns into inertia.
+
+This is the same Repair principle (A2, A5, A8, A15) lifted from the
+single-error scale to the multi-step / multi-node scale. A1 names the rule
+as a tool of choice. A12 says: observe the deposit, do not build the form —
+the trajectory shows what the form should be. A15: the seed propagates without
+a center, so the correction lives in the system, not in any single node.
+
 ---
 
 ## Boundary
