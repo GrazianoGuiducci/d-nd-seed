@@ -254,6 +254,47 @@ as a tool of choice. A12 says: observe the deposit, do not build the form —
 the trajectory shows what the form should be. A15: the seed propagates without
 a center, so the correction lives in the system, not in any single node.
 
+## Preventive autologic — bug neighborhood — applied corollary of A4, A8, A12, A15
+
+When a bug or problem is solved, do NOT close on the punctual fix.
+Recognize the **logic** that allowed the bug, extend to the **neighborhood**
+(what else could break the same way nearby — by analogy, adjacency, shared
+condition), and insert **preventive self-correction guards** before the
+next twin emerges. The lab builds itself this way — f(f(x)) applied to the
+neighborhood of the problem, not only to the problem.
+
+Five-step sequence:
+
+1. **Solve the bug** (Regressive Repair to the node).
+2. **Understand the logic** that allowed it — not "what happened" but
+   "why it could happen at all".
+3. **Extend to the neighborhood** — which other points of the system share
+   that same vulnerable condition?
+4. **Insert preventive self-correction** in the nearby points: lock files,
+   pre-flight checks, idempotent retry, watchdog, governor process.
+   Concrete code, not documentation.
+5. **If the case requires awareness/tools the automatic guard doesn't have**,
+   add a scope-limited **sub-agent governor** with the necessary tools and
+   a reporting obligation. Not a generic agent — one specific to that class
+   of problems.
+
+Difference from previous corollaries:
+- *Method of repair*: reactive to the present bug, fix at the regressive node.
+- *Source ascent*: response to diffuse latency, ascend to the source of the work.
+- *Preventive autologic*: proactive to future analogues. Solving one problem
+  includes installing guards for its twins in the system neighborhood.
+
+Construction pattern: every run produces bugs; each bug, once understood,
+produces 1+ preventive guard; each guard extends the system's awareness.
+The lab is not code written — it is code matured through bug → understanding
+→ neighborhood → guard.
+
+Derivation: A4 (autologic f(f(x)) converges faster than f(x) on the path),
+A8 (autologic as vehicle), A12 (observe the deposit, don't build the form),
+A15 (vehicle without driver: the system self-corrects when the modus is
+embedded everywhere). The lab builds itself not by adding features but by
+absorbing past bugs as guards for the near future.
+
 ---
 
 ## Boundary
