@@ -1,0 +1,37 @@
+{
+  "schema_version": "0.1",
+  "stage": 5,
+  "stage_name": "package_runner",
+  "verdict": "PACKAGED",
+  "package_name": "dnd_kernel_z_12_813_l_ordine_sequenziale",
+  "license": "MIT",
+  "use_case": "Kernel cognitivo D-ND installabile per agenti LLM: predittore informato per sequenze con struttura Markov nascosta. Plugin riusabile per anti-loop guardrail e compressione context strutturata.",
+  "issues": [],
+  "details": {
+    "package_name": "dnd_kernel_z_12_813_l_ordine_sequenziale",
+    "import_ok": true,
+    "import_error": null,
+    "tests_found": 1,
+    "tests_ok": true,
+    "tests_output_excerpt": "test_informed_beats_naive (test_kernel.TestInformedBeatsNaive.test_informed_beats_naive) ... ok\ntest_structured_vs_shuffled (test_kernel.TestInformedBeatsNaive.test_structured_vs_shuffled) ... ok\ntest_import_and_run (test_kernel.TestSmoke.test_import_and_run) ... ok\ntest_score_sequence (test_kernel.TestSmoke.test_score_sequence) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.030s\n\nOK\n",
+    "files_found": [
+      "CHANGELOG.md",
+      "LICENSE",
+      "README.md",
+      "_prompt.txt",
+      "pyproject.toml",
+      "src/dnd_kernel_z_12_813_l_ordine_sequenziale/__init__.py",
+      "src/dnd_kernel_z_12_813_l_ordine_sequenziale/__pycache__/__init__.cpython-312.pyc",
+      "src/dnd_kernel_z_12_813_l_ordine_sequenziale/__pycache__/kernel.cpython-312.pyc",
+      "src/dnd_kernel_z_12_813_l_ordine_sequenziale/kernel.py",
+      "src/dnd_kernel_z_12_813_l_ordine_sequenziale/prompt_template.md",
+      "stage5_verification.json",
+      "tests/__pycache__/test_kernel.cpython-312.pyc",
+      "tests/test_kernel.py"
+    ]
+  },
+  "started_at": "2026-05-02T06:04:04.907266+00:00",
+  "finished_at": "2026-05-02T06:05:33.536978+00:00",
+  "duration_s": 88.63,
+  "re_verified_at": "2026-05-02T06:06:12.605871+00:00"
+}

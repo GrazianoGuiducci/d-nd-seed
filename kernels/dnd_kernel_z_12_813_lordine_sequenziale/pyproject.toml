@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dnd_kernel_z_12_813_l_ordine_sequenziale"
+version = "0.1.0"
+description = "Informed predictor for sequences with hidden Markov structure — exploits transition matrix fingerprint (z=12,813)."
+license = "MIT"
+authors = [
+    { name = "D-ND_LAB" },
+]
+requires-python = ">=3.10"
+
+[project.urls]
+Repository = "https://github.com/GrazianoGuiducci/D-ND_LAB"
+
+[tool.setuptools.packages.find]
+where = ["src"]
