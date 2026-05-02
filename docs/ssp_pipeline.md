@@ -93,12 +93,39 @@ The verdict on each type is **independent** — a finding can produce a
 strong kernel and a weak library, or vice versa. Operator decides which
 form is the use case.
 
-### Stage 5 — Packaging (future, manual or LLM-assisted)
+### Stage 5 — Packaging (automated, claude-cli OAuth)
 
-Not yet automated. Once the operator picks a winning type, packaging into
-a real product (PyPI library, npm package, prompt template module, GitHub
-release) is the next step. The PoC's `poc.py` becomes the seed code of
-the packaged product, with tests derived from the verification metrics.
+Implemented: `core/triggers/stage5_package.py`. Takes any product with
+`verdict=PASS` from Stage 4 and generates an installable Python package
+under `LAB_DATA_DIR/<domain>/prodotti/<id>/package/`:
+
+- `pyproject.toml` (PEP 517, `setuptools.build_meta` backend)
+- `src/<package_name>/__init__.py` + `kernel.py` — code refactored from
+  `poc.py` as a reusable library, with `method_naive` / `method_informed`
+  as public API plus a high-level `Kernel*` class
+- `src/<package_name>/prompt_template.md` — versioned prompt template
+  (only for type=`kernel`, the cognitive form of the finding)
+- `tests/test_kernel.py` — at minimum: import smoke + A/B replication at
+  reduced scale (deterministic, seed-fixed)
+- `README.md` — what / why (citing the finding) / use case / install /
+  quick start / verification table / lineage to the cycle
+- `LICENSE`, `CHANGELOG.md`
+
+Generation uses claude-cli with `Write` tool only (no Bash, no Edit).
+Stage 5 runner then verifies: package importable via `PYTHONPATH=src` +
+tests pass via `unittest discover`. Verdict: `PACKAGED` / `INCOMPLETE` /
+`FAILED`. Output: `stage5_verification.json`.
+
+The use case is provided by the operator (`--use-case "..."`) and lands
+in README + CHANGELOG. The product becomes installable locally with
+`pip install -e <package_dir>` and is ready for PyPI / npm publication
+once the operator approves.
+
+**Worked example**: the kernel `z=12,813` (Δ=+68.6pp) packaged as
+`dnd_kernel_z_12_813_l_ordine_sequenziale` v0.1.0, verdict PACKAGED,
+4 tests passing. Use case declared: "Kernel cognitivo D-ND installabile
+per agenti LLM: predittore informato per sequenze con struttura Markov
+nascosta."
 
 ---
 
