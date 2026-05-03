@@ -133,6 +133,7 @@ D-ND (Dual-Non-Dual) is the framework behind this seed. The mathematical model, 
 - [seed.d-nd.com](https://seed.d-nd.com) — Seed documentation
 - [d-nd.com](https://d-nd.com) — Framework and research
 - [d-nd.com/laboratorio](https://d-nd.com/laboratorio) — Live research data
+- [D-ND_LAB](https://github.com/GrazianoGuiducci/D-ND_LAB) — The generative lab that produces installable kernels (see `kernels/`)
 - [EXAMINA](https://github.com/GrazianoGuiducci/EXAMINA) — Evolutionary evaluation
 - [anamnesis](https://github.com/GrazianoGuiducci/anamnesis) — Context persistence specification
 
