@@ -122,6 +122,12 @@ If you're running a previous version, see [UPGRADING.md](UPGRADING.md) for break
 
 The seed installs the structure. What grows from it is described in [OPERATIONAL_MATURITY.md](docs/OPERATIONAL_MATURITY.md) — how the system thinks, protects itself, and evolves after installation. Seven patterns that transfer across any node.
 
+## Lab pattern
+
+When you bootstrap a research lab from this seed (any domain — physics, finance, biology, network security, drug discovery, ...), the standard architecture is documented in [LAB_PATTERN.md](docs/LAB_PATTERN.md). It covers the 5-stage SSP pipeline (Scoperte → Soluzioni → Prodotti), draft/published separation, provider chain, dashboard UI patterns (modal candidate, cytoscape-fcose, equispaced trajectory), watchdog + cascade hooks, and anti-patterns to avoid.
+
+Pipeline scripts live at [plugins/d-nd-core/scripts/lab/](plugins/d-nd-core/scripts/lab/) — domain-agnostic implementations of `promote_to_publish.py`, `finding_promoter.py`, `blueprint_generator.py`. See [LAB_PIPELINE_GUIDE.md](plugins/d-nd-core/scripts/lab/LAB_PIPELINE_GUIDE.md) for CLI examples and integration with cycle pipeline.
+
 ## For AI in a chat session
 
 If you are using Claude.ai, ChatGPT, or Gemini (not a coding agent): start with [CHAT_START.md](CHAT_START.md). It contains the skills and instructions adapted for conversation.
