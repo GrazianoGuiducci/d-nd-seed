@@ -124,7 +124,7 @@ The seed installs the structure. What grows from it is described in [OPERATIONAL
 
 ## Lab pattern
 
-When you bootstrap a research lab from this seed (any domain — physics, finance, biology, network security, drug discovery, ...), the standard architecture is documented in [LAB_PATTERN.md](docs/LAB_PATTERN.md). It covers the 5-stage SSP pipeline (Scoperte → Soluzioni → Prodotti), draft/published separation, provider chain, dashboard UI patterns (modal candidate, cytoscape-fcose, equispaced trajectory), watchdog + cascade hooks, and anti-patterns to avoid.
+When you bootstrap a research lab from this seed (any domain — physics, finance, biology, network security, drug discovery, ...), the standard architecture is documented in [LAB_PATTERN.md](docs/LAB_PATTERN.md). It covers the 5-stage SSP pipeline (Scoperte → Soluzioni → Prodotti), the 21-movement cycle architecture (with Aeternitas + Veritas structural gate, A8+A15 trajectory loop, narrative writer), draft/published separation, provider chain, dashboard UI patterns (modal candidate, cytoscape-fcose, equispaced trajectory), watchdog + cascade hooks, and anti-patterns to avoid.
 
 Pipeline scripts live at [plugins/d-nd-core/scripts/lab/](plugins/d-nd-core/scripts/lab/) — domain-agnostic implementations of `promote_to_publish.py`, `finding_promoter.py`, `blueprint_generator.py`. See [LAB_PIPELINE_GUIDE.md](plugins/d-nd-core/scripts/lab/LAB_PIPELINE_GUIDE.md) for CLI examples and integration with cycle pipeline.
 

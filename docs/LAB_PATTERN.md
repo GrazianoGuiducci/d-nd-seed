@@ -23,6 +23,75 @@ Stage 5   stage5_package          installable Python package (PEP 517) → seed
 
 Each stage has a single responsibility and writes a deterministic artifact. The pipeline is resumable: if a stage fails, you can re-run from there once the issue is fixed.
 
+## Cycle architecture (21 movements)
+
+A single lab cycle is a deterministic sequence of 21 movements. Each writes its artifact and the next reads what it needs from disk. No movement holds the next hostage — failure of a non-critical step degrades gracefully and the cycle still produces what it can.
+
+```
+0  autopsy              read previous run, find regressive node
+1  trajectory_apply     apply previous cycle's REDESIGN to seed (loop A8+A15)
+2  build_field          assemble live field from seed + reports + tensions
+3  agent                LLM agent runs autonomous experiment, writes report
+4  bias_corrector       A8 autologic: rewrite biased claims pre-falsifier
+5  report_falsifier     5-lens counter-pole, checks report internal coherence
+6  bicono_extractor     parse "Bicono della scoperta" into structured JSON
+7  validate_seed        integrity + bootstrap from seed_tensions
+8  verify_assertions    domain claims: PASS / FAIL / SKIP
+9  structural_check     scan code, inject META tensions on anti-patterns
+10 build_lab_data       snapshot piano + tensions + last report
+11 build_graph          knowledge graph nodes + edges
+12 sync                 propagate state to declared targets
+13 verify_endpoints     downstream consumer health checks
+14 refiner              second LLM observes the STEP, not the result
+15 semantic_bridge      map findings to domain categories
+16 refresh_detector     event-driven regeneration trigger
+17 seed_integrator      crystallize new seed (also from verify_assertions)
+18 veritas_score        ρ ∈ [0,1] aggregating 3 independent vectors → SCARTO/SOSPENSIONE/COLLASSO
+19 trajectory_evaluator decide REDESIGN / NEXT_CYCLE / CRYSTALLIZE / STOP
+20 promotion_proposer   extract finding → skill/hook/system rule (no auto-apply)
+21 ssp_pipeline         scoperta → soluzione → prodotto packageable
+22 narrative_writer     200-word human-readable narrative of the cycle
+23 notify               webhook to operator (Telegram / Sinapsi / etc.)
+```
+
+> Numbers above 19 reflect the post 2026-05-05 expansion. Pre-expansion the cycle was 19 movements (no Aeternitas/Veritas gate, no trajectory_apply, no narrative_writer). The four additions close the autopoietic loop: gate quality, gate lineage, apply the next-cycle decision automatically, expose every iteration as readable narrative.
+
+### Aeternitas + Veritas — structural gate
+
+Two checkpoints between report and promotion. They run in parallel inside `seed_integrator` (Aeternitas) and as standalone movement (`veritas_score`).
+
+| Gate | Code | What it verifies |
+|------|------|------------------|
+| **Aeternitas P0** | Lignaggio | Every tension carries `condensato_ref` traceable to an axiom (A1–A16) or fact (F1–F6). No claim without lineage. |
+| **Aeternitas P1** | Integrità | Piano advances strictly (N → N+1, never backwards or static when there are new tensions). No duplicate tension IDs. |
+| **Aeternitas P5** | Autopoiesi | Cycle produced new tensions OR changed direction. A cycle that only repeats is not generative. |
+| **Veritas ρ** | quality score | Aggregates V_a (telemetric: assertions ratio + falsifier penalty + bicono completeness + report size) + V_b (logico-historic: aeternitas P0/P1/P5 + direction evolution) + V_c (environmental confirmation: report structured sections + tools invoked + bicono in report). |
+
+Decision bands:
+- **ρ < 0.4**: SCARTO (cycle quality below floor; finding cannot be promoted)
+- **0.4 ≤ ρ < 0.9**: SOSPENSIONE (cycle valid but not promotable yet — wait for further evidence)
+- **ρ ≥ 0.9**: COLLASSO (high-quality cycle, finding eligible for promotion)
+
+Default mode is `warn`: gate decision is logged in `data/<lab>/aeternitas/aeternitas_<ts>.json` and `data/<lab>/veritas/veritas_<ts>.json`, but the seed write proceeds even on VETO. Set `movements.seed_integrator.params.aeternitas_mode='hard'` for strict blocking.
+
+### Trajectory loop A8 + A15
+
+`trajectory_evaluator` (movement 19) decides the next cycle's posture: `NEXT_CYCLE / REDESIGN / CRYSTALLIZE / STOP`, with `confidence` and an `action` blob describing what should change in the seed.
+
+`trajectory_apply` (movement 1, runs at start of every cycle) reads the previous cycle's trajectory log and **automatically applies** the decision to the seed when:
+- `confidence == 'high'`
+- `action.type == 'modify_seme'`
+
+This closes the autopoietic loop concretely (axioms A8 — autologic, A15 — vehicle without driver). The system corrects itself between cycles without operator intervention. Lower-confidence or `trigger_cycle`-only decisions are skipped (logged), preserving operator authority over architectural REDESIGN.
+
+### Narrative writer
+
+`narrative_writer` (movement 22) takes the cycle's technical artifacts (agent report, falsifier flags, veritas vectors, aeternitas decision, trajectory verdict, bicono) and asks an LLM (via the standard provider chain) to produce a ~200-word narrative for non-technical readers. No jargon, three-act structure: what was tested → what the system found → what changes now.
+
+Output: `data/<lab>/narratives/narrative_<ts>.md` with frontmatter (cycle_ts, lab, word_count, verdict_band, aeternitas, trajectory_decision) + body. The frontmatter is consumed by public-facing routes that render it as styled HTML (e.g. `lab.d-nd.com/n/<lab>/<ts>`).
+
+This makes every cycle shareable — a LinkedIn-ready URL per iteration, structured for consumption beyond the technical operator.
+
 ## Draft / Published separation
 
 **Critical architectural decision** (refactor 2026-05-03): workflow markup must not leak to public surfaces.
@@ -164,6 +233,83 @@ Each lab keeps:
 - `seed.json` (per-domain) — current direction, tensions, piano
 
 When a finding evolves through subsequent cycles, the old version moves to `cimitero.md` with a `replaced_by:` reference. The condensed document is the single source of truth at any moment.
+
+## Observable hygiene (registry pattern)
+
+**Soglia di adozione**: quando un dominio del lab cresce oltre **2 script `exp_*.py` che condividono nomi di osservabili** (es. `SR`, `triple_var`, `effect_z`), instaurare un registry centrale `observables_registry.py` come Source of Truth. Sotto questa soglia il pattern è opzionale.
+
+### Il problema che il registry risolve
+
+Pattern reale osservato nel lab MM_D-ND (cristallizzato 2026-05-06 dalla consecutio del cycle `agent_20260506_0625` — autopoietico self-finding):
+
+- `SR` definito come `spacing_ratio` in 6 script, ma come `spectral_rigidity` in 1 script
+- `triple_var` raw in 3 script, ma normalizzato (`/ var(gaps)`) in 1 script
+- Cross-cycle reports usavano `SR` come label assumendo coerenza → **stavano confrontando funzioni matematiche diverse pensando fossero la stessa**
+
+L'agent autonomo del lab ha catturato il bug da solo nel report 06:25 (sezione META Findings + Consecutio) — ma per evitare che si ripeta in altri lab, il pattern va istituzionalizzato.
+
+### Struttura del registry
+
+`tools/observables_registry.py` (o equivalente per dominio):
+
+```python
+"""Source of Truth per gli observables del lab <dominio>."""
+
+OBSERVABLES_REGISTRY_VERSION = "1.0.0-YYYY-MM-DD"
+
+# Canonical: la convention dominante (più script la usano), immutabile dentro la versione
+def SR(gaps): ...
+def triple_var(gaps): ...
+OBSERVABLES_CANONICAL = {"SR": SR, "triple_var": triple_var, ...}
+
+# Variants: nomi distinti per formulazioni alternative — niente shadowing del canonical
+def SR_local_rigidity(gaps): ...
+def triple_var_normalized(gaps): ...
+OBSERVABLES_VARIANTS = {"SR_local_rigidity": SR_local_rigidity, ...}
+
+def compute_canonical(gaps): return {n: f(gaps) for n, f in OBSERVABLES_CANONICAL.items()}
+
+def report_header():
+    return f"observables_registry: {OBSERVABLES_REGISTRY_VERSION}\nobservables_used: [...]"
+```
+
+### Convention per i report
+
+Ogni cycle report che usa observables nominati DEVE dichiarare:
+
+```
+observables_registry: 1.0.0-2026-05-06
+observables_used: [SR, SR2, L1, L2, triple_var]
+```
+
+Se un cycle usa una variante esplicita, va dichiarata accanto al canonical:
+
+```
+observables_used: [SR, SR_local_rigidity, triple_var]
+```
+
+### Convention per gli exp scripts
+
+```python
+# Canonical use
+from observables_registry import OBSERVABLES_CANONICAL, compute_canonical
+results = compute_canonical(gaps)
+
+# Variant use (esplicito, no shadowing)
+from observables_registry import SR, SR_local_rigidity  # nomi distinti
+```
+
+**Anti-pattern**: ridefinire localmente un nome canonico (`def SR(gaps): ...` dentro `exp_foo.py` con formulazione diversa). Il registry diventa carta straccia se gli script lo bypassano.
+
+### Versioning
+
+Cambiare una definizione canonica = bump del registry version + nota nel changelog del registry. Le definizioni canoniche sono **immutabili dentro una versione**: cycle storici devono restare riproducibili.
+
+### Quando NON serve
+
+- Lab con 0 o 1 exp script (nessuna possibilità di collision)
+- Lab dove gli observables sono unici per nome e mai condivisi tra script
+- Lab in fase esplorativa pura, dove il vincolo bloccherebbe l'esplorazione (ma considerare adozione appena la fase si chiude)
 
 ## Anti-patterns
 
