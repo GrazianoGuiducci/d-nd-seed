@@ -83,6 +83,11 @@ A profile describes your environment. The installer uses it to generate everythi
 
 Optional: `vps_url`, `godel` config, `sinapsi_for` (inter-node messaging). See `profiles/example.json`.
 
+For Lab installs, keep the LLM provider choice explicit. The Lab pattern
+supports `codex-cli -> claude-cli -> openrouter` as a dispatcher chain, but a
+user may choose HTTP-only or local OpenAI-compatible models. See
+`docs/LAB_PATTERN.md` and `docs/AI_INSTALL_ASSISTANT_PROMPT.md`.
+
 ## How it works
 
 Hooks fire at the right moments. You do not invoke them.
