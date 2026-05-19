@@ -212,6 +212,26 @@ and overwrites. Solution:
 3. **Merge, don't overwrite** — diff the changes and apply only the
    template's new parts, preserving local adaptations.
 
+## Hygiene Before Cleanup
+
+An "auto-cleanup" should begin as a hygiene report, not as deletion.
+
+The report classifies visible residue:
+
+- dirty repo state by source/runtime/generated/residue bucket;
+- latest packet versus active workstream;
+- packet density that could confuse reentry;
+- existing custodian report and anomalies;
+- suggested autonomy tier.
+
+Only after that classification should anything be cleaned. A useful default:
+
+- **Auto**: reversible, tool-owned rotations already covered by local policy.
+- **Notify**: boot residue, seed promotion, dirty repo interpretation, stale
+  but meaningful packets.
+- **Escalate**: secrets, source-of-truth rewrites, deploy/runtime changes,
+  cross-node memory deletion, ambiguous user/agent residue.
+
 ## Report Format
 
 ```json

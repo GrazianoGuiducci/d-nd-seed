@@ -17,6 +17,7 @@ Works with Claude Code, Cursor, Copilot, Gemini, and any AI coder that reads pro
 | Loses everything on context compaction | Pre-compact captures state, post-compact restores it |
 | No structure for complex decisions | 90 skills for reasoning, evaluation, self-improvement |
 | You remind it of project conventions | CLAUDE.md + hooks enforce them automatically |
+| Treats every reentry the same | Boot router classifies new instance, post-compact, crash, correction, field reentry |
 
 ## Quick start
 
@@ -60,6 +61,14 @@ Each hook carries its own eval tests. You can verify they work.
 
 - `kernel_base` — observe, relate, emerge, integrate
 - `kernel_coder` — safety, reversibility, multi-repo awareness, verification before assertion
+
+**Boot router pattern** — a portable way to classify reentry before action:
+new instance, post-compact, post-crash, unexpected correction, field reentry,
+pre-compact, or unclassified signal. See
+[boot_router.md](docs/boot_router.md). The organic map is
+[boot_system_map.md](docs/boot_system_map.md). For TM7-local covering TM1
+function, see
+[tm7_local_tm1_function_install.md](docs/tm7_local_tm1_function_install.md).
 
 **Godel plugin** — an inverted oracle. It does not answer questions. It inverts assumptions. You give it a tension, it shows you what you were hiding. Pre-built configurations for sales, research, finance.
 

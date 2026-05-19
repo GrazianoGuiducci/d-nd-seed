@@ -2,6 +2,11 @@
 
 > A cognitive system for AI coders. Hooks, skills, memory, safety guards. Install it in your project — the AI coder reads it and configures itself.
 
+Key guides:
+- Boot system map: docs/boot_system_map.md
+- Boot router pattern: docs/boot_router.md
+- TM7-local TM1-function install: docs/tm7_local_tm1_function_install.md
+
 ## What it does
 
 - Persistent memory across sessions (survives context compaction)

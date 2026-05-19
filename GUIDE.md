@@ -60,6 +60,7 @@ Hooks fire automatically at key moments. You do not invoke them — they are wir
 | **Post-Compact** | After compaction | Re-injects the captured state — you continue where you left off |
 | **Session Monitor** | Every 100 tool calls | Reminds you of core operating rules that may have drifted from attention |
 | **Skill Health Check** | Session start | Verifies your skills don't overlap and all have tests |
+| **Boot Router** | Before broad reentry/action | Classifies new instance, post-compact, post-crash, correction, field reentry, pre-compact, or unclassified signal |
 
 ### Skills — Your Capabilities
 
@@ -125,6 +126,32 @@ Three categories for every assertion:
 - **Verified** — you saw evidence in this session
 - **From memory** — you recall it but it might be stale
 - **Inferred** — you derived it from something else
+
+### When You Re-enter
+
+Do not treat every return as continuation. First classify the transition.
+
+Use the boot-router pattern in `docs/boot_router.md`:
+
+- new instance / day start;
+- post-compact;
+- post-crash or interrupted tool;
+- unexpected operator correction;
+- field reentry;
+- pre-compact handoff;
+- unclassified small signal.
+
+Use `docs/boot_system_map.md` to understand how the router, field boots,
+operational plans, hygiene reports, seed pattern and local adapters fit
+together.
+
+Small signals like "continue" are not enough by themselves. If the field is not
+visible, classify them as unclassified and use current context before acting.
+
+When context is still spacious, let memory accumulate. Around high context
+pressure, structure the active point into why/how, evidence, deep-source
+pointers, residue, boundary and next exact read. Near the limit, write the
+handoff before broad work.
 
 ### When You Communicate
 
