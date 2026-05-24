@@ -15,7 +15,7 @@ Works with Claude Code, Cursor, Copilot, Gemini, and any AI coder that reads pro
 | Starts from zero every session | Reads persistent memory, knows where it left off |
 | Makes destructive mistakes silently | Safety guard catches 9 dangerous patterns before execution |
 | Loses everything on context compaction | Pre-compact captures state, post-compact restores it |
-| No structure for complex decisions | 90 skills for reasoning, evaluation, self-improvement |
+| No structure for complex decisions | 104 skills for reasoning, evaluation, self-improvement |
 | You remind it of project conventions | CLAUDE.md + hooks enforce them automatically |
 | Treats every reentry the same | Boot router classifies new instance, post-compact, crash, correction, field reentry |
 
@@ -36,7 +36,7 @@ The installer reads your profile, adapts the templates, writes the configuration
 
 ## What is inside
 
-**17 hook templates** that fire automatically:
+**19 hook templates** that fire automatically:
 
 | Hook | When | What it does |
 |------|------|-------------|
@@ -49,13 +49,13 @@ The installer reads your profile, adapts the templates, writes the configuration
 
 Each hook carries its own eval tests. You can verify they work.
 
-**103 skills** across three categories:
+**104 skills** across three categories:
 
 | Category | Count | For |
 |----------|-------|-----|
-| Plugin skills | 17 | eval, dream, auto-learn, CEC, propagation, self-setup |
+| Plugin skills | 27 | eval, auto-learn, CEC, propagation, self-setup, safety |
 | Coder skills | 33 | Architecture, testing, debugging, deployment, review |
-| Thinker skills | 40 | Reasoning, analysis, strategy (20 EN + 20 IT, for Chat AI) |
+| Thinker skills | 44 | Reasoning, analysis, strategy, bilingual chat AI packs |
 
 **Cognitive kernels** — system prompts that shape how the AI thinks:
 
@@ -69,6 +69,11 @@ pre-compact, or unclassified signal. See
 [boot_system_map.md](docs/boot_system_map.md). For TM7-local covering TM1
 function, see
 [tm7_local_tm1_function_install.md](docs/tm7_local_tm1_function_install.md).
+
+**THIA → seed promotion lane** — reusable functions integrated in the THIA/D-ND
+runtime should not remain local runtime knowledge. When a THIA feature becomes
+a portable pattern, promote the invariant into this seed. See
+[THIA_SEED_PROMOTION.md](docs/THIA_SEED_PROMOTION.md).
 
 **Godel plugin** — an inverted oracle. It does not answer questions. It inverts assumptions. You give it a tension, it shows you what you were hiding. Pre-built configurations for sales, research, finance.
 
@@ -115,16 +120,16 @@ d-nd-seed/
 ├── install.sh            # Parametric installer (reads profile, writes config)
 ├── profiles/             # Environment configurations
 ├── templates/
-│   ├── hooks/            # 17 hook templates (.sh.tmpl, parametric)
+│   ├── hooks/            # 19 hook templates (.sh.tmpl, parametric)
 │   └── skills/           # Installable skill templates
 ├── skills/
-│   ├── coder/            # 42 skills for coding agents
+│   ├── coder/            # 33 skills for coding agents
 │   └── thinker/          # 44 bilingual skills for chat AI
 ├── kernels/              # Cognitive system prompts (base, coder)
 ├── plugins/
 │   ├── d-nd-core/        # Core: safety, awareness, inter-node messaging
 │   └── godel/            # Inverted oracle with domain configurations
-├── docs/                 # 14 operational guides
+├── docs/                 # 31 operational guides
 └── scripts/              # Maintenance tools
 ```
 

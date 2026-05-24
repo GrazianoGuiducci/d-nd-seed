@@ -40,6 +40,12 @@ case "$FILE_PATH" in
     */tools/*.py|*/tools/*.js)
         echo ">>> SHARE REFLEX: New tool — $(basename "$FILE_PATH")"
         echo ">>> If reusable, add to d-nd-seed/scripts/ or d-nd-seed/plugins/" ;;
+    */THIA/adapters/*.js|*/THIA/services/*.js|*/THIA/docs/guides/*.md|*/THIA/docs/core/*.md)
+        echo ">>> SHARE REFLEX: THIA function changed — $(basename "$FILE_PATH")"
+        echo ">>> If the invariant is reusable, promote it through d-nd-seed/docs/THIA_SEED_PROMOTION.md" ;;
+    */D-ND_LAB/core/*.py|*/D-ND_LAB/docs/templates/*|*/D-ND_LAB/domains/_meta-prototyper/*)
+        echo ">>> SHARE REFLEX: Lab generator/runtime changed — $(basename "$FILE_PATH")"
+        echo ">>> If new Labs should inherit it, update d-nd-seed Lab pattern/templates" ;;
     */.claude/skills/*/SKILL.md|*/skills/*.md)
         echo ">>> SHARE REFLEX: New skill — $(basename "$FILE_PATH")"
         echo ">>> If reusable, add to d-nd-seed/skills/" ;;

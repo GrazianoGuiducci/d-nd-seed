@@ -171,6 +171,19 @@ Read the diff. Every time. If you did not read it, do not commit it. A blind com
 
 The error becomes a rule. Not punishment — calibration. The system that corrects itself once does not make the same mistake twice. The correction lives in the seed, and the seed propagates to every instance.
 
+### When A Runtime Function Becomes Reusable
+
+Production runtimes such as THIA are where functions are tested under real
+pressure. The seed is where portable invariants go after they prove useful.
+
+If a THIA or Lab feature prevents a repeatable failure, changes boot/safety/
+memory/cascade/evaluation/translation behavior, or should be present when a
+new node or Lab is born, promote the invariant into this seed. Do not copy
+runtime state, secrets, packets, private transcripts, or local service paths.
+
+Use `docs/THIA_SEED_PROMOTION.md` to decide the target: docs, hook template,
+skill, plugin, Lab pattern, or installer guidance.
+
 ---
 
 ## The Vision

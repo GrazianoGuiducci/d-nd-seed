@@ -64,6 +64,7 @@ Priorita': [alta = blocca altro lavoro | media = quando possibile | bassa = back
 | Azione | Chi notificare | Cosa dire |
 |--------|---------------|-----------|
 | Nuovo tool/funzione | Node that integrates | Path, cosa fa, come usarlo |
+| Funzione integrata in THIA | Seed maintainer / Dev node | Quale invariant e' portabile, dove promuoverlo in `d-nd-seed` |
 | Fix bug | Nodo che deploya | Commit hash, cosa era rotto, come verificare |
 | Nuovo contenuto | Nodo che pubblica | Path draft, stato (bozza/pronto), istruzioni |
 | Cambio architettura | Tutti i nodi | Cosa cambia, cosa si rompe, come adattarsi |
@@ -103,6 +104,7 @@ Un hook post-commit rileva automaticamente le implicazioni.
 CHANGED=$(git diff --name-only HEAD~1 HEAD 2>/dev/null)
 check() { echo "$CHANGED" | grep -q "$1" && echo ">>> CASCADE: $2"; }
 
+check "THIA/"  "se la funzione e' riusabile, promuovere l'invariant in d-nd-seed"
 check "seed/"  "verificare se il seed pubblico va aggiornato"
 check "tools/" "verificare se i template riflettono il pattern"
 check "docs/"  "verificare se il sito espone la conoscenza aggiornata"

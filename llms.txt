@@ -5,6 +5,7 @@
 Key guides:
 - Boot system map: docs/boot_system_map.md
 - Boot router pattern: docs/boot_router.md
+- THIA to seed promotion lane: docs/THIA_SEED_PROMOTION.md
 - TM7-local TM1-function install: docs/tm7_local_tm1_function_install.md
 
 ## What it does
@@ -12,7 +13,7 @@ Key guides:
 - Persistent memory across sessions (survives context compaction)
 - Safety guard that catches destructive operations before execution
 - System awareness at session start (repo state, API health, messages)
-- 103 skills: 17 plugin, 42 for coding agents, 44 for chat AI (bilingual)
+- 104 skills: 27 plugin, 33 for coding agents, 44 for chat AI (bilingual)
 - Cognitive kernels that shape how the AI thinks (not just what it does)
 - Godel plugin: inverted oracle that reveals hidden assumptions
 - Parametric installer with profiles for different environments
@@ -29,13 +30,13 @@ cd d-nd-seed
 
 - GUIDE.md — AI entry point (map, setup, manual)
 - install.sh — Parametric installer
-- templates/hooks/ — 17 hook templates
-- skills/coder/ — 42 coding agent skills
+- templates/hooks/ — 19 hook templates
+- skills/coder/ — 33 coding agent skills
 - skills/thinker/ — 44 chat AI skills (IT/EN)
 - kernels/ — Cognitive system prompts
 - plugins/godel/ — Inverted oracle with domain configs
 - plugins/d-nd-core/ — Core plugin (safety, awareness, messaging)
-- docs/ — 18 operational guides
+- docs/ — 31 operational guides
 
 ## Works with
 
