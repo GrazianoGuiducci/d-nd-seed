@@ -176,6 +176,9 @@ Files:
 - `profiles/*.json`: can declare `intent`, `install_mode`, and
   `risk_tolerance`;
 - `install.sh --plan`: shows the routed plan without writing anything.
+- normal `install.sh` and `update.sh` use the routed plan as their default
+  capability gate;
+- `--legacy-all`: explicit compatibility bypass for older broad installs.
 
 Examples:
 
@@ -186,6 +189,7 @@ Examples:
 ./install.sh --check
 ./update.sh /path/to/project --plan
 ./update.sh --check
+./install.sh profiles/example.json --legacy-all
 node scripts/installer_option_router.js profiles/example-dev-node.json --mode=recent
 ```
 
@@ -196,6 +200,16 @@ Validation:
 - `scripts/validate_capability_registry.js --strict-coverage` also fails if
   installable hooks, core skills, or plugins are not represented in the
   registry.
+
+Enforcement:
+
+- install/update validate the registry before normal operation;
+- install/update derive selected capability paths from the planner;
+- selected hooks and skills are installed/updated;
+- unselected hooks and skills are skipped with a visible message;
+- the active plan is saved in `.claude/seed_install_plan.json` or
+  `.claude/seed_update_plan.json`;
+- bypass requires the explicit `--legacy-all` flag.
 
 ## Boundary
 

@@ -21,6 +21,7 @@ Key guides:
 - Parametric installer with profiles for different environments
 - Capability registry + install planning via install.sh --plan
 - Registry validation via install.sh --check
+- Registry-gated install/update by default; --legacy-all is explicit bypass
 
 ## Quick start
 

@@ -127,6 +127,15 @@ core skill, and plugin appears in `capabilities/registry.json`:
 node scripts/validate_capability_registry.js --strict-coverage
 ```
 
+From this release onward, normal install/update uses the registry plan as a
+capability gate. Capabilities not selected by the plan are skipped. For old
+projects that intentionally need the previous broad behavior, use:
+
+```bash
+./install.sh profiles/your-profile.json --legacy-all
+./update.sh /path/to/project --legacy-all
+```
+
 ### Version history
 
 | Version | Date | Summary |

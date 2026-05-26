@@ -18,9 +18,10 @@ function readJson(file) {
 }
 
 function parseArgs(argv) {
-  const args = { profile: null, json: false, mode: null, intents: [], risk: null };
+  const args = { profile: null, json: false, paths: false, mode: null, intents: [], risk: null };
   for (const arg of argv) {
     if (arg === '--json') args.json = true;
+    else if (arg === '--paths') args.paths = true;
     else if (arg.startsWith('--mode=')) args.mode = arg.slice('--mode='.length);
     else if (arg.startsWith('--intent=')) args.intents.push(...arg.slice('--intent='.length).split(',').filter(Boolean));
     else if (arg.startsWith('--risk=')) args.risk = arg.slice('--risk='.length);
@@ -87,8 +88,16 @@ function classify(cap, ctx) {
   const riskOk = allowedRisk(cap.risk) <= ctx.riskLimit;
   const profileMatch = matchAny(ctx.profiles, cap.profiles || []);
   const intentMatch = matchAny(ctx.intents, cap.intents || []);
+  const requestedPlugins = values(ctx.profile.plugins);
   const hasSuperseder = Boolean(cap.superseded_by);
   const hidden = cap.visibility === 'hidden' || cap.maturity === 'deprecated' || cap.stratum === 'legacy_or_superseded' || hasSuperseder;
+
+  if (cap.id === 'godel' && !ctx.profile.godel?.enabled && !requestedPlugins.includes('godel')) {
+    return ['available', 'Godel is not enabled in this profile'];
+  }
+  if (cap.id === 'researcher-plugin' && !ctx.profile.researcher && !requestedPlugins.includes('researcher')) {
+    return ['available', 'researcher plugin is not enabled in this profile'];
+  }
 
   if (hidden && ctx.mode !== 'migration') {
     return ['hidden', 'legacy, deprecated, or superseded; use migration mode to inspect'];
@@ -150,6 +159,7 @@ function plan(profilePath, opts) {
   const registry = readJson(path.join(root, 'capabilities', 'registry.json'));
   const ctx = {
     profilePath,
+    profile,
     node_id: profile.node_id || 'UNKNOWN',
     mode: opts.mode || profile.install_mode || 'recommended',
     risk: opts.risk || profile.risk_tolerance || 'writes_files',
@@ -205,7 +215,9 @@ function main() {
     const opts = parseArgs(process.argv.slice(2));
     const profilePath = resolveProfile(opts.profile);
     const result = plan(profilePath, opts);
-    if (opts.json) console.log(JSON.stringify(result, null, 2));
+    if (opts.paths) {
+      for (const cap of result.included) console.log(cap.path);
+    } else if (opts.json) console.log(JSON.stringify(result, null, 2));
     else printText(result);
   } catch (err) {
     console.error(`ERROR: ${err.message}`);

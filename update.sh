@@ -10,6 +10,7 @@
 #   ./update.sh /path/to/project
 #   ./update.sh /path/to/project --plan
 #   ./update.sh /path/to/project --check
+#   ./update.sh /path/to/project --legacy-all
 #
 # What it updates:
 #   - Hook templates → project hooks (only if template is newer)
@@ -29,10 +30,12 @@ SEED_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="${1:-.}"
 PLAN_MODE=""
 CHECK_MODE=""
+LEGACY_ALL=""
 
 for arg in "$@"; do
     [ "$arg" = "--plan" ] && PLAN_MODE="true"
     [ "$arg" = "--check" ] && CHECK_MODE="true"
+    [ "$arg" = "--legacy-all" ] && LEGACY_ALL="true"
 done
 
 if [ "$PROJECT_DIR" = "--plan" ] || [ "$PROJECT_DIR" = "--check" ]; then
@@ -51,6 +54,9 @@ if [ -n "$CHECK_MODE" ]; then
     node "$SEED_DIR/scripts/validate_capability_registry.js"
     exit $?
 fi
+
+require_node
+node "$SEED_DIR/scripts/validate_capability_registry.js" >/dev/null
 
 if [ ! -d "$PROJECT_DIR/.claude" ]; then
     echo "ERROR: No .claude/ directory found in $PROJECT_DIR"
@@ -75,6 +81,33 @@ if [ -n "$PLAN_MODE" ]; then
     exit $?
 fi
 
+PROFILE="$PROJECT_DIR/.claude/seed_profile.json"
+INCLUDED_PATHS_FILE=""
+if [ -z "$LEGACY_ALL" ]; then
+    if [ ! -f "$PROFILE" ]; then
+        echo "ERROR: No saved seed profile found at $PROFILE"
+        echo "Run install.sh first, or use --legacy-all for compatibility updates."
+        exit 1
+    fi
+    INCLUDED_PATHS_FILE=$(mktemp)
+    node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --paths > "$INCLUDED_PATHS_FILE"
+    node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$PROJECT_DIR/.claude/seed_update_plan.json"
+    echo "Registry gate: enabled"
+    echo "Update plan saved to $PROJECT_DIR/.claude/seed_update_plan.json"
+    echo ""
+else
+    echo "Registry gate: bypassed with --legacy-all"
+    echo ""
+fi
+
+capability_selected() {
+    local rel="$1"
+    if [ -n "$LEGACY_ALL" ]; then
+        return 0
+    fi
+    grep -Fxq "$rel" "$INCLUDED_PATHS_FILE"
+}
+
 UPDATED=0
 SKIPPED=0
 ADDED=0
@@ -84,6 +117,11 @@ echo "## Hooks"
 for tmpl in "$SEED_DIR"/templates/hooks/*.tmpl; do
     [ -f "$tmpl" ] || continue
     name=$(basename "$tmpl" .tmpl)
+    rel="templates/hooks/$name.tmpl"
+    if ! capability_selected "$rel"; then
+        echo "  - $name (skipped by registry plan)"
+        continue
+    fi
     target="$PROJECT_DIR/.claude/hooks/$name"
 
     # Instantiate template variables if profile exists
@@ -123,6 +161,10 @@ echo "## Skills"
 for skill_dir in "$SEED_DIR"/plugins/d-nd-core/skills/*/; do
     [ -d "$skill_dir" ] || continue
     name=$(basename "$skill_dir")
+    if ! capability_selected "plugins/d-nd-core/skills/$name"; then
+        echo "  - $name (skipped by registry plan)"
+        continue
+    fi
     target="$PROJECT_DIR/.claude/skills/$name"
 
     if [ ! -d "$target" ]; then
@@ -137,7 +179,9 @@ echo ""
 echo "## Projector"
 PROJECTOR_SRC="$SEED_DIR/plugins/d-nd-core/scripts"
 PROJECTOR_DST="$PROJECT_DIR/d-nd-tools"
-if [ -d "$PROJECTOR_DST" ] && [ -f "$PROJECTOR_SRC/scenario_projector.py" ]; then
+if ! capability_selected "plugins/d-nd-core/skills/scenario-projector"; then
+    echo "  Projector skipped by registry plan."
+elif [ -d "$PROJECTOR_DST" ] && [ -f "$PROJECTOR_SRC/scenario_projector.py" ]; then
     # Update main script if seed is newer
     if [ "$PROJECTOR_SRC/scenario_projector.py" -nt "$PROJECTOR_DST/scenario_projector.py" ]; then
         cp "$PROJECTOR_SRC/scenario_projector.py" "$PROJECTOR_DST/"

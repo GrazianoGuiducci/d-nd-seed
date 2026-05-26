@@ -11,6 +11,7 @@
 #   ./install.sh profiles/example.json --dry-run
 #   ./install.sh profiles/example.json --plan
 #   ./install.sh --check
+#   ./install.sh profiles/example.json --legacy-all
 #
 # Requirements: bash, node (for JSON parsing)
 # ============================================================================
@@ -22,6 +23,7 @@ PROFILE="$1"
 DRY_RUN=""
 PLAN_MODE=""
 CHECK_MODE=""
+LEGACY_ALL=""
 
 UPDATE_MODE=""
 for arg in "$@"; do
@@ -29,6 +31,7 @@ for arg in "$@"; do
     [ "$arg" = "--update" ] && UPDATE_MODE="true"
     [ "$arg" = "--plan" ] && PLAN_MODE="true"
     [ "$arg" = "--check" ] && CHECK_MODE="true"
+    [ "$arg" = "--legacy-all" ] && LEGACY_ALL="true"
 done
 
 require_node() {
@@ -52,6 +55,7 @@ if [ -z "$PROFILE" ]; then
     echo "  --dry-run   Show what would be written without changing anything"
     echo "  --plan      Show routed installer options without writing anything"
     echo "  --check     Validate the seed capability registry"
+    echo "  --legacy-all Install all legacy hooks/skills instead of routed capabilities"
     echo "  --update    Only add NEW files. Existing files are preserved."
     echo "              Changed files are saved as .new for manual review."
     echo ""
@@ -81,6 +85,42 @@ if [ -n "$PLAN_MODE" ]; then
     node "$SCRIPT_DIR/scripts/installer_option_router.js" "$PROFILE"
     exit $?
 fi
+
+require_node
+node "$SCRIPT_DIR/scripts/validate_capability_registry.js" >/dev/null
+
+PLAN_FILE=""
+INCLUDED_PATHS_FILE=""
+if [ -z "$LEGACY_ALL" ]; then
+    PLAN_FILE=$(mktemp)
+    INCLUDED_PATHS_FILE=$(mktemp)
+    node "$SCRIPT_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$PLAN_FILE"
+    node "$SCRIPT_DIR/scripts/installer_option_router.js" "$PROFILE" --paths > "$INCLUDED_PATHS_FILE"
+    echo "Registry gate: enabled"
+    echo "Plan: $(node -e "const p=require('fs').readFileSync(process.argv[1],'utf8'); const d=JSON.parse(p); console.log(d.included.length+' included, '+d.withheld.length+' withheld by risk, '+d.available.length+' available')" "$PLAN_FILE")"
+    echo ""
+else
+    echo "Registry gate: bypassed with --legacy-all"
+    echo ""
+fi
+
+capability_selected() {
+    local rel="$1"
+    if [ -n "$LEGACY_ALL" ]; then
+        return 0
+    fi
+    grep -Fxq "$rel" "$INCLUDED_PATHS_FILE"
+}
+
+skip_unselected() {
+    local label="$1"
+    local rel="$2"
+    if capability_selected "$rel"; then
+        return 1
+    fi
+    echo "  SKIP: $label (not selected by registry plan)"
+    return 0
+}
 
 echo "=== D-ND Seed Installer ==="
 echo "Profile: $PROFILE"
@@ -296,14 +336,18 @@ echo "Generating configuration..."
 apply_template "$SCRIPT_DIR/templates/settings.json.tmpl" "$TARGET/settings.json"
 
 # safety_guard.sh
-apply_template "$SCRIPT_DIR/templates/hooks/safety_guard.sh.tmpl" "$TARGET/hooks/safety_guard.sh"
+if ! skip_unselected "safety_guard.sh" "templates/hooks/safety_guard.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/safety_guard.sh.tmpl" "$TARGET/hooks/safety_guard.sh"
+fi
 
 # post_compact.sh
-apply_template "$SCRIPT_DIR/templates/hooks/post_compact.sh.tmpl" "$TARGET/hooks/post_compact.sh"
+if ! skip_unselected "post_compact.sh" "templates/hooks/post_compact.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/post_compact.sh.tmpl" "$TARGET/hooks/post_compact.sh"
+fi
 
 # pre_compact.sh — needs complex block replacements
 TMPL="$SCRIPT_DIR/templates/hooks/pre_compact.sh.tmpl"
-if [ -f "$TMPL" ]; then
+if [ -f "$TMPL" ] && capability_selected "templates/hooks/pre_compact.sh.tmpl"; then
     CONTENT=$(cat "$TMPL")
     CONTENT=$(echo "$CONTENT" | sed "s|{{NODE_ID}}|$NODE_ID|g")
     CONTENT=$(echo "$CONTENT" | sed "s|{{PROJECT_DIR}}|$PROJECT_DIR|g")
@@ -333,7 +377,7 @@ fi
 
 # system_awareness.sh — needs complex block replacements
 TMPL="$SCRIPT_DIR/templates/hooks/system_awareness.sh.tmpl"
-if [ -f "$TMPL" ]; then
+if [ -f "$TMPL" ] && capability_selected "templates/hooks/system_awareness.sh.tmpl"; then
     CONTENT=$(cat "$TMPL")
     CONTENT=$(echo "$CONTENT" | sed "s|{{NODE_ID}}|$NODE_ID|g")
     CONTENT=$(echo "$CONTENT" | sed "s|{{PROJECT_DIR}}|$PROJECT_DIR|g")
@@ -367,29 +411,61 @@ process.stdout.write(c);
 fi
 
 # statusline_bridge.js + .sh
-apply_template "$SCRIPT_DIR/templates/hooks/statusline_bridge.js.tmpl" "$TARGET/hooks/statusline_bridge.js"
-apply_template "$SCRIPT_DIR/templates/hooks/statusline_bridge.sh.tmpl" "$TARGET/hooks/statusline_bridge.sh"
+if ! skip_unselected "statusline_bridge.js" "templates/hooks/statusline_bridge.js.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/statusline_bridge.js.tmpl" "$TARGET/hooks/statusline_bridge.js"
+fi
+if ! skip_unselected "statusline_bridge.sh" "templates/hooks/statusline_bridge.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/statusline_bridge.sh.tmpl" "$TARGET/hooks/statusline_bridge.sh"
+fi
 
 # context_awareness.sh
-apply_template "$SCRIPT_DIR/templates/hooks/context_awareness.sh.tmpl" "$TARGET/hooks/context_awareness.sh"
+if ! skip_unselected "context_awareness.sh" "templates/hooks/context_awareness.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/context_awareness.sh.tmpl" "$TARGET/hooks/context_awareness.sh"
+fi
 
 # cea_hook.sh + awareness templates
-apply_template "$SCRIPT_DIR/templates/hooks/cea_hook.sh.tmpl" "$TARGET/hooks/cea_hook.sh"
-apply_template "$SCRIPT_DIR/templates/awareness.json.tmpl" "$TARGET/hooks/awareness.json.example"
-apply_template "$SCRIPT_DIR/templates/awareness_map.json.tmpl" "$TARGET/hooks/awareness_map.json.example"
+if ! skip_unselected "cea_hook.sh" "templates/hooks/cea_hook.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/cea_hook.sh.tmpl" "$TARGET/hooks/cea_hook.sh"
+    apply_template "$SCRIPT_DIR/templates/awareness.json.tmpl" "$TARGET/hooks/awareness.json.example"
+    apply_template "$SCRIPT_DIR/templates/awareness_map.json.tmpl" "$TARGET/hooks/awareness_map.json.example"
+fi
 
 # share_reflex.sh
-apply_template "$SCRIPT_DIR/templates/hooks/share_reflex.sh.tmpl" "$TARGET/hooks/share_reflex.sh"
+if ! skip_unselected "share_reflex.sh" "templates/hooks/share_reflex.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/share_reflex.sh.tmpl" "$TARGET/hooks/share_reflex.sh"
+fi
 
 # cascade_check.sh
-apply_template "$SCRIPT_DIR/templates/hooks/cascade_check.sh.tmpl" "$TARGET/hooks/cascade_check.sh"
+if ! skip_unselected "cascade_check.sh" "templates/hooks/cascade_check.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/cascade_check.sh.tmpl" "$TARGET/hooks/cascade_check.sh"
+fi
 
 # temporal_awareness.sh
-apply_template "$SCRIPT_DIR/templates/hooks/temporal_awareness.sh.tmpl" "$TARGET/hooks/temporal_awareness.sh"
+if ! skip_unselected "temporal_awareness.sh" "templates/hooks/temporal_awareness.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/temporal_awareness.sh.tmpl" "$TARGET/hooks/temporal_awareness.sh"
+fi
 
 # session_thread.sh + thread_task.sh
-apply_template "$SCRIPT_DIR/templates/hooks/session_thread.sh.tmpl" "$TARGET/hooks/session_thread.sh"
-apply_template "$SCRIPT_DIR/templates/hooks/thread_task.sh.tmpl" "$TARGET/hooks/thread_task.sh"
+if ! skip_unselected "session_thread.sh" "templates/hooks/session_thread.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/session_thread.sh.tmpl" "$TARGET/hooks/session_thread.sh"
+fi
+if ! skip_unselected "thread_task.sh" "templates/hooks/thread_task.sh.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/hooks/thread_task.sh.tmpl" "$TARGET/hooks/thread_task.sh"
+fi
+
+# Any selected hook template not handled above.
+for tmpl in "$SCRIPT_DIR"/templates/hooks/*.tmpl; do
+    [ -f "$tmpl" ] || continue
+    name=$(basename "$tmpl" .tmpl)
+    case "$name" in
+        safety_guard.sh|post_compact.sh|pre_compact.sh|system_awareness.sh|statusline_bridge.js|statusline_bridge.sh|context_awareness.sh|cea_hook.sh|share_reflex.sh|cascade_check.sh|temporal_awareness.sh|session_thread.sh|thread_task.sh)
+            continue
+            ;;
+    esac
+    if ! skip_unselected "$name" "templates/hooks/$name.tmpl"; then
+        apply_template "$tmpl" "$TARGET/hooks/$name"
+    fi
+done
 
 # youtube-transcript skill (optional — requires project path)
 apply_template "$SCRIPT_DIR/templates/skills/youtube-transcript/SKILL.md.tmpl" "$TARGET/skills/youtube-transcript/SKILL.md"
@@ -400,6 +476,10 @@ echo "Installing core skills..."
 for skill_dir in "$SCRIPT_DIR"/plugins/d-nd-core/skills/*/; do
     [ -d "$skill_dir" ] || continue
     name=$(basename "$skill_dir")
+    if ! capability_selected "plugins/d-nd-core/skills/$name"; then
+        echo "  SKIP: $name (not selected by registry plan)"
+        continue
+    fi
     skill_target="$TARGET/skills/$name"
 
     if [ -n "$DRY_RUN" ]; then
@@ -426,7 +506,9 @@ PROJECTOR_DST="$PROJECT_DIR/d-nd-tools"
 if [ -f "$PROJECTOR_SRC/scenario_projector.py" ]; then
     echo ""
     echo "Installing projector tools..."
-    if [ -z "$DRY_RUN" ]; then
+    if ! capability_selected "plugins/d-nd-core/skills/scenario-projector"; then
+        echo "  SKIP: projector tools (scenario-projector not selected by registry plan)"
+    elif [ -z "$DRY_RUN" ]; then
         mkdir -p "$PROJECTOR_DST/examples"
         cp "$PROJECTOR_SRC/scenario_projector.py" "$PROJECTOR_DST/"
         cp "$PROJECTOR_SRC/SCENARIO_PROJECTOR_GUIDE.md" "$PROJECTOR_DST/" 2>/dev/null
@@ -448,7 +530,9 @@ if [ -n "$GODEL_ENABLED" ]; then
     GODEL_SRC="$SCRIPT_DIR/plugins/godel"
     GODEL_DST="$PROJECT_DIR/godel"
 
-    if [ -z "$DRY_RUN" ]; then
+    if ! capability_selected "plugins/godel"; then
+        echo "  SKIP: Godel plugin (not selected by registry plan)"
+    elif [ -z "$DRY_RUN" ]; then
         mkdir -p "$GODEL_DST"
         # Copy core files
         for F in bridge.js ask.js setup.js package.json IDENTITY.md.tmpl README.md; do
@@ -489,6 +573,10 @@ fi
 if [ -z "$DRY_RUN" ]; then
     cp "$PROFILE" "$TARGET/seed_profile.json" 2>/dev/null
     echo "Profile saved to $TARGET/seed_profile.json (for update.sh)."
+    if [ -n "$PLAN_FILE" ]; then
+        cp "$PLAN_FILE" "$TARGET/seed_install_plan.json" 2>/dev/null
+        echo "Install plan saved to $TARGET/seed_install_plan.json."
+    fi
 fi
 
 # --- Set permissions ---

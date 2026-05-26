@@ -44,6 +44,9 @@ Use `--plan` before installation when you want to see which capabilities are
 core, recommended, contextual, recent, advanced, or withheld by risk.
 Use `--check` before publishing Seed changes to validate the capability
 registry.
+Normal install/update now use the registry gate by default: only capabilities
+included by the routed plan are installed or updated. Use `--legacy-all` only
+for compatibility with older broad installs.
 
 ## What is inside
 
