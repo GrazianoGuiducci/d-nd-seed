@@ -138,6 +138,16 @@ Guide:
 docs/evolution_transfer_protocol.md
 ```
 
+### Installer Option Routing
+
+Keeps installation coherent as the seed grows. The router classifies
+capabilities by invariant/stable/contextual/recent/experimental/legacy status
+and presents choices according to profile, intent, risk, and freshness.
+
+```text
+docs/installer_option_router.md
+```
+
 ## Action Gates
 
 ```text
@@ -185,6 +195,7 @@ A boot system is complete enough for a local node when:
 7. local identity/function boundaries are explicit;
 8. promotion from local adapter to seed keeps only invariants.
 9. evolution transfer is documented when logic crosses contexts.
+10. installer exposure is routed by capability maturity, context, and risk.
 
 ## Non-Goals
 

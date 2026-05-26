@@ -151,6 +151,11 @@ is portable method, source evidence, foreign active work, runtime state,
 residue, or secret-sensitive material before adapting anything into this
 project.
 
+When a promoted function becomes an installable choice, do not expose it as
+just another equal option. Use `docs/installer_option_router.md` to classify its
+stratum, maturity, target profiles, intent, risk, freshness, and visibility
+before making it default or recommended.
+
 Small signals like "continue" are not enough by themselves. If the field is not
 visible, classify them as unclassified and use current context before acting.
 
@@ -189,6 +194,11 @@ runtime state, secrets, packets, private transcripts, or local service paths.
 
 Use `docs/THIA_SEED_PROMOTION.md` to decide the target: docs, hook template,
 skill, plugin, Lab pattern, or installer guidance.
+
+Use `docs/installer_option_router.md` before installer exposure: foundational
+capabilities stay prominent, stable contextual capabilities become
+recommendations, recent capabilities are highlighted as candidates, and
+superseded material stays available only for migration/recovery.
 
 ---
 

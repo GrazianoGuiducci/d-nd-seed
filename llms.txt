@@ -6,6 +6,8 @@ Key guides:
 - Boot system map: docs/boot_system_map.md
 - Boot router pattern: docs/boot_router.md
 - THIA to seed promotion lane: docs/THIA_SEED_PROMOTION.md
+- Evolution transfer protocol: docs/evolution_transfer_protocol.md
+- Installer option router: docs/installer_option_router.md
 - TM7-local TM1-function install: docs/tm7_local_tm1_function_install.md
 
 ## What it does
@@ -36,7 +38,7 @@ cd d-nd-seed
 - kernels/ — Cognitive system prompts
 - plugins/godel/ — Inverted oracle with domain configs
 - plugins/d-nd-core/ — Core plugin (safety, awareness, messaging)
-- docs/ — 31 operational guides
+- docs/ — 33 operational guides
 
 ## Works with
 

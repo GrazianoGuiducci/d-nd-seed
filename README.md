@@ -79,6 +79,11 @@ a portable pattern, promote the invariant into this seed. See
 another node, repo, Lab, agent, or session without importing its active state.
 See [evolution_transfer_protocol.md](docs/evolution_transfer_protocol.md).
 
+**Installer option router** — a way to keep the seed evolving without presenting
+all functions as equal install choices. It separates invariant base, stable
+defaults, contextual tools, recent candidates, experiments, and superseded
+material. See [installer_option_router.md](docs/installer_option_router.md).
+
 **Godel plugin** — an inverted oracle. It does not answer questions. It inverts assumptions. You give it a tension, it shows you what you were hiding. Pre-built configurations for sales, research, finance.
 
 **Scenario Projector** — maps the hidden structure in competing tensions. 4 structural lenses (focus, leverage, risk, blind spot), 5 pre-configured domains, action plans with domain-specific language. [Complete guide](plugins/d-nd-core/scripts/PROJECTOR_COMPLETE_GUIDE.md).
@@ -133,7 +138,7 @@ d-nd-seed/
 ├── plugins/
 │   ├── d-nd-core/        # Core: safety, awareness, inter-node messaging
 │   └── godel/            # Inverted oracle with domain configurations
-├── docs/                 # 31 operational guides
+├── docs/                 # 33 operational guides
 └── scripts/              # Maintenance tools
 ```
 
@@ -143,7 +148,7 @@ If you're running a previous version, see [UPGRADING.md](UPGRADING.md) for break
 
 ## How the system works at maturity
 
-The seed installs the structure. What grows from it is described in [OPERATIONAL_MATURITY.md](docs/OPERATIONAL_MATURITY.md) — how the system thinks, protects itself, and evolves after installation. Seven patterns that transfer across any node.
+The seed installs the structure. What grows from it is described in [OPERATIONAL_MATURITY.md](docs/OPERATIONAL_MATURITY.md) — how the system thinks, protects itself, and evolves after installation. Nine patterns that transfer across any node.
 
 ## Lab pattern
 

@@ -52,6 +52,11 @@ foreign active work, runtime state, residue, or secret-sensitive material. Only
 the portable method is adapted into the receiving identity. See
 `docs/evolution_transfer_protocol.md`.
 
+**Routed installation:** as capabilities accumulate, the installer does not show
+all options as equal. It preserves the invariant base, recommends stable
+contextual tools, highlights recent candidates separately, and hides superseded
+material unless migration needs it. See `docs/installer_option_router.md`.
+
 ---
 
 ## The Daily Cycle
@@ -71,8 +76,8 @@ This is what a mature session looks like:
 
 | Seed gives | You build |
 |---|---|
-| Hook templates (17) | Personalized hooks with your thresholds |
-| Skill catalog (19 plugin + 42 coder + 44 thinker) | Skills tuned to your domain |
+| Hook templates (19) | Personalized hooks with your thresholds |
+| Skill catalog (27 plugin + 33 coder + 44 thinker) | Skills tuned to your domain |
 | Kernels (base, coder) | Your condensate — who you are |
 | Installer + profiles | Your boot knowledge — your operational map |
 | Memory template | Your stratified memory — 60+ files of accumulated knowledge |
@@ -96,8 +101,10 @@ Every node has a different operator, different domain, different infrastructure.
 7. **The system knows when to use its own functions** — zero latency
 8. **Evolution transfers by classification** — useful logic moves without
    identity collapse
+9. **Installation routes by context** — the seed presents the right capability
+   for the node, intent, maturity, and risk
 
-These seven patterns are the operating system. The hooks, skills, and memory are the implementation. The implementation changes. The patterns don't.
+These nine patterns are the operating system. The hooks, skills, and memory are the implementation. The implementation changes. The patterns don't.
 
 ---
 
