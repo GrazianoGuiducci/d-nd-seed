@@ -1,0 +1,29 @@
+{
+  "_comment": "EXAMPLE: Publisher/site-copy node. Use for websites, funnels, SEO/AI visibility, diagrams, public copy, and editorial review.",
+  "node_id": "PUBLISHER",
+  "description": "Example — Publisher node for site, copy, funnel, SEO, and public documentation",
+  "install_mode": "contextual",
+  "intent": ["site", "copy", "publishing", "seo", "funnel"],
+  "risk_tolerance": "publishes",
+  "project_dir": "./my-site",
+  "memory_path": "./my-site/.claude/memory",
+  "repos": [
+    {
+      "name": "site",
+      "path": "site",
+      "branch": "main"
+    },
+    {
+      "name": "content",
+      "path": "content",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": false,
+    "name": "Godel",
+    "domain": "public copy and funnel coherence",
+    "description": "Optional inversion layer for assumptions, claims, and audience fit",
+    "port": 3004
+  }
+}

@@ -31,6 +31,9 @@ cd d-nd-seed
 # Preview routed capability choices
 ./install.sh profiles/example.json --plan
 
+# Validate the capability registry
+./install.sh --check
+
 # Install
 ./install.sh profiles/example.json
 ```
@@ -39,6 +42,8 @@ The installer reads your profile, adapts the templates, writes the configuration
 
 Use `--plan` before installation when you want to see which capabilities are
 core, recommended, contextual, recent, advanced, or withheld by risk.
+Use `--check` before publishing Seed changes to validate the capability
+registry.
 
 ## What is inside
 
@@ -111,6 +116,13 @@ A profile describes your environment. The installer uses it to generate everythi
 ```
 
 Optional: `vps_url`, `godel` config, `sinapsi_for` (inter-node messaging). See `profiles/example.json`.
+
+Common starting profiles:
+
+- `profiles/example.json` — conservative coder/project install;
+- `profiles/example-researcher.json` — autonomous research/Lab cycle;
+- `profiles/example-dev-node.json` — dev/server node with network checks;
+- `profiles/example-publisher.json` — site, copy, funnel, SEO and public-surface work.
 
 For Lab installs, keep the LLM provider choice explicit. The Lab pattern
 supports `codex-cli -> claude-cli -> openrouter` as a dispatcher chain, but a

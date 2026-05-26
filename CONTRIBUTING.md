@@ -26,8 +26,17 @@ The seed grows through use. If you install it and something breaks, doesn't work
 - Hooks use `.sh.tmpl` extension with `{{ENV_VAR}}` placeholders
 - Skills use YAML frontmatter (`name`, `description`, `user-invocable`)
 - Every hook and skill carries its own eval tests
+- Every installable hook, core skill, plugin, template, doc, Lab pattern, or
+  kernel should be represented in `capabilities/registry.json`
 - Code comments in English, docs in English (skills may be bilingual)
 - Commits: `feat:`, `fix:`, `docs:`, `chore:`
+
+Before opening a PR that changes installable capabilities, run:
+
+```bash
+./install.sh --check
+node scripts/validate_capability_registry.js --strict-coverage
+```
 
 ## License
 

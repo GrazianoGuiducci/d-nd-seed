@@ -182,8 +182,20 @@ Examples:
 ```bash
 ./install.sh profiles/example.json --plan
 ./install.sh profiles/example-researcher.json --plan
+./install.sh profiles/example-publisher.json --plan
+./install.sh --check
+./update.sh /path/to/project --plan
+./update.sh --check
 node scripts/installer_option_router.js profiles/example-dev-node.json --mode=recent
 ```
+
+Validation:
+
+- `install.sh --check` validates the local Seed registry;
+- `update.sh --check` does the same from the updater entrypoint;
+- `scripts/validate_capability_registry.js --strict-coverage` also fails if
+  installable hooks, core skills, or plugins are not represented in the
+  registry.
 
 ## Boundary
 

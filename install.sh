@@ -10,6 +10,7 @@
 #   ./install.sh profiles/example-origin-node.json
 #   ./install.sh profiles/example.json --dry-run
 #   ./install.sh profiles/example.json --plan
+#   ./install.sh --check
 #
 # Requirements: bash, node (for JSON parsing)
 # ============================================================================
@@ -20,13 +21,28 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROFILE="$1"
 DRY_RUN=""
 PLAN_MODE=""
+CHECK_MODE=""
 
 UPDATE_MODE=""
 for arg in "$@"; do
     [ "$arg" = "--dry-run" ] && DRY_RUN="true"
     [ "$arg" = "--update" ] && UPDATE_MODE="true"
     [ "$arg" = "--plan" ] && PLAN_MODE="true"
+    [ "$arg" = "--check" ] && CHECK_MODE="true"
 done
+
+require_node() {
+    if ! command -v node >/dev/null 2>&1; then
+        echo "ERROR: node is required for this command but was not found in PATH"
+        exit 1
+    fi
+}
+
+if [ -n "$CHECK_MODE" ]; then
+    require_node
+    node "$SCRIPT_DIR/scripts/validate_capability_registry.js"
+    exit $?
+fi
 
 if [ -z "$PROFILE" ]; then
     echo "D-ND Seed Installer"
@@ -35,6 +51,7 @@ if [ -z "$PROFILE" ]; then
     echo ""
     echo "  --dry-run   Show what would be written without changing anything"
     echo "  --plan      Show routed installer options without writing anything"
+    echo "  --check     Validate the seed capability registry"
     echo "  --update    Only add NEW files. Existing files are preserved."
     echo "              Changed files are saved as .new for manual review."
     echo ""
@@ -60,6 +77,7 @@ if [ ! -f "$PROFILE" ]; then
 fi
 
 if [ -n "$PLAN_MODE" ]; then
+    require_node
     node "$SCRIPT_DIR/scripts/installer_option_router.js" "$PROFILE"
     exit $?
 fi

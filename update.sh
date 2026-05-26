@@ -8,6 +8,8 @@
 # Usage:
 #   cd /path/to/d-nd-seed && git pull
 #   ./update.sh /path/to/project
+#   ./update.sh /path/to/project --plan
+#   ./update.sh /path/to/project --check
 #
 # What it updates:
 #   - Hook templates → project hooks (only if template is newer)
@@ -25,6 +27,30 @@ set -e
 
 SEED_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="${1:-.}"
+PLAN_MODE=""
+CHECK_MODE=""
+
+for arg in "$@"; do
+    [ "$arg" = "--plan" ] && PLAN_MODE="true"
+    [ "$arg" = "--check" ] && CHECK_MODE="true"
+done
+
+if [ "$PROJECT_DIR" = "--plan" ] || [ "$PROJECT_DIR" = "--check" ]; then
+    PROJECT_DIR="."
+fi
+
+require_node() {
+    if ! command -v node >/dev/null 2>&1; then
+        echo "ERROR: node is required for this command but was not found in PATH"
+        exit 1
+    fi
+}
+
+if [ -n "$CHECK_MODE" ]; then
+    require_node
+    node "$SEED_DIR/scripts/validate_capability_registry.js"
+    exit $?
+fi
 
 if [ ! -d "$PROJECT_DIR/.claude" ]; then
     echo "ERROR: No .claude/ directory found in $PROJECT_DIR"
@@ -36,6 +62,18 @@ echo "=== D-ND Seed Updater ==="
 echo "Seed: $SEED_DIR"
 echo "Project: $PROJECT_DIR"
 echo ""
+
+if [ -n "$PLAN_MODE" ]; then
+    PROFILE="$PROJECT_DIR/.claude/seed_profile.json"
+    if [ ! -f "$PROFILE" ]; then
+        echo "ERROR: No saved seed profile found at $PROFILE"
+        echo "Run install.sh first, or pass a profile to install.sh --plan."
+        exit 1
+    fi
+    require_node
+    node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE"
+    exit $?
+fi
 
 UPDATED=0
 SKIPPED=0

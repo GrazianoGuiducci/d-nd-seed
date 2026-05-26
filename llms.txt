@@ -20,6 +20,7 @@ Key guides:
 - Godel plugin: inverted oracle that reveals hidden assumptions
 - Parametric installer with profiles for different environments
 - Capability registry + install planning via install.sh --plan
+- Registry validation via install.sh --check
 
 ## Quick start
 
@@ -35,6 +36,7 @@ cd d-nd-seed
 - install.sh — Parametric installer
 - capabilities/registry.json — Routed capability metadata
 - scripts/installer_option_router.js — Install plan generator
+- scripts/validate_capability_registry.js — Registry validator
 - templates/hooks/ — 19 hook templates
 - skills/coder/ — 33 coding agent skills
 - skills/thinker/ — 44 chat AI skills (IT/EN)

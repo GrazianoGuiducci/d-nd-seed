@@ -103,6 +103,30 @@ export GODEL_API_URL=https://api.your-provider.com/v1/chat/completions
 # Nothing to do — the AI reads them from the seed directory on next session
 ```
 
+### Planning and validation
+
+Before installing or updating, you can ask the seed what it would recommend for
+your profile:
+
+```bash
+./install.sh profiles/your-profile.json --plan
+./update.sh /path/to/project --plan
+```
+
+Before publishing seed changes, validate the capability registry:
+
+```bash
+./install.sh --check
+./update.sh --check
+```
+
+For maintainers, strict coverage also verifies that every hook template,
+core skill, and plugin appears in `capabilities/registry.json`:
+
+```bash
+node scripts/validate_capability_registry.js --strict-coverage
+```
+
 ### Version history
 
 | Version | Date | Summary |
