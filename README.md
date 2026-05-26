@@ -75,6 +75,10 @@ runtime should not remain local runtime knowledge. When a THIA feature becomes
 a portable pattern, promote the invariant into this seed. See
 [THIA_SEED_PROMOTION.md](docs/THIA_SEED_PROMOTION.md).
 
+**Evolution transfer protocol** — a portable way to inherit useful logic from
+another node, repo, Lab, agent, or session without importing its active state.
+See [evolution_transfer_protocol.md](docs/evolution_transfer_protocol.md).
+
 **Godel plugin** — an inverted oracle. It does not answer questions. It inverts assumptions. You give it a tension, it shows you what you were hiding. Pre-built configurations for sales, research, finance.
 
 **Scenario Projector** — maps the hidden structure in competing tensions. 4 structural lenses (focus, leverage, risk, blind spot), 5 pre-configured domains, action plans with domain-specific language. [Complete guide](plugins/d-nd-core/scripts/PROJECTOR_COMPLETE_GUIDE.md).

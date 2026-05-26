@@ -145,6 +145,12 @@ Use `docs/boot_system_map.md` to understand how the router, field boots,
 operational plans, hygiene reports, seed pattern and local adapters fit
 together.
 
+When another node, repo, Lab, or previous session has evolved useful logic, do
+not copy it blindly. Use `docs/evolution_transfer_protocol.md`: classify what
+is portable method, source evidence, foreign active work, runtime state,
+residue, or secret-sensitive material before adapting anything into this
+project.
+
 Small signals like "continue" are not enough by themselves. If the field is not
 visible, classify them as unclassified and use current context before acting.
 

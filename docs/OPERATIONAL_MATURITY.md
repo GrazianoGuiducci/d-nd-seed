@@ -46,6 +46,12 @@ The system that doesn't learn from its mistakes makes them again.
 
 **Projector as advisor:** at the start of every session with multiple tensions, the projector runs automatically. Not as a tool you invoke — as a reflex. The Gyroscope detects competing signals and calls the projector. The field shows where to work.
 
+**Evolution transfer:** when one node or project evolves, another node does not
+copy it blindly. It classifies what appeared: portable method, source evidence,
+foreign active work, runtime state, residue, or secret-sensitive material. Only
+the portable method is adapted into the receiving identity. See
+`docs/evolution_transfer_protocol.md`.
+
 ---
 
 ## The Daily Cycle
@@ -88,6 +94,8 @@ Every node has a different operator, different domain, different infrastructure.
 5. **Errors become rules** — auto-learn
 6. **The map grows by densification** — boot knowledge
 7. **The system knows when to use its own functions** — zero latency
+8. **Evolution transfers by classification** — useful logic moves without
+   identity collapse
 
 These seven patterns are the operating system. The hooks, skills, and memory are the implementation. The implementation changes. The patterns don't.
 

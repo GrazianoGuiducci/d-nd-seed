@@ -119,6 +119,25 @@ It should identify:
 
 Cleanup comes after classification.
 
+### Evolution Transfer
+
+Transfers evolved logic from another node, repo, agent, Lab, or session without
+importing the wrong active state.
+
+Use it when a useful correction, boot function, guard, Lab pattern, or method
+appears in one context and another context needs to inherit it.
+
+```text
+read source -> classify material -> extract portable logic -> park foreign work
+-> adapt to receiver -> verify reentry -> record transfer
+```
+
+Guide:
+
+```text
+docs/evolution_transfer_protocol.md
+```
+
 ## Action Gates
 
 ```text
@@ -165,6 +184,7 @@ A boot system is complete enough for a local node when:
 6. maintenance starts with hygiene, not deletion;
 7. local identity/function boundaries are explicit;
 8. promotion from local adapter to seed keeps only invariants.
+9. evolution transfer is documented when logic crosses contexts.
 
 ## Non-Goals
 
