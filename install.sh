@@ -9,6 +9,7 @@
 #   ./install.sh <profile.json>
 #   ./install.sh profiles/example-origin-node.json
 #   ./install.sh profiles/example.json --dry-run
+#   ./install.sh profiles/example.json --plan
 #
 # Requirements: bash, node (for JSON parsing)
 # ============================================================================
@@ -18,11 +19,13 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROFILE="$1"
 DRY_RUN=""
+PLAN_MODE=""
 
 UPDATE_MODE=""
 for arg in "$@"; do
     [ "$arg" = "--dry-run" ] && DRY_RUN="true"
     [ "$arg" = "--update" ] && UPDATE_MODE="true"
+    [ "$arg" = "--plan" ] && PLAN_MODE="true"
 done
 
 if [ -z "$PROFILE" ]; then
@@ -31,6 +34,7 @@ if [ -z "$PROFILE" ]; then
     echo "Usage: ./install.sh <profile.json> [--dry-run] [--update]"
     echo ""
     echo "  --dry-run   Show what would be written without changing anything"
+    echo "  --plan      Show routed installer options without writing anything"
     echo "  --update    Only add NEW files. Existing files are preserved."
     echo "              Changed files are saved as .new for manual review."
     echo ""
@@ -53,6 +57,11 @@ if [ ! -f "$PROFILE" ]; then
         echo "ERROR: Profile not found: $PROFILE"
         exit 1
     fi
+fi
+
+if [ -n "$PLAN_MODE" ]; then
+    node "$SCRIPT_DIR/scripts/installer_option_router.js" "$PROFILE"
+    exit $?
 fi
 
 echo "=== D-ND Seed Installer ==="

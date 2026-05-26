@@ -28,11 +28,17 @@ cd d-nd-seed
 # Preview what will be generated
 ./install.sh profiles/example.json --dry-run
 
+# Preview routed capability choices
+./install.sh profiles/example.json --plan
+
 # Install
 ./install.sh profiles/example.json
 ```
 
 The installer reads your profile, adapts the templates, writes the configuration. Three files minimum: `CLAUDE.md` (identity), `settings.json` (hooks), `MEMORY.md` (persistent memory). Everything else is optional.
+
+Use `--plan` before installation when you want to see which capabilities are
+core, recommended, contextual, recent, advanced, or withheld by risk.
 
 ## What is inside
 

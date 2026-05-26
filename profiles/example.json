@@ -1,6 +1,9 @@
 {
   "node_id": "MY_NODE",
   "description": "Example profile \u2014 customize for your setup",
+  "install_mode": "recommended",
+  "intent": ["coding"],
+  "risk_tolerance": "writes_files",
   "project_dir": "/path/to/your/project",
   "thia_path": "",
   "memory_path": "",

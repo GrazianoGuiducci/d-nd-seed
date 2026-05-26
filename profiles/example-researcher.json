@@ -2,6 +2,9 @@
   "_comment": "EXAMPLE: Researcher profile. Autonomous nightly research cycle for a structured domain. Customize DOMAIN_NAME, DIRECTION, paths, and budget for your setup.",
   "node_id": "RESEARCHER",
   "description": "Example — Autonomous research cycle (Seed Researcher plugin)",
+  "install_mode": "contextual",
+  "intent": ["research", "lab"],
+  "risk_tolerance": "uses_network",
 
   "project_dir": "./my-research",
   "memory_path": "./my-research/.claude/memory",

@@ -165,18 +165,25 @@ When a THIA/Lab/node function is promoted into the seed:
 
 ## First Implementation Step
 
-Do not rewrite `install.sh` immediately. First create a machine-readable
-capability registry from the existing catalog and templates, then teach the
-installer to read it in dry-run mode.
+The first implementation is now a planning layer. It does not change what the
+installer writes unless the operator proceeds with the normal install command.
 
-Recommended first files:
+Files:
 
-- `skills/catalog.json`: extend entries with stratum/maturity/risk/visibility;
-- `profiles/*.json`: optionally add `intent`, `install_mode`, and
+- `capabilities/registry.json`: machine-readable capability registry;
+- `scripts/installer_option_router.js`: reads a profile and prints a routed
+  install plan;
+- `profiles/*.json`: can declare `intent`, `install_mode`, and
   `risk_tolerance`;
-- `install.sh`: add `--plan` or make `--dry-run` print the routed plan before
-  generation;
-- `docs/installer_option_router.md`: keep this policy as the human contract.
+- `install.sh --plan`: shows the routed plan without writing anything.
+
+Examples:
+
+```bash
+./install.sh profiles/example.json --plan
+./install.sh profiles/example-researcher.json --plan
+node scripts/installer_option_router.js profiles/example-dev-node.json --mode=recent
+```
 
 ## Boundary
 

@@ -19,6 +19,7 @@ Key guides:
 - Cognitive kernels that shape how the AI thinks (not just what it does)
 - Godel plugin: inverted oracle that reveals hidden assumptions
 - Parametric installer with profiles for different environments
+- Capability registry + install planning via install.sh --plan
 
 ## Quick start
 
@@ -32,6 +33,8 @@ cd d-nd-seed
 
 - GUIDE.md — AI entry point (map, setup, manual)
 - install.sh — Parametric installer
+- capabilities/registry.json — Routed capability metadata
+- scripts/installer_option_router.js — Install plan generator
 - templates/hooks/ — 19 hook templates
 - skills/coder/ — 33 coding agent skills
 - skills/thinker/ — 44 chat AI skills (IT/EN)
