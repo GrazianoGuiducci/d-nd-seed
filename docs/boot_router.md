@@ -190,6 +190,23 @@ stop_condition:
 action_gate:
 ```
 
+For reentry, post-compact, broad awareness, or latest-instance recovery, append
+a final autological check:
+
+```text
+final_autological_check:
+  closest_source_read:
+  verified_vs_memory:
+  next_move_emerges_from:
+  adjacent_regression_risk:
+  stop_or_action_gate_confirmed:
+```
+
+This turns the router from a mechanical classifier into a short awareness gate.
+The agent confirms it read the closest source, separated verified territory
+from memory, checked adjacent regression risk, and is not continuing only
+because a previous packet said "next".
+
 Action gates:
 
 - `observe_only`: read/report only.
