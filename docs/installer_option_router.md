@@ -105,6 +105,7 @@ The installer should route by these axes:
   inter-node coordination, publishing, business/support;
 - `surface`: local project, VPS/runtime, public site, private Lab, operator
   workspace;
+- `agent_runtime`: claude-code, codex, cursor, generic;
 - `risk_tolerance`: safe only, file writes, network, secrets, publish/runtime;
 - `freshness`: stable only, include recent, include experimental;
 - `language`: docs/copy language where relevant.
@@ -175,6 +176,8 @@ Files:
   install plan;
 - `profiles/*.json`: can declare `intent`, `install_mode`, and
   `risk_tolerance`;
+- `profiles/*.json`: can declare `agent_runtime` (`claude-code`, `codex`,
+  `cursor`, or `generic`);
 - `install.sh --plan`: shows the routed plan without writing anything.
 - normal `install.sh` and `update.sh` use the routed plan as their default
   capability gate;
@@ -191,6 +194,8 @@ Examples:
 ./update.sh --check
 ./install.sh profiles/example.json --legacy-all
 node scripts/installer_option_router.js profiles/example-dev-node.json --mode=recent
+node scripts/installer_option_router.js profiles/example.json --agent=codex
+node scripts/installer_option_router.js profiles/example-codex.json
 ```
 
 Validation:

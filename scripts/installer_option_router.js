@@ -18,11 +18,12 @@ function readJson(file) {
 }
 
 function parseArgs(argv) {
-  const args = { profile: null, json: false, paths: false, mode: null, intents: [], risk: null };
+  const args = { profile: null, json: false, paths: false, mode: null, intents: [], risk: null, agent: null };
   for (const arg of argv) {
     if (arg === '--json') args.json = true;
     else if (arg === '--paths') args.paths = true;
     else if (arg.startsWith('--mode=')) args.mode = arg.slice('--mode='.length);
+    else if (arg.startsWith('--agent=')) args.agent = arg.slice('--agent='.length);
     else if (arg.startsWith('--intent=')) args.intents.push(...arg.slice('--intent='.length).split(',').filter(Boolean));
     else if (arg.startsWith('--risk=')) args.risk = arg.slice('--risk='.length);
     else if (!arg.startsWith('--') && !args.profile) args.profile = arg;
@@ -89,8 +90,13 @@ function classify(cap, ctx) {
   const profileMatch = matchAny(ctx.profiles, cap.profiles || []);
   const intentMatch = matchAny(ctx.intents, cap.intents || []);
   const requestedPlugins = values(ctx.profile.plugins);
+  const agentSupport = cap.agent_support?.[ctx.agent] || { status: 'documented' };
   const hasSuperseder = Boolean(cap.superseded_by);
   const hidden = cap.visibility === 'hidden' || cap.maturity === 'deprecated' || cap.stratum === 'legacy_or_superseded' || hasSuperseder;
+
+  if (agentSupport.status === 'unsupported') {
+    return ['withheld', `unsupported for agent runtime ${ctx.agent}`];
+  }
 
   if (cap.id === 'godel' && !ctx.profile.godel?.enabled && !requestedPlugins.includes('godel')) {
     return ['available', 'Godel is not enabled in this profile'];
@@ -161,6 +167,7 @@ function plan(profilePath, opts) {
     profilePath,
     profile,
     node_id: profile.node_id || 'UNKNOWN',
+    agent: opts.agent || profile.agent_runtime || 'claude-code',
     mode: opts.mode || profile.install_mode || 'recommended',
     risk: opts.risk || profile.risk_tolerance || 'writes_files',
     profiles: inferProfiles(profile),
@@ -171,7 +178,8 @@ function plan(profilePath, opts) {
   const groups = { included: [], available: [], withheld: [], hidden: [] };
   for (const cap of registry.capabilities.slice().sort(sortCaps)) {
     const [bucket, reason] = classify(cap, ctx);
-    groups[bucket].push({ ...cap, reason });
+    const support = cap.agent_support?.[ctx.agent] || { status: 'documented' };
+    groups[bucket].push({ ...cap, reason, agent_status: support.status, adapter: support.adapter || null });
   }
   return { registry: registry.version, policy: registry.policy, context: ctx, ...groups };
 }
@@ -185,6 +193,7 @@ function printText(result) {
   console.log(`Profiles: ${ctx.profiles.join(', ')}`);
   console.log(`Intents: ${ctx.intents.join(', ')}`);
   console.log(`Risk tolerance: ${ctx.risk}`);
+  console.log(`Agent runtime: ${ctx.agent}`);
   console.log(`Registry: ${result.registry}`);
   console.log('');
 
@@ -196,7 +205,7 @@ function printText(result) {
       return;
     }
     for (const cap of list.slice(0, max)) {
-      console.log(`  - ${cap.id} [${cap.type}, ${cap.stratum}, ${cap.risk}]`);
+      console.log(`  - ${cap.id} [${cap.type}, ${cap.stratum}, ${cap.risk}, ${cap.agent_status || 'documented'}]`);
       console.log(`    ${cap.reason}. ${cap.why}`);
     }
     if (list.length > max) console.log(`  ... ${list.length - max} more`);

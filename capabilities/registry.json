@@ -27,7 +27,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Checks assertions before they become accepted claims."
+      "why": "Checks assertions before they become accepted claims.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "auto-learn",
@@ -54,7 +69,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Turns operator corrections into reusable rules."
+      "why": "Turns operator corrections into reusable rules.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "autologica",
@@ -80,7 +110,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Adds post-action reflection so the system can question its own path."
+      "why": "Adds post-action reflection so the system can question its own path.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "autonomous-cycle",
@@ -106,7 +151,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Runs structured cycles when autonomous research is appropriate."
+      "why": "Runs structured cycles when autonomous research is appropriate.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "autoresearch",
@@ -131,7 +191,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Supports automated research intake and synthesis."
+      "why": "Supports automated research intake and synthesis.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "capture-insight",
@@ -158,7 +233,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Captures useful insights before they vanish from context."
+      "why": "Captures useful insights before they vanish from context.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "cascade",
@@ -185,7 +275,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Tracks second-order consequences of a change."
+      "why": "Tracks second-order consequences of a change.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "cascade-check",
@@ -213,7 +318,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Reminds the system that content changes often require propagation."
+      "why": "Reminds the system that content changes often require propagation.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "cea-hook",
@@ -240,7 +361,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Supports continuous/environmental awareness checks."
+      "why": "Supports continuous/environmental awareness checks.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "cec",
@@ -266,7 +403,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Runs the knowledge expansion cycle before narrow conclusions."
+      "why": "Runs the knowledge expansion cycle before narrow conclusions.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "context-awareness",
@@ -295,7 +447,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Places the assistant in the project context before work."
+      "why": "Places the assistant in the project context before work.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "continuum-extract",
@@ -322,7 +490,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Extracts continuity signals for later reentry."
+      "why": "Extracts continuity signals for later reentry.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "diagram-generator",
@@ -349,7 +533,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Creates diagrams when explanation needs visual structure."
+      "why": "Creates diagrams when explanation needs visual structure.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "dream",
@@ -373,7 +572,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Explores unusual associations and latent directions."
+      "why": "Explores unusual associations and latent directions.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "ecosystem-audit",
@@ -400,7 +614,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Audits how public surfaces connect across the ecosystem."
+      "why": "Audits how public surfaces connect across the ecosystem.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "eval",
@@ -426,7 +655,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Evaluates outputs against explicit criteria."
+      "why": "Evaluates outputs against explicit criteria.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "evolution-transfer-protocol",
@@ -454,7 +698,21 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Prevents identity collapse when logic crosses contexts."
+      "why": "Prevents identity collapse when logic crosses contexts.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "native"
+        },
+        "cursor": {
+          "status": "native"
+        },
+        "generic": {
+          "status": "native"
+        }
+      }
     },
     {
       "id": "godel",
@@ -481,7 +739,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Adds an inversion oracle for assumptions and hidden constraints."
+      "why": "Adds an inversion oracle for assumptions and hidden constraints.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "installer-option-router",
@@ -511,7 +784,21 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Keeps seed installation coherent as capabilities accumulate."
+      "why": "Keeps seed installation coherent as capabilities accumulate.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "native"
+        },
+        "cursor": {
+          "status": "native"
+        },
+        "generic": {
+          "status": "native"
+        }
+      }
     },
     {
       "id": "integrate-pattern",
@@ -538,7 +825,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Turns recurring behavior into a portable pattern."
+      "why": "Turns recurring behavior into a portable pattern.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "integration-protocol",
@@ -565,7 +867,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Provides a structured path for integrating useful work."
+      "why": "Provides a structured path for integrating useful work.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "memory-system",
@@ -595,7 +912,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Gives the node persistent memory and reentry discipline."
+      "why": "Gives the node persistent memory and reentry discipline.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "modus-copy",
@@ -621,7 +953,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Supports copy work where observer, tone, and CTA discipline matter."
+      "why": "Supports copy work where observer, tone, and CTA discipline matter.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "non-dual-copy",
@@ -647,7 +995,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Supports copy that preserves observer/context before claims."
+      "why": "Supports copy that preserves observer/context before claims.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "paper-deployer",
@@ -675,7 +1038,22 @@
         "publish-safe"
       ],
       "conflicts_with": [],
-      "why": "Useful when research artifacts must become public papers."
+      "why": "Useful when research artifacts must become public papers.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "pattern-decay-check",
@@ -700,7 +1078,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Detects when useful patterns may be decaying or going stale."
+      "why": "Detects when useful patterns may be decaying or going stale.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "poly-consult",
@@ -726,7 +1120,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Adds multi-perspective consultation when stakes or ambiguity are high."
+      "why": "Adds multi-perspective consultation when stakes or ambiguity are high.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "post-compact",
@@ -758,7 +1167,23 @@
         "pre-compact"
       ],
       "conflicts_with": [],
-      "why": "Restores orientation after context compaction."
+      "why": "Restores orientation after context compaction.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "pre-compact",
@@ -788,7 +1213,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Preserves useful state before context compaction."
+      "why": "Preserves useful state before context compaction.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "propagator",
@@ -814,7 +1255,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Helps propagate accepted changes to related surfaces."
+      "why": "Helps propagate accepted changes to related surfaces.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "publish-safe",
@@ -843,7 +1299,22 @@
         "cascade-check"
       ],
       "conflicts_with": [],
-      "why": "Separates draft, review, and public publishing consequences."
+      "why": "Separates draft, review, and public publishing consequences.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "researcher-plugin",
@@ -868,7 +1339,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Builds an autonomous research cycle for a declared domain."
+      "why": "Builds an autonomous research cycle for a declared domain.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "safety-guard",
@@ -900,7 +1386,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Makes destructive actions visible before execution."
+      "why": "Makes destructive actions visible before execution.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "scenario-projector",
@@ -927,7 +1429,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Projects competing tensions before choosing the next move."
+      "why": "Projects competing tensions before choosing the next move.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "self-setup",
@@ -955,7 +1472,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Helps a new node install and orient itself."
+      "why": "Helps a new node install and orient itself.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "session-monitor",
@@ -981,7 +1513,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Keeps long sessions aligned with operating rules."
+      "why": "Keeps long sessions aligned with operating rules.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "session-thread",
@@ -1007,7 +1555,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Maintains a lightweight thread of session work."
+      "why": "Maintains a lightweight thread of session work.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "share-reflex",
@@ -1032,7 +1596,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Prompts sharing when work becomes relevant beyond the local node."
+      "why": "Prompts sharing when work becomes relevant beyond the local node.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "sieve-orchestrator",
@@ -1058,7 +1638,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Coordinates sieve-style research or validation workflows."
+      "why": "Coordinates sieve-style research or validation workflows.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "sinapsi",
@@ -1084,7 +1679,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Adds explicit inter-node communication functions."
+      "why": "Adds explicit inter-node communication functions.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "sinapsi-polling",
@@ -1110,7 +1720,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Useful only when the node participates in inter-node messaging."
+      "why": "Useful only when the node participates in inter-node messaging.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "skill-health-check",
@@ -1136,7 +1762,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Detects skill overlap and missing checks early."
+      "why": "Detects skill overlap and missing checks early.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "statusline-bridge",
@@ -1161,7 +1803,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Keeps lightweight state visible during work."
+      "why": "Keeps lightweight state visible during work.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "statusline-bridge-shell",
@@ -1186,7 +1844,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Shell wrapper for the statusline bridge."
+      "why": "Shell wrapper for the statusline bridge.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "system-awareness",
@@ -1216,7 +1890,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Shows repo, service, and message state before action."
+      "why": "Shows repo, service, and message state before action.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "system-check",
@@ -1243,7 +1933,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Provides a standard check before broader action."
+      "why": "Provides a standard check before broader action.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "temporal-awareness",
@@ -1270,7 +1975,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Keeps relative time and session timing visible."
+      "why": "Keeps relative time and session timing visible.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "third-act",
@@ -1295,7 +2016,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Supports narrative closure and public-facing content refinement."
+      "why": "Supports narrative closure and public-facing content refinement.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "thread-task",
@@ -1321,7 +2057,23 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Carries task-level context across session thread updates."
+      "why": "Carries task-level context across session thread updates.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     },
     {
       "id": "version-check",
@@ -1348,7 +2100,22 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Makes version drift visible before upgrade work."
+      "why": "Makes version drift visible before upgrade work.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     }
   ]
 }

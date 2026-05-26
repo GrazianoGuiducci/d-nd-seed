@@ -1,0 +1,23 @@
+{
+  "_comment": "EXAMPLE: Claude Code node. Uses Seed hooks, settings and skills natively.",
+  "node_id": "CLAUDE_CODE",
+  "description": "Example — Claude Code node using native Seed hooks and skills",
+  "agent_runtime": "claude-code",
+  "install_mode": "contextual",
+  "intent": ["coding", "maintenance", "docs"],
+  "risk_tolerance": "writes_files",
+  "project_dir": "./my-project",
+  "memory_path": "./my-project/.claude/memory",
+  "repos": [
+    {
+      "name": "my-project",
+      "path": "my-project",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": false,
+    "example": "sales",
+    "port": 3004
+  }
+}

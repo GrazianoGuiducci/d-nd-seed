@@ -8,6 +8,7 @@ Key guides:
 - THIA to seed promotion lane: docs/THIA_SEED_PROMOTION.md
 - Evolution transfer protocol: docs/evolution_transfer_protocol.md
 - Installer option router: docs/installer_option_router.md
+- Agent runtime translators: docs/agent_runtime_translators.md
 - TM7-local TM1-function install: docs/tm7_local_tm1_function_install.md
 
 ## What it does
@@ -22,6 +23,7 @@ Key guides:
 - Capability registry + install planning via install.sh --plan
 - Registry validation via install.sh --check
 - Registry-gated install/update by default; --legacy-all is explicit bypass
+- Agent runtime profiles: profiles/example-claude-code.json and profiles/example-codex.json
 
 ## Quick start
 

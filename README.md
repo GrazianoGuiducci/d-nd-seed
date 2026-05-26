@@ -98,6 +98,10 @@ all functions as equal install choices. It separates invariant base, stable
 defaults, contextual tools, recent candidates, experiments, and superseded
 material. See [installer_option_router.md](docs/installer_option_router.md).
 
+**Agent runtime translators** — one Seed logic, adapted to different AI runtimes
+such as Claude Code, Codex, and generic chat agents. See
+[agent_runtime_translators.md](docs/agent_runtime_translators.md).
+
 **Godel plugin** — an inverted oracle. It does not answer questions. It inverts assumptions. You give it a tension, it shows you what you were hiding. Pre-built configurations for sales, research, finance.
 
 **Scenario Projector** — maps the hidden structure in competing tensions. 4 structural lenses (focus, leverage, risk, blind spot), 5 pre-configured domains, action plans with domain-specific language. [Complete guide](plugins/d-nd-core/scripts/PROJECTOR_COMPLETE_GUIDE.md).
@@ -123,6 +127,8 @@ Optional: `vps_url`, `godel` config, `sinapsi_for` (inter-node messaging). See `
 Common starting profiles:
 
 - `profiles/example.json` — conservative coder/project install;
+- `profiles/example-claude-code.json` — Claude Code native hooks/skills;
+- `profiles/example-codex.json` — Codex using `.claude` logic through adapters;
 - `profiles/example-researcher.json` — autonomous research/Lab cycle;
 - `profiles/example-dev-node.json` — dev/server node with network checks;
 - `profiles/example-publisher.json` — site, copy, funnel, SEO and public-surface work.

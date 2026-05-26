@@ -10,7 +10,8 @@ const allowed = {
   stratum: new Set(['core_invariant', 'stable_default', 'contextual', 'recent_candidate', 'experimental', 'legacy_or_superseded']),
   maturity: new Set(['established', 'stable', 'emerging', 'candidate', 'experimental', 'deprecated']),
   risk: new Set(['safe', 'writes_files', 'uses_network', 'uses_secrets', 'publishes', 'runtime', 'destructive']),
-  visibility: new Set(['default', 'recommended', 'optional', 'advanced', 'hidden'])
+  visibility: new Set(['default', 'recommended', 'optional', 'advanced', 'hidden']),
+  agentStatus: new Set(['native', 'adapter', 'documented', 'unsupported'])
 };
 
 const required = [
@@ -82,6 +83,20 @@ function main() {
 
     if (cap.path && !fs.existsSync(path.join(root, cap.path))) {
       errors.push(`${label}: path does not exist: ${cap.path}`);
+    }
+
+    if (!cap.agent_support || typeof cap.agent_support !== 'object' || Array.isArray(cap.agent_support)) {
+      errors.push(`${label}: agent_support object is required`);
+    } else {
+      for (const [agent, support] of Object.entries(cap.agent_support)) {
+        if (!support || typeof support !== 'object' || Array.isArray(support)) {
+          errors.push(`${label}: agent_support.${agent} must be an object`);
+          continue;
+        }
+        if (!allowed.agentStatus.has(support.status)) {
+          errors.push(`${label}: invalid agent_support.${agent}.status: ${support.status}`);
+        }
+      }
     }
 
     for (const ref of cap.requires || []) {

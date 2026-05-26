@@ -1,0 +1,23 @@
+{
+  "_comment": "EXAMPLE: Codex node. Reads Seed/.claude surfaces through agent runtime translators instead of assuming Claude Code native hooks.",
+  "node_id": "CODEX",
+  "description": "Example — Codex node using Seed logic through adapters",
+  "agent_runtime": "codex",
+  "install_mode": "contextual",
+  "intent": ["coding", "maintenance", "docs"],
+  "risk_tolerance": "writes_files",
+  "project_dir": "./my-project",
+  "memory_path": "./my-project/.claude/memory",
+  "repos": [
+    {
+      "name": "my-project",
+      "path": "my-project",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": false,
+    "example": "sales",
+    "port": 3004
+  }
+}
