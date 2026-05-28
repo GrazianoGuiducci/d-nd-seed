@@ -207,6 +207,26 @@ The agent confirms it read the closest source, separated verified territory
 from memory, checked adjacent regression risk, and is not continuing only
 because a previous packet said "next".
 
+## Prior-Deposit Review Before Resultant Projection
+
+When a task asks for a public recommendation, strategic position, site/page
+direction, portfolio framing, knowledge-safety rule, or any resultant that must
+carry the system through a passage, the boot layer should recover relevant
+prior deposits before producing the projection.
+
+Minimum review:
+
+```text
+active context -> current memory pointer -> relevant handoff/closure notes ->
+task-specific docs/private notes -> live repo state ->
+verified / memory / inferred / residue split -> projection aligned to now
+```
+
+This is not a full historical audit. It is a knowledge-safety pass: search the
+places where the relevant past could have been deposited, enough to prevent an
+old note, latest artifact, or partial summary from becoming the projected
+result.
+
 Action gates:
 
 - `observe_only`: read/report only.

@@ -66,11 +66,30 @@ manually. Do not script mass injection into every file.
 6. Update `README.md` or `llms.txt` only when discoverability changes.
 7. Commit only after reading the diff and confirming no secrets were copied.
 
+## Automatic Local Refinement Check
+
+When any TMx node improves its own boot, reentry, compact recovery, memory,
+safety, verification, planning, cascade, or knowledge-safety rules, it should
+automatically check whether the improvement belongs in the seed.
+
+Outcome:
+
+- **portable invariant**: translate it without local paths, node names, private
+  packet references, or runtime state, then patch the smallest seed document;
+- **local adapter rule**: keep it local and record why it is not portable;
+- **uncertain**: write the local packet first and defer seed promotion until the
+  rule is verified.
+
+The operator should not need to request seed distribution from each TMx node for
+every general boot-system refinement. Distribution is part of the refinement
+loop.
+
 ## Current THIA Patterns That Belong Here
 
 These are examples of functions that should end in the seed once stabilized:
 
 - day-start boot router + continuum signal handling;
+- prior-deposit review before resultant/public projection;
 - public visitor vs authenticated admin/operator action boundary;
 - explicit translation flow for report/artifact bodies while preserving source
   originals;

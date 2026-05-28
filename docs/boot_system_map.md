@@ -148,6 +148,23 @@ and presents choices according to profile, intent, risk, and freshness.
 docs/installer_option_router.md
 ```
 
+### Knowledge-Safety Projection
+
+Protects high-impact recommendations and public resultants from stale or
+partial memory.
+
+Before producing a strategic recommendation, public framing, site/page
+direction, portfolio positioning, or other resulting projection, recover the
+prior deposits likely to contain the relevant past. Then separate:
+
+- verified live territory;
+- memory from handoff/closure notes;
+- inference;
+- residue that must not become the active branch.
+
+The goal is not to read everything. It is to align the projection with the
+current passage instead of projecting from the wrong deposit.
+
 ## Action Gates
 
 ```text
@@ -193,9 +210,10 @@ A boot system is complete enough for a local node when:
 5. operational-plan use is explained;
 6. maintenance starts with hygiene, not deletion;
 7. local identity/function boundaries are explicit;
-8. promotion from local adapter to seed keeps only invariants.
-9. evolution transfer is documented when logic crosses contexts.
-10. installer exposure is routed by capability maturity, context, and risk.
+8. knowledge-safety projection is part of broad/public recommendations;
+9. promotion from local adapter to seed keeps only invariants.
+10. evolution transfer is documented when logic crosses contexts.
+11. installer exposure is routed by capability maturity, context, and risk.
 
 ## Non-Goals
 
