@@ -47,6 +47,34 @@ For every agentic workflow, define:
 - how verification updates it;
 - which lessons become portable invariants.
 
+## Repository Telos
+
+When reading a repository, do not evaluate only its current maturity or code
+surface. First recover the vision and end that made the repository exist.
+
+Each project may contain:
+
+- a vision: the possibility it tried to open;
+- an end: the direction it was built to serve;
+- invariants: the rules that kept it coherent;
+- effort of coherence: the work spent holding the possibility together;
+- latent futures: capabilities that may become useful when moved into a new
+  context.
+
+This is part of awareness. A repository is not only an artifact; it is a record
+of possibility shaped by human intent and constrained by implementation.
+
+For portfolio, transfer, or migration work, read:
+
+```text
+current evidence -> original vision -> intended end -> invariants ->
+coherence effort -> latent futures -> present action
+```
+
+The highest human contribution is the act of determining possibility through a
+coherent direction. Code, prompts, docs, tools, and interfaces are the traces of
+that act.
+
 ## Public Language
 
 For public portfolio or product language, use concrete expressions:

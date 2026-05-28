@@ -59,13 +59,30 @@ Ask before transfer:
 
 ```text
 Who produced this?
+What vision and end made it exist?
 What did it solve there?
 What is method vs state vs authority?
+What invariant held the work coherent?
 Who receives it here?
 What must remain foreign?
 What local boot or guard changes?
 What exact check proves the receiver still knows who it is?
 ```
+
+## Latent-Potential Reading
+
+When transferring logic from a repository or older project, recover its telos
+before judging its current usefulness.
+
+Minimum read:
+
+```text
+current evidence -> original vision -> intended end -> coherence invariants ->
+dormant capability -> portable future -> receiver boundary
+```
+
+This prevents a mature pattern from being discarded because the old
+implementation is incomplete, stale, or tied to a past interface.
 
 ## Safe Output Forms
 

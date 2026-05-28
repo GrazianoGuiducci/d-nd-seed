@@ -92,6 +92,8 @@ These are examples of functions that should end in the seed once stabilized:
 - prior-deposit review before resultant/public projection;
 - programmable awareness: state exposure, source alignment, boundary
   recognition, verification, and memory update before action;
+- repository telos audit: recover vision, intended end, coherence invariants,
+  and latent futures before transferring or judging an older project;
 - public visitor vs authenticated admin/operator action boundary;
 - explicit translation flow for report/artifact bodies while preserving source
   originals;
