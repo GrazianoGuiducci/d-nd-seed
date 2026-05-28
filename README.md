@@ -84,6 +84,11 @@ pre-compact, or unclassified signal. See
 function, see
 [tm7_local_tm1_function_install.md](docs/tm7_local_tm1_function_install.md).
 
+**Programmable awareness** — the invariant operating layer that exposes
+identity, sources, memory state, uncertainty, boundaries, side effects, and next
+action before an agent acts. See
+[programmable_awareness.md](docs/programmable_awareness.md).
+
 **THIA → seed promotion lane** — reusable functions integrated in the THIA/D-ND
 runtime should not remain local runtime knowledge. When a THIA feature becomes
 a portable pattern, promote the invariant into this seed. See

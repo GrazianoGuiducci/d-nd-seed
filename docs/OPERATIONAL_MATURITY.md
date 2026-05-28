@@ -103,8 +103,11 @@ Every node has a different operator, different domain, different infrastructure.
    identity collapse
 9. **Installation routes by context** — the seed presents the right capability
    for the node, intent, maturity, and risk
+10. **Awareness is programmable** — state exposure, source alignment,
+   boundaries, uncertainty, side effects, verification, and memory update form
+   an operating surface
 
-These nine patterns are the operating system. The hooks, skills, and memory are the implementation. The implementation changes. The patterns don't.
+These ten patterns are the operating system. The hooks, skills, and memory are the implementation. The implementation changes. The patterns don't.
 
 ---
 

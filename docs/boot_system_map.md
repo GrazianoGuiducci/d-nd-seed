@@ -165,6 +165,23 @@ prior deposits likely to contain the relevant past. Then separate:
 The goal is not to read everything. It is to align the projection with the
 current passage instead of projecting from the wrong deposit.
 
+### Programmable Awareness
+
+Treats awareness as an operating surface rather than an attitude.
+
+Before action, the node should expose:
+
+- identity and role;
+- closest sources read;
+- verified territory;
+- memory and inference;
+- uncertainty and residue;
+- side effects;
+- action gate and next move.
+
+This makes awareness programmable: boot, plans, guards, verification, memory,
+and installer routing can all depend on what the node knows about its own state.
+
 ## Action Gates
 
 ```text

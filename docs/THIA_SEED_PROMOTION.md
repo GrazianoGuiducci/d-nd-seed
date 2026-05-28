@@ -90,6 +90,8 @@ These are examples of functions that should end in the seed once stabilized:
 
 - day-start boot router + continuum signal handling;
 - prior-deposit review before resultant/public projection;
+- programmable awareness: state exposure, source alignment, boundary
+  recognition, verification, and memory update before action;
 - public visitor vs authenticated admin/operator action boundary;
 - explicit translation flow for report/artifact bodies while preserving source
   originals;
