@@ -44,10 +44,13 @@ if [ -d "$MEM_DIR" ] && [ -f "$STATE_FILE" ]; then
 fi
 
 # --- Scan Sinapsi for EOD-pattern messages ---
-TOKEN="${THIA_API_TOKEN:-thia-secure-token-2026}"
-EOD=$(curl -s -m 3 "http://localhost:3002/api/node-sync?since=$SINCE_ISO" \
-    -H "X-THIA-Token: $TOKEN" 2>/dev/null \
-    | grep -oE '"content":"[^"]{0,300}' | grep -cE "EOD|CHIUSO|chiudiamo|finiamo|closure|end.of.day" 2>/dev/null)
+TOKEN="${THIA_API_TOKEN:-}"
+EOD=0
+if [ -n "$TOKEN" ]; then
+    EOD=$(curl -s -m 3 "http://localhost:3002/api/node-sync?since=$SINCE_ISO" \
+        -H "X-THIA-Token: $TOKEN" 2>/dev/null \
+        | grep -oE '"content":"[^"]{0,300}' | grep -cE "EOD|CHIUSO|chiudiamo|finiamo|closure|end.of.day" 2>/dev/null)
+fi
 if [ "${EOD:-0}" -gt 0 ]; then
     OUTPUT="${OUTPUT}  - sinapsi: $EOD EOD-pattern message(s)\n"
     SIGNALS=$((SIGNALS + EOD))

@@ -334,6 +334,69 @@ echo "Generating configuration..."
 
 # settings.json
 apply_template "$SCRIPT_DIR/templates/settings.json.tmpl" "$TARGET/settings.json"
+if [ -z "$DRY_RUN" ]; then
+    node - "$TARGET/settings.json" "$INCLUDED_PATHS_FILE" "$LEGACY_ALL" <<'NODE'
+const fs = require('fs');
+const settingsPath = process.argv[2];
+const includedFile = process.argv[3] || '';
+const legacyAll = process.argv[4] === 'true';
+
+const settings = JSON.parse(fs.readFileSync(settingsPath, 'utf8'));
+const included = new Set();
+if (legacyAll) {
+  included.add('*');
+} else if (includedFile && fs.existsSync(includedFile)) {
+  for (const line of fs.readFileSync(includedFile, 'utf8').split(/\r?\n/)) {
+    if (line.trim()) included.add(line.trim());
+  }
+}
+
+const selected = rel => legacyAll || included.has(rel);
+const hookPathByCommand = [
+  ['session_monitor.py', 'templates/hooks/session_monitor.py.tmpl'],
+  ['safety_guard.sh', 'templates/hooks/safety_guard.sh.tmpl'],
+  ['pre_compact.sh', 'templates/hooks/pre_compact.sh.tmpl'],
+  ['post_compact.sh', 'templates/hooks/post_compact.sh.tmpl'],
+  ['statusline_bridge.js', 'templates/hooks/statusline_bridge.js.tmpl'],
+  ['statusline_bridge.sh', 'templates/hooks/statusline_bridge.sh.tmpl'],
+  ['system_awareness.sh', 'templates/hooks/system_awareness.sh.tmpl'],
+  ['cea_hook.sh', 'templates/hooks/cea_hook.sh.tmpl'],
+  ['share_reflex.sh', 'templates/hooks/share_reflex.sh.tmpl'],
+  ['cascade_check.sh', 'templates/hooks/cascade_check.sh.tmpl'],
+  ['session_thread.sh', 'templates/hooks/session_thread.sh.tmpl'],
+];
+
+function commandAllowed(command) {
+  for (const [needle, rel] of hookPathByCommand) {
+    if (command.includes(needle)) return selected(rel);
+  }
+  return true;
+}
+
+if (settings.statusLine && settings.statusLine.command && !commandAllowed(settings.statusLine.command)) {
+  delete settings.statusLine;
+}
+
+if (settings.hooks) {
+  for (const eventName of Object.keys(settings.hooks)) {
+    const eventHooks = settings.hooks[eventName]
+      .map(group => {
+        const hooks = (group.hooks || []).filter(hook => {
+          if (hook.type !== 'command' || !hook.command) return true;
+          return commandAllowed(hook.command);
+        });
+        return { ...group, hooks };
+      })
+      .filter(group => (group.hooks || []).length > 0);
+
+    if (eventHooks.length) settings.hooks[eventName] = eventHooks;
+    else delete settings.hooks[eventName];
+  }
+}
+
+fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + '\n');
+NODE
+fi
 
 # safety_guard.sh
 if ! skip_unselected "safety_guard.sh" "templates/hooks/safety_guard.sh.tmpl"; then

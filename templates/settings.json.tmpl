@@ -6,6 +6,16 @@
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"{{PROJECT_DIR}}/.claude/hooks/session_monitor.py\" || python \"{{PROJECT_DIR}}/.claude/hooks/session_monitor.py\"",
+            "timeout": 5000
+          }
+        ]
+      },
+      {
         "matcher": "Bash|Edit|Write",
         "hooks": [
           {
