@@ -83,6 +83,11 @@ pre-compact, or unclassified signal. See
 [boot_system_map.md](docs/boot_system_map.md). For TM7-local covering TM1
 function, see
 [tm7_local_tm1_function_install.md](docs/tm7_local_tm1_function_install.md).
+For broad, public, post-compact, correction, field-reentry, or multi-repo work,
+the boot should also produce a system awareness snapshot before planning:
+active surface, operator intent, current state, source of truth, adjacent
+surfaces, runtime boundary, semantic keystones, stale residue, unknowns,
+regression risk, and the smallest safe next move.
 
 **Programmable awareness** — the invariant operating layer that exposes
 identity, sources, memory state, uncertainty, boundaries, side effects, and next

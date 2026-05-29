@@ -145,7 +145,15 @@ done
 [ "$WARN_COUNT" -eq 0 ] && echo "  None."
 echo ""
 
-# --- 5. Finalize state file ---
+# --- 5. System awareness snapshot reminder ---
+echo "## Awareness Snapshot Reminder"
+echo "  Before broad/public/reentry work, produce a system awareness snapshot:"
+echo "  active surface, operator intent, current state, source of truth,"
+echo "  adjacent surfaces, runtime boundary, semantic keystones, stale residue,"
+echo "  unknowns, regression risk, and smallest safe next move."
+echo ""
+
+# --- 6. Finalize state file ---
 cat >> "$STATE_FILE" << STATEFOOT
 
 ## VPS

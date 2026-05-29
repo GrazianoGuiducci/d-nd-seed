@@ -58,6 +58,8 @@ When Codex enters a Seed-enabled repo:
    logic:
    - safety guard before destructive shell operations;
    - system awareness before broad action;
+   - system awareness snapshot before plans or edits on broad, public,
+     post-compact, correction, field-reentry, or multi-repo work;
    - pre/post compact logic before context transitions;
    - cascade checks after public/site/docs changes.
 7. If a capability has `agent_support.codex.status = adapter`, follow its

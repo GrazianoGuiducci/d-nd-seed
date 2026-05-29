@@ -190,6 +190,63 @@ stop_condition:
 action_gate:
 ```
 
+## System Awareness Snapshot
+
+For new-instance, post-compact, field-reentry, unexpected-correction, broad
+recommendation, public-surface, or multi-repo work, the router output should be
+followed by a short system awareness snapshot before planning or acting.
+
+This is not a full audit and not another memory dump. It is the minimum proof
+that the agent has re-entered the living system rather than only reading the
+right files.
+
+Portable shape:
+
+```text
+active_surface:
+operator_intent:
+current_state:
+source_of_truth:
+adjacent_surfaces:
+runtime_boundary:
+semantic_keystones:
+stale_or_historical_residue:
+not_yet_verified:
+regression_risk:
+smallest_safe_next_move:
+```
+
+Use it to force distinctions that otherwise get blurred:
+
+- `active_surface`: exact repo, page, service, dataset, route, document, or
+  function under discussion now;
+- `operator_intent`: what the operator asked in this turn, not what the newest
+  packet or old plan suggested;
+- `current_state`: what is verified now from live files, repo state, runtime
+  checks, public endpoints, or current docs;
+- `source_of_truth`: which source is authoritative for the next decision, and
+  which sources are only memory, historical evidence, public projection,
+  generated output, or private grounding material;
+- `adjacent_surfaces`: nearby pages, repos, services, datasets, nodes, public
+  surfaces, or user workflows that could regress if the next action is wrong;
+- `runtime_boundary`: whether the task is read-only orientation, local code,
+  generated artifact, CMS/content authority, deploy/runtime/service, or
+  secret-bearing work;
+- `semantic_keystones`: concepts whose public wording or behavior defines the
+  system and therefore require grounding before edits;
+- `stale_or_historical_residue`: visible old branches, packets, generated files,
+  stale docs, local clones, or old workstreams that must not become the active
+  branch;
+- `not_yet_verified`: the missing evidence that could change the action gate;
+- `regression_risk`: the most likely way a fluent answer or edit could harm the
+  field;
+- `smallest_safe_next_move`: the next read, check, question, or bounded action
+  that follows from the snapshot.
+
+If the snapshot exposes an unknown that affects safety, source authority,
+side effects, public semantics, or runtime state, remain in `observe_only` or
+`stop_for_validation` until the closest source is checked.
+
 For reentry, post-compact, broad awareness, or latest-instance recovery, append
 a final autological check:
 

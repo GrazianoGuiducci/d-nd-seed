@@ -145,6 +145,12 @@ Use `docs/boot_system_map.md` to understand how the router, field boots,
 operational plans, hygiene reports, seed pattern and local adapters fit
 together.
 
+For broad, public, multi-repo, post-compact, correction, or field-reentry work,
+do not stop at "I read the boot." Produce a system awareness snapshot before
+planning: active surface, operator intent, current state, source of truth,
+adjacent surfaces, runtime boundary, semantic keystones, stale residue, unknowns,
+regression risk, and the smallest safe next move.
+
 When another node, repo, Lab, or previous session has evolved useful logic, do
 not copy it blindly. Use `docs/evolution_transfer_protocol.md`: classify what
 is portable method, source evidence, foreign active work, runtime state,

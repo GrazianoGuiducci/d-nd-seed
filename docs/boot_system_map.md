@@ -93,6 +93,36 @@ Examples:
 A field boot should be read-only unless the operator has already validated a
 specific action.
 
+### System Awareness Snapshot
+
+Condenses the boot result into a small declared understanding of the living
+field before a plan or edit.
+
+It answers:
+
+```text
+what exact surface is active?
+what did the operator ask now?
+what is currently verified?
+which source is authoritative?
+what adjacent surfaces could regress?
+what runtime boundary applies?
+which semantic keystones need grounding?
+what visible residue is stale or historical?
+what is still not verified?
+what is the smallest safe next move?
+```
+
+The snapshot sits between field boot and operational plan:
+
+```text
+router -> field boot -> system awareness snapshot -> plan or stop
+```
+
+It prevents a mechanical boot from becoming action without awareness. If the
+snapshot cannot distinguish source truth, residue, adjacent regression risk, or
+runtime boundary, the system remains in read-only or validation mode.
+
 ### Operational Plan
 
 Carries work after awareness.
@@ -223,14 +253,15 @@ A boot system is complete enough for a local node when:
 1. the boot classes are documented;
 2. router output is tested against a trigger matrix;
 3. field boots exist for currently active real fields;
-4. compact/context behavior is advisory and calibrated;
-5. operational-plan use is explained;
-6. maintenance starts with hygiene, not deletion;
-7. local identity/function boundaries are explicit;
-8. knowledge-safety projection is part of broad/public recommendations;
-9. promotion from local adapter to seed keeps only invariants.
-10. evolution transfer is documented when logic crosses contexts.
-11. installer exposure is routed by capability maturity, context, and risk.
+4. system awareness snapshot output is defined for broad or risky reentry;
+5. compact/context behavior is advisory and calibrated;
+6. operational-plan use is explained;
+7. maintenance starts with hygiene, not deletion;
+8. local identity/function boundaries are explicit;
+9. knowledge-safety projection is part of broad/public recommendations;
+10. promotion from local adapter to seed keeps only invariants.
+11. evolution transfer is documented when logic crosses contexts.
+12. installer exposure is routed by capability maturity, context, and risk.
 
 ## Non-Goals
 
