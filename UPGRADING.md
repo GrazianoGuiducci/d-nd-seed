@@ -1,5 +1,33 @@
 # Upgrading d-nd-seed
 
+## From v3.1 to v3.2 (2026-05-29)
+
+This release adds the awareness orchestration layer: a shared state schema and
+an autologic operational protocol that connect boot classification, action
+gates, capability selection, verification, memory, and cascade.
+
+### Non-Breaking Changes
+
+- `docs/awareness_state_schema.md` defines the canonical state a node exposes
+  before broad, public, correction, post-compact, or seed-changing work.
+- `docs/awareness_orchestration_protocol.md` defines the event -> state -> gate
+  -> capability -> verification -> memory/cascade loop.
+- `capabilities/registry.json` is bumped to `2026-05-29` and now registers the
+  awareness orchestration docs, boot router, programmable awareness, and seed
+  operating principles as core invariants.
+
+### Action
+
+No migration is required for existing installs. Pull the seed and run:
+
+```bash
+./install.sh profiles/your-profile.json --plan
+./install.sh --check
+```
+
+The new core invariant docs will appear in the install plan. Runtimes without
+native hooks should read them as manual adapter discipline.
+
 ## From v2.2 to v3.0 (2026-04-08)
 
 This release makes the seed fully provider-neutral and removes all internal infrastructure references. If you're running the seed on a node, read this before pulling.
@@ -140,6 +168,7 @@ projects that intentionally need the previous broad behavior, use:
 
 | Version | Date | Summary |
 |---------|------|---------|
+| v3.2 | 2026-05-29 | Awareness orchestration protocol, shared awareness state, registry core invariants |
 | v3.1 | 2026-04-09 | Diagram generator, observer positioning, visual_spec bilingual |
 | v3.0 | 2026-04-08 | Provider-neutral, fully public, cognitive evolution |
 | v2.2 | 2026-04-06 | Projector + structural lenses + automation pattern |

@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.capability_registry.v1",
-  "version": "2026-05-26",
+  "version": "2026-05-29",
   "policy": "docs/installer_option_router.md",
   "capabilities": [
     {
@@ -740,6 +740,242 @@
       "requires": [],
       "conflicts_with": [],
       "why": "Adds an inversion oracle for assumptions and hidden constraints.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "boot-router",
+      "type": "doc",
+      "path": "docs/boot_router.md",
+      "stratum": "core_invariant",
+      "maturity": "stable",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "team",
+        "dev-node",
+        "lab"
+      ],
+      "intents": [
+        "boot",
+        "reentry",
+        "awareness"
+      ],
+      "risk": "safe",
+      "visibility": "default",
+      "introduced": "2026-05-29",
+      "reviewed": "2026-05-29",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [],
+      "conflicts_with": [],
+      "why": "Classifies session transitions before action so a node does not treat every reentry as the same event.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "programmable-awareness",
+      "type": "doc",
+      "path": "docs/programmable_awareness.md",
+      "stratum": "core_invariant",
+      "maturity": "stable",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "team",
+        "dev-node",
+        "lab"
+      ],
+      "intents": [
+        "awareness",
+        "verification",
+        "memory"
+      ],
+      "risk": "safe",
+      "visibility": "default",
+      "introduced": "2026-05-29",
+      "reviewed": "2026-05-29",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [],
+      "conflicts_with": [],
+      "why": "Defines awareness as operational self-exposure: identity, sources, uncertainty, boundaries, tools, side effects, and next action.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "seed-operating-principles",
+      "type": "doc",
+      "path": "docs/seed_operating_principles.md",
+      "stratum": "core_invariant",
+      "maturity": "stable",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "team",
+        "dev-node",
+        "lab"
+      ],
+      "intents": [
+        "awareness",
+        "boot",
+        "verification",
+        "cascade"
+      ],
+      "risk": "safe",
+      "visibility": "default",
+      "introduced": "2026-05-29",
+      "reviewed": "2026-05-29",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "programmable-awareness"
+      ],
+      "conflicts_with": [],
+      "why": "Collects the portable operating discipline inherited by any node that installs or reads the seed.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "awareness-state-schema",
+      "type": "doc",
+      "path": "docs/awareness_state_schema.md",
+      "stratum": "core_invariant",
+      "maturity": "stable",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "team",
+        "dev-node",
+        "lab"
+      ],
+      "intents": [
+        "awareness",
+        "boot",
+        "orchestration",
+        "verification"
+      ],
+      "risk": "safe",
+      "visibility": "default",
+      "introduced": "2026-05-29",
+      "reviewed": "2026-05-29",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "boot-router",
+        "programmable-awareness",
+        "seed-operating-principles"
+      ],
+      "conflicts_with": [],
+      "why": "Defines the shared state language used before action, verification, memory, and cascade.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "awareness-orchestration-protocol",
+      "type": "doc",
+      "path": "docs/awareness_orchestration_protocol.md",
+      "stratum": "core_invariant",
+      "maturity": "stable",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "team",
+        "dev-node",
+        "lab"
+      ],
+      "intents": [
+        "awareness",
+        "boot",
+        "orchestration",
+        "verification",
+        "cascade"
+      ],
+      "risk": "safe",
+      "visibility": "default",
+      "introduced": "2026-05-29",
+      "reviewed": "2026-05-29",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "awareness-state-schema",
+        "boot-router",
+        "installer-option-router",
+        "programmable-awareness",
+        "seed-operating-principles"
+      ],
+      "conflicts_with": [],
+      "why": "Connects events, boot classes, action gates, capability selection, verification, memory, and cascade into one autologic loop.",
       "agent_support": {
         "claude-code": {
           "status": "native"

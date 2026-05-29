@@ -94,6 +94,12 @@ identity, sources, memory state, uncertainty, boundaries, side effects, and next
 action before an agent acts. See
 [programmable_awareness.md](docs/programmable_awareness.md).
 
+**Awareness orchestration** — the operational loop that connects boot class,
+state exposure, action gates, capability selection, verification, memory, and
+cascade. See
+[awareness_orchestration_protocol.md](docs/awareness_orchestration_protocol.md)
+and [awareness_state_schema.md](docs/awareness_state_schema.md).
+
 **Seed operating principles** — the portable rules a node inherits from the
 seed: blank before wrong, first token, context before action, eval with every
 skill, cascade awareness, private-to-seed promotion, source ascent, preventive
@@ -181,7 +187,7 @@ d-nd-seed/
 ├── plugins/
 │   ├── d-nd-core/        # Core: safety, awareness, inter-node messaging
 │   └── godel/            # Inverted oracle with domain configurations
-├── docs/                 # 33 operational guides
+├── docs/                 # 38 operational guides
 └── scripts/              # Maintenance tools
 ```
 
