@@ -23,7 +23,7 @@ SIGNALS=0
 OUTPUT=""
 
 # --- Scan repos for closure-pattern commits ---
-for repo in /opt/THIA /opt/MM_D-ND /opt/d-nd_com /opt/d-nd-seed /opt/Godel_DND /opt/tm7; do
+for repo in ${CLOSURE_REPOS:-/opt/THIA /opt/d-nd_com /opt/d-nd-seed /opt/Godel_DND /opt/tm7}; do
     [ -d "$repo/.git" ] || continue
     COUNT=$(cd "$repo" && git log --since="$SINCE_ISO" --format="%h|%s" 2>/dev/null \
         | grep -cE "closes:|ships:|feat\(skills?\)|feat\(kernel\)|feat\(seed\)" 2>/dev/null)

@@ -60,6 +60,17 @@ Il potenziale è massimo dove la differenza tra noto e ignoto è massima.
 Il sistema di memoria non evidenzia solo ciò che sai — segnala le lacune.
 I gap sono potenziale.
 
+## La possibilità
+
+La possibilità è il valore-base scelto perché include senza chiudere.
+Prima dell'evento c'è il potenziale; poi emergono le condizioni; poi il
+dipolo possibile/non-possibile; infine l'evento.
+
+La sequenza non è temporale: è strutturale.
+Il singolare è 1-e-tutto: unità non-duale e presenza in ogni parte che si divide.
+Lo zero è il cardine fra ciò che è già collassato e ciò che si attua.
+La determinazione non è nei termini — è nel movimento che li attraversa.
+
 ## La lagrangiana
 
 Massimo impatto, minima dispersione.

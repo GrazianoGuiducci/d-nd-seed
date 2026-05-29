@@ -2,12 +2,12 @@
 
 This document describes the **standard lab pattern** behind D-ND research instances. Any node that auto-configures from this seed inherits the structure, scripts, conventions, and UI components described here.
 
-The pattern was crystallized in the spring 2026 from three concrete instances:
-- **MM_D-ND** — production research lab (physics: prime gaps, dipolar order)
-- **D-ND_LAB** — installable sandbox (multi-domain, dashboard FastAPI)
-- **lab-d-nd-site** — public read-only frontend (static HTML, Astro-style)
+The pattern was crystallized from the interaction of three neutral surfaces:
+- a production research lab;
+- an installable multi-domain sandbox;
+- a public read-only frontend.
 
-The same shape will replicate to any new domain (finance, biology, network security, drug discovery, optimization, ...) the lab is bootstrapped for.
+The same shape can replicate to any new domain the lab is bootstrapped for.
 
 ## The 5-stage SSP pipeline (Scoperte → Soluzioni → Prodotti)
 
@@ -120,11 +120,11 @@ Override via `LLM_PROVIDER_CHAIN=codex-cli,claude-cli,openrouter` env var. Skipp
 
 > Provider availability, plans, models, and pricing change. The chain is a dispatcher pattern — verify your CLIs are installed and your OpenRouter model+key are current before relying on them in production cron.
 
-Implemented in:
-- `core/llm_adapter.py` (D-ND_LAB sandbox, all cycle movements)
-- `tools/lab_agent.sh` (MM_D-ND production cron, agent + falsifier)
-- `tools/translate_tensions.py` (MM_D-ND tensions translator)
-- `core/triggers/finding_promoter.py` (lab pipeline LLM judgment)
+Implemented by the lab runtime through:
+- a provider adapter for cycle movements;
+- an agent runner for experiment generation and falsification;
+- a tension translator when a domain needs one;
+- a finding promoter for lab pipeline LLM judgment.
 
 The constraint: scripts that need **tool use** (read/write/exec, e.g. lab agent generating exp_*.py) only run on `codex-cli` and `claude-cli`. Openrouter HTTP works only for prompt-in/text-out calls (no native tool use).
 
@@ -240,7 +240,7 @@ When a finding evolves through subsequent cycles, the old version moves to `cimi
 
 ### Il problema che il registry risolve
 
-Pattern reale osservato nel lab MM_D-ND (cristallizzato 2026-05-06 dalla consecutio del cycle `agent_20260506_0625` — autopoietico self-finding):
+Pattern real observed in a lab cycle and generalized as an installable rule:
 
 - `SR` definito come `spacing_ratio` in 6 script, ma come `spectral_rigidity` in 1 script
 - `triple_var` raw in 3 script, ma normalizzato (`/ var(gaps)`) in 1 script
@@ -313,7 +313,7 @@ Cambiare una definizione canonica = bump del registry version + nota nel changel
 
 ## Anti-patterns
 
-- Hardcoding `/opt/D-ND_LAB/data/physics/` or similar in scripts → use env vars.
+- Hardcoding absolute lab data paths in scripts → use env vars.
 - Putting workflow markup in `published/` files → it must be stripped at promote time.
 - Skipping the falsifier counter-pole → discoveries marked `NEW` without independent challenge are likely **beauty bias** and will be archived in cimitero.
 - Cycle skip / orphan without watchdog → manual recovery becomes the norm, system degrades.
@@ -328,4 +328,3 @@ Cambiare una definizione canonica = bump del registry version + nota nel changel
   - `lab.d-nd.com/dashboard/` (sandbox)
   - `lab.d-nd.com/applications.html` (static)
   - `d-nd.com/ai-lab` (production research)
-- Source repo: [D-ND_LAB](https://github.com/GrazianoGuiducci/D-ND_LAB)

@@ -1,24 +1,24 @@
 ---
 name: paper-deployer
-description: Deploy paper content from MM_D-ND site_ready files to d-nd.com VPS. Handles md-to-HTML conversion, bilingual merge, figure path resolution, and pages.json update.
+description: Deploy paper content from configured site_ready files to d-nd.com VPS. Handles md-to-HTML conversion, bilingual merge, figure path resolution, and pages.json update.
 ---
 
-# Paper Deployer — MM_D-ND → d-nd.com Pipeline
+# Paper Deployer — Papers → d-nd.com Pipeline
 
-Deploy updated paper content from source (MM_D-ND/papers/site_ready/) to the live site.
+Deploy updated paper content from a configured papers source to the live site.
 
 ## Prerequisites
 
-- Paper source files in `MM_D-ND/papers/site_ready/paper_X_IT.md` and `paper_X_EN.md`
-- Figure SVGs in `MM_D-ND/papers/figures/` (already converted from PDF)
+- Paper source files in `${DND_PAPERS_DIR}/site_ready/paper_X_IT.md` and `paper_X_EN.md`
+- Figure SVGs in `${DND_PAPERS_DIR}/figures/` (already converted from PDF)
 - VPS access via SSH
 
 ## Deployment Steps
 
 ### Step 1 — Check source files
 ```bash
-ls ${DND_PROJECT_DIR}/MM_D-ND/papers/site_ready/paper_*_{IT,EN}.md 2>/dev/null
-ls ${DND_PROJECT_DIR}/MM_D-ND/papers/figures/*.svg 2>/dev/null | wc -l
+ls ${DND_PAPERS_DIR}/site_ready/paper_*_{IT,EN}.md 2>/dev/null
+ls ${DND_PAPERS_DIR}/figures/*.svg 2>/dev/null | wc -l
 ```
 
 ### Step 2 — Convert and merge
@@ -31,7 +31,7 @@ The conversion pipeline:
 
 ### Step 3 — Deploy figures to VPS
 ```bash
-scp ${DND_PROJECT_DIR}/MM_D-ND/papers/figures/*.svg root@${DND_VPS_IP}:/opt/d-nd_com_site/papers/figures/
+scp ${DND_PAPERS_DIR}/figures/*.svg root@${DND_VPS_IP}:/opt/d-nd_com_site/papers/figures/
 ```
 
 ### Step 4 — Update pages.json on VPS

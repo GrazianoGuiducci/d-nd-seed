@@ -8,12 +8,12 @@ version = "0.1.0"
 description = "Informed predictor for sequences with hidden Markov structure — exploits transition matrix fingerprint (z=12,813)."
 license = "MIT"
 authors = [
-    { name = "D-ND_LAB" },
+    { name = "D-ND Project" },
 ]
 requires-python = ">=3.10"
 
 [project.urls]
-Repository = "https://github.com/GrazianoGuiducci/D-ND_LAB"
+Repository = "https://github.com/GrazianoGuiducci/d-nd-seed"
 
 [tool.setuptools.packages.find]
 where = ["src"]

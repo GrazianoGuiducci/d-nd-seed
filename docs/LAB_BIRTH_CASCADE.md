@@ -4,12 +4,12 @@
 > lo scaffold cognitivo (8 file: `mml.json` + `config.json` + `seed_tensions.json` +
 > `tension_to_category.json` + `context.md` + `about.md` + `about.en.md` + `README.md` +
 > `assertions.py` + `tools/exp_*.py`) è **solo l'inizio**. Per fare entrare il lab nel
-> sistema visibilmente servono ~15-20 touch point distribuiti su 3 superfici (lab.d-nd.com,
-> d-nd.com, docs+memory).
+> sistema visibilmente servono touch point distribuiti sulle superfici
+> dichiarate dall'installazione: sito lab, sito principale, docs e memoria.
 >
 > Questo runbook è la cascade completa da seguire dopo `dnd init <lab>` (o equivalente).
-> Cristallizzato 2026-05-06 dopo aver fatto manualmente la cascade per `bio-rhythms`
-> (conversione di `physics` archiviato) — tradotto in regola riusabile.
+> Cristallizzato dopo una cascade manuale di dominio e tradotto in regola
+> riusabile.
 
 ## 0. Cosa è automatico (gratis, niente da fare)
 
@@ -24,11 +24,11 @@ Filesystem scan + dynamic API lo coprono al boot:
 
 ## 1. Validazione scaffold (subito, ~5 min)
 
-Lab dir: `/opt/D-ND_LAB/domains/<lab>/`
+Lab dir: `${DND_LAB_ROOT}/domains/<lab>/`
 
-- [ ] **M1-M6 validator**: `python3 /opt/D-ND_LAB/domains/_meta-prototyper/tools/lab_template_validator.py /opt/D-ND_LAB/domains/<lab>/` → atteso `TEMPLATE_VALID 6/6 PASS`
-- [ ] **Assertions standalone**: `cd /opt/D-ND_LAB && .venv/bin/python3 domains/<lab>/assertions.py` → atteso N/N PASS
-- [ ] **Tools custom standalone**: `cd /opt/D-ND_LAB && .venv/bin/python3 domains/<lab>/tools/exp_*.py --json` per ogni tool dichiarato in `mml.json:tools_custom`
+- [ ] **M1-M6 validator**: `python3 ${DND_LAB_ROOT}/domains/_meta-prototyper/tools/lab_template_validator.py ${DND_LAB_ROOT}/domains/<lab>/` → atteso `TEMPLATE_VALID 6/6 PASS`
+- [ ] **Assertions standalone**: `cd ${DND_LAB_ROOT} && .venv/bin/python3 domains/<lab>/assertions.py` → atteso N/N PASS
+- [ ] **Tools custom standalone**: `cd ${DND_LAB_ROOT} && .venv/bin/python3 domains/<lab>/tools/exp_*.py --json` per ogni tool dichiarato in `mml.json:tools_custom`
 - [ ] **Inspect movements**: `core.cli inspect --domain <lab>` → vedi quali movement sono enabled
 - [ ] **Identifica gap structurale**: il lab ha `narrative_writer` enabled in `config.json`? Se no, aggiungi (oggi è universal expected)
 
@@ -110,8 +110,8 @@ Vincolo: copy via Siteman CMS API, non repo direct.
 ## 4. Docs cascade
 
 - [ ] **`d-nd-seed/docs/LAB_PATTERN.md`**: case study o esempio se il nuovo lab dimostra un pattern interessante (auto-falsifica, integra dati live, ecc.). Non obbligatorio.
-- [ ] **`/opt/D-ND_LAB/README.md`**: aggiornamento elenco domini supportati
-- [ ] **`/opt/D-ND_LAB/docs/INSTALL_PROCEDURE.md`**: aggiornamento esempi se il lab ha pattern installazione speciale
+- [ ] **`${DND_LAB_ROOT}/README.md`**: aggiornamento elenco domini supportati
+- [ ] **`${DND_LAB_ROOT}/docs/INSTALL_PROCEDURE.md`**: aggiornamento esempi se il lab ha pattern installazione speciale
 - [ ] **`/opt/d-nd-seed/README.md`**: solo se il lab introduce features radicalmente nuove (raro)
 
 ## 5. Memory crystallization
@@ -130,7 +130,7 @@ Vincolo: copy via Siteman CMS API, non repo direct.
 
 Dopo l'integrazione (sez. 1-6), lancia un cycle reale:
 
-- [ ] **Cycle 1**: `cd /opt/D-ND_LAB && .venv/bin/python3 -m core.cli run --domain <lab>` (o via `night_run.sh` se notturno)
+- [ ] **Cycle 1**: `cd ${DND_LAB_ROOT} && .venv/bin/python3 -m core.cli run --domain <lab>` (o via scheduler se notturno)
 - [ ] **Verifica narrative**: file `data/<lab>/narratives/narrative_<ts>.md` esiste, frontmatter completo, 200 parole circa
 - [ ] **Verifica pagina pubblica**: `https://lab.d-nd.com/n/<lab>/<ts>` rendering HTML pulito
 - [ ] **Verifica Aeternitas**: `data/<lab>/aeternitas/aeternitas_<ts>.json` ha `decision` settato
@@ -155,7 +155,7 @@ Phase 3 — d-nd.com (TM1, copy via Siteman CMS)
   □ Sinapsi brief inviato
 
 Phase 4 — Docs cascade
-  □ README D-ND_LAB se elenco domini cambia
+  □ README del lab root se elenco domini cambia
 
 Phase 5 — Memory
   □ cristallo_<lab>_born + MEMORY.md index
@@ -192,6 +192,6 @@ Phase 7 — End-to-end
 
 | Versione | Data | Cambia |
 |----------|------|--------|
-| 1.0.0 | 2026-05-06 | Cristallizzazione iniziale dopo conversione `physics → bio-rhythms` |
+| 1.0.0 | 2026-05-06 | Cristallizzazione iniziale dopo conversione di dominio |
 
 Future evoluzioni: quando il prossimo lab nasce, aggiungere note "cosa è cambiato vs questa lista". Se la cascade diventa più meccanica → considerare automazione (script post-generation che fa Phase 2 stub + Phase 5+6 auto).

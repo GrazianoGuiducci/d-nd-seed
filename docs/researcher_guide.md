@@ -59,7 +59,7 @@ reads. The living field is assembled fresh every night from your seed, last
 reports, convergences, and the autopsy. Nothing is invented.
 
 **2. The method is the invariant.** The cycle itself does not know your
-domain. You tell it. Primes or markets, physics or linguistics — the cycle
+domain. You tell it. Markets, linguistics, operations, or another domain — the cycle
 runs the same loop. Your domain changes, the method does not.
 
 **3. Structure, not symptom.** When something in the cycle breaks, the fix

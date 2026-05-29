@@ -54,4 +54,4 @@ MIT — see [LICENSE](LICENSE).
 - Discovery cycle: `20260501_1256`
 - Finding: z=12,813 — sequential order carries massive information
 - Product ID: `20260501_1256_finding2_kernel_z-12813-lordine-sequenziale-porta-informazione`
-- Lab: [D-ND_LAB](https://github.com/GrazianoGuiducci/D-ND_LAB)
+- Lab: SSP verification cycle

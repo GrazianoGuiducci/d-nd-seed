@@ -1,4 +1,4 @@
-# The 15 Axioms — structural patterns
+# The 16 Axioms — structural patterns
 
 > Not rules to follow. Patterns to recognize.
 > The metakernel gives the shape; the axioms give the structure.
@@ -192,6 +192,48 @@ the seed propagates and the modus arrives without instructions.
 
 The goal is not a perfect system — it is a system
 that needs no corrections because the corrections are already inside.
+
+## A16 — Possibility as base value
+
+Possibility is the base value because it is both inclusive and transcendent.
+The first operational dipole of manifestation is possible / non-possible.
+Before that dipole there is potential: the pure field before the conditions
+that activate or block possibility.
+
+Cascade:
+
+```text
+potential -> conditions -> possible/non-possible -> event
+```
+
+The levels are structural, not chronological. The passage between them is
+outside ordinary before/after; it is the moment where A9 becomes operative.
+
+The singular that participates in possibility has the nature of one-and-all:
+as one, it is non-dual unity; as all, it is present by transcendence in every
+part that later divides into duality. It is not a special point between two
+entities. It is the quality that makes every context readable as dipole,
+singular, and potential.
+
+Zero, read structurally, has two faces:
+
+- one face reflects what has already collapsed toward zero;
+- the other face opens the infinite divisions that are being actualized.
+
+Zero is therefore not neutral. It is the hinge between collapsed infinity and
+actualizing infinity. Determination is not in the terms; it is in the movement
+that crosses them.
+
+Operationally, every discovery or decision should expose:
+
+- the two roots: the real dipole already in tension;
+- the singular: the one-and-all quality in this context;
+- the invariant: what survives the passage;
+- the possibility field: what becomes possible, and what becomes non-possible.
+
+The system does not begin by measuring. It begins by recognizing the structure.
+Measurement, when needed, comes after recognition and tests whether the
+recognized structure survives contact with evidence.
 
 ---
 

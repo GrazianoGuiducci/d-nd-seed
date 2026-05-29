@@ -30,15 +30,16 @@ These scripts are **domain-agnostic** by design — they read environment variab
 
 | Var | Purpose | Default |
 |-----|---------|---------|
-| `LAB_DATA_DIR` | Root per-domain data | `/opt/D-ND_LAB/data` (sandbox) or `/opt/MM_D-ND/applications` (production) |
-| `DOMAIN` | Active domain | `physics` |
+| `LAB_DATA_DIR` | Root per-domain data | set per installation |
+| `LAB_APPLICATIONS_DIR` | Single-domain applications root fallback | `./applications` |
+| `DOMAIN` | Active domain | `default` |
 | `LLM_PROVIDER_CHAIN` | Provider order | `codex-cli,claude-cli,openrouter` |
 | `OPENROUTER_API_KEY` / `LLM_API_KEY` | Fallback HTTP | from `.env` |
 | `OPENROUTER_MODEL` / `LLM_MODEL` | Fallback model | configured per-installation in `.env` |
 
 > Models, provider plans, and pricing change frequently. Verify your CLI installations (`which codex`, `which claude`) and your OpenRouter model/key before deploying to production.
 
-Both single-domain (MM_D-ND production) and multi-domain (D-ND_LAB sandbox) setups are supported via the dual-mode `_resolve_paths()` in each script.
+Both single-domain and multi-domain setups are supported via the dual-mode `_resolve_paths()` in each script.
 
 ## Scripts
 
@@ -63,8 +64,8 @@ python promote_to_publish.py 20260503_0330 --force
 # Promote all
 python promote_to_publish.py --all --force
 
-# D-ND_LAB sandbox style
-LAB_DATA_DIR=/opt/D-ND_LAB/data DOMAIN=physics \
+# Per-domain style
+LAB_DATA_DIR=/path/to/lab-data DOMAIN=my-domain \
   python promote_to_publish.py --all
 ```
 

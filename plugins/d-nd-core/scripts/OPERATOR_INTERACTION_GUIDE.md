@@ -78,7 +78,7 @@ Lo strumento trova le domande fondamentali: "come coesistono X e Y?"
 ### Il CEC (Crivello)
 6 passi per processare una tensione fino alla risultante.
 Usa tutti gli altri strumenti nel processo.
-Guida: GUIDA_CEC.md nella repo MM_D-ND/tools/.
+Guida: usa la guida CEC dichiarata dal progetto o dalla skill installata.
 
 ---
 

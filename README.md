@@ -94,6 +94,12 @@ identity, sources, memory state, uncertainty, boundaries, side effects, and next
 action before an agent acts. See
 [programmable_awareness.md](docs/programmable_awareness.md).
 
+**Seed operating principles** — the portable rules a node inherits from the
+seed: blank before wrong, first token, context before action, eval with every
+skill, cascade awareness, private-to-seed promotion, source ascent, preventive
+autologic, and installer boundaries. See
+[seed_operating_principles.md](docs/seed_operating_principles.md).
+
 **THIA → seed promotion lane** — reusable functions integrated in the THIA/D-ND
 runtime should not remain local runtime knowledge. When a THIA feature becomes
 a portable pattern, promote the invariant into this seed. See
@@ -189,7 +195,7 @@ The seed installs the structure. What grows from it is described in [OPERATIONAL
 
 ## Lab pattern
 
-When you bootstrap a research lab from this seed (any domain — physics, finance, biology, network security, drug discovery, ...), the standard architecture is documented in [LAB_PATTERN.md](docs/LAB_PATTERN.md). It covers the 5-stage SSP pipeline (Scoperte → Soluzioni → Prodotti), the 21-movement cycle architecture (with Aeternitas + Veritas structural gate, A8+A15 trajectory loop, narrative writer), draft/published separation, provider chain, dashboard UI patterns (modal candidate, cytoscape-fcose, equispaced trajectory), watchdog + cascade hooks, and anti-patterns to avoid.
+When you bootstrap a research lab from this seed, the standard architecture is documented in [LAB_PATTERN.md](docs/LAB_PATTERN.md). It covers the 5-stage SSP pipeline (Scoperte → Soluzioni → Prodotti), the movement-based cycle architecture (with Aeternitas + Veritas structural gate, A8+A15 trajectory loop, narrative writer), draft/published separation, provider chain, dashboard UI patterns, watchdog + cascade hooks, and anti-patterns to avoid.
 
 Pipeline scripts live at [plugins/d-nd-core/scripts/lab/](plugins/d-nd-core/scripts/lab/) — domain-agnostic implementations of `promote_to_publish.py`, `finding_promoter.py`, `blueprint_generator.py`. See [LAB_PIPELINE_GUIDE.md](plugins/d-nd-core/scripts/lab/LAB_PIPELINE_GUIDE.md) for CLI examples and integration with cycle pipeline.
 
@@ -204,7 +210,7 @@ D-ND (Dual-Non-Dual) is the framework behind this seed. The mathematical model, 
 - [seed.d-nd.com](https://seed.d-nd.com) — Seed documentation
 - [d-nd.com](https://d-nd.com) — Framework and research
 - [d-nd.com/laboratorio](https://d-nd.com/laboratorio) — Live research data
-- [D-ND_LAB](https://github.com/GrazianoGuiducci/D-ND_LAB) — The generative lab that produces installable kernels (see `kernels/`)
+- `docs/LAB_PATTERN.md` — The generative lab pattern that produces installable kernels (see `kernels/`)
 - [EXAMINA](https://github.com/GrazianoGuiducci/EXAMINA) — Evolutionary evaluation
 - [anamnesis](https://github.com/GrazianoGuiducci/anamnesis) — Context persistence specification
 

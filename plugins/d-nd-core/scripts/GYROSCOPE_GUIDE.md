@@ -19,7 +19,7 @@ After every tool call, the Gyroscope:
 | Errors without system check | Acting blind | **system-check** — verify before continuing |
 | 3+ content changes | Cascade needed | **propagate** — sitemap, links, translations |
 | 50+ operations | Long session | **memory** — crystallize decisions and learnings |
-| git pull MM_D-ND with new commits | New research | **integrate-pattern** — extract operational patterns |
+| git pull on a research source with new commits | New research | **integrate-pattern** — extract operational patterns |
 | 5+ content changes | Major changes | **assertion-verifier** — verify claims are live |
 
 ## How to Install

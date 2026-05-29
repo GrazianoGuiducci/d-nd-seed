@@ -18,7 +18,7 @@ L'operatore review l'output, conferma, lancia manualmente application_designer
 + Stage 4 sui finding promossi.
 
 CLI:
-  python -m core.triggers.finding_promoter <cycle_ts> [--domain physics]
+  python -m core.triggers.finding_promoter <cycle_ts> [--domain default]
                                                        [--apply]
                                                        [--min-confidence high]
 
@@ -42,8 +42,8 @@ from pathlib import Path
 
 
 def _resolve_paths(domain: str | None = None) -> dict[str, Path]:
-    lab_data = Path(os.environ.get("LAB_DATA_DIR", "/opt/D-ND_LAB/data"))
-    dom = domain or os.environ.get("DOMAIN", "physics")
+    lab_data = Path(os.environ.get("LAB_DATA_DIR", "./data"))
+    dom = domain or os.environ.get("DOMAIN", "default")
     domain_dir = lab_data / dom
     return {
         "domain": dom,

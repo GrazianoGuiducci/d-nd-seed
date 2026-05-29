@@ -52,19 +52,17 @@ from datetime import datetime, timezone
 
 
 def _resolve_paths(domain: str | None = None) -> dict[str, Path]:
-    """Compatibile MM_D-ND production e D-ND_LAB sandbox.
+    """Resolve generic lab paths.
 
-    MM_D-ND: /opt/MM_D-ND/applications/{scoperte,soluzioni} → published
-    D-ND_LAB: /opt/D-ND_LAB/data/<domain>/{scoperte,soluzioni} → published
+    Preferred layout: LAB_DATA_DIR/<domain>/{scoperte,soluzioni,published}.
+    Fallback layout: LAB_APPLICATIONS_DIR/{scoperte,soluzioni,published}.
     """
     lab_data = os.environ.get("LAB_DATA_DIR")
     if lab_data:
-        # D-ND_LAB style
-        dom = domain or os.environ.get("DOMAIN", "physics")
+        dom = domain or os.environ.get("DOMAIN", "default")
         base = Path(lab_data) / dom
     else:
-        # MM_D-ND production
-        base = Path("/opt/MM_D-ND/applications")
+        base = Path(os.environ.get("LAB_APPLICATIONS_DIR", "./applications"))
     return {
         "scoperte": base / "scoperte",
         "soluzioni": base / "soluzioni",
@@ -74,7 +72,7 @@ def _resolve_paths(domain: str | None = None) -> dict[str, Path]:
 
 # === Sanitization patterns ===
 # Ogni pattern è (regex, replacement). Applicati nell'ordine.
-# Regex testate sui template di on_crystallize.py (D-ND_LAB + MM_D-ND).
+# Regex testate sui template di on_crystallize.py del pattern SSP.
 
 YAML_LINE_PATTERNS = [
     # Strip YAML keys interni
@@ -312,7 +310,7 @@ def main():
     ap.add_argument("--force", action="store_true",
                     help="overwrite published/ se esiste")
     ap.add_argument("--domain", default=None,
-                    help="(D-ND_LAB only) override DOMAIN env")
+                    help="override DOMAIN env")
     args = ap.parse_args()
 
     paths = _resolve_paths(args.domain)

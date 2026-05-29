@@ -138,7 +138,7 @@ finding from 3 angles, gets 3 verdicts, and lets the operator align with
 the strongest signal.
 
 **Worked example** — finding `z = 12,813 — l'ordine sequenziale porta informazione massiva`
-on prime gaps mod 6 (D-ND_LAB physics, cycle 20260501_1256):
+from a packaged verification cycle:
 
 | Type | Naive | Informed | Δ | Verdict |
 |---|---|---|---|---|
@@ -162,13 +162,16 @@ produces, but only what survives empirical verification becomes a product.
 
 ---
 
-## Local instances
+## Installation Surface
 
-| Lab | Source | UI | Notes |
-|---|---|---|---|
-| MM_D-ND | `/opt/MM_D-ND/tools/triggers/` | `d-nd.com/ai-lab` (private research) | Source pipeline |
-| D-ND_LAB physics | `/opt/D-ND_LAB/core/triggers/` | `lab.d-nd.com/dashboard/` | Sandbox + product UI |
+The pipeline is instance-neutral. An installer only needs:
 
-The `core/ssp_pipeline.py` movement (D-ND_LAB) automatically chains all
-4 stages post `trajectory_evaluator`. The cycle wakes up tomorrow with
-scoperta + applicazioni + 3 prodotti verified, no manual step.
+- a lab data root;
+- an active domain name;
+- the SSP trigger scripts;
+- the generated `scoperte/`, `soluzioni/`, `published/`, and `prodotti/`
+  directories.
+
+The cycle may chain all stages after `trajectory_evaluator`. The next run
+should wake up with scoperta, applications, and verified products when the
+gates pass.
