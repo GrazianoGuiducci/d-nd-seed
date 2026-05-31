@@ -21,6 +21,21 @@ The seed should not contain THIA secrets, runtime data, current packets,
 operator-private transcripts, dirty worktree facts, or local service paths
 unless they are clearly marked as examples.
 
+## Shared Function Routing
+
+When a reusable function or capability should be available to other TMx nodes
+or systems, share it through Seed, not by copying files into coordination repos.
+
+```text
+portable function/capability -> d-nd-seed
+coordination/validation notice -> TM7 packet or equivalent
+local runtime state -> local memory only
+```
+
+A coordination repo may carry a packet that names the Seed commit and explains
+what another node should pull or validate. The portable function itself belongs
+in the Seed layer that owns it.
+
 ## Promotion Test
 
 Promote a THIA function into the seed when at least one of these is true:

@@ -170,3 +170,25 @@ It should not receive:
 - hidden operator memory;
 - domain-specific claims not needed for installation.
 
+## 13. Shared Function Route
+
+When a TMx node, THIA, Lab, or another D-ND system creates a reusable function,
+kernel, hook, skill, guard, installer behavior, operating rule, or capability
+that other systems should inherit, the default durable destination is the Seed
+repo.
+
+Use this routing:
+
+```text
+reusable function/capability -> d-nd-seed
+coordination, validation, handoff, delivery notice -> TM7 packet or equivalent
+local active state, workspace memory, residue -> local adapter docs
+```
+
+Do not copy Seed files into coordination repos to share them. Coordination
+surfaces may point to a Seed commit, explain why it matters, and ask another
+node to pull, validate, or consume it. The reusable capability itself should
+have one source of truth.
+
+Only the normalized form travels. Runtime state, private material, secrets,
+local worktree facts, and temporary packets do not become Seed.
