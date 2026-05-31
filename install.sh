@@ -34,6 +34,21 @@ for arg in "$@"; do
     [ "$arg" = "--legacy-all" ] && LEGACY_ALL="true"
 done
 
+TEMP_FILES=""
+cleanup() {
+    if [ -n "$TEMP_FILES" ]; then
+        rm -f $TEMP_FILES 2>/dev/null || true
+    fi
+}
+trap cleanup EXIT
+
+make_temp() {
+    local f
+    f=$(mktemp)
+    TEMP_FILES="$TEMP_FILES $f"
+    printf '%s\n' "$f"
+}
+
 require_node() {
     if ! command -v node >/dev/null 2>&1; then
         echo "ERROR: node is required for this command but was not found in PATH"
@@ -82,6 +97,7 @@ fi
 
 if [ -n "$PLAN_MODE" ]; then
     require_node
+    node "$SCRIPT_DIR/scripts/validate_profile.js" "$PROFILE" --target-policy=read-only >/dev/null
     node "$SCRIPT_DIR/scripts/installer_option_router.js" "$PROFILE"
     exit $?
 fi
@@ -89,11 +105,30 @@ fi
 require_node
 node "$SCRIPT_DIR/scripts/validate_capability_registry.js" >/dev/null
 
+UNAME_S="$(uname -s 2>/dev/null || echo unknown)"
+WINDOWS_BASH=""
+case "$UNAME_S" in
+    MINGW*|MSYS*|CYGWIN*) WINDOWS_BASH="true" ;;
+esac
+
+if [ -n "$WINDOWS_BASH" ] && [ -z "$DRY_RUN" ] && [ "${DND_SEED_ALLOW_WINDOWS_BASH:-}" != "1" ]; then
+    echo "ERROR: Windows Bash runtime detected."
+    echo "Refusing to write files unless DND_SEED_ALLOW_WINDOWS_BASH=1 is set."
+    echo "Use Node read-only checks first:"
+    echo "  node scripts\\validate_capability_registry.js"
+    echo "  node scripts\\installer_option_router.js <profile.json>"
+    exit 1
+fi
+
+TARGET_POLICY="write"
+[ -n "$DRY_RUN" ] && TARGET_POLICY="dry-run"
+node "$SCRIPT_DIR/scripts/validate_profile.js" "$PROFILE" --target-policy="$TARGET_POLICY" >/dev/null
+
 PLAN_FILE=""
 INCLUDED_PATHS_FILE=""
 if [ -z "$LEGACY_ALL" ]; then
-    PLAN_FILE=$(mktemp)
-    INCLUDED_PATHS_FILE=$(mktemp)
+    PLAN_FILE=$(make_temp)
+    INCLUDED_PATHS_FILE=$(make_temp)
     node "$SCRIPT_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$PLAN_FILE"
     node "$SCRIPT_DIR/scripts/installer_option_router.js" "$PROFILE" --paths > "$INCLUDED_PATHS_FILE"
     echo "Registry gate: enabled"
@@ -127,73 +162,123 @@ echo "Profile: $PROFILE"
 echo ""
 
 # --- Parse profile with node ---
-eval $(node -e "
+profile_value() {
+    node - "$PROFILE" "$1" "$2" <<'NODE'
 const fs = require('fs');
-const p = JSON.parse(fs.readFileSync('$(echo "$PROFILE" | sed "s/'/\\\\'/g")','utf8'));
-
-console.log('NODE_ID=\"' + (p.node_id || 'UNKNOWN') + '\"');
-console.log('PROJECT_DIR=\"' + (p.project_dir || '.') + '\"');
-console.log('SYSTEM_PATH=\"' + (p.system_path || '') + '\"');
-console.log('MEMORY_PATH=\"' + (p.memory_path || '') + '\"');
-console.log('VPS_URL=\"' + (p.vps_url || '') + '\"');
-console.log('SYNC_FOR=\"' + (p.sync_for || '') + '\"');
-
-// Godel plugin config
+const profilePath = process.argv[2];
+const key = process.argv[3];
+const fallback = process.argv[4] || '';
+const p = JSON.parse(fs.readFileSync(profilePath, 'utf8'));
 const g = p.godel || {};
-console.log('GODEL_ENABLED=\"' + (g.enabled ? 'true' : '') + '\"');
-console.log('GODEL_EXAMPLE=\"' + (g.example || '') + '\"');
-console.log('GODEL_NAME=\"' + (g.name || '') + '\"');
-console.log('GODEL_DOMAIN=\"' + (g.domain || '') + '\"');
-console.log('GODEL_DESC=\"' + (g.description || '') + '\"');
-console.log('GODEL_PORT=\"' + (g.port || '3004') + '\"');
+const values = {
+  node_id: p.node_id || 'UNKNOWN',
+  project_dir: p.project_dir || '.',
+  system_path: p.system_path || '',
+  memory_path: p.memory_path || '',
+  vps_url: p.vps_url || '',
+  sinapsi_for: p.sinapsi_for || p.sync_for || '',
+  godel_enabled: g.enabled ? 'true' : '',
+  godel_example: g.example || '',
+  godel_name: g.name || '',
+  godel_domain: g.domain || '',
+  godel_desc: g.description || '',
+  godel_port: String(g.port || '3004'),
+  primary_repo: (p.repos && p.repos[0] && p.repos[0].path) || '',
+  primary_repos: (p.repos || []).slice(0, 3).map(r => r.path || '').join(' ')
+};
+process.stdout.write(String(values[key] ?? fallback));
+NODE
+}
 
-// Repos as bash array entries
-const repos = (p.repos || []);
-const repoArray = repos.map(r => '    \"' + r.name + ':' + r.path + ':' + r.branch + '\"').join('\n');
-console.log('REPOS_ARRAY=\"' + Buffer.from(repoArray).toString('base64') + '\"');
-
-// Primary repo (first in list)
-console.log('PRIMARY_REPO=\"' + (repos[0] ? repos[0].path : '') + '\"');
-
-// Repo names for fallback list in post_compact
-const primaryNames = repos.slice(0, 3).map(r => r.path).join(' ');
-console.log('PRIMARY_REPOS=\"' + primaryNames + '\"');
-
-// For dirty check: generate bash lines
-const dirtyCheck = repos.map(r =>
-    'for R in \"\$PROJECT_DIR/' + r.path + '\"; do\\n' +
-    '    if [ -d \"\$R/.git\" ]; then\\n' +
-    '        D=\$(git -C \"\$R\" diff --name-only 2>/dev/null)\\n' +
-    '        if [ -n \"\$D\" ]; then HAS_DIRTY=\"yes\"; fi\\n' +
-    '    fi\\n' +
+profile_block_b64() {
+    node - "$PROFILE" "$1" <<'NODE'
+const fs = require('fs');
+const profilePath = process.argv[2];
+const key = process.argv[3];
+const p = JSON.parse(fs.readFileSync(profilePath, 'utf8'));
+const repos = p.repos || [];
+const q = value => String(value || '').replace(/"/g, '\\"');
+let out = '';
+if (key === 'repos_array') {
+  out = repos.map(r => `    "${q(r.name)}:${q(r.path)}:${q(r.branch)}"`).join('\n');
+} else if (key === 'repos_dirty') {
+  out = repos.map(r =>
+    `for R in "$PROJECT_DIR/${q(r.path)}"; do\n` +
+    '    if [ -d "$R/.git" ]; then\n' +
+    '        D=$(git -C "$R" diff --name-only 2>/dev/null)\n' +
+    '        if [ -n "$D" ]; then HAS_DIRTY="yes"; fi\n' +
+    '    fi\n' +
     'done'
-).join('\\n');
-console.log('REPOS_DIRTY_B64=\"' + Buffer.from(
-    repos.map(r =>
-        'for R in \"\$PROJECT_DIR/' + r.path + '\"; do\n' +
-        '    if [ -d \"\$R/.git\" ]; then\n' +
-        '        D=\$(git -C \"\$R\" diff --name-only 2>/dev/null)\n' +
-        '        if [ -n \"\$D\" ]; then HAS_DIRTY=\"yes\"; fi\n' +
-        '    fi\n' +
-        'done'
-    ).join('\n')
-).toString('base64') + '\"');
+  ).join('\n');
+} else if (key === 'repos_state') {
+  out = repos.map(r => `repo_state "${q(r.name)}" "$PROJECT_DIR/${q(r.path)}"`).join('\n');
+} else if (key === 'repos_semantic') {
+  out = repos.map(r =>
+    `if [ -d "$PROJECT_DIR/${q(r.path)}/.git" ]; then\n` +
+    `    UNPUSHED=$(git -C "$PROJECT_DIR/${q(r.path)}" log --oneline @{upstream}..HEAD 2>/dev/null | head -3)\n` +
+    `    if [ -n "$UNPUSHED" ]; then SEMANTIC_TAGS="\${SEMANTIC_TAGS}DEPLOY(${q(r.name)}) "; fi\n` +
+    'fi'
+  ).join('\n');
+}
+process.stdout.write(Buffer.from(out).toString('base64'));
+NODE
+}
 
-// For repo_state calls
-console.log('REPOS_STATE_B64=\"' + Buffer.from(
-    repos.map(r => 'repo_state \"' + r.name + '\" \"\$PROJECT_DIR/' + r.path + '\"').join('\n')
-).toString('base64') + '\"');
+reject_control_value() {
+    local label="$1"
+    local value="$2"
+    case "$value" in
+        *$'\n'*|*$'\r'*|*'`'*|*'$'*|*';'*|*'&'*|*'|'*|*'<'*|*'>'*)
+            echo "ERROR: Unsafe profile value for $label"
+            exit 1
+            ;;
+    esac
+}
 
-// For semantic check
-console.log('REPOS_SEMANTIC_B64=\"' + Buffer.from(
-    repos.map(r =>
-        'if [ -d \"\$PROJECT_DIR/' + r.path + '/.git\" ]; then\n' +
-        '    UNPUSHED=\$(git -C \"\$PROJECT_DIR/' + r.path + '\" log --oneline @{upstream}..HEAD 2>/dev/null | head -3)\n' +
-        '    if [ -n \"\$UNPUSHED\" ]; then SEMANTIC_TAGS=\"\${SEMANTIC_TAGS}DEPLOY(' + r.name + ') \"; fi\n' +
-        'fi'
-    ).join('\n')
-).toString('base64') + '\"');
-" 2>/dev/null)
+NODE_ID=$(profile_value node_id UNKNOWN)
+PROJECT_DIR=$(profile_value project_dir .)
+SYSTEM_PATH=$(profile_value system_path "")
+MEMORY_PATH=$(profile_value memory_path "")
+VPS_URL=$(profile_value vps_url "")
+SINAPSI_FOR=$(profile_value sinapsi_for "")
+GODEL_ENABLED=$(profile_value godel_enabled "")
+GODEL_EXAMPLE=$(profile_value godel_example "")
+GODEL_NAME=$(profile_value godel_name "")
+GODEL_DOMAIN=$(profile_value godel_domain "")
+GODEL_DESC=$(profile_value godel_desc "")
+GODEL_PORT=$(profile_value godel_port "3004")
+REPOS_ARRAY=$(profile_block_b64 repos_array)
+PRIMARY_REPO=$(profile_value primary_repo "")
+PRIMARY_REPOS=$(profile_value primary_repos "")
+REPOS_DIRTY_B64=$(profile_block_b64 repos_dirty)
+REPOS_STATE_B64=$(profile_block_b64 repos_state)
+REPOS_SEMANTIC_B64=$(profile_block_b64 repos_semantic)
+
+reject_control_value "node_id" "$NODE_ID"
+reject_control_value "project_dir" "$PROJECT_DIR"
+reject_control_value "system_path" "$SYSTEM_PATH"
+reject_control_value "memory_path" "$MEMORY_PATH"
+reject_control_value "vps_url" "$VPS_URL"
+reject_control_value "sinapsi_for" "$SINAPSI_FOR"
+reject_control_value "godel_example" "$GODEL_EXAMPLE"
+reject_control_value "godel_name" "$GODEL_NAME"
+reject_control_value "godel_domain" "$GODEL_DOMAIN"
+reject_control_value "godel_desc" "$GODEL_DESC"
+reject_control_value "primary_repo" "$PRIMARY_REPO"
+reject_control_value "primary_repos" "$PRIMARY_REPOS"
+
+if [ -z "$DRY_RUN" ] && [ "$PROJECT_DIR" = "/path/to/your/project" ]; then
+    echo "ERROR: Refusing to install to placeholder project_dir: $PROJECT_DIR"
+    echo "Copy a profile and set project_dir to the intended target first."
+    exit 1
+fi
+
+case "$PROJECT_DIR" in
+    ""|"/"|"\\"|"C:"|"C:\\"|"C:/"|".."|"../"*)
+        echo "ERROR: Refusing unsafe project_dir: $PROJECT_DIR"
+        exit 1
+        ;;
+esac
 
 # Decode base64 blocks
 REPOS_ARRAY_DECODED=$(echo "$REPOS_ARRAY" | base64 -d 2>/dev/null || echo "$REPOS_ARRAY" | base64 --decode 2>/dev/null)
@@ -292,14 +377,22 @@ apply_template() {
         return
     fi
 
-    CONTENT=$(cat "$TMPL_FILE")
-
-    # Simple replacements
-    CONTENT=$(echo "$CONTENT" | sed "s|{{NODE_ID}}|$NODE_ID|g")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{PROJECT_DIR}}|$PROJECT_DIR|g")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{SYSTEM_PATH}}|$SYSTEM_PATH|g")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{PRIMARY_REPO_PATH}}|$PROJECT_DIR/$PRIMARY_REPO|g")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{PRIMARY_REPOS}}|$PRIMARY_REPOS|g")
+    CONTENT=$(TMPL_FILE="$TMPL_FILE" NODE_ID="$NODE_ID" PROJECT_DIR="$PROJECT_DIR" SYSTEM_PATH="$SYSTEM_PATH" PRIMARY_REPO_PATH="$PROJECT_DIR/$PRIMARY_REPO" PRIMARY_REPOS="$PRIMARY_REPOS" node <<'NODE'
+const fs = require('fs');
+let content = fs.readFileSync(process.env.TMPL_FILE, 'utf8');
+const replacements = {
+  NODE_ID: process.env.NODE_ID || '',
+  PROJECT_DIR: process.env.PROJECT_DIR || '',
+  SYSTEM_PATH: process.env.SYSTEM_PATH || '',
+  PRIMARY_REPO_PATH: process.env.PRIMARY_REPO_PATH || '',
+  PRIMARY_REPOS: process.env.PRIMARY_REPOS || ''
+};
+for (const [key, value] of Object.entries(replacements)) {
+  content = content.split(`{{${key}}}`).join(value);
+}
+process.stdout.write(content);
+NODE
+)
 
     if [ -n "$DRY_RUN" ]; then
         if [ -f "$OUTPUT_FILE" ]; then
@@ -411,15 +504,25 @@ fi
 # pre_compact.sh — needs complex block replacements
 TMPL="$SCRIPT_DIR/templates/hooks/pre_compact.sh.tmpl"
 if [ -f "$TMPL" ] && capability_selected "templates/hooks/pre_compact.sh.tmpl"; then
-    CONTENT=$(cat "$TMPL")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{NODE_ID}}|$NODE_ID|g")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{PROJECT_DIR}}|$PROJECT_DIR|g")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{PRIMARY_REPO_PATH}}|$PROJECT_DIR/$PRIMARY_REPO|g")
+    CONTENT=$(TMPL_FILE="$TMPL" NODE_ID="$NODE_ID" PROJECT_DIR="$PROJECT_DIR" PRIMARY_REPO_PATH="$PROJECT_DIR/$PRIMARY_REPO" node <<'NODE'
+const fs = require('fs');
+let content = fs.readFileSync(process.env.TMPL_FILE, 'utf8');
+const replacements = {
+  NODE_ID: process.env.NODE_ID || '',
+  PROJECT_DIR: process.env.PROJECT_DIR || '',
+  PRIMARY_REPO_PATH: process.env.PRIMARY_REPO_PATH || ''
+};
+for (const [key, value] of Object.entries(replacements)) {
+  content = content.split(`{{${key}}}`).join(value);
+}
+process.stdout.write(content);
+NODE
+)
 
     # Write intermediate, then replace block placeholders with node
     if [ -z "$DRY_RUN" ]; then
         mkdir -p "$TARGET/hooks"
-        TMPFILE=$(mktemp)
+        TMPFILE=$(make_temp)
         echo "$CONTENT" > "$TMPFILE"
         node -e "
 let c = require('fs').readFileSync(process.argv[1], 'utf8');
@@ -441,18 +544,28 @@ fi
 # system_awareness.sh — needs complex block replacements
 TMPL="$SCRIPT_DIR/templates/hooks/system_awareness.sh.tmpl"
 if [ -f "$TMPL" ] && capability_selected "templates/hooks/system_awareness.sh.tmpl"; then
-    CONTENT=$(cat "$TMPL")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{NODE_ID}}|$NODE_ID|g")
-    CONTENT=$(echo "$CONTENT" | sed "s|{{PROJECT_DIR}}|$PROJECT_DIR|g")
+    CONTENT=$(TMPL_FILE="$TMPL" NODE_ID="$NODE_ID" PROJECT_DIR="$PROJECT_DIR" node <<'NODE'
+const fs = require('fs');
+let content = fs.readFileSync(process.env.TMPL_FILE, 'utf8');
+const replacements = {
+  NODE_ID: process.env.NODE_ID || '',
+  PROJECT_DIR: process.env.PROJECT_DIR || ''
+};
+for (const [key, value] of Object.entries(replacements)) {
+  content = content.split(`{{${key}}}`).join(value);
+}
+process.stdout.write(content);
+NODE
+)
 
     if [ -z "$DRY_RUN" ]; then
         mkdir -p "$TARGET/hooks"
-        TMPFILE=$(mktemp)
+        TMPFILE=$(make_temp)
         echo "$CONTENT" > "$TMPFILE"
         # Write block arguments to temp files (too large for argv on some systems)
-        TMPSIN=$(mktemp); echo "$SINAPSI_BLOCK" > "$TMPSIN"
-        TMPEXT=$(mktemp); echo "$EXTRA_HEALTH" > "$TMPEXT"
-        TMPWRN=$(mktemp); echo "$EXTRA_WARNINGS" > "$TMPWRN"
+        TMPSIN=$(make_temp); echo "$SINAPSI_BLOCK" > "$TMPSIN"
+        TMPEXT=$(make_temp); echo "$EXTRA_HEALTH" > "$TMPEXT"
+        TMPWRN=$(make_temp); echo "$EXTRA_WARNINGS" > "$TMPWRN"
         node -e "
 const fs = require('fs');
 let c = fs.readFileSync(process.argv[1], 'utf8');
@@ -530,8 +643,11 @@ for tmpl in "$SCRIPT_DIR"/templates/hooks/*.tmpl; do
     fi
 done
 
-# youtube-transcript skill (optional — requires project path)
-apply_template "$SCRIPT_DIR/templates/skills/youtube-transcript/SKILL.md.tmpl" "$TARGET/skills/youtube-transcript/SKILL.md"
+# youtube-transcript is currently reference-only. This branch stays registry-gated
+# so a future promotion cannot bypass the routed install contract.
+if ! skip_unselected "youtube-transcript" "templates/skills/youtube-transcript/SKILL.md.tmpl"; then
+    apply_template "$SCRIPT_DIR/templates/skills/youtube-transcript/SKILL.md.tmpl" "$TARGET/skills/youtube-transcript/SKILL.md"
+fi
 
 # --- Core skills from seed ---
 echo ""
@@ -612,10 +728,10 @@ if [ -n "$GODEL_ENABLED" ]; then
             (cd "$GODEL_DST" && node setup.js --example "$GODEL_EXAMPLE") 2>/dev/null
             echo "  OK: Godel configured from example '$GODEL_EXAMPLE'"
         elif [ -n "$GODEL_DOMAIN" ]; then
-            SETUP_ARGS="--domain \"$GODEL_DOMAIN\""
-            [ -n "$GODEL_NAME" ] && SETUP_ARGS="--name \"$GODEL_NAME\" $SETUP_ARGS"
-            [ -n "$GODEL_DESC" ] && SETUP_ARGS="$SETUP_ARGS --desc \"$GODEL_DESC\""
-            (cd "$GODEL_DST" && eval node setup.js $SETUP_ARGS) 2>/dev/null
+            SETUP_ARGS=(--domain "$GODEL_DOMAIN")
+            [ -n "$GODEL_NAME" ] && SETUP_ARGS=(--name "$GODEL_NAME" "${SETUP_ARGS[@]}")
+            [ -n "$GODEL_DESC" ] && SETUP_ARGS=("${SETUP_ARGS[@]}" --desc "$GODEL_DESC")
+            (cd "$GODEL_DST" && node setup.js "${SETUP_ARGS[@]}") 2>/dev/null
             echo "  OK: Godel configured for domain '$GODEL_DOMAIN'"
         else
             echo "  OK: Godel copied (run 'node godel/setup.js' to configure)"
@@ -663,6 +779,15 @@ PERM
     fi
 else
     echo "settings.local.json already exists — not touched."
+fi
+
+if [ -n "$DRY_RUN" ]; then
+    echo ""
+    echo "=== Seed dry-run complete for $NODE_ID at $TARGET ==="
+    echo ""
+    echo "No target files were written."
+    echo "Review the plan and rerun without --dry-run only after runtime, profile and target are confirmed."
+    exit 0
 fi
 
 echo ""

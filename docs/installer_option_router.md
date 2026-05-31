@@ -174,6 +174,8 @@ Files:
 - `capabilities/registry.json`: machine-readable capability registry;
 - `scripts/installer_option_router.js`: reads a profile and prints a routed
   install plan;
+- `scripts/seed_plan.js`: cross-platform read-only entrypoint that validates
+  the registry and profile before printing the routed plan;
 - `profiles/*.json`: can declare `intent`, `install_mode`, and
   `risk_tolerance`;
 - `profiles/*.json`: can declare `agent_runtime` (`claude-code`, `codex`,
@@ -196,6 +198,8 @@ Examples:
 node scripts/installer_option_router.js profiles/example-dev-node.json --mode=recent
 node scripts/installer_option_router.js profiles/example.json --agent=codex
 node scripts/installer_option_router.js profiles/example-codex.json
+node scripts/seed_plan.js profiles/example.json
+node scripts/seed_plan.js profiles/example-codex.json --json
 ```
 
 Validation:
@@ -203,8 +207,10 @@ Validation:
 - `install.sh --check` validates the local Seed registry;
 - `update.sh --check` does the same from the updater entrypoint;
 - `scripts/validate_capability_registry.js --strict-coverage` also fails if
-  installable hooks, core skills, or plugins are not represented in the
-  registry.
+  installable hooks, core skills, plugins, or template skill directories are
+  not represented in the registry or explicitly marked reference-only.
+- `templates/skills/reference-only.json` is the quarantine manifest for
+  skill-shaped material that is useful to keep but not safe to install yet.
 
 Enforcement:
 

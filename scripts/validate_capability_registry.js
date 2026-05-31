@@ -53,6 +53,12 @@ function listFiles(dir, suffix) {
     .sort();
 }
 
+function pathCoveredByRegistry(registryPaths, relPath) {
+  if (registryPaths.has(relPath)) return true;
+  const prefix = `${relPath}/`;
+  return [...registryPaths].some(p => p.startsWith(prefix));
+}
+
 function main() {
   const strictCoverage = process.argv.includes('--strict-coverage');
   const registry = readJson(registryPath);
@@ -126,6 +132,46 @@ function main() {
   for (const plugin of listDirs(path.join(root, 'plugins'))) {
     const p = `plugins/${plugin}`;
     if (plugin !== 'd-nd-core' && !registryPaths.has(p)) warnings.push(`unregistered plugin: ${p}`);
+  }
+
+  const referenceOnlyTemplateSkills = new Map();
+  const referenceOnlyPath = path.join(root, 'templates', 'skills', 'reference-only.json');
+  if (fs.existsSync(referenceOnlyPath)) {
+    const manifest = readJson(referenceOnlyPath);
+    if (manifest.schema !== 'dnd.seed.reference_only_template_skills.v1') {
+      errors.push('templates/skills/reference-only.json: invalid or missing schema');
+    }
+    if (!Array.isArray(manifest.items)) {
+      errors.push('templates/skills/reference-only.json: items must be an array');
+    } else {
+      for (const [index, item] of manifest.items.entries()) {
+        const label = `templates/skills/reference-only.json items[${index}]`;
+        if (!item || typeof item !== 'object' || Array.isArray(item)) {
+          errors.push(`${label}: item must be an object`);
+          continue;
+        }
+        if (!item.path) errors.push(`${label}: path is required`);
+        if (!item.reason) errors.push(`${label}: reason is required`);
+        if (!item.reviewed) errors.push(`${label}: reviewed is required`);
+        if (item.path) {
+          if (referenceOnlyTemplateSkills.has(item.path)) errors.push(`${label}: duplicate path ${item.path}`);
+          referenceOnlyTemplateSkills.set(item.path, item);
+          if (!fs.existsSync(path.join(root, item.path))) {
+            errors.push(`${label}: path does not exist: ${item.path}`);
+          }
+        }
+      }
+    }
+  }
+
+  for (const skill of listDirs(path.join(root, 'templates', 'skills'))) {
+    const p = `templates/skills/${skill}`;
+    if (pathCoveredByRegistry(registryPaths, p)) continue;
+    if (referenceOnlyTemplateSkills.has(p)) {
+      warnings.push(`reference-only template skill: ${p}`);
+    } else {
+      warnings.push(`unregistered template skill: ${p}`);
+    }
   }
 
   if (strictCoverage) {

@@ -12,22 +12,47 @@
 
 read -t 1 INPUT_LINE 2>/dev/null || INPUT_LINE=""
 
-# Parse tool name and file path
-eval "$(echo "$INPUT_LINE" | python3 -c "
-import json, sys
+# Parse tool name and file path without turning hook JSON into shell code.
+PARSE_DIR=$(mktemp -d "${TMPDIR:-/tmp}/modus_copy.XXXXXX" 2>/dev/null || mktemp -d 2>/dev/null)
+if [ -z "$PARSE_DIR" ]; then
+    exit 0
+fi
+cleanup_parse() {
+    rm -rf "$PARSE_DIR" 2>/dev/null || true
+}
+trap cleanup_parse EXIT
+
+INPUT_JSON="$PARSE_DIR/input.json"
+printf '%s' "$INPUT_LINE" > "$INPUT_JSON"
+
+PARSE_DIR="$PARSE_DIR" INPUT_JSON="$INPUT_JSON" python3 <<'PY' 2>/dev/null || true
+import json
+import os
+
+parse_dir = os.environ.get("PARSE_DIR", "")
+input_json = os.environ.get("INPUT_JSON", "")
+
+def write(name, value):
+    with open(os.path.join(parse_dir, name), "w", encoding="utf-8") as f:
+        f.write(str(value or ""))
+
 try:
-    d = json.load(sys.stdin)
-    tn = d.get('tool_name', '')
-    ti = d.get('tool_input', {})
-    print(f'TOOL_NAME=\"{tn}\"')
-    if tn in ('Edit', 'Write'):
-        fp = ti.get('file_path', '')
-        ns = ti.get('new_string', ti.get('content', ''))[:500]
-        print(f'FILE_PATH=\"{fp}\"')
-        print(f'CONTENT_PREVIEW=\"{ns[:200]}\"')
-except:
-    print('TOOL_NAME=\"\"')
-" 2>/dev/null)"
+    with open(input_json, encoding="utf-8") as f:
+        d = json.load(f)
+    tn = d.get("tool_name", "")
+    ti = d.get("tool_input", {}) or {}
+    write("TOOL_NAME", tn)
+    if tn in ("Edit", "Write"):
+        write("FILE_PATH", ti.get("file_path", ""))
+        ns = ti.get("new_string", ti.get("content", ""))
+        write("CONTENT_PREVIEW", str(ns)[:200])
+except Exception:
+    write("TOOL_NAME", "")
+PY
+
+TOOL_NAME=$(cat "$PARSE_DIR/TOOL_NAME" 2>/dev/null || true)
+FILE_PATH=$(cat "$PARSE_DIR/FILE_PATH" 2>/dev/null || true)
+CONTENT_PREVIEW=$(cat "$PARSE_DIR/CONTENT_PREVIEW" 2>/dev/null || true)
 
 # Only fire on Edit or Write
 [ "$TOOL_NAME" != "Edit" ] && [ "$TOOL_NAME" != "Write" ] && exit 0

@@ -8,6 +8,7 @@
 # Usage:
 #   cd /path/to/d-nd-seed && git pull
 #   ./update.sh /path/to/project
+#   ./update.sh /path/to/project --dry-run
 #   ./update.sh /path/to/project --plan
 #   ./update.sh /path/to/project --check
 #   ./update.sh /path/to/project --legacy-all
@@ -31,14 +32,31 @@ PROJECT_DIR="${1:-.}"
 PLAN_MODE=""
 CHECK_MODE=""
 LEGACY_ALL=""
+DRY_RUN=""
 
 for arg in "$@"; do
     [ "$arg" = "--plan" ] && PLAN_MODE="true"
     [ "$arg" = "--check" ] && CHECK_MODE="true"
     [ "$arg" = "--legacy-all" ] && LEGACY_ALL="true"
+    [ "$arg" = "--dry-run" ] && DRY_RUN="true"
 done
 
-if [ "$PROJECT_DIR" = "--plan" ] || [ "$PROJECT_DIR" = "--check" ]; then
+TEMP_FILES=""
+cleanup() {
+    if [ -n "$TEMP_FILES" ]; then
+        rm -f $TEMP_FILES 2>/dev/null || true
+    fi
+}
+trap cleanup EXIT
+
+make_temp() {
+    local f
+    f=$(mktemp)
+    TEMP_FILES="$TEMP_FILES $f"
+    printf '%s\n' "$f"
+}
+
+if [ "$PROJECT_DIR" = "--plan" ] || [ "$PROJECT_DIR" = "--check" ] || [ "$PROJECT_DIR" = "--dry-run" ]; then
     PROJECT_DIR="."
 fi
 
@@ -57,6 +75,28 @@ fi
 
 require_node
 node "$SEED_DIR/scripts/validate_capability_registry.js" >/dev/null
+
+UNAME_S="$(uname -s 2>/dev/null || echo unknown)"
+WINDOWS_BASH=""
+case "$UNAME_S" in
+    MINGW*|MSYS*|CYGWIN*) WINDOWS_BASH="true" ;;
+esac
+
+if [ -n "$WINDOWS_BASH" ] && [ -z "$DRY_RUN" ] && [ "${DND_SEED_ALLOW_WINDOWS_BASH:-}" != "1" ]; then
+    echo "ERROR: Windows Bash runtime detected."
+    echo "Refusing to update files unless DND_SEED_ALLOW_WINDOWS_BASH=1 is set."
+    echo "Use --plan or --dry-run first, or use Node read-only checks."
+    exit 1
+fi
+
+if [ -z "$DRY_RUN" ]; then
+    case "$PROJECT_DIR" in
+        ""|"/"|"\\"|"C:"|"C:\\"|"C:/"|".."|"../"*)
+            echo "ERROR: Refusing unsafe project directory: $PROJECT_DIR"
+            exit 1
+            ;;
+    esac
+fi
 
 if [ ! -d "$PROJECT_DIR/.claude" ]; then
     echo "ERROR: No .claude/ directory found in $PROJECT_DIR"
@@ -77,6 +117,7 @@ if [ -n "$PLAN_MODE" ]; then
         exit 1
     fi
     require_node
+    node "$SEED_DIR/scripts/validate_profile.js" "$PROFILE" --target-policy=read-only >/dev/null
     node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE"
     exit $?
 fi
@@ -89,11 +130,18 @@ if [ -z "$LEGACY_ALL" ]; then
         echo "Run install.sh first, or use --legacy-all for compatibility updates."
         exit 1
     fi
-    INCLUDED_PATHS_FILE=$(mktemp)
+    TARGET_POLICY="write"
+    [ -n "$DRY_RUN" ] && TARGET_POLICY="dry-run"
+    node "$SEED_DIR/scripts/validate_profile.js" "$PROFILE" --target-policy="$TARGET_POLICY" >/dev/null
+    INCLUDED_PATHS_FILE=$(make_temp)
     node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --paths > "$INCLUDED_PATHS_FILE"
-    node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$PROJECT_DIR/.claude/seed_update_plan.json"
+    if [ -n "$DRY_RUN" ]; then
+        echo "[DRY-RUN] Would save update plan to $PROJECT_DIR/.claude/seed_update_plan.json"
+    else
+        node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$PROJECT_DIR/.claude/seed_update_plan.json"
+    fi
     echo "Registry gate: enabled"
-    echo "Update plan saved to $PROJECT_DIR/.claude/seed_update_plan.json"
+    [ -z "$DRY_RUN" ] && echo "Update plan saved to $PROJECT_DIR/.claude/seed_update_plan.json"
     echo ""
 else
     echo "Registry gate: bypassed with --legacy-all"
@@ -128,28 +176,55 @@ for tmpl in "$SEED_DIR"/templates/hooks/*.tmpl; do
     instantiate() {
         local content="$1"
         if [ -f "$PROJECT_DIR/.claude/seed_profile.json" ]; then
-            local pdir=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$PROJECT_DIR/.claude/seed_profile.json','utf8')).project_dir||'.')" 2>/dev/null || echo "$PROJECT_DIR")
-            local nid=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$PROJECT_DIR/.claude/seed_profile.json','utf8')).node_id||'UNKNOWN')" 2>/dev/null || echo "UNKNOWN")
-            content=$(echo "$content" | sed "s|{{PROJECT_DIR}}|$pdir|g; s|{{NODE_ID}}|$nid|g")
+            local content_file
+            content_file=$(make_temp)
+            printf '%s' "$content" > "$content_file"
+            content=$(node - "$PROJECT_DIR/.claude/seed_profile.json" "$content_file" <<'NODE'
+const fs = require('fs');
+const profile = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+let content = fs.readFileSync(process.argv[3], 'utf8');
+const replacements = {
+  PROJECT_DIR: profile.project_dir || '.',
+  NODE_ID: profile.node_id || 'UNKNOWN'
+};
+for (const [key, value] of Object.entries(replacements)) {
+  content = content.split(`{{${key}}}`).join(String(value));
+}
+process.stdout.write(content);
+NODE
+)
         fi
         echo "$content"
     }
 
     if [ ! -f "$target" ]; then
         echo "  + $name (new)"
-        instantiate "$(cat "$tmpl")" > "$target"
-        chmod +x "$target" 2>/dev/null
-        ADDED=$((ADDED + 1))
+        if [ -n "$DRY_RUN" ]; then
+            echo "    [DRY-RUN] would create $target"
+        else
+            mkdir -p "$(dirname "$target")"
+            instantiate "$(cat "$tmpl")" > "$target"
+            chmod +x "$target" 2>/dev/null
+            ADDED=$((ADDED + 1))
+        fi
     elif [ "$tmpl" -nt "$target" ]; then
         # Template is newer — check if user modified the target
         if git -C "$PROJECT_DIR" diff --quiet -- ".claude/hooks/$name" 2>/dev/null; then
             echo "  ~ $name (updated)"
-            instantiate "$(cat "$tmpl")" > "$target"
-            UPDATED=$((UPDATED + 1))
+            if [ -n "$DRY_RUN" ]; then
+                echo "    [DRY-RUN] would update $target"
+            else
+                instantiate "$(cat "$tmpl")" > "$target"
+                UPDATED=$((UPDATED + 1))
+            fi
         else
             echo "  . $name (skipped — user modified)"
-            cp "$tmpl" "${target}.new"
-            echo "    → saved as ${name}.new for manual review"
+            if [ -n "$DRY_RUN" ]; then
+                echo "    [DRY-RUN] would save ${target}.new for manual review"
+            else
+                instantiate "$(cat "$tmpl")" > "${target}.new"
+                echo "    → saved as ${name}.new for manual review"
+            fi
             SKIPPED=$((SKIPPED + 1))
         fi
     fi
@@ -169,8 +244,13 @@ for skill_dir in "$SEED_DIR"/plugins/d-nd-core/skills/*/; do
 
     if [ ! -d "$target" ]; then
         echo "  + $name (new skill)"
-        cp -r "$skill_dir" "$target"
-        ADDED=$((ADDED + 1))
+        if [ -n "$DRY_RUN" ]; then
+            echo "    [DRY-RUN] would copy to $target"
+        else
+            mkdir -p "$(dirname "$target")"
+            cp -r "$skill_dir" "$target"
+            ADDED=$((ADDED + 1))
+        fi
     fi
 done
 echo ""
@@ -184,23 +264,37 @@ if ! capability_selected "plugins/d-nd-core/skills/scenario-projector"; then
 elif [ -d "$PROJECTOR_DST" ] && [ -f "$PROJECTOR_SRC/scenario_projector.py" ]; then
     # Update main script if seed is newer
     if [ "$PROJECTOR_SRC/scenario_projector.py" -nt "$PROJECTOR_DST/scenario_projector.py" ]; then
-        cp "$PROJECTOR_SRC/scenario_projector.py" "$PROJECTOR_DST/"
-        cp "$PROJECTOR_SRC/SCENARIO_PROJECTOR_GUIDE.md" "$PROJECTOR_DST/" 2>/dev/null
-        echo "  ~ scenario_projector.py (updated)"
+        if [ -n "$DRY_RUN" ]; then
+            echo "  ~ scenario_projector.py (would update)"
+        else
+            cp "$PROJECTOR_SRC/scenario_projector.py" "$PROJECTOR_DST/"
+            cp "$PROJECTOR_SRC/SCENARIO_PROJECTOR_GUIDE.md" "$PROJECTOR_DST/" 2>/dev/null
+            echo "  ~ scenario_projector.py (updated)"
+        fi
         UPDATED=$((UPDATED + 1))
     fi
     # Add new example seeds
-    mkdir -p "$PROJECTOR_DST/examples"
+    if [ -z "$DRY_RUN" ]; then
+        mkdir -p "$PROJECTOR_DST/examples"
+    fi
     for f in "$PROJECTOR_SRC"/examples/*.json "$PROJECTOR_SRC"/examples/*.py "$PROJECTOR_SRC"/examples/*.md; do
         [ -f "$f" ] || continue
         fname=$(basename "$f")
         if [ ! -f "$PROJECTOR_DST/examples/$fname" ]; then
-            cp "$f" "$PROJECTOR_DST/examples/"
-            echo "  + examples/$fname (new)"
+            if [ -n "$DRY_RUN" ]; then
+                echo "  + examples/$fname (would add)"
+            else
+                cp "$f" "$PROJECTOR_DST/examples/"
+                echo "  + examples/$fname (new)"
+            fi
             ADDED=$((ADDED + 1))
         elif [ "$f" -nt "$PROJECTOR_DST/examples/$fname" ]; then
-            cp "$f" "$PROJECTOR_DST/examples/"
-            echo "  ~ examples/$fname (updated)"
+            if [ -n "$DRY_RUN" ]; then
+                echo "  ~ examples/$fname (would update)"
+            else
+                cp "$f" "$PROJECTOR_DST/examples/"
+                echo "  ~ examples/$fname (updated)"
+            fi
             UPDATED=$((UPDATED + 1))
         fi
     done
