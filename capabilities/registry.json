@@ -1166,6 +1166,54 @@
       }
     },
     {
+      "id": "night-day-reentry",
+      "type": "doc",
+      "path": "docs/night_day_reentry.md",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "dev-node",
+        "team"
+      ],
+      "intents": [
+        "boot",
+        "reentry",
+        "continuum",
+        "memory",
+        "awareness"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-06-01",
+      "reviewed": "2026-06-01",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "boot-router",
+        "memory-system"
+      ],
+      "conflicts_with": [],
+      "why": "Pairs outgoing close and incoming reentry so context boundaries preserve angle, sources, residue, authority, and next move.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
       "id": "modus-copy",
       "type": "hook",
       "path": "templates/hooks/modus_copy.sh.tmpl",
