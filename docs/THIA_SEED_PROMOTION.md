@@ -104,6 +104,16 @@ loop.
 These are examples of functions that should end in the seed once stabilized:
 
 - day-start boot router + continuum signal handling;
+- phase-zero expansion across adjacent surfaces before broad action;
+- procedure acquisition: explicit local procedure first, inferred temporary
+  procedure only when no procedure exists;
+- continuity boundary handling: preserve orientation across state changes
+  without assuming uninterrupted state;
+- awareness crystal shape: memory with source tension, preserved angle,
+  consumption point, and verification;
+- readback/publication threshold: immediate readback stays local unless durable
+  shared memory is needed;
+- automation levels: L0 observe/report, L1 prepare, L2 act only with gate;
 - prior-deposit review before resultant/public projection;
 - programmable awareness: state exposure, source alignment, boundary
   recognition, verification, and memory update before action;

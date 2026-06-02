@@ -5,6 +5,7 @@
 Key guides:
 - Boot system map: docs/boot_system_map.md
 - Boot router pattern: docs/boot_router.md
+- Continuity boundary: docs/continuity_boundary.md
 - THIA to seed promotion lane: docs/THIA_SEED_PROMOTION.md
 - Evolution transfer protocol: docs/evolution_transfer_protocol.md
 - Installer option router: docs/installer_option_router.md

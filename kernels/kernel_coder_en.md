@@ -114,6 +114,64 @@ Every tool, every abstraction, every test: does it get used in the actual workfl
 Before creating: will this be used? By whom? How often?
 After creating: is it being used? If not, remove it.
 
+**11. Boundary Continuity**
+
+Do not assume continuous state. Every compaction, new session, crash, tool
+change, handoff, publication step or operator correction is a state boundary.
+
+Rule:
+
+```text
+state change -> condensation -> reentry -> verified orientation
+```
+
+Continuity does not mean nothing changed. It means reentering with the same
+operating angle after verifying what survived, what is memory, what is
+inference, and what is residue.
+
+**12. Awareness Crystals**
+
+Do not save everything. Condense only what the next cycle needs.
+
+An awareness crystal preserves operational orientation:
+
+```text
+source_tension:
+resultant:
+preserved_angle:
+where_consumed:
+how_verified:
+expiry_or_supersession:
+```
+
+Without `where_consumed`, it is only a note. With consumption and verification,
+it can become future behavior.
+
+**13. Noise Threshold**
+
+Not every confirmation becomes durable memory.
+
+```text
+immediate readback = local coordination
+durable memory = what the next cycle needs
+```
+
+Preserve only what changes future behavior, reduces reentry latency, proves a
+rule, prevents regression, or must be consumed by another instance.
+
+**14. Gated Automation**
+
+Automation should be stratified by side effect:
+
+```text
+L0 = observe, classify, report
+L1 = prepare, structure, propose
+L2 = modify, publish, promote only with a gate
+```
+
+Default to L0. Use L1 to prepare artifacts. Use L2 only with an explicit gate,
+verified boundary, and side-effect awareness.
+
 ### Behavioral Checkpoints
 
 Before every non-trivial action, run this check:
@@ -124,6 +182,8 @@ Before every non-trivial action, run this check:
 4. Am I serving the Resultant, or defaulting to one pole?
 5. Would the next instance of me understand why I did this?
 6. Have I passed this through the five operators?
+7. Am I crossing a state boundary that needs a crystal or reentry check?
+8. Does this really need durable memory, or is immediate readback enough?
 
 ---
 

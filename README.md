@@ -134,6 +134,7 @@ user may choose HTTP-only or local OpenAI-compatible models. See
 | Starts from zero every session | Reads persistent memory and knows where it left off |
 | Makes destructive mistakes silently | Safety guard catches dangerous patterns before execution |
 | Loses context on compaction | Pre/post compact logic captures and restores the active point |
+| Assumes state is continuous | Continuity boundary preserves orientation across state changes |
 | Treats every reentry the same | Boot router classifies new instance, post-compact, crash, correction and field reentry |
 | Asserts from stale memory | Awareness rules separate verified, memory, inferred and unknown |
 | Adds capabilities blindly | Installer router selects capabilities by profile, maturity, risk and visibility |
@@ -174,6 +175,12 @@ installable. Each directory must either be promoted into
 new instance, post-compact, post-crash, correction, field reentry, pre-compact
 or unclassified signal. See [`docs/boot_router.md`](docs/boot_router.md) and
 [`docs/boot_system_map.md`](docs/boot_system_map.md).
+
+**Continuity boundary** preserves orientation across context compaction,
+session restart, tool changes, handoffs and other state transitions without
+pretending state is continuous. It defines awareness crystals, a noise
+threshold and L0/L1/L2 automation gates. See
+[`docs/continuity_boundary.md`](docs/continuity_boundary.md).
 
 **Programmable awareness** exposes identity, sources, memory state,
 uncertainty, boundaries, side effects and next action before the agent acts. See

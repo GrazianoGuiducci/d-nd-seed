@@ -14,6 +14,44 @@ The output is a file (`active_reasoning.md`) that carries not just facts, but:
 - **What** atomic insights emerged (KLI — Key Learning Insights)
 - **What** was deferred or dormant (Vault)
 
+## Awareness Crystal Extension
+
+For agentic continuity, a crystal is more than a saved note. It is condensed
+operational orientation that can be consumed at a later boundary.
+
+Minimum portable shape:
+
+```text
+trigger:
+source_tension:
+resultant:
+preserved_angle:
+where_consumed:
+how_consumption_is_verified:
+expiry_or_supersession:
+residue:
+```
+
+Without `where_consumed`, the object is a note. With a consumption point and
+verification, it can become a behavior.
+
+Use this extension for:
+
+- post-compact reentry;
+- new session or day-start reentry;
+- handoff between agents;
+- operator corrections that should survive;
+- transitions from local note to durable memory;
+- publication or promotion boundaries.
+
+Do not use it for routine confirmations or ordinary progress. Apply the noise
+threshold:
+
+```text
+immediate readback = local coordination
+durable memory = what the next cycle needs
+```
+
 ## The Three Axioms
 
 Every implementation of this pattern must respect these three irreducible principles:

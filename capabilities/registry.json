@@ -2400,6 +2400,50 @@
           "status": "documented"
         }
       }
+    },
+    {
+      "id": "continuity-boundary",
+      "type": "doc",
+      "path": "docs/continuity_boundary.md",
+      "stratum": "core_invariant",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "team"
+      ],
+      "intents": [
+        "continuum",
+        "reentry",
+        "memory",
+        "automation"
+      ],
+      "risk": "safe",
+      "visibility": "default",
+      "introduced": "2026-06-02",
+      "reviewed": "2026-06-02",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "context-awareness"
+      ],
+      "conflicts_with": [],
+      "why": "Defines boundary continuity, awareness crystals, noise threshold, and gated automation for agents that must survive state changes.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
+        },
+        "codex": {
+          "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     }
   ]
 }

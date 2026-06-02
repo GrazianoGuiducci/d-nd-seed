@@ -32,7 +32,13 @@ tools. It chooses which awareness modules should run before action.
 04 particular boot
   -> exact file, route, service, dataset, or task evidence
 
-05 action gate
+05 procedure boot
+  -> explicit local procedure, or inferred temporary procedure if missing
+
+06 boundary continuity boot
+  -> preserve angle across state change, consume crystals, apply noise threshold
+
+07 action gate
   -> observe, validate, diagnose, act one bounded step, or escalate
 ```
 
@@ -48,6 +54,72 @@ The general map should enter the particular only when it changes:
 
 If it changes none of these answers, it is background orientation and should
 not bloat the working context.
+
+## Phase-Zero Expansion And Procedure Acquisition
+
+When a task may affect adjacent surfaces, expand awareness before entering the
+particular file. This is not a full audit. It is the minimum scan needed to
+avoid acting on one visible surface while another surface holds active work,
+runtime data, generated residue, foreign changes, or newer verified memory.
+
+Minimum expansion:
+
+```text
+primary_surface:
+adjacent_surfaces:
+closest_sources_read:
+repo_or_service_state_checked:
+verified:
+memory:
+inferred:
+not_verified:
+regression_risk:
+smallest_safe_next_action:
+```
+
+Procedure acquisition is part of this expansion. The node should identify which
+local procedure governs the next move before acting. Prefer explicit sources:
+project instructions, runbooks, README files, tool help, verified packets,
+service docs, and script contracts.
+
+If no explicit procedure exists, infer a temporary one from the closest
+available sources and mark it clearly:
+
+```text
+procedure_source:
+procedure_status: explicit | inferred | missing
+procedure_scope:
+owner:
+allowed_side_effects:
+forbidden_side_effects:
+verification:
+non_application_or_rollback:
+```
+
+An inferred procedure is a one-move operating hypothesis, not a system rule. If
+it proves useful, the local node should crystallize it in its own boot/runbook.
+If the rule is portable beyond the current runtime, promote the invariant into
+the seed instead of copying local state.
+
+## Continuity Boundary
+
+Do not assume continuous state across context loss, day/session changes, tool
+changes, handoffs, crashes, role shifts, or publication boundaries.
+
+Use:
+
+```text
+state change -> condensation -> reentry -> verified orientation
+```
+
+The portable rule is:
+
+```text
+continuity = reentry with preserved angle, not uninterrupted state
+```
+
+Read `docs/continuity_boundary.md` when a boot or reentry must preserve
+orientation across a boundary.
 
 ## Boot Classes
 
@@ -254,6 +326,10 @@ a final autological check:
 final_autological_check:
   closest_source_read:
   verified_vs_memory:
+  crystals_or_memory_read:
+  preserved_angle:
+  noise_threshold_applied:
+  automation_level:
   next_move_emerges_from:
   adjacent_regression_risk:
   stop_or_action_gate_confirmed:
