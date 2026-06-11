@@ -21,7 +21,8 @@ Seed receives the reusable form without importing runtime state.
 
 Name your local conditions before installation:
 
-- runtime: Claude Code, Codex, OpenCode, Cursor, Copilot, Gemini or other;
+- runtime: Claude Code, Codex, app-hosted AI coder, OpenCode, Cursor, Copilot,
+  Gemini or other;
 - OS and shell;
 - project directory;
 - ability to read files, write files, execute commands and run hooks;
@@ -40,6 +41,7 @@ Read these first:
 README.md
 GUIDE.md
 docs/agent_runtime_translators.md
+docs/app_runtime_adapter.md
 docs/installer_option_router.md
 docs/seed_operating_principles.md
 ```
@@ -67,6 +69,8 @@ Use an existing profile before inventing a new one:
 - `profiles/example.json` - conservative coder/project install;
 - `profiles/example-claude-code.json` - Claude Code native hooks/skills;
 - `profiles/example-codex.json` - Codex adapter path;
+- `profiles/example-app-runtime.json` - app-hosted runtime with explicit host
+  surface metadata;
 - `profiles/example-researcher.json` - autonomous research/Lab cycle;
 - `profiles/example-publisher.json` - public copy, SEO, funnel and site work;
 - `profiles/example-dev-node.json` - dev/server node with network checks.
@@ -179,6 +183,16 @@ Codex should read `.claude/seed_profile.json`, `.claude/seed_install_plan.json`,
 fire automatically. Apply safety, system awareness, pre/post compact and
 cascade manually from the generated logic and
 `docs/agent_runtime_translators.md`.
+
+### App-Hosted AI Coders
+
+If the AI coder runs inside an app that exposes workspace instructions,
+app-local configuration, lifecycle hooks, skills, plugins or persistent memory,
+read `docs/app_runtime_adapter.md` before install.
+
+Use `profiles/example-app-runtime.json` as the starting profile when the app
+can declare those surfaces. The profile still uses the closest supported
+runtime adapter until native app-host planner support exists.
 
 ### OpenCode, Cursor, Copilot, Gemini And Other AI Coders
 

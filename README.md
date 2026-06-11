@@ -28,8 +28,8 @@ discipline, capability map and self-improvement substrate.
 
 Classify yourself before writing files:
 
-1. Runtime: `claude-code`, `codex`, `opencode`, `cursor`, `copilot`, `gemini`,
-   or `other`.
+1. Runtime: `claude-code`, `codex`, app-hosted AI coder, `opencode`,
+   `cursor`, `copilot`, `gemini`, or `other`.
 2. Environment: OS, shell, project path, write permissions, command execution,
    network, secrets and publish/deploy boundary.
 3. Domain: coding, research/Lab, public site, publishing, server node, or mixed.
@@ -98,6 +98,11 @@ automatically, so Codex must manually apply the safety, awareness,
 pre/post-compact and cascade disciplines described in
 [`docs/agent_runtime_translators.md`](docs/agent_runtime_translators.md).
 
+App-hosted AI coders should read
+[`docs/app_runtime_adapter.md`](docs/app_runtime_adapter.md) before install.
+Use `profiles/example-app-runtime.json` when the app exposes workspace
+instructions, hooks, skills, plugins or app-local memory surfaces.
+
 OpenCode, Cursor, Copilot, Gemini and other AI coders should start as `generic`
 unless native support is verified. Read the install plan, use the same
 capability logic, and do not claim automatic hook behavior until the local
@@ -113,6 +118,8 @@ Common starting profiles:
 - `profiles/example.json` - conservative coder/project install.
 - `profiles/example-claude-code.json` - Claude Code native hooks/skills.
 - `profiles/example-codex.json` - Codex using `.claude` logic through adapters.
+- `profiles/example-app-runtime.json` - app-hosted AI coder with explicit host
+  surface metadata.
 - `profiles/example-researcher.json` - autonomous research/Lab cycle.
 - `profiles/example-dev-node.json` - dev/server node with network checks.
 - `profiles/example-publisher.json` - site, copy, funnel, SEO and public-surface work.
@@ -197,6 +204,10 @@ functions as equal install choices. See
 
 **Agent runtime translators** adapt one Seed logic to different AI runtimes.
 See [`docs/agent_runtime_translators.md`](docs/agent_runtime_translators.md).
+
+**App runtime adapter** explains how an AI coding app should declare its host
+surfaces before installing Seed configuration. See
+[`docs/app_runtime_adapter.md`](docs/app_runtime_adapter.md).
 
 **Godel plugin** is an inverted oracle. It does not answer questions; it
 inverts assumptions and shows what a tension hides.

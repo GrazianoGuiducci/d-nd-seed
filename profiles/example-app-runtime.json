@@ -1,0 +1,36 @@
+{
+  "_comment": "EXAMPLE: app-hosted AI coder. Uses the closest supported runtime adapter while declaring app-host surfaces as metadata.",
+  "node_id": "APP_RUNTIME",
+  "description": "Example - app-hosted AI coder using Seed logic through a bounded runtime adapter",
+  "agent_runtime": "codex",
+  "host_type": "app",
+  "install_mode": "contextual",
+  "intent": ["coding", "maintenance", "docs"],
+  "risk_tolerance": "writes_files",
+  "project_dir": "./my-project",
+  "memory_path": "./my-project/.claude/memory",
+  "app_host": {
+    "workspace_instructions": "supported",
+    "local_config_dir": "./my-project/.app",
+    "hooks": {
+      "supported": "verify-before-claiming-native",
+      "events": ["session_start", "pre_compact", "post_compact"]
+    },
+    "skills": "verify-before-claiming-native",
+    "plugins": "verify-before-claiming-native",
+    "memory": ["project-local", "app-local"],
+    "global_app_config": "do-not-write-from-seed-install"
+  },
+  "repos": [
+    {
+      "name": "my-project",
+      "path": "my-project",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": false,
+    "example": "sales",
+    "port": 3004
+  }
+}

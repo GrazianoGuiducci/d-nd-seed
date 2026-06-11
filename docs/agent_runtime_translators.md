@@ -4,8 +4,9 @@
 
 ## Purpose
 
-Claude Code, Codex, Cursor, Copilot, Gemini, and chat-only models can all read
-project files, but they do not all execute the same surfaces natively.
+Claude Code, Codex, app-hosted AI coders, Cursor, Copilot, Gemini, and
+chat-only models can all read project files, but they do not all execute the
+same surfaces natively.
 
 The Seed should not pretend these runtimes are identical. It should transmit the
 same capability logic through the right local form:
@@ -13,6 +14,9 @@ same capability logic through the right local form:
 - Claude Code can use `.claude/`, hooks, settings, and skills natively.
 - Codex can read the same files and execute shell/code tasks, but needs an
   explicit guide that translates `.claude` behavior into Codex workflow.
+- App-hosted AI coders may expose workspace instructions, app-local
+  configuration, lifecycle hooks, skills, plugins or memory surfaces. Use
+  `docs/app_runtime_adapter.md` to classify those surfaces before install.
 - Generic chat runtimes can use the docs and thinker skills, but usually cannot
   run hooks.
 
@@ -113,6 +117,8 @@ Ready profiles:
 - `profiles/example-claude-code.json`: native `.claude` hooks/settings/skills;
 - `profiles/example-codex.json`: Codex reads `.claude` as source logic and uses
   this guide as adapter;
+- `profiles/example-app-runtime.json`: app-hosted runtime using the closest
+  supported adapter plus explicit app-host metadata;
 - `profiles/example-publisher.json`: public-surface work, usable by either
   runtime when paired with `--agent=...` or `agent_runtime`.
 
