@@ -2,7 +2,7 @@
 
 All notable public changes to `d-nd-seed` are tracked here.
 
-## v3.3 - 2026-06-12
+## v4.1 - 2026-06-12
 
 ### Added
 
@@ -31,6 +31,12 @@ All notable public changes to `d-nd-seed` are tracked here.
 - `node scripts/installer_option_router.js profiles/example-codex.json`
 - `node scripts/installer_option_router.js profiles/example-app-runtime.json`
 - `git diff --check`
+
+## v4.0 - 2026-04-23
+
+### Added
+
+- Mature skills and autonomous cycle release.
 
 ## v3.2 - 2026-05-29
 

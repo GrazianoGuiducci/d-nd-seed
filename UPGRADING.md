@@ -1,6 +1,6 @@
 # Upgrading d-nd-seed
 
-## From v3.2 to v3.3 (2026-06-12)
+## From v4.0 to v4.1 (2026-06-12)
 
 This release adds governed self-improvement as a public Seed capability and
 improves repository discoverability for AI-agent, runtime-memory and guardrail
@@ -196,7 +196,8 @@ projects that intentionally need the previous broad behavior, use:
 
 | Version | Date | Summary |
 |---------|------|---------|
-| v3.3 | 2026-06-12 | Governed self-improvement, root changelog, clearer AI-agent repository positioning |
+| v4.1 | 2026-06-12 | Governed self-improvement, root changelog, clearer AI-agent repository positioning |
+| v4.0 | 2026-04-23 | Mature skills and autonomous cycle |
 | v3.2 | 2026-05-29 | Awareness orchestration protocol, shared awareness state, registry core invariants |
 | v3.1 | 2026-04-09 | Diagram generator, observer positioning, visual_spec bilingual |
 | v3.0 | 2026-04-08 | Provider-neutral, fully public, cognitive evolution |

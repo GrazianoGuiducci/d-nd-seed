@@ -28,7 +28,7 @@ installer metadata that another system can use in its own environment.
 Installed locally, Seed becomes your node's memory, safety layer, boot/reentry
 discipline, capability map and self-improvement substrate.
 
-Current public release: v3.3 (2026-06-12) adds governed self-improvement,
+Current public release: v4.1 (2026-06-12) adds governed self-improvement,
 clearer AI-agent positioning and repository visibility updates. See
 [`CHANGELOG.md`](CHANGELOG.md).
 
