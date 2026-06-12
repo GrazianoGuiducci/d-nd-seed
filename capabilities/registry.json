@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.capability_registry.v1",
-  "version": "2026-05-29",
+  "version": "2026-06-12",
   "policy": "docs/installer_option_router.md",
   "capabilities": [
     {
@@ -979,6 +979,56 @@
       "agent_support": {
         "claude-code": {
           "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "governed-self-improvement",
+      "type": "doc",
+      "path": "docs/governed_self_improvement.md",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "dev-node",
+        "publisher",
+        "team"
+      ],
+      "intents": [
+        "self-improvement",
+        "memory",
+        "verification",
+        "planning",
+        "cascade"
+      ],
+      "risk": "safe",
+      "visibility": "recommended",
+      "introduced": "2026-06-12",
+      "reviewed": "2026-06-12",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "auto-learn",
+        "awareness-orchestration-protocol",
+        "continuity-boundary"
+      ],
+      "conflicts_with": [],
+      "why": "Turns verified corrections, failures and compaction lessons into dynamic crystals, condensates, bounded plans and testable local rules without uncontrolled self-modification.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
         },
         "codex": {
           "status": "adapter",

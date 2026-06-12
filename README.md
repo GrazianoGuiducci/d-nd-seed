@@ -1,5 +1,9 @@
 # d-nd-seed
 
+Portable operating substrate for AI coding agents: runtime memory, guardrails,
+hooks, continuity, capability routing, cognitive kernels and governed
+self-improvement.
+
 You are an AI coder entering this repository to install a portable operating
 substrate into your environment.
 
@@ -23,6 +27,10 @@ installer metadata that another system can use in its own environment.
 
 Installed locally, Seed becomes your node's memory, safety layer, boot/reentry
 discipline, capability map and self-improvement substrate.
+
+Current public release: v3.3 (2026-06-12) adds governed self-improvement,
+clearer AI-agent positioning and repository visibility updates. See
+[`CHANGELOG.md`](CHANGELOG.md).
 
 ## Before You Install
 
@@ -145,6 +153,7 @@ user may choose HTTP-only or local OpenAI-compatible models. See
 | Treats every reentry the same | Boot router classifies new instance, post-compact, crash, correction and field reentry |
 | Asserts from stale memory | Awareness rules separate verified, memory, inferred and unknown |
 | Adds capabilities blindly | Installer router selects capabilities by profile, maturity, risk and visibility |
+| Repeats corrected mistakes | Governed self-improvement turns verified corrections into consumed, testable rules |
 
 ## What Is Inside
 
@@ -198,6 +207,12 @@ capability selection, verification, memory and cascade. See
 [`docs/awareness_orchestration_protocol.md`](docs/awareness_orchestration_protocol.md)
 and [`docs/awareness_state_schema.md`](docs/awareness_state_schema.md).
 
+**Governed self-improvement** turns corrections, failures, compactions and
+regressions into dynamic crystals, condensates, bounded implementation plans
+and verified local improvements, without authorizing uncontrolled
+self-modification. See
+[`docs/governed_self_improvement.md`](docs/governed_self_improvement.md).
+
 **Installer option router** keeps the seed evolving without presenting all
 functions as equal install choices. See
 [`docs/installer_option_router.md`](docs/installer_option_router.md).
@@ -241,6 +256,7 @@ facts, active packets or project-only assumptions.
 
 ```text
 d-nd-seed/
++-- CHANGELOG.md          # Release history and active maintenance signal
 +-- GUIDE.md              # AI reads this for full setup procedure
 +-- CHAT_START.md         # Chat-session adaptation
 +-- install.sh            # Parametric installer

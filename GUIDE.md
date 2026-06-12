@@ -265,6 +265,9 @@ Then classify the improvement:
 - registry capability;
 - Seed promotion candidate.
 
+For the controlled self-improvement loop, read
+`docs/governed_self_improvement.md`.
+
 Seed receives normalized reusable form, not raw runtime state, private
 transcripts, secrets, dirty worktree facts, local packets or project-only
 assumptions.
