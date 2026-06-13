@@ -7,6 +7,16 @@ Mode: read-only audit condensed into a working document
 Purpose: preserve enough understanding to update `README.md` and `GUIDE.md`
 without losing context across compact/reentry.
 
+Current-status note, 2026-06-13:
+
+```text
+This is a historical audit. For current install behavior, prefer README.md,
+GUIDE.md, llms.txt, docs/agent_neutral_seed_surface.md,
+docs/agent_runtime_translators.md and docs/installer_option_router.md.
+Some `.claude/seed_*` statements below describe the 2026-05-31 state and are
+superseded by the neutral `.seed/` manifest plus `.claude/` compatibility path.
+```
+
 ## Why This Exists
 
 The operator clarified the living definition of Seed:

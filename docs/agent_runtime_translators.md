@@ -123,8 +123,8 @@ status tells the agent how to use it.
 Ready profiles:
 
 - `profiles/example-claude-code.json`: native `.claude` hooks/settings/skills;
-- `profiles/example-codex.json`: Codex reads `.claude` as source logic and uses
-  this guide as adapter;
+- `profiles/example-codex.json`: Codex reads `.seed` first, then uses generated
+  `.claude` files only as adapter/source logic where needed;
 - `profiles/example-app-runtime.json`: app-hosted runtime using the closest
   supported adapter plus explicit app-host metadata;
 - `profiles/example-publisher.json`: public-surface work, usable by either

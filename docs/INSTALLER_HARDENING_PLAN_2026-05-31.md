@@ -5,6 +5,16 @@ Scope: `install.sh`, `update.sh`, hook templates, profile validation, runtime
 adapters, installer documentation
 Boundary: do not execute write-mode install/update on Windows during this work.
 
+Current-status note, 2026-06-13:
+
+```text
+This plan is historical/partially superseded. Current install behavior includes
+a neutral `.seed/` manifest for profile/plan/adapter notes and keeps `.claude/`
+as the Claude Code adapter/compatibility surface. For current behavior, prefer
+README.md, GUIDE.md, docs/agent_neutral_seed_surface.md and
+docs/installer_option_router.md.
+```
+
 ## Purpose
 
 Seed is now presented to AI coders as an installable operating substrate. That
