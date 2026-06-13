@@ -98,8 +98,13 @@ if [ -z "$DRY_RUN" ]; then
     esac
 fi
 
-if [ ! -d "$PROJECT_DIR/.claude" ]; then
-    echo "ERROR: No .claude/ directory found in $PROJECT_DIR"
+CLAUDE_TARGET="$PROJECT_DIR/.claude"
+NEUTRAL_TARGET="$PROJECT_DIR/.seed"
+CLAUDE_PROFILE="$CLAUDE_TARGET/seed_profile.json"
+NEUTRAL_PROFILE="$NEUTRAL_TARGET/seed_profile.json"
+
+if [ ! -d "$CLAUDE_TARGET" ] && [ ! -d "$NEUTRAL_TARGET" ]; then
+    echo "ERROR: No .seed/ or .claude/ directory found in $PROJECT_DIR"
     echo "Run install.sh first, then use update.sh for subsequent updates."
     exit 1
 fi
@@ -110,7 +115,11 @@ echo "Project: $PROJECT_DIR"
 echo ""
 
 if [ -n "$PLAN_MODE" ]; then
-    PROFILE="$PROJECT_DIR/.claude/seed_profile.json"
+    if [ -f "$NEUTRAL_PROFILE" ]; then
+        PROFILE="$NEUTRAL_PROFILE"
+    else
+        PROFILE="$CLAUDE_PROFILE"
+    fi
     if [ ! -f "$PROFILE" ]; then
         echo "ERROR: No saved seed profile found at $PROFILE"
         echo "Run install.sh first, or pass a profile to install.sh --plan."
@@ -122,7 +131,11 @@ if [ -n "$PLAN_MODE" ]; then
     exit $?
 fi
 
-PROFILE="$PROJECT_DIR/.claude/seed_profile.json"
+if [ -f "$NEUTRAL_PROFILE" ]; then
+    PROFILE="$NEUTRAL_PROFILE"
+else
+    PROFILE="$CLAUDE_PROFILE"
+fi
 INCLUDED_PATHS_FILE=""
 if [ -z "$LEGACY_ALL" ]; then
     if [ ! -f "$PROFILE" ]; then
@@ -136,12 +149,16 @@ if [ -z "$LEGACY_ALL" ]; then
     INCLUDED_PATHS_FILE=$(make_temp)
     node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --paths > "$INCLUDED_PATHS_FILE"
     if [ -n "$DRY_RUN" ]; then
-        echo "[DRY-RUN] Would save update plan to $PROJECT_DIR/.claude/seed_update_plan.json"
+        echo "[DRY-RUN] Would save update plan to $CLAUDE_TARGET/seed_update_plan.json"
+        echo "[DRY-RUN] Would save neutral update plan to $NEUTRAL_TARGET/seed_update_plan.json"
     else
-        node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$PROJECT_DIR/.claude/seed_update_plan.json"
+        mkdir -p "$CLAUDE_TARGET" "$NEUTRAL_TARGET"
+        node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$CLAUDE_TARGET/seed_update_plan.json"
+        cp "$CLAUDE_TARGET/seed_update_plan.json" "$NEUTRAL_TARGET/seed_update_plan.json"
     fi
     echo "Registry gate: enabled"
-    [ -z "$DRY_RUN" ] && echo "Update plan saved to $PROJECT_DIR/.claude/seed_update_plan.json"
+    [ -z "$DRY_RUN" ] && echo "Update plan saved to $CLAUDE_TARGET/seed_update_plan.json"
+    [ -z "$DRY_RUN" ] && echo "Neutral update plan saved to $NEUTRAL_TARGET/seed_update_plan.json"
     echo ""
 else
     echo "Registry gate: bypassed with --legacy-all"
@@ -175,11 +192,11 @@ for tmpl in "$SEED_DIR"/templates/hooks/*.tmpl; do
     # Instantiate template variables if profile exists
     instantiate() {
         local content="$1"
-        if [ -f "$PROJECT_DIR/.claude/seed_profile.json" ]; then
+        if [ -f "$PROFILE" ]; then
             local content_file
             content_file=$(make_temp)
             printf '%s' "$content" > "$content_file"
-            content=$(node - "$PROJECT_DIR/.claude/seed_profile.json" "$content_file" <<'NODE'
+            content=$(node - "$PROFILE" "$content_file" <<'NODE'
 const fs = require('fs');
 const profile = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 let content = fs.readFileSync(process.argv[3], 'utf8');

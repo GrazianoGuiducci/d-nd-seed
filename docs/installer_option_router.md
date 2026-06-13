@@ -218,8 +218,10 @@ Enforcement:
 - install/update derive selected capability paths from the planner;
 - selected hooks and skills are installed/updated;
 - unselected hooks and skills are skipped with a visible message;
-- the active plan is saved in `.claude/seed_install_plan.json` or
-  `.claude/seed_update_plan.json`;
+- the neutral active plan is saved in `.seed/seed_install_plan.json` or
+  `.seed/seed_update_plan.json`;
+- the same plan is also saved in `.claude/seed_install_plan.json` or
+  `.claude/seed_update_plan.json` for Claude Code compatibility;
 - bypass requires the explicit `--legacy-all` flag.
 
 ## Boundary

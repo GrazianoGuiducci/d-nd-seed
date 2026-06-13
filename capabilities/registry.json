@@ -2494,6 +2494,51 @@
           "status": "documented"
         }
       }
+    },
+    {
+      "id": "agent-neutral-seed-surface",
+      "type": "doc",
+      "path": "docs/agent_neutral_seed_surface.md",
+      "stratum": "core_invariant",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "team",
+        "dev-node",
+        "lab"
+      ],
+      "intents": [
+        "install",
+        "runtime",
+        "adapter",
+        "awareness",
+        "memory"
+      ],
+      "risk": "safe",
+      "visibility": "default",
+      "introduced": "2026-06-13",
+      "reviewed": "2026-06-13",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [],
+      "conflicts_with": [],
+      "why": "Lets any AI coder recognize Seed as portable capability logic rather than a Claude-shaped directory.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
+        },
+        "codex": {
+          "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     }
   ]
 }

@@ -78,11 +78,28 @@ App host surface may adapt the generated plan into the app's own mechanisms,
 but that adaptation belongs to the app or project unless it becomes a proven
 portable invariant.
 
+For the general agent-neutral model, read
+`docs/agent_neutral_seed_surface.md`. In short:
+
+```text
+Seed source is portable.
+The install manifest should be runtime-neutral.
+The app host surface is only the local pronunciation.
+```
+
+The writer scripts emit a neutral `.seed/` manifest for app-hosted runtimes to
+recognize first. Generated `.claude` surfaces remain compatibility carriers and
+native Claude Code adapter files. Do not confuse that compatibility path with
+the Seed's identity.
+
 ## After Install
 
 After installation, the app-hosted agent should read:
 
 ```text
+.seed/seed_profile.json
+.seed/seed_install_plan.json
+.seed/adapter_notes.md
 .claude/seed_profile.json
 .claude/seed_install_plan.json
 .claude/CLAUDE.md

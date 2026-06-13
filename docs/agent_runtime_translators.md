@@ -8,6 +8,12 @@ Claude Code, Codex, app-hosted AI coders, Cursor, Copilot, Gemini, and
 chat-only models can all read project files, but they do not all execute the
 same surfaces natively.
 
+The Seed is not the `.claude` directory. Installed Seed has a neutral `.seed`
+manifest for recognition and plan reading. `.claude` is the native Claude Code
+target and compatibility surface. The portable Seed source is the capability
+logic in this repository. See
+`docs/agent_neutral_seed_surface.md` for the agent-neutral layer model.
+
 The Seed should not pretend these runtimes are identical. It should transmit the
 same capability logic through the right local form:
 
@@ -50,10 +56,12 @@ Statuses:
 When Codex enters a Seed-enabled repo:
 
 1. Read `README.md`, `GUIDE.md`, and `llms.txt` for orientation.
-2. If `.claude/seed_install_plan.json` exists, treat it as the installed
-   capability map.
-3. Read `.claude/seed_profile.json` to know node identity, intent, risk, and
-   install mode.
+2. If `.seed/seed_install_plan.json` exists, treat it as the installed
+   capability map. Fall back to `.claude/seed_install_plan.json` only for
+   older installs.
+3. Read `.seed/seed_profile.json` to know node identity, intent, risk, and
+   install mode. Fall back to `.claude/seed_profile.json` only for older
+   installs.
 4. Read `.claude/skills/*/SKILL.md` as capability manuals, not as automatic
    native skill activation.
 5. Treat `.claude/hooks/*.sh` as executable reference workflows. Do not assume
@@ -136,6 +144,21 @@ really diverge. Prefer this translation order:
 
 The source of truth remains the capability. The runtime adapter is the
 pronunciation.
+
+## Recognition Rule
+
+An agent should be able to recognize the Seed even if it does not use `.claude`
+natively:
+
+```text
+read Seed source docs -> read selected capability map -> classify runtime
+support -> map native/adapted/documented/unsupported surfaces -> act through
+the local runtime boundary
+```
+
+If an agent sees `.claude` files, it should treat them as generated or
+installed Seed surfaces, not as proof that it must identify as Claude Code.
+Claude Code uses them natively; other runtimes translate them.
 
 ## Boundary
 

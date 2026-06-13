@@ -87,6 +87,9 @@ unless `DND_SEED_ALLOW_WINDOWS_BASH=1` is set deliberately.
 After installation, read the generated surfaces before project work:
 
 ```text
+.seed/seed_profile.json
+.seed/seed_install_plan.json
+.seed/adapter_notes.md
 .claude/seed_profile.json
 .claude/seed_install_plan.json
 .claude/CLAUDE.md
@@ -101,8 +104,9 @@ for compatibility with older broad installs.
 
 Claude Code uses `.claude/`, hooks, settings and skills natively.
 
-Codex reads the generated `.claude` surfaces as source logic. Hooks may not fire
-automatically, so Codex must manually apply the safety, awareness,
+Codex reads `.seed/` first for the neutral manifest, then uses generated
+`.claude` surfaces as adapter/source logic. Hooks may not fire automatically,
+so Codex must manually apply the safety, awareness,
 pre/post-compact and cascade disciplines described in
 [`docs/agent_runtime_translators.md`](docs/agent_runtime_translators.md).
 
@@ -125,7 +129,8 @@ Common starting profiles:
 
 - `profiles/example.json` - conservative coder/project install.
 - `profiles/example-claude-code.json` - Claude Code native hooks/skills.
-- `profiles/example-codex.json` - Codex using `.claude` logic through adapters.
+- `profiles/example-codex.json` - Codex reading `.seed` first and `.claude`
+  adapter logic only where needed.
 - `profiles/example-app-runtime.json` - app-hosted AI coder with explicit host
   surface metadata.
 - `profiles/example-researcher.json` - autonomous research/Lab cycle.
@@ -219,6 +224,12 @@ functions as equal install choices. See
 
 **Agent runtime translators** adapt one Seed logic to different AI runtimes.
 See [`docs/agent_runtime_translators.md`](docs/agent_runtime_translators.md).
+
+**Agent-neutral Seed surface** explains how every AI coder can recognize Seed
+capability logic without needing to identify as Claude Code first. `.seed` is
+the neutral installed manifest; `.claude` is the native Claude Code target and
+compatibility carrier, not the identity of the Seed. See
+[`docs/agent_neutral_seed_surface.md`](docs/agent_neutral_seed_surface.md).
 
 **App runtime adapter** explains how an AI coding app should declare its host
 surfaces before installing Seed configuration. See

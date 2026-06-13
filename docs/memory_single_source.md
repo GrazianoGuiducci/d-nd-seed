@@ -35,11 +35,31 @@ The canonical path depends on scope:
 
 | Scope | Canonical location |
 |-------|---------------------|
-| Project-specific memory | `.claude/MEMORY.md` or `.claude/hooks/<name>.md` inside the project |
+| Project-specific neutral memory | `.seed/memory/<name>.md` inside the installed project |
+| Claude Code adapter memory | `.claude/MEMORY.md` or `.claude/hooks/<name>.md` inside the project |
 | Agent-specific memory across projects | User-level: `~/.claude/projects/<slug>/memory/<name>.md` |
 | Team-wide memory | A git-tracked file in the shared repo, explicitly marked as authoritative |
 
 Pick the **narrowest scope** that covers all legitimate readers. Memory that only one agent needs should not live in a shared repo. Memory that multiple projects need should not live inside one project.
+
+## Agent-Neutral Placement
+
+Claude Code is one runtime, not the whole Seed. For external systems and
+app-hosted coders, first classify the memory by consuming level:
+
+| Placement | Consumer | Examples |
+|---|---|---|
+| `project_local` | one project or surface | project current state, QA checklist, local handoff |
+| `workspace_root` | multiple projects in one workspace | entry gate, surface-selection rule, shared token policy |
+| `coder_adapter` | one runtime/app/postazione | `.claude`, `.codex`, app-local config, runtime-specific memory |
+| `shared_coordination` | multiple nodes/postazioni | packets, validation notices, delivery receipts |
+| `portable_capability` | future systems | normalized invariant in Seed after proof |
+
+The canonical path should be the lowest level that all legitimate consumers can
+read. Do not store project state in Seed only because it is important. Do not
+store portable capability truth only in a runtime-specific adapter. Do not force
+non-Claude runtimes to miss Seed logic because the compatibility surface happens
+to be named `.claude`.
 
 ## Why this rule matters after compaction
 
@@ -53,7 +73,7 @@ To check your memory system for duplicates:
 
 ```bash
 # From the project root
-find . ~/.claude -name "MEMORY.md" -o -name "session_continuum.md" -o -name "active_reasoning.md" 2>/dev/null
+find . ~/.claude -name "MEMORY.md" -o -path "*/.seed/memory/*" -o -name "session_continuum.md" -o -name "active_reasoning.md" 2>/dev/null
 ```
 
 If any filename appears more than once, reconcile: one canonical, others archived or symlinked.

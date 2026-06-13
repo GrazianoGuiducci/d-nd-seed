@@ -11,6 +11,7 @@ Key guides:
 - Evolution transfer protocol: docs/evolution_transfer_protocol.md
 - Installer option router: docs/installer_option_router.md
 - Governed self-improvement: docs/governed_self_improvement.md
+- Agent-neutral Seed surface: docs/agent_neutral_seed_surface.md
 - Agent runtime translators: docs/agent_runtime_translators.md
 - App-hosted runtime adapter: docs/app_runtime_adapter.md
 - TM7-local TM1-function install: docs/tm7_local_tm1_function_install.md
@@ -27,6 +28,7 @@ Key guides:
 - Capability registry + install planning via install.sh --plan
 - Registry validation via install.sh --check
 - Registry-gated install/update by default; --legacy-all is explicit bypass
+- Neutral installed manifest in .seed/ for runtimes that do not identify as Claude Code
 - Agent runtime profiles: profiles/example-claude-code.json and profiles/example-codex.json
 - App-hosted runtime profile: profiles/example-app-runtime.json
 - Governed self-improvement turns verified corrections into dynamic crystals,

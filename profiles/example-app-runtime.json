@@ -8,7 +8,7 @@
   "intent": ["coding", "maintenance", "docs"],
   "risk_tolerance": "writes_files",
   "project_dir": "./my-project",
-  "memory_path": "./my-project/.claude/memory",
+  "memory_path": "./my-project/.seed/memory",
   "app_host": {
     "workspace_instructions": "supported",
     "local_config_dir": "./my-project/.app",

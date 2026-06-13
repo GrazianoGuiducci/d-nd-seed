@@ -42,6 +42,7 @@ README.md
 GUIDE.md
 docs/agent_runtime_translators.md
 docs/app_runtime_adapter.md
+docs/agent_neutral_seed_surface.md
 docs/installer_option_router.md
 docs/seed_operating_principles.md
 ```
@@ -68,7 +69,7 @@ Use an existing profile before inventing a new one:
 
 - `profiles/example.json` - conservative coder/project install;
 - `profiles/example-claude-code.json` - Claude Code native hooks/skills;
-- `profiles/example-codex.json` - Codex adapter path;
+- `profiles/example-codex.json` - Codex neutral manifest plus adapter path;
 - `profiles/example-app-runtime.json` - app-hosted runtime with explicit host
   surface metadata;
 - `profiles/example-researcher.json` - autonomous research/Lab cycle;
@@ -152,6 +153,9 @@ normal update. Write-mode updates follow the same Windows Bash opt-in rule.
 Before doing project work, read:
 
 ```text
+.seed/seed_profile.json
+.seed/seed_install_plan.json
+.seed/adapter_notes.md
 .claude/seed_profile.json
 .claude/seed_install_plan.json
 .claude/CLAUDE.md
@@ -178,10 +182,11 @@ the generated files, then let hooks and skills operate according to the profile.
 
 ### Codex
 
-Codex should read `.claude/seed_profile.json`, `.claude/seed_install_plan.json`,
-`.claude/CLAUDE.md` and `.claude/MEMORY.md` as operating sources. Hooks may not
-fire automatically. Apply safety, system awareness, pre/post compact and
-cascade manually from the generated logic and
+Codex should read `.seed/seed_profile.json`, `.seed/seed_install_plan.json` and
+`.seed/adapter_notes.md` first, then `.claude/CLAUDE.md`,
+`.claude/MEMORY.md` and relevant `.claude` adapter files as operating sources.
+Hooks may not fire automatically. Apply safety, system awareness, pre/post
+compact and cascade manually from the generated logic and
 `docs/agent_runtime_translators.md`.
 
 ### App-Hosted AI Coders
@@ -199,6 +204,15 @@ runtime adapter until native app-host planner support exists.
 Use the generated plan as a capability map. Treat hooks and skills as native
 only if the host has a verified mechanism for them. Otherwise translate the
 rules into explicit operating discipline.
+
+### Agent-Neutral Recognition
+
+Do not assume Seed equals `.claude`. `.seed` is the neutral installed manifest.
+`.claude` is the native Claude Code target and compatibility carrier. The
+portable source is the Seed capability logic. If your runtime does not use
+`.claude`, read the same plan and docs, then map them to your own native
+surfaces or manual discipline. See
+`docs/agent_neutral_seed_surface.md`.
 
 ## How To Operate After Installation
 

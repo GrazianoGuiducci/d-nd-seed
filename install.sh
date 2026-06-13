@@ -2,7 +2,7 @@
 # ============================================================================
 # D-ND SEED INSTALLER
 # ============================================================================
-# Generates .claude/ configuration from a profile and templates.
+# Generates a neutral .seed/ manifest plus .claude/ adapter configuration.
 # The seed reads the profile, adapts the templates, writes the output.
 #
 # Usage:
@@ -292,6 +292,7 @@ echo "Primary repo: $PRIMARY_REPO"
 echo ""
 
 TARGET="$PROJECT_DIR/.claude"
+NEUTRAL_TARGET="$PROJECT_DIR/.seed"
 
 # --- Generate sync block for system_awareness ---
 SINAPSI_BLOCK=""
@@ -750,12 +751,30 @@ fi
 
 # --- Save profile reference for update.sh ---
 if [ -z "$DRY_RUN" ]; then
+    mkdir -p "$NEUTRAL_TARGET/memory"
     cp "$PROFILE" "$TARGET/seed_profile.json" 2>/dev/null
     echo "Profile saved to $TARGET/seed_profile.json (for update.sh)."
+    cp "$PROFILE" "$NEUTRAL_TARGET/seed_profile.json" 2>/dev/null
+    echo "Neutral profile saved to $NEUTRAL_TARGET/seed_profile.json."
     if [ -n "$PLAN_FILE" ]; then
         cp "$PLAN_FILE" "$TARGET/seed_install_plan.json" 2>/dev/null
         echo "Install plan saved to $TARGET/seed_install_plan.json."
+        cp "$PLAN_FILE" "$NEUTRAL_TARGET/seed_install_plan.json" 2>/dev/null
+        echo "Neutral install plan saved to $NEUTRAL_TARGET/seed_install_plan.json."
     fi
+    cat > "$NEUTRAL_TARGET/adapter_notes.md" << NOTES
+# Seed Adapter Notes
+
+This .seed directory is the runtime-neutral recognition surface for the
+installed Seed.
+
+.claude remains the Claude Code adapter and compatibility surface.
+Other runtimes should read seed_profile.json and seed_install_plan.json here,
+then map selected capabilities to their own native, adapted, documented or
+unsupported behavior.
+NOTES
+else
+    echo "[DRY-RUN] Would save neutral Seed manifest to $NEUTRAL_TARGET/"
 fi
 
 # --- Set permissions ---
@@ -795,8 +814,9 @@ echo "=== Seed installed for $NODE_ID at $TARGET ==="
 echo ""
 echo "Next steps:"
 echo "  1. Review generated files in $TARGET/"
-echo "  2. Configure permissions in $TARGET/settings.local.json"
-STEP=3
+echo "  2. Review neutral manifest in $NEUTRAL_TARGET/"
+echo "  3. Configure permissions in $TARGET/settings.local.json"
+STEP=4
 if [ -n "$GODEL_ENABLED" ]; then
 echo "  $STEP. Set GODEL_API_KEY + GODEL_API_URL for Godel"
 STEP=$((STEP + 1))

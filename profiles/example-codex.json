@@ -1,5 +1,5 @@
 {
-  "_comment": "EXAMPLE: Codex node. Reads Seed/.claude surfaces through agent runtime translators instead of assuming Claude Code native hooks.",
+  "_comment": "EXAMPLE: Codex node. Reads .seed first, then generated .claude adapter surfaces through agent runtime translators instead of assuming Claude Code native hooks.",
   "node_id": "CODEX",
   "description": "Example — Codex node using Seed logic through adapters",
   "agent_runtime": "codex",
@@ -7,7 +7,7 @@
   "intent": ["coding", "maintenance", "docs"],
   "risk_tolerance": "writes_files",
   "project_dir": "./my-project",
-  "memory_path": "./my-project/.claude/memory",
+  "memory_path": "./my-project/.seed/memory",
   "repos": [
     {
       "name": "my-project",

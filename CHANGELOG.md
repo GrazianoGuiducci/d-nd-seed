@@ -2,6 +2,25 @@
 
 All notable public changes to `d-nd-seed` are tracked here.
 
+## Unreleased
+
+### Added
+
+- Added `docs/agent_neutral_seed_surface.md` and registered
+  `agent-neutral-seed-surface` so non-Claude runtimes can recognize Seed as
+  portable capability logic instead of a `.claude` directory.
+- `install.sh` now writes a neutral `.seed/` manifest with profile, install
+  plan, adapter notes and memory directory while preserving `.claude/`
+  compatibility.
+- `update.sh` now prefers `.seed/seed_profile.json` when present and saves
+  update plans to both `.seed/` and `.claude/`.
+
+### Changed
+
+- Updated README, GUIDE, `llms.txt`, runtime adapter docs and memory placement
+  docs to make `.seed` the neutral installed surface and `.claude` the Claude
+  Code adapter.
+
 ## v4.1 - 2026-06-12
 
 ### Added

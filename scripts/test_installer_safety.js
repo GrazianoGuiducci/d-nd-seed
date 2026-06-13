@@ -165,12 +165,16 @@ test('dry-run messaging cannot claim completed install', () => {
   const install = fs.readFileSync(path.join(root, 'install.sh'), 'utf8');
   assert(install.includes('=== Seed dry-run complete'), 'install dry-run completion message missing');
   assert(install.includes('No target files were written.'), 'install dry-run non-write message missing');
+  assert(install.includes('Would save neutral Seed manifest'), 'install dry-run neutral manifest message missing');
 });
 
 test('update dry-run does not write update plan', () => {
   const update = fs.readFileSync(path.join(root, 'update.sh'), 'utf8');
   assert(update.includes('[DRY-RUN] Would save update plan'), 'update dry-run plan message missing');
-  assert(/else\s*\n\s*node "\$SEED_DIR\/scripts\/installer_option_router\.js" "\$PROFILE" --json > "\$PROJECT_DIR\/\.claude\/seed_update_plan\.json"/.test(update), 'update plan write is not confined to non-dry-run branch');
+  assert(update.includes('[DRY-RUN] Would save neutral update plan'), 'update dry-run neutral plan message missing');
+  assert(/else\s*\n\s*mkdir -p "\$CLAUDE_TARGET" "\$NEUTRAL_TARGET"\s*\n\s*node "\$SEED_DIR\/scripts\/installer_option_router\.js" "\$PROFILE" --json > "\$CLAUDE_TARGET\/seed_update_plan\.json"\s*\n\s*cp "\$CLAUDE_TARGET\/seed_update_plan\.json" "\$NEUTRAL_TARGET\/seed_update_plan\.json"/.test(update), 'update plan writes are not confined to non-dry-run branch');
+  assert(update.includes('NEUTRAL_PROFILE="$NEUTRAL_TARGET/seed_profile.json"'), 'update is missing neutral profile path');
+  assert(update.includes('if [ -f "$NEUTRAL_PROFILE" ]; then'), 'update does not prefer neutral profile when available');
 });
 
 let failed = 0;
