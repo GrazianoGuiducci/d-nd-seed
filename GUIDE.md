@@ -17,6 +17,12 @@ It is also the portable body where normalized THIA/D-ND functions and kernels
 can live after they prove reusable. THIA and Labs are runtime pressure fields;
 Seed receives the reusable form without importing runtime state.
 
+Design seeds are not installed from this repo. When the target project needs
+UX/UI consistency, workspace shells, navigation models, domain templates or
+THIA-aware assistant surfaces, inspect the separate design seed repo:
+`https://github.com/GrazianoGuiducci/d-nd-ux-ai-seed`. For public examples and
+adoption context, inspect the D-ND portfolio: `https://d-nd.com`.
+
 ## Phase 0 - Classify Yourself
 
 Name your local conditions before installation:
@@ -45,6 +51,7 @@ docs/app_runtime_adapter.md
 docs/agent_neutral_seed_surface.md
 docs/installer_option_router.md
 docs/seed_operating_principles.md
+docs/related_seed_resources.md
 ```
 
 For research or Lab work, also read:

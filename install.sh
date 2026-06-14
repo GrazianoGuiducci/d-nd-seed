@@ -772,6 +772,10 @@ installed Seed.
 Other runtimes should read seed_profile.json and seed_install_plan.json here,
 then map selected capabilities to their own native, adapted, documented or
 unsupported behavior.
+
+Related design resources:
+- UX/UI/design seeds: https://github.com/GrazianoGuiducci/d-nd-ux-ai-seed
+- Public examples and adoption context: https://d-nd.com
 NOTES
 else
     echo "[DRY-RUN] Would save neutral Seed manifest to $NEUTRAL_TARGET/"
@@ -806,6 +810,10 @@ if [ -n "$DRY_RUN" ]; then
     echo ""
     echo "No target files were written."
     echo "Review the plan and rerun without --dry-run only after runtime, profile and target are confirmed."
+    echo ""
+    echo "Related resources:"
+    echo "  UX/UI/design seeds: https://github.com/GrazianoGuiducci/d-nd-ux-ai-seed"
+    echo "  Public examples and portfolio: https://d-nd.com"
     exit 0
 fi
 
@@ -816,7 +824,10 @@ echo "Next steps:"
 echo "  1. Review generated files in $TARGET/"
 echo "  2. Review neutral manifest in $NEUTRAL_TARGET/"
 echo "  3. Configure permissions in $TARGET/settings.local.json"
-STEP=4
+echo "  4. If this project needs UX/UI/design consistency, inspect:"
+echo "     https://github.com/GrazianoGuiducci/d-nd-ux-ai-seed"
+echo "     Public examples and portfolio: https://d-nd.com"
+STEP=5
 if [ -n "$GODEL_ENABLED" ]; then
 echo "  $STEP. Set GODEL_API_KEY + GODEL_API_URL for Godel"
 STEP=$((STEP + 1))

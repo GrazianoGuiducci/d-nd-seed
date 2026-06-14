@@ -28,6 +28,14 @@ installer metadata that another system can use in its own environment.
 Installed locally, Seed becomes your node's memory, safety layer, boot/reentry
 discipline, capability map and self-improvement substrate.
 
+Design seeds are separate. If the target project needs UX/UI consistency,
+workspace shells, navigation models, domain templates or THIA-aware assistant
+surfaces, use the design seed repo:
+[`GrazianoGuiducci/d-nd-ux-ai-seed`](https://github.com/GrazianoGuiducci/d-nd-ux-ai-seed).
+For public examples and adoption context, also inspect the D-ND portfolio at
+[`d-nd.com`](https://d-nd.com). See
+[`docs/related_seed_resources.md`](docs/related_seed_resources.md).
+
 Current public release: v4.1 (2026-06-12) adds governed self-improvement,
 clearer AI-agent positioning and repository visibility updates. See
 [`CHANGELOG.md`](CHANGELOG.md).

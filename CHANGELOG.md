@@ -14,6 +14,8 @@ All notable public changes to `d-nd-seed` are tracked here.
   compatibility.
 - `update.sh` now prefers `.seed/seed_profile.json` when present and saves
   update plans to both `.seed/` and `.claude/`.
+- Added `docs/related_seed_resources.md` and install-time references to the
+  separate UX/design seed repo and D-ND portfolio.
 
 ### Changed
 
