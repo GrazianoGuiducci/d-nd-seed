@@ -39,6 +39,7 @@ portfolio
 public site
 LinkedIn / social profile
 email / message
+email / Telegram notification
 collaboration proposal
 sponsor / support path
 partner / institution
@@ -52,6 +53,9 @@ service packaging
 ```text
 verified public source
 verified local file
+original email / thread
+mailbox notification or snippet
+operator summary
 operator intent
 draft from another model
 inference
@@ -62,6 +66,47 @@ unknown
 3. Name the goal in one sentence.
 4. Name what must not be claimed.
 5. Choose one bounded next action.
+
+## Event Intake Sources
+
+This skill may receive business events from:
+
+```text
+manual operator note
+email or message thread
+mailbox notification
+Telegram or chat relay
+contact form
+CRM / tracker row
+public-source monitoring
+model-generated proposal
+```
+
+Treat relayed notifications and snippets as triage signals, not final evidence.
+They can justify:
+
+```text
+urgency classification
+opportunity classification
+next verification step
+draft preparation
+tracker placeholder
+```
+
+They cannot justify:
+
+```text
+final reply
+public claim
+commitment
+send action
+publication
+relationship-status conclusion
+```
+
+Before replying, sending or updating a final tracker state, verify the original
+thread, recipient, date and requested action. Keep private email content,
+contact details, credentials and internal relay paths out of public packages.
 
 ## Claim Boundary Gate
 
@@ -233,6 +278,10 @@ Service automation must preserve the same rule:
 recommend and prepare; do not send, publish or commit externally without
 explicit approval.
 ```
+
+If a runtime provides email or message-sending tools, this skill still prepares
+only a draft and an approval package. Execution requires explicit operator
+approval plus verified recipient/thread context.
 
 ## Output Shapes
 
