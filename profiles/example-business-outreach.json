@@ -1,0 +1,36 @@
+{
+  "_comment": "EXAMPLE: Business/outreach node. Use for portfolio readiness, public claims, collaboration proposals, partner routing, sponsorship paths, first-contact messages, follow-ups and non-R&D public communication.",
+  "node_id": "BUSINESS_OUTREACH_NODE",
+  "description": "Example — Business, outreach and public-relations node for technical projects",
+  "install_mode": "contextual",
+  "intent": [
+    "business",
+    "outreach",
+    "public-communication",
+    "partnerships",
+    "portfolio",
+    "strategy"
+  ],
+  "risk_tolerance": "writes_files",
+  "project_dir": "./my-project",
+  "memory_path": "./my-project/.claude/memory",
+  "repos": [
+    {
+      "name": "portfolio",
+      "path": "portfolio",
+      "branch": "main"
+    },
+    {
+      "name": "business-manager",
+      "path": "business-manager",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": false,
+    "name": "Godel",
+    "domain": "business route and public claim inversion",
+    "description": "Optional inversion layer for outreach assumptions, public claims and route choice",
+    "port": 3004
+  }
+}

@@ -144,6 +144,8 @@ Common starting profiles:
 - `profiles/example-researcher.json` - autonomous research/Lab cycle.
 - `profiles/example-dev-node.json` - dev/server node with network checks.
 - `profiles/example-publisher.json` - site, copy, funnel, SEO and public-surface work.
+- `profiles/example-business-outreach.json` - business, outreach, portfolio,
+  partnerships and public-relations work with explicit no-send/no-publish gates.
 
 For OpenCode or a generic AI coder, use the closest profile and set the runtime
 shape conservatively. Then read the routed plan and

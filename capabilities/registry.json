@@ -209,6 +209,51 @@
       }
     },
     {
+      "id": "business-outreach-manager",
+      "type": "skill",
+      "path": "plugins/d-nd-core/skills/business-outreach-manager",
+      "stratum": "contextual",
+      "maturity": "candidate",
+      "profiles": [
+        "operator",
+        "publisher",
+        "team",
+        "researcher"
+      ],
+      "intents": [
+        "business",
+        "outreach",
+        "public-communication",
+        "partnerships",
+        "portfolio",
+        "strategy"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-06-17",
+      "reviewed": "2026-06-17",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [],
+      "conflicts_with": [],
+      "why": "Turns business, outreach and public-relations ambiguity into bounded decisions, safe communication packages and tracked next actions without autonomous sending or publishing.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
       "id": "capture-insight",
       "type": "skill",
       "path": "plugins/d-nd-core/skills/capture-insight",
