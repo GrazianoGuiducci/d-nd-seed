@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.capability_registry.v1",
-  "version": "2026-06-12",
+  "version": "2026-06-19",
   "policy": "docs/installer_option_router.md",
   "capabilities": [
     {
@@ -2570,6 +2570,52 @@
       "requires": [],
       "conflicts_with": [],
       "why": "Lets any AI coder recognize Seed as portable capability logic rather than a Claude-shaped directory.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
+        },
+        "codex": {
+          "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "semantic-kernel-entity-contract",
+      "type": "doc",
+      "path": "docs/semantic_kernel_entity_contract.md",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "operator",
+        "researcher",
+        "dev-node",
+        "team"
+      ],
+      "intents": [
+        "awareness",
+        "transfer",
+        "self-improvement",
+        "kernel",
+        "memory"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-06-19",
+      "reviewed": "2026-06-19",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "governed-self-improvement",
+        "evolution-transfer-protocol"
+      ],
+      "conflicts_with": [],
+      "why": "Defines a neutral, opt-in contract for Seed-born semantic-kernel entities with operative and metaoperative skill layers, governed capability evolution and explicit verification gates.",
       "agent_support": {
         "claude-code": {
           "status": "documented"
