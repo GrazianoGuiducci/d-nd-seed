@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.capability_registry.v1",
-  "version": "2026-06-19",
+  "version": "2026-06-28",
   "policy": "docs/installer_option_router.md",
   "capabilities": [
     {
@@ -2616,6 +2616,147 @@
       ],
       "conflicts_with": [],
       "why": "Defines a neutral, opt-in contract for Seed-born semantic-kernel entities with operative and metaoperative skill layers, governed capability evolution and explicit verification gates.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
+        },
+        "codex": {
+          "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "meta-skill-awareness-layer",
+      "type": "doc",
+      "path": "docs/meta_skill_awareness_layer.md",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "operator",
+        "dev-node",
+        "team",
+        "lab"
+      ],
+      "intents": [
+        "awareness",
+        "workflow",
+        "self-improvement",
+        "skills",
+        "kernel"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-06-28",
+      "reviewed": "2026-06-28",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "agent-neutral-seed-surface",
+        "semantic-kernel-entity-contract"
+      ],
+      "conflicts_with": [],
+      "why": "Adds a neutral awareness layer for recognizing entities, surfaces, roles, authority and next safe action before an AI coder mutates a system.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
+        },
+        "codex": {
+          "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "repokernel-project-kernel-bridge",
+      "type": "doc",
+      "path": "docs/repokernel_project_kernel_bridge.md",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "operator",
+        "dev-node",
+        "team"
+      ],
+      "intents": [
+        "kernel",
+        "project-setup",
+        "reentry",
+        "install",
+        "workflow"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-06-28",
+      "reviewed": "2026-06-28",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "agent-neutral-seed-surface",
+        "semantic-kernel-entity-contract"
+      ],
+      "conflicts_with": [],
+      "why": "Keeps RepoKernel as the project-kernel method and Meta Skill as the orchestration faculty, with a clear routing rule for external installs.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
+        },
+        "codex": {
+          "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "external-service-bridge-contract",
+      "type": "doc",
+      "path": "docs/external_service_bridge_contract.md",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "operator",
+        "dev-node",
+        "team",
+        "lab"
+      ],
+      "intents": [
+        "external-systems",
+        "service-bridge",
+        "api",
+        "workflow",
+        "runtime"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-06-28",
+      "reviewed": "2026-06-28",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "agent-neutral-seed-surface",
+        "semantic-kernel-entity-contract",
+        "continuity-boundary"
+      ],
+      "conflicts_with": [],
+      "why": "Defines a neutral request/receipt contract for repo-to-repo or external service calls without exposing THIA runtime, secrets or automatic side effects.",
       "agent_support": {
         "claude-code": {
           "status": "documented"
