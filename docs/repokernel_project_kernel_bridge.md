@@ -76,3 +76,9 @@ contexts.
 
 This keeps external installation simple: a user can install the Seed once, then
 select the project-kernel option only when a repo needs it.
+
+If the target project needs autonomous or semi-autonomous capability use, route
+the generated Project Kernel through
+[`capability_manifest_runtime_contract.md`](capability_manifest_runtime_contract.md).
+RepoKernel should stage project-local manifest and receipt guidance only when
+the target has a clear capability need, owner gate and validation path.

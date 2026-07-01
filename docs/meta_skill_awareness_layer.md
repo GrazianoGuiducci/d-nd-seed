@@ -86,6 +86,12 @@ verify in a bounded context;
 promote, reject or keep local.
 ```
 
+When the behavior may be consumed by an autonomous or semi-autonomous runtime,
+do not expose the human-facing skill as hidden authority. Route it through
+[`capability_manifest_runtime_contract.md`](capability_manifest_runtime_contract.md)
+first, then decide whether the local project needs a manifest, receipt schema,
+reducer or validator.
+
 ## Distribution Policy
 
 In Seed, this layer should remain:

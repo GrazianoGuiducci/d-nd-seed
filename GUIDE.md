@@ -335,6 +335,12 @@ bundle lives under `templates/skills/`, it must be either a registry capability
 or an explicit reference-only entry in `templates/skills/reference-only.json`.
 Reference-only material is evidence and future potential, not installer output.
 
+If a skill-like behavior is meant for an autonomous or semi-autonomous runtime,
+do not install the human-facing skill as hidden authority. First use
+`docs/capability_manifest_runtime_contract.md` to define the manifest, receipt,
+validation, reducer or validator, human gate and stop condition. Keep it
+optional until a project actually needs runtime consumption.
+
 ## Communication Rule
 
 Position the observer before the content.

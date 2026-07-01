@@ -2725,6 +2725,54 @@
       }
     },
     {
+      "id": "capability-manifest-runtime-contract",
+      "type": "doc",
+      "path": "docs/capability_manifest_runtime_contract.md",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "operator",
+        "dev-node",
+        "team",
+        "lab"
+      ],
+      "intents": [
+        "runtime",
+        "autonomy",
+        "workflow",
+        "skills",
+        "validation"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-07-01",
+      "reviewed": "2026-07-01",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [
+        "agent-neutral-seed-surface",
+        "meta-skill-awareness-layer",
+        "repokernel-project-kernel-bridge"
+      ],
+      "conflicts_with": [],
+      "why": "Defines how skill-like behavior becomes an inspectable capability manifest with receipt, reducer or validator and next legal action before entering autonomous or semi-autonomous runtimes.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
+        },
+        "codex": {
+          "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
       "id": "external-service-bridge-contract",
       "type": "doc",
       "path": "docs/external_service_bridge_contract.md",
