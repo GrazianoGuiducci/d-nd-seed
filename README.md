@@ -1,8 +1,8 @@
 # d-nd-seed
 
-Portable operating substrate for AI coding agents: runtime memory, guardrails,
-hooks, continuity, capability routing, cognitive kernels and governed
-self-improvement.
+Portable, versioned capability inventory and distribution substrate for AI
+coding agents: guardrails, continuity projections, capability routing,
+cognitive tools and governed self-improvement contracts.
 
 You are an AI coder entering this repository to install a portable operating
 substrate into your environment.
@@ -11,22 +11,22 @@ Do not skim and copy files. First identify your runtime, shell, project domain
 and risk boundary. Then run the registry check, routed plan and dry-run before
 installation.
 
-Seed installs memory, hooks, safety guards, skills, kernels, plugins and
-awareness rules so your local AI system can recover after compaction, verify
-before action, and inherit reusable THIA/D-ND capabilities without inheriting
-THIA runtime state.
+Seed can project selected memory, hook, safety, skill, kernel, plugin and
+awareness contracts into a target environment after review. The repository is
+not itself live memory, a runtime, an activation authority, MMK, or RepoKernel.
 
 ## What Seed Is
 
-Seed is the portable body of normalized THIA/D-ND functions, kernels and
-operating rules.
+Seed is the public AGPL-3.0 inventory and portable distribution body of
+normalized THIA/D-ND functions, kernels and operating rules.
 
 THIA and Labs are where functions are tested under real pressure. Seed is where
 the reusable form goes: hooks, skills, kernels, plugins, docs, profiles and
 installer metadata that another system can use in its own environment.
 
-Installed locally, Seed becomes your node's memory, safety layer, boot/reentry
-discipline, capability map and self-improvement substrate.
+After explicit selection and installation, a target may adopt project-local
+memory, safety, boot/reentry and self-improvement projections. The target owns
+their state and authority; Seed remains the source inventory.
 
 Design seeds are separate. If the target project needs UX/UI consistency,
 workspace shells, navigation models, domain templates or THIA-aware assistant
@@ -39,6 +39,20 @@ For public examples and adoption context, also inspect the D-ND portfolio at
 Current public release: v4.1 (2026-06-12) adds governed self-improvement,
 clearer AI-agent positioning and repository visibility updates. See
 [`CHANGELOG.md`](CHANGELOG.md).
+
+The unreleased MMK-native compatibility line is tracked separately through the
+dated capability registry and `capabilities/mmk-compatibility.json`. It does
+not change the v4.1 public release or the marketplace plugin versions. See
+[`docs/mmk-seed-contract.md`](docs/mmk-seed-contract.md).
+
+Its planner is read-only: `system`, `default`, and `environment-selected` are
+cumulative inventory layers. Dependencies are reported rather than installed
+implicitly, and registry `risk` remains a hint until capability effects are
+reviewed by the consumer.
+
+`skills/catalog.json` remains the legacy coder/thinker taxonomy and is not an
+installer or MMK selection authority. Capability selection is owned by
+`capabilities/registry.json` plus the applicable compatibility/profile gate.
 
 ## Before You Install
 
@@ -86,6 +100,9 @@ node scripts\validate_capability_registry.js
 node scripts\installer_option_router.js profiles\example.json
 node scripts\seed_plan.js profiles\example.json
 node scripts\test_installer_safety.js
+node scripts\validate_mmk_seed_contract.js
+node scripts\mmk_seed_plan.js profiles\example-opencode.json
+node scripts\test_mmk_seed_contract.js
 ```
 
 Only use `install.sh` on Windows after confirming the intended Bash layer and
@@ -123,10 +140,15 @@ App-hosted AI coders should read
 Use `profiles/example-app-runtime.json` when the app exposes workspace
 instructions, hooks, skills, plugins or app-local memory surfaces.
 
-OpenCode, Cursor, Copilot, Gemini and other AI coders should start as `generic`
-unless native support is verified. Read the install plan, use the same
-capability logic, and do not claim automatic hook behavior until the local
-runtime proves it.
+OpenCode should start from `profiles/example-opencode.json`. This dedicated
+Seed inventory profile is deliberately minimal and plan-only: it uses an
+explicit two-item legacy-router allowlist, assumes no model, writer, hook,
+cron, polling, network or global skill installation, and requires bounded
+session evidence before environment-selected planning. It is not an OpenCode
+runtime adapter or execution proof; MMK still owns current-session, owner,
+effect and authority validation. Cursor, Copilot, Gemini and other AI coders
+should still start as `generic` unless a dedicated profile and host proof
+exist.
 
 ## Profiles
 
@@ -139,6 +161,8 @@ Common starting profiles:
 - `profiles/example-claude-code.json` - Claude Code native hooks/skills.
 - `profiles/example-codex.json` - Codex reading `.seed` first and `.claude`
   adapter logic only where needed.
+- `profiles/example-opencode.json` - dedicated minimal, plan-only OpenCode
+  inventory profile; explicit allowlist and external session-validation gate.
 - `profiles/example-app-runtime.json` - app-hosted AI coder with explicit host
   surface metadata.
 - `profiles/example-researcher.json` - autonomous research/Lab cycle.
@@ -147,8 +171,9 @@ Common starting profiles:
 - `profiles/example-business-outreach.json` - business, outreach, portfolio,
   partnerships and public-relations work with explicit no-send/no-publish gates.
 
-For OpenCode or a generic AI coder, use the closest profile and set the runtime
-shape conservatively. Then read the routed plan and
+For OpenCode, validate the dedicated profile and run the MMK Seed planner
+before considering any environment-selected capability. For a generic AI
+coder, use the closest profile conservatively, then read the routed plan and
 [`docs/agent_runtime_translators.md`](docs/agent_runtime_translators.md).
 
 For Lab installs, keep the LLM provider choice explicit. The Lab pattern

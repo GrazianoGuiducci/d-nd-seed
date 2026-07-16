@@ -80,6 +80,12 @@ classify native/adapted/documented/unsupported capabilities
 map generated Claude-shaped surfaces into local runtime behavior
 ```
 
+OpenCode has an additional conservative, dedicated inventory profile at
+`profiles/example-opencode.json`. It is not a runtime adapter or execution
+proof and does not write an OpenCode global skill or configuration surface. It
+produces a cumulative, plan-only selection; environment additions require
+bounded host/session evidence, while MMK retains current-session validation.
+
 Codex may manually consume the hook discipline. App-hosted coders may map it to
 app workspace instructions, plugin surfaces, skills, or memory. Generic agents
 may consume it as documented operating protocol.
@@ -154,6 +160,11 @@ App-hosted coder:
 Generic/OpenRouter/eHermes-backed coder:
   native: prompt/file reading, maybe tool calls through host
   documented: operating discipline, gates, verification, memory placement
+
+OpenCode:
+  dedicated: explicit inventory profile and read-only MMK Seed plan
+  external gate: current-session, owner, effect and authority validation
+  blocked by default: hooks, polling, network, global skills and writer targets
 ```
 
 ## Memory Placement
