@@ -6,6 +6,18 @@ All notable public changes to `d-nd-seed` are tracked here.
 
 ### Added
 
+- Added a minimal repository `AGENTS.md` and `CURRENT_STATE.md` continuity gate
+  without applying the full autoevolutive scaffold.
+- Added `docs/mmk-seed-contract.md` and
+  `capabilities/mmk-compatibility.json`: a mapping-only MMK/RepoKernel contract,
+  65/65 capability classification, three cumulative selection levels,
+  profile/contract/source provenance hashes, composed authority/effect gates
+  and an explicit license compatibility boundary.
+- Added a dedicated, plan-only `profiles/example-opencode.json`,
+  `scripts/mmk_seed_plan.js`, `scripts/validate_mmk_seed_contract.js`, and
+  focused nominal and adversarial contract tests. The profile is an inventory
+  planning surface, not an OpenCode runtime adapter or execution proof.
+
 - Added `docs/agent_neutral_seed_surface.md` and registered
   `agent-neutral-seed-surface` so non-Claude runtimes can recognize Seed as
   portable capability logic instead of a `.claude` directory.
@@ -18,6 +30,26 @@ All notable public changes to `d-nd-seed` are tracked here.
   separate UX/design seed repo and D-ND portfolio.
 
 ### Changed
+
+- Explicit profile allowlists now constrain the existing installer router
+  before legacy stratum defaults are considered.
+- Profile validation now checks MMK selection level, capability allowlists,
+  host/session evidence policy, canonical target containment, write policy and
+  implicit-capability declarations. Every MMK-selection profile must keep MMK
+  as external validation owner, persist no evidence, grant no authority and
+  declare all implicit effects false; it cannot invoke legacy writer paths.
+- Registry source paths are confined to the Seed repository. The updater now
+  protects untracked/staged hooks, stages provenance-unknown projector changes
+  as `.new`, binds its effective CLI target to the saved profile, canonicalizes
+  legacy targets, and cannot bypass `plan_only` with `--legacy-all`.
+- Registry `risk` is retained as a conservative hint; actual capability
+  effects remain unknown until a separate capability-effect review.
+- Clarified that Seed is inventory/distribution rather than live memory,
+  runtime, activation authority, MMK or RepoKernel.
+- Kept the public v4.1, dated registry, and marketplace plugin versions as
+  separate existing lines; no release number was invented for this work.
+- Marked `skills/catalog.json` as a legacy taxonomy that points to, but does
+  not replace, the capability registry or MMK compatibility classification.
 
 - Updated README, GUIDE, `llms.txt`, runtime adapter docs and memory placement
   docs to make `.seed` the neutral installed surface and `.claude` the Claude

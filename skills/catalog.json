@@ -1,5 +1,10 @@
 {
   "version": "2026-03-06",
+  "catalog_role": "legacy_coder_thinker_skill_taxonomy",
+  "selection_authority": false,
+  "capability_registry": "capabilities/registry.json",
+  "mmk_compatibility": "capabilities/mmk-compatibility.json",
+  "relation_reviewed": "2026-07-16",
   "total_coder": 39,
   "total_thinker": 20,
   "clusters": {

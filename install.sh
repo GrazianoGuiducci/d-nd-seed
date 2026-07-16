@@ -184,7 +184,8 @@ const values = {
   godel_desc: g.description || '',
   godel_port: String(g.port || '3004'),
   primary_repo: (p.repos && p.repos[0] && p.repos[0].path) || '',
-  primary_repos: (p.repos || []).slice(0, 3).map(r => r.path || '').join(' ')
+  primary_repos: (p.repos || []).slice(0, 3).map(r => r.path || '').join(' '),
+  write_policy: p.write_policy || 'target_write'
 };
 process.stdout.write(String(values[key] ?? fallback));
 NODE
@@ -250,6 +251,7 @@ GODEL_PORT=$(profile_value godel_port "3004")
 REPOS_ARRAY=$(profile_block_b64 repos_array)
 PRIMARY_REPO=$(profile_value primary_repo "")
 PRIMARY_REPOS=$(profile_value primary_repos "")
+WRITE_POLICY=$(profile_value write_policy "target_write")
 REPOS_DIRTY_B64=$(profile_block_b64 repos_dirty)
 REPOS_STATE_B64=$(profile_block_b64 repos_state)
 REPOS_SEMANTIC_B64=$(profile_block_b64 repos_semantic)
@@ -266,6 +268,13 @@ reject_control_value "godel_domain" "$GODEL_DOMAIN"
 reject_control_value "godel_desc" "$GODEL_DESC"
 reject_control_value "primary_repo" "$PRIMARY_REPO"
 reject_control_value "primary_repos" "$PRIMARY_REPOS"
+reject_control_value "write_policy" "$WRITE_POLICY"
+
+if [ "$WRITE_POLICY" = "plan_only" ] && [ -z "$DRY_RUN" ]; then
+    echo "ERROR: Profile write_policy is plan_only."
+    echo "Use --plan, --dry-run, or the read-only Node planner; this profile cannot invoke installer writers."
+    exit 1
+fi
 
 if [ -z "$DRY_RUN" ] && [ "$PROJECT_DIR" = "/path/to/your/project" ]; then
     echo "ERROR: Refusing to install to placeholder project_dir: $PROJECT_DIR"
@@ -783,7 +792,10 @@ fi
 
 # --- Set permissions ---
 if [ -z "$DRY_RUN" ]; then
-    chmod +x "$TARGET/hooks/"*.sh 2>/dev/null
+    for hook in "$TARGET/hooks/"*.sh; do
+        [ -f "$hook" ] || continue
+        chmod +x "$hook" 2>/dev/null || true
+    done
     echo ""
     echo "Permissions set (chmod +x on hooks)."
 fi

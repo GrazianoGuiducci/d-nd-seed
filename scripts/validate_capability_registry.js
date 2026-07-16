@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.resolve(__dirname, '..');
-const registryPath = path.join(root, 'capabilities', 'registry.json');
+const realRoot = fs.realpathSync(root);
+const defaultRegistryPath = path.join(root, 'capabilities', 'registry.json');
 
 const allowed = {
   type: new Set(['hook', 'skill', 'plugin', 'template', 'doc', 'lab_pattern', 'kernel']),
@@ -59,8 +60,17 @@ function pathCoveredByRegistry(registryPaths, relPath) {
   return [...registryPaths].some(p => p.startsWith(prefix));
 }
 
+function isInside(parent, candidate) {
+  const rel = path.relative(parent, candidate);
+  return rel === '' || (!rel.startsWith('..') && !path.isAbsolute(rel));
+}
+
 function main() {
   const strictCoverage = process.argv.includes('--strict-coverage');
+  const registryArg = process.argv.find(arg => arg.startsWith('--registry='));
+  const registryPath = registryArg
+    ? path.resolve(process.cwd(), registryArg.slice('--registry='.length))
+    : defaultRegistryPath;
   const registry = readJson(registryPath);
   const caps = registry.capabilities || [];
   const ids = new Set();
@@ -87,8 +97,19 @@ function main() {
       if (key in cap && !Array.isArray(cap[key])) errors.push(`${label}: ${key} must be an array`);
     }
 
-    if (cap.path && !fs.existsSync(path.join(root, cap.path))) {
-      errors.push(`${label}: path does not exist: ${cap.path}`);
+    if (cap.path) {
+      if (path.isAbsolute(cap.path)) {
+        errors.push(`${label}: path must be repository-relative: ${cap.path}`);
+      } else {
+        const source = path.resolve(root, cap.path);
+        if (!isInside(root, source)) {
+          errors.push(`${label}: path escapes the seed repository: ${cap.path}`);
+        } else if (!fs.existsSync(source)) {
+          errors.push(`${label}: path does not exist: ${cap.path}`);
+        } else if (!isInside(realRoot, fs.realpathSync(source))) {
+          errors.push(`${label}: path resolves outside the seed repository: ${cap.path}`);
+        }
+      }
     }
 
     if (!cap.agent_support || typeof cap.agent_support !== 'object' || Array.isArray(cap.agent_support)) {
@@ -113,6 +134,11 @@ function main() {
     for (const ref of cap.supersedes || []) {
       if (!ids.has(ref) && !caps.some(candidate => candidate.id === ref)) {
         warnings.push(`${label}: supersedes unknown capability ${ref}`);
+      }
+    }
+    for (const ref of cap.conflicts_with || []) {
+      if (!ids.has(ref) && !caps.some(candidate => candidate.id === ref)) {
+        errors.push(`${label}: conflicts_with unknown capability ${ref}`);
       }
     }
     if (cap.superseded_by && !caps.some(candidate => candidate.id === cap.superseded_by)) {

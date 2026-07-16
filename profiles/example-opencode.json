@@ -1,0 +1,44 @@
+{
+  "_comment": "EXAMPLE: dedicated minimal OpenCode inventory profile. It produces plans only; it is not an OpenCode runtime adapter or execution proof.",
+  "node_id": "OPENCODE",
+  "description": "Example - OpenCode consuming the minimal Seed system inventory without implicit writers or hooks",
+  "agent_runtime": "opencode",
+  "install_mode": "minimal",
+  "mmk_selection_level": "system",
+  "intent": ["verification", "provenance"],
+  "risk_tolerance": "safe",
+  "project_dir": "./my-project",
+  "memory_path": "./my-project/.seed/memory",
+  "capability_allowlist": [
+    "assertion-verifier",
+    "evolution-transfer-protocol"
+  ],
+  "write_policy": "plan_only",
+  "host_capability_policy": {
+    "session_attestation": "required_for_environment-selected",
+    "validation_owner": "mmk_external",
+    "on_missing": "plan_only",
+    "grants_authority": false,
+    "persists_attestation": false,
+    "max_age_seconds": 900
+  },
+  "implicit_capabilities": {
+    "claude_writer": false,
+    "hooks": false,
+    "cron": false,
+    "polling": false,
+    "network": false,
+    "global_skills": false,
+    "target_writes": false
+  },
+  "repos": [
+    {
+      "name": "my-project",
+      "path": "my-project",
+      "branch": "main"
+    }
+  ],
+  "godel": {
+    "enabled": false
+  }
+}

@@ -112,6 +112,12 @@ function classify(cap, ctx) {
     return ['withheld', `risk ${cap.risk} exceeds tolerance ${ctx.risk}`];
   }
 
+  if (ctx.hasExplicitAllowlist) {
+    return ctx.capabilityAllowlist.has(cap.id)
+      ? ['included', 'explicit profile capability allowlist']
+      : ['available', 'not present in explicit profile capability allowlist'];
+  }
+
   if (ctx.mode === 'minimal') {
     return cap.stratum === 'core_invariant'
       ? ['included', 'core invariant required for minimal install']
@@ -173,6 +179,8 @@ function plan(profilePath, opts) {
     profiles: inferProfiles(profile),
     intents: inferIntents(profile, opts.intents)
   };
+  ctx.capabilityAllowlist = new Set(values(profile.capability_allowlist));
+  ctx.hasExplicitAllowlist = Array.isArray(profile.capability_allowlist);
   ctx.riskLimit = allowedRisk(ctx.risk);
 
   const groups = { included: [], available: [], withheld: [], hidden: [] };
