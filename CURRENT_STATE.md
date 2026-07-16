@@ -1,23 +1,23 @@
 # d-nd-seed Current State
 
 updated: 2026-07-16
-status: validated MMK-native compatibility source line; formal release remains separate
+status: MMK-native compatibility source merged under Unreleased; formal release remains separate
 
 ```text
 active_surface:
   d-nd-seed public capability inventory and portable distribution contracts.
 
 current_next:
-  integrate the validated source through a reviewed branch/PR; after source
-  integration, keep formal release/versioning and live OpenCode proof as
-  separate gates.
+  use the merged contract as the source for one real OpenCode/MMK host-session
+  proof; keep any runtime adapter, formal version and release as separate gates.
 
 preserved_angle:
   Seed is inventory and distribution, not activation, live memory, authority,
   MMK, or RepoKernel. Prefer mappings to canonical consumer contracts.
 
 verified_now_or_last_verified:
-  baseline HEAD b947ecb32dcddf2cb5f5f8640cd35815e5354ada;
+  merged on main through PR #1 at 4f9ce59170a6a006bb200737a91190d7b047d42b
+  from baseline b947ecb32dcddf2cb5f5f8640cd35815e5354ada;
   65 registry capabilities; strict coverage passes with two reference-only
   warnings; installer safety 23/23 and MMK contract tests 15/15 pass; nested
   Python kernel tests pass 4/4; Git Bash plan/dry-run and focused writer-boundary
@@ -34,10 +34,10 @@ source_of_truth:
   receipt: docs/receipts/MMK_SEED_VNEXT_LOCAL_RECEIPT_2026-07-16.md.
 
 boundary:
-  local documentation, manifest, profiles, planners, validators, tests, and
-  receipt plus reviewed source integration. No target install, global skill,
+  public source documentation, manifest, profiles, planners, validators, tests,
+  and receipt are integrated under Unreleased. No target install, global skill,
   hook activation, runtime, adjacent repository, tag, release, deploy, or
-  license change.
+  license change is implied by the merge.
 
 residue_not_to_follow:
   README v4.1, registry date, and marketplace plugin versions are separate
@@ -46,13 +46,13 @@ residue_not_to_follow:
   private schemas as Seed-owned public schemas.
 
 first_safe_action:
-  integrate by branch/PR only after checks remain green; do not tag, release,
-  install, or claim live OpenCode equivalence through source integration.
+  prepare a bounded live-host evidence packet and verify the read-only plan;
+  do not tag, release, install, or claim OpenCode runtime equivalence.
 
 validation_needed:
-  preserve the reviewed diff and license boundary during source integration;
   prove one current OpenCode/MMK session validation before environment-selected
-  activation; obtain separate owner gates before tag, release or distribution.
+  activation; preserve the license boundary and obtain separate owner gates
+  before runtime adapter work, tag, release or distribution.
 ```
 
 ## Capability matrix
