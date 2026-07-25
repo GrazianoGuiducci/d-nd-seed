@@ -1,15 +1,16 @@
 # d-nd-seed Current State
 
 updated: 2026-07-25
-status: faculty transfer, provenance-aware updates, and freshness intake validated; ready for the publication gate
+status: faculty transfer, provenance-aware updates, and freshness intake published on main
 
 ```text
 active_surface:
   d-nd-seed public capability inventory and portable distribution contracts.
 
 current_next:
-  commit the clean staged change on agent/seed-faculty-freshness, push it, run
-  GitHub CI, merge only on green, and verify the public main branch.
+  on the next validated material D-ND/THIA capability change, inspect the local
+  Seed candidate outbox and route only a reviewed public-neutral delta. Treat
+  any seed.d-nd.com communication update as a separate owner surface.
 
 preserved_angle:
   Seed transfers reusable public-neutral methods, not the originating system's
@@ -18,6 +19,8 @@ preserved_angle:
   publication.
 
 verified_now_or_last_verified:
+  GitHub PR #3 merged after the Seed contracts workflow passed; public main is
+  commit 8ca8e477c86acc0d6676b86a7b21f06d3da46405.
   67 capabilities validate with two declared reference-only warnings; all 67
   have an MMK disposition. Faculty tests pass 11/11, skill reconciliation
   11/11, candidate reduction 5/5, installer safety 24/24, MMK 15/15, and the
@@ -49,12 +52,12 @@ residue_not_to_follow:
   and the Seed landing are separate owner surfaces.
 
 first_safe_action:
-  create the bounded repository commit from the already-reviewed staging set.
+  no further repository mutation is required for this work unit. Future
+  freshness starts from a queued candidate, not from copying a private skill.
 
 validation_needed:
-  local shell syntax, canonical skill validation, candidate reduction,
-  whitespace/privacy review and all regression suites are complete. GitHub CI
-  and remote-main verification remain. Any failing check stops merge.
+  none for the merged source update. External runtime adoption and the
+  seed.d-nd.com landing remain unverified, separate surfaces.
 ```
 
 ## Faculty and freshness transfer matrix

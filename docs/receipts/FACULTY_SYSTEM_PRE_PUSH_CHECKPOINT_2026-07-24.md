@@ -1,6 +1,6 @@
 # Faculty System Pre-Push Checkpoint — updated 2026-07-25
 
-status: implementation and local validation complete; publication pending
+status: source publication complete through GitHub PR #3
 
 ## Result
 
@@ -92,7 +92,9 @@ before merge.
 ```text
 owner_surface: d-nd-seed
 remote: GrazianoGuiducci/d-nd-seed
-current_branch_before_publication: main at the verified origin/main baseline
+publication_pr: https://github.com/GrazianoGuiducci/d-nd-seed/pull/3
+public_main_commit: 8ca8e477c86acc0d6676b86a7b21f06d3da46405
+github_ci: Seed contracts passed before merge
 push_classification: source_remote_only
 known_automatic_public_consumer: none established
 seed.d-nd.com owner: separate seed-landing repository
@@ -121,7 +123,7 @@ license_by_inference: forbidden
 
 ## Exact Next Action
 
-Commit only the staged Seed scope on `agent/seed-faculty-freshness`, push with
-workspace-approved ephemeral credentials, open the GitHub change, require
-green CI, merge, and verify public `main`. Stop on any credential, CI, or
-remote-state conflict.
+No further mutation is required for this work unit. On the next validated
+material capability change, inspect the local candidate outbox and begin from
+a public-neutral candidate. Reconcile `seed.d-nd.com` only through its separate
+repository, current-state and publication gate.
