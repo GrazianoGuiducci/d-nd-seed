@@ -59,14 +59,20 @@ When Codex enters a Seed-enabled repo:
 2. If `.seed/seed_install_plan.json` exists, treat it as the installed
    capability map. Fall back to `.claude/seed_install_plan.json` only for
    older installs.
-3. Read `.seed/seed_profile.json` to know node identity, intent, risk, and
+3. Read `.seed/seed_skill_state.json` before updating core skills. A staged
+   tree under `.seed/incoming/skills/` is a review candidate, not an activated
+   replacement.
+4. Read `.seed/seed_profile.json` to know node identity, intent, risk, and
    install mode. Fall back to `.claude/seed_profile.json` only for older
    installs.
-4. Read `.claude/skills/*/SKILL.md` as capability manuals, not as automatic
+5. Read `.claude/skills/*/SKILL.md` as capability manuals, not as automatic
    native skill activation.
-5. Treat `.claude/hooks/*.sh` as executable reference workflows. Do not assume
+   If `faculty-router` is present, read its bundled registry and select one
+   primary faculty with bounded support rather than treating all 43 contracts
+   as active.
+6. Treat `.claude/hooks/*.sh` as executable reference workflows. Do not assume
    they have fired automatically.
-6. Before doing work that a hook would normally guard, manually apply the hook's
+7. Before doing work that a hook would normally guard, manually apply the hook's
    logic:
    - safety guard before destructive shell operations;
    - system awareness before broad action;
@@ -74,7 +80,7 @@ When Codex enters a Seed-enabled repo:
      post-compact, correction, field-reentry, or multi-repo work;
    - pre/post compact logic before context transitions;
    - cascade checks after public/site/docs changes.
-7. If a capability has `agent_support.codex.status = adapter`, follow its
+8. If a capability has `agent_support.codex.status = adapter`, follow its
    adapter notes before acting.
 
 Codex should not rewrite `.claude` files into a separate Codex identity unless
@@ -129,6 +135,16 @@ Ready profiles:
   supported adapter plus explicit app-host metadata;
 - `profiles/example-publisher.json`: public-surface work, usable by either
   runtime when paired with `--agent=...` or `agent_runtime`.
+
+The faculty catalog can be inspected independently of a profile:
+
+```bash
+node scripts/faculty_plan.js --list
+node scripts/faculty_plan.js --bundle=software --json
+```
+
+This is read-only discovery. Runtime translation, target writes, network use,
+publication, sensitive data, and other effects remain host-owned gates.
 
 ## Rosetta Rule
 

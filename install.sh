@@ -71,8 +71,8 @@ if [ -z "$PROFILE" ]; then
     echo "  --plan      Show routed installer options without writing anything"
     echo "  --check     Validate the seed capability registry"
     echo "  --legacy-all Install all legacy hooks/skills instead of routed capabilities"
-    echo "  --update    Only add NEW files. Existing files are preserved."
-    echo "              Changed files are saved as .new for manual review."
+    echo "  --update    Reconcile selected skills against their recorded Seed baseline."
+    echo "              User-modified or provenance-unknown skills are staged for review."
     echo ""
     echo "Available profiles:"
     ls -1 "$SCRIPT_DIR/profiles/"*.json 2>/dev/null | while read f; do
@@ -155,6 +155,25 @@ skip_unselected() {
     fi
     echo "  SKIP: $label (not selected by registry plan)"
     return 0
+}
+
+reconcile_skill() {
+    local name="$1"
+    local source="$2"
+    local target="$3"
+    local mode="--apply"
+    [ -n "$DRY_RUN" ] && mode="--dry-run"
+    local result
+    result=$(node "$SCRIPT_DIR/scripts/skill_reconcile.js" \
+        "--seed-root=$SCRIPT_DIR" \
+        "--project=$PROJECT_DIR" \
+        "--source=$source" \
+        "--target=$target" \
+        "--state=$NEUTRAL_TARGET/seed_skill_state.json" \
+        "--capability=$name" \
+        "--plan=$PLAN_FILE" \
+        "$mode")
+    printf '%s' "$result" | node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync(0,'utf8')); const review=r.review_path?' review='+r.review_path:''; console.log('  '+r.capability_id+': '+r.classification+' -> '+r.action+review)"
 }
 
 echo "=== D-ND Seed Installer ==="
@@ -671,22 +690,7 @@ for skill_dir in "$SCRIPT_DIR"/plugins/d-nd-core/skills/*/; do
     fi
     skill_target="$TARGET/skills/$name"
 
-    if [ -n "$DRY_RUN" ]; then
-        if [ -d "$skill_target" ]; then
-            echo "  [DRY-RUN] EXISTS: $skill_target/"
-        else
-            echo "  [DRY-RUN] NEW: $skill_target/"
-        fi
-        continue
-    fi
-
-    if [ -n "$UPDATE_MODE" ] && [ -d "$skill_target" ]; then
-        echo "  SAME: $name (already installed)"
-    else
-        mkdir -p "$skill_target"
-        cp -r "$skill_dir"* "$skill_target/" 2>/dev/null
-        echo "  OK: $name"
-    fi
+    reconcile_skill "$name" "$skill_dir" "$skill_target"
 done
 
 # --- Projector scripts (copy to accessible location) ---

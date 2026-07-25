@@ -4,7 +4,8 @@
   "selection_authority": false,
   "capability_registry": "capabilities/registry.json",
   "mmk_compatibility": "capabilities/mmk-compatibility.json",
-  "relation_reviewed": "2026-07-16",
+  "faculty_registry": "plugins/d-nd-core/skills/faculty-router/references/faculty-registry.json",
+  "relation_reviewed": "2026-07-24",
   "total_coder": 39,
   "total_thinker": 20,
   "clusters": {

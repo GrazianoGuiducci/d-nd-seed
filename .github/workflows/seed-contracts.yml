@@ -1,0 +1,32 @@
+name: Seed contracts
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Shell syntax
+        run: bash -n install.sh update.sh
+      - name: Capability contracts
+        run: |
+          node scripts/validate_capability_registry.js --strict-coverage
+          node scripts/validate_faculty_registry.js
+          node scripts/validate_mmk_seed_contract.js
+      - name: Focused tests
+        run: |
+          node scripts/test_faculty_system.js
+          node scripts/test_skill_reconcile.js
+          node scripts/test_seed_candidate.js
+          node scripts/test_installer_safety.js
+          node scripts/test_mmk_seed_contract.js

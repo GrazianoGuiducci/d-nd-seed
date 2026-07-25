@@ -152,12 +152,20 @@ git pull
 export GODEL_API_KEY=your-key
 export GODEL_API_URL=https://api.your-provider.com/v1/chat/completions
 
-# If you want to regenerate hooks/skills from updated templates:
-./install.sh profiles/your-profile.json
+# Inspect the routed update first:
+./update.sh /path/to/your-project --plan
+./update.sh /path/to/your-project --dry-run
 
-# If you just want the updated skills and kernels:
-# Nothing to do — the AI reads them from the seed directory on next session
+# Apply the reviewed update:
+./update.sh /path/to/your-project
 ```
+
+Core skills are reconciled against `.seed/seed_skill_state.json`. If the
+installed tree still matches its recorded baseline, an upstream change is
+replaced atomically as a complete directory. If the target was modified or has
+no trusted baseline, it is preserved and the new tree is staged under
+`.seed/incoming/skills/<id>/<source-hash>/`. Selection changes are reported but
+never delete skills automatically.
 
 ### Planning and validation
 

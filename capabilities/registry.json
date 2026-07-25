@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.capability_registry.v1",
-  "version": "2026-06-28",
+  "version": "2026-07-25",
   "policy": "docs/installer_option_router.md",
   "capabilities": [
     {
@@ -2805,6 +2805,100 @@
       ],
       "conflicts_with": [],
       "why": "Defines a neutral request/receipt contract for repo-to-repo or external service calls without exposing THIA runtime, secrets or automatic side effects.",
+      "agent_support": {
+        "claude-code": {
+          "status": "documented"
+        },
+        "codex": {
+          "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "faculty-router",
+      "type": "skill",
+      "path": "plugins/d-nd-core/skills/faculty-router",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "publisher",
+        "business",
+        "dev-node",
+        "team",
+        "lab",
+        "app-runtime"
+      ],
+      "intents": [
+        "capability-routing",
+        "skills",
+        "competences",
+        "design",
+        "research",
+        "business",
+        "operations"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-07-24",
+      "reviewed": "2026-07-24",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [],
+      "conflicts_with": [],
+      "why": "Provides one self-contained, opt-in public-neutral router over 43 bounded D-ND faculty contracts without transferring private adapters, state, or authority.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "seed-freshness-protocol",
+      "type": "doc",
+      "path": "docs/seed_freshness_protocol.md",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "operator",
+        "dev-node",
+        "team",
+        "app-runtime"
+      ],
+      "intents": [
+        "skills",
+        "competences",
+        "maintenance",
+        "capability-routing",
+        "public-neutral-transfer"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-07-25",
+      "reviewed": "2026-07-25",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [],
+      "conflicts_with": [],
+      "why": "Turns validated private or public capability changes into neutral, review-gated Seed candidates without automatic registry mutation or publication.",
       "agent_support": {
         "claude-code": {
           "status": "documented"

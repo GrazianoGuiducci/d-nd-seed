@@ -58,7 +58,11 @@ function sourceHash(sourcePath) {
   if (stat.isFile()) return hashBuffer(fs.readFileSync(realAbsolute));
   const files = [];
   const walk = current => {
-    for (const entry of fs.readdirSync(current, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name))) {
+    for (const entry of fs.readdirSync(current, { withFileTypes: true }).sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name > b.name) return 1;
+      return 0;
+    })) {
       const full = path.join(current, entry.name);
       if (entry.isSymbolicLink()) throw new Error(`Symbolic link is not allowed in capability source tree: ${sourcePath}`);
       if (entry.isDirectory()) walk(full);

@@ -163,7 +163,8 @@ function classify(cap, ctx) {
 
 function sortCaps(a, b) {
   const strata = { core_invariant: 0, stable_default: 1, contextual: 2, recent_candidate: 3, experimental: 4, legacy_or_superseded: 5 };
-  return (strata[a.stratum] ?? 9) - (strata[b.stratum] ?? 9) || a.id.localeCompare(b.id);
+  return (strata[a.stratum] ?? 9) - (strata[b.stratum] ?? 9)
+    || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 }
 
 function plan(profilePath, opts) {

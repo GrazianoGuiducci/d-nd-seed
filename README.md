@@ -54,6 +54,35 @@ reviewed by the consumer.
 installer or MMK selection authority. Capability selection is owned by
 `capabilities/registry.json` plus the applicable compatibility/profile gate.
 
+## Public Faculty System
+
+Seed includes one installable `faculty-router` over 43 public-neutral faculty
+contracts. It transfers the reusable methods of the current D-ND competence
+field without copying private adapters, runtime state, credentials, local
+paths, client data, or authority.
+
+The simple entry is:
+
+```bash
+node scripts/validate_faculty_registry.js
+node scripts/faculty_plan.js --list
+node scripts/faculty_plan.js --bundle=software
+```
+
+The seven bundles cover foundation, software, design, research, product,
+interaction and operations. They are discovery views, not activation groups.
+The router selects one primary faculty with bounded support and keeps local
+writes, external actions and sensitive data behind the target environment's
+own gates. See [`docs/faculty_system.md`](docs/faculty_system.md).
+
+Installed core skills carry a neutral provenance baseline in
+`.seed/seed_skill_state.json`. Updates replace a complete skill only when its
+installed hash is unchanged; local modifications are preserved and the new
+tree is staged for review. [`docs/seed_freshness_protocol.md`](docs/seed_freshness_protocol.md)
+defines the separate event-driven intake for future THIA/D-ND capability
+candidates: automatic detection and validation are allowed, automatic registry
+mutation and publication are not.
+
 ## Before You Install
 
 Classify yourself before writing files:
@@ -100,6 +129,12 @@ node scripts\validate_capability_registry.js
 node scripts\installer_option_router.js profiles\example.json
 node scripts\seed_plan.js profiles\example.json
 node scripts\test_installer_safety.js
+node scripts\validate_faculty_registry.js
+node scripts\faculty_plan.js --bundle=software --json
+node scripts\test_faculty_system.js
+node scripts\test_skill_reconcile.js
+node scripts\seed_candidate.js --file=docs\examples\seed-update-candidate.example.json
+node scripts\test_seed_candidate.js
 node scripts\validate_mmk_seed_contract.js
 node scripts\mmk_seed_plan.js profiles\example-opencode.json
 node scripts\test_mmk_seed_contract.js
@@ -114,6 +149,7 @@ After installation, read the generated surfaces before project work:
 ```text
 .seed/seed_profile.json
 .seed/seed_install_plan.json
+.seed/seed_skill_state.json  # when a selected core skill is installed
 .seed/adapter_notes.md
 .claude/seed_profile.json
 .claude/seed_install_plan.json
@@ -221,6 +257,10 @@ installable. Each directory must either be promoted into
 `capabilities/registry.json` or marked in
 `templates/skills/reference-only.json` with the reason it is withheld.
 
+The `faculty-router` is the compact entry for the newer competence field. Its
+bundled registry keeps 43 methods inspectable without installing 43 competing
+trigger files or treating every method as active.
+
 **Cognitive kernels** shape how the AI thinks:
 
 - `kernels/kernel_base_en.md` - observe, relate, emerge, integrate.
@@ -325,9 +365,10 @@ d-nd-seed/
 If you are running a previous version, read [`UPGRADING.md`](UPGRADING.md)
 before updating.
 
-For routed updates, `update.sh --plan` is read-only and `update.sh --dry-run`
-shows intended writes. Like `install.sh`, normal write-mode updates are
-Bash-native and require deliberate Windows Bash opt-in.
+For routed updates, `./update.sh /path/to/project --plan` is read-only and
+`./update.sh /path/to/project --dry-run` shows intended writes. Like
+`install.sh`, normal write-mode updates are Bash-native and require deliberate
+Windows Bash opt-in.
 
 For installer maintenance, run the Node safety harness before release:
 
@@ -337,7 +378,8 @@ node scripts\test_installer_safety.js
 
 The harness validates registry coverage, read-only planning, profile rejection
 cases, clean JSON/paths output and no shell `eval` in installer/update/high-risk
-hook templates. It does not run write-mode install/update.
+hook templates. Its write-mode install/update coverage runs only against an
+isolated temporary fixture.
 
 ## For AI In A Chat Session
 
