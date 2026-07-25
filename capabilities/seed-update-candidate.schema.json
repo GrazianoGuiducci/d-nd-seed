@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/GrazianoGuiducci/d-nd-seed/blob/main/capabilities/seed-update-candidate.schema.json",
+  "title": "D-ND Seed Update Candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "candidate_id", "title", "observed_date", "origin", "proposal", "safety", "promotion"],
+  "properties": {
+    "schema": { "const": "dnd.seed.update_candidate.v1" },
+    "candidate_id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "observed_date": { "type": "string", "format": "date" },
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disclosure", "public_url", "revision", "evidence_status"],
+      "properties": {
+        "disclosure": { "enum": ["withheld_private_source", "public_source"] },
+        "public_url": { "type": ["string", "null"] },
+        "revision": { "type": ["string", "null"] },
+        "evidence_status": { "enum": ["maintainer_attested", "publicly_reproducible"] }
+      }
+    },
+    "proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "public_function", "expected_result", "transfer_mode"],
+      "properties": {
+        "classification": {
+          "enum": ["trigger_template", "subskill", "standalone_skill", "metaskill", "repokernel_rule", "seed_public_candidate", "product_capability"]
+        },
+        "public_function": { "type": "string", "minLength": 1 },
+        "expected_result": { "type": "string", "minLength": 1 },
+        "transfer_mode": { "enum": ["neutral_method_only", "source_copy_review"] }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["private_residue_removed", "source_code_included", "authority_transfer", "automatic_publication", "effect_class", "effect_review", "license_status"],
+      "properties": {
+        "private_residue_removed": { "type": "boolean" },
+        "source_code_included": { "type": "boolean" },
+        "authority_transfer": { "const": false },
+        "automatic_publication": { "const": false },
+        "effect_class": { "enum": ["reasoning_only", "local_write_gated", "external_action_gated", "sensitive_data_gated"] },
+        "effect_review": { "enum": ["complete", "required"] },
+        "license_status": { "enum": ["not_applicable_method_only", "compatible_evidence_attached", "separate_review_required", "unknown"] }
+      }
+    },
+    "promotion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "target"],
+      "properties": {
+        "status": { "const": "queued" },
+        "target": { "enum": ["capability_registry", "faculty_registry", "documentation", "none"] }
+      }
+    }
+  }
+}

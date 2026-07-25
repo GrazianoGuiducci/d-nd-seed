@@ -52,6 +52,7 @@ docs/agent_neutral_seed_surface.md
 docs/installer_option_router.md
 docs/seed_operating_principles.md
 docs/related_seed_resources.md
+docs/faculty_system.md
 ```
 
 For research or Lab work, also read:
@@ -109,6 +110,9 @@ On Windows, if you have not intentionally selected Git Bash or WSL, do not run
 node scripts\validate_capability_registry.js
 node scripts\installer_option_router.js profiles\example.json
 node scripts\seed_plan.js profiles\example.json
+node scripts\validate_faculty_registry.js
+node scripts\faculty_plan.js --bundle=software --json
+node scripts\test_faculty_system.js
 ```
 
 The registry check validates capability metadata. The plan explains what will
@@ -117,6 +121,12 @@ dry-run shows file writes before they happen.
 
 `scripts/seed_plan.js` is the cross-platform read-only planner. It validates the
 registry and profile, then emits the routed plan without invoking Bash writers.
+
+The faculty planner is a second, narrower read-only view. It does not select
+installer paths. It helps an agent inspect the 43 neutral faculty contracts,
+choose one primary faculty and bounded support, and expose the action gate
+before work begins. Read `docs/faculty_system.md` before adapting the faculty
+system to another runtime.
 
 For maintainer verification, run:
 
@@ -152,8 +162,15 @@ configuration.
 Do not assume every generated capability is native in every runtime. Native,
 adapted, documented and unsupported are different states.
 
-For existing installs, use `update.sh --plan` or `update.sh --dry-run` before
-normal update. Write-mode updates follow the same Windows Bash opt-in rule.
+For existing installs, use `./update.sh /path/to/project --plan` or
+`./update.sh /path/to/project --dry-run` before a normal update. Write-mode
+updates follow the same Windows Bash opt-in rule.
+
+Selected core skills use a provenance state in
+`.seed/seed_skill_state.json`. Unmodified installed skills can receive an
+atomic whole-tree update. Modified or baseline-unknown skills are preserved
+and the new tree is staged under `.seed/incoming/skills/` for review. A profile
+change never deletes an installed skill implicitly.
 
 ## Phase 5 - First Reentry After Install
 
@@ -162,6 +179,7 @@ Before doing project work, read:
 ```text
 .seed/seed_profile.json
 .seed/seed_install_plan.json
+.seed/seed_skill_state.json
 .seed/adapter_notes.md
 .claude/seed_profile.json
 .claude/seed_install_plan.json

@@ -1,83 +1,90 @@
 # d-nd-seed Current State
 
-updated: 2026-07-16
-status: MMK-native compatibility source merged under Unreleased; formal release remains separate
+updated: 2026-07-25
+status: faculty transfer, provenance-aware updates, and freshness intake validated; ready for the publication gate
 
 ```text
 active_surface:
   d-nd-seed public capability inventory and portable distribution contracts.
 
 current_next:
-  use the merged contract as the source for one real OpenCode/MMK host-session
-  proof; keep any runtime adapter, formal version and release as separate gates.
+  commit the clean staged change on agent/seed-faculty-freshness, push it, run
+  GitHub CI, merge only on green, and verify the public main branch.
 
 preserved_angle:
-  Seed is inventory and distribution, not activation, live memory, authority,
-  MMK, or RepoKernel. Prefer mappings to canonical consumer contracts.
+  Seed transfers reusable public-neutral methods, not the originating system's
+  private state, identity, topology, credentials, adapters, data, authority, or
+  inferred license. Freshness is event-driven and review-gated, not autonomous
+  publication.
 
 verified_now_or_last_verified:
-  merged on main through PR #1 at 4f9ce59170a6a006bb200737a91190d7b047d42b
-  from baseline b947ecb32dcddf2cb5f5f8640cd35815e5354ada;
-  65 registry capabilities; strict coverage passes with two reference-only
-  warnings; installer safety 23/23 and MMK contract tests 15/15 pass; nested
-  Python kernel tests pass 4/4; Git Bash plan/dry-run and focused writer-boundary
-  integration pass; OpenCode is absent from all 65 legacy agent_support maps,
-  and the dedicated inventory plan keeps MMK session validation external;
-  example-origin-node.json retains its pre-existing shell-control validation
-  failure; README, registry, marketplace, and legacy catalog version roles are
-  explicit and remain distinct.
+  67 capabilities validate with two declared reference-only warnings; all 67
+  have an MMK disposition. Faculty tests pass 11/11, skill reconciliation
+  11/11, candidate reduction 5/5, installer safety 24/24, MMK 15/15, and the
+  nested kernel 4/4. The reconciler records deterministic SHA-256 tree
+  baselines, replaces only unchanged installs, preserves modified or unknown
+  targets, stages upstream trees for review, reports removed selection without
+  deletion, and rolls back a failed state commit. The 43 faculty contracts
+  remain a maintainer-attested public-neutral snapshot, not public proof of
+  private source coverage.
 
 source_of_truth:
   repository AGENTS.md and this state; capabilities/registry.json;
-  capabilities/mmk-compatibility.json; docs/mmk-seed-contract.md; canonical
-  MMK and RepoKernel contracts are read-only external consumer sources;
-  receipt: docs/receipts/MMK_SEED_VNEXT_LOCAL_RECEIPT_2026-07-16.md.
+  capabilities/mmk-compatibility.json; docs/faculty_system.md;
+  docs/seed_freshness_protocol.md; install.sh and update.sh;
+  scripts/skill_reconcile.js and scripts/seed_candidate.js; canonical receipt
+  docs/receipts/FACULTY_SYSTEM_PRE_PUSH_CHECKPOINT_2026-07-24.md.
 
 boundary:
-  public source documentation, manifest, profiles, planners, validators, tests,
-  and receipt are integrated under Unreleased. No target install, global skill,
-  hook activation, runtime, adjacent repository, tag, release, deploy, or
-  license change is implied by the merge.
+  d-nd-seed push is classified source_remote_only. It publishes repository
+  source but does not by itself update seed.d-nd.com. No target installation,
+  global skill mutation, private source disclosure, automatic merge/release,
+  adjacent repository write, site deploy, VPS/runtime action, or license grant
+  is implied. The separate seed-landing checkout is behind its remote and has
+  untracked operator work; do not mutate it from this release.
 
 residue_not_to_follow:
-  README v4.1, registry date, and marketplace plugin versions are separate
-  existing lines; do not invent a release to collapse them. Do not repair the
-  origin profile unless the MMK-native result requires it. Do not treat MMK
-  private schemas as Seed-owned public schemas.
+  the legacy coder/thinker catalog remains a separate taxonomy. The old writer
+  blocker is closed by the shared reconciler. The OpenCode/MMK live-host proof
+  and the Seed landing are separate owner surfaces.
 
 first_safe_action:
-  prepare a bounded live-host evidence packet and verify the read-only plan;
-  do not tag, release, install, or claim OpenCode runtime equivalence.
+  create the bounded repository commit from the already-reviewed staging set.
 
 validation_needed:
-  prove one current OpenCode/MMK session validation before environment-selected
-  activation; preserve the license boundary and obtain separate owner gates
-  before runtime adapter work, tag, release or distribution.
+  local shell syntax, canonical skill validation, candidate reduction,
+  whitespace/privacy review and all regression suites are complete. GitHub CI
+  and remote-main verification remain. Any failing check stops merge.
 ```
 
-## Capability matrix
+## Faculty and freshness transfer matrix
 
 ```text
 available_now:
-  repository inventory, registry validation, read-only routing, explicit
-  cumulative 2+1 bundles, provenance hashing, dependency/conflict reporting,
-  composed gates, and a dedicated plan-only OpenCode inventory profile.
+  opt-in faculty-router; 43 neutral faculty/result contracts; seven discovery
+  bundles; read-only planning; deterministic validators and tests;
+  provenance-aware install/update state; review staging; freshness candidate
+  schema, reducer, documentation, example, and CI contract.
 
 assumed_but_unverified:
-  capability-specific licenses and equivalent OpenCode execution behavior.
+  cold-reader clarity outside the originating workspace and equivalent native
+  skill behavior in every documented agent runtime.
 
 environment_dependent:
-  host/session capability exposure, access, operational path, target owner,
-  capability effects, and authority for any effect.
+  host-native loading, hooks, network, data, credentials, target writes,
+  runtime actions, publication, sending, and site deployment.
 
 future_possible:
-  reviewed environment-selected bundles and consumer adapters.
+  a local memo hook that creates only queued candidate notes after validated
+  changes; draft-PR automation after further operational proof; a separately
+  reconciled update to seed.d-nd.com.
 
 hard_boundaries:
-  implicit activation, broad default installs, MMK/RepoKernel corpus copying,
-  runtime/public effects, license strategy, and automatic self-modification.
+  private state copying, blind polling, silent registry mutation, automatic
+  merge/publication, authority transfer, source relicensing, and deletion by
+  selection drift.
 
 reversible_preparations:
-  local manifest, mapping documentation, allowlisted profile, plan, validator,
-  tests, and receipt.
+  registries, router, planners, schema, validator, tests, docs, receipt, CI and
+  dry-run plans.
 ```

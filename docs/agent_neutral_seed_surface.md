@@ -11,6 +11,7 @@ but much of the executable install surface is still Claude-shaped:
 ```text
 .seed/seed_profile.json
 .seed/seed_install_plan.json
+.seed/seed_skill_state.json
 .seed/adapter_notes.md
 .claude/CLAUDE.md
 .claude/MEMORY.md
@@ -47,7 +48,7 @@ Use five layers when deciding where Seed information belongs:
 | Layer | Meaning | Examples |
 |---|---|---|
 | `seed_source` | Portable capability logic in this repo | `docs/`, `capabilities/`, `templates/`, `plugins/`, `kernels/` |
-| `install_manifest` | Runtime-neutral installed capability map | `seed_profile`, `seed_install_plan`, selected capability ids |
+| `install_manifest` | Runtime-neutral installed capability map | `seed_profile`, `seed_install_plan`, `seed_skill_state`, selected capability ids and source baselines |
 | `runtime_adapter` | How the host consumes the manifest | Claude hooks, Codex manual gates, app-local plugin/skill surfaces |
 | `project_memory` | Project-specific current state | local boot/current-state files inside the target project |
 | `shared_or_portable` | Cross-node coordination or new Seed capability | TM7 packet, future Seed promotion |
@@ -76,6 +77,7 @@ For non-Claude runtimes:
 read README/GUIDE/llms
 read docs/agent_runtime_translators.md
 read .seed/seed_install_plan.json if present
+read .seed/seed_skill_state.json before reconciling an installed core skill
 classify native/adapted/documented/unsupported capabilities
 map generated Claude-shaped surfaces into local runtime behavior
 ```
@@ -90,6 +92,17 @@ Codex may manually consume the hook discipline. App-hosted coders may map it to
 app workspace instructions, plugin surfaces, skills, or memory. Generic agents
 may consume it as documented operating protocol.
 
+The public faculty system adds a compact cross-runtime discovery layer:
+
+```text
+faculty-router skill -> bundled 43-faculty registry -> bounded faculty plan
+```
+
+Claude Code can load the installed router natively. Other runtimes can read the
+same skill and registry as an adapter or documented method. The router selects
+contracts only; it does not prove host support or grant activation authority.
+See `docs/faculty_system.md`.
+
 ## Target Direction
 
 Installer work should continue separating neutral manifest generation from
@@ -102,6 +115,8 @@ Current minimal shape and recommended expansion:
   seed_profile.json
   seed_install_plan.json
   seed_update_plan.json
+  seed_skill_state.json
+  incoming/skills/
   adapter_notes.md
   memory/
   capabilities/

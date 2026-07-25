@@ -300,6 +300,38 @@ test('Bash installer completes when the selected plan contains no hooks', () => 
   assert(fs.existsSync(path.join(target, '.seed', 'seed_profile.json')), 'neutral profile was not installed');
 });
 
+test('Bash install and update use provenance-aware skill reconciliation', () => {
+  if (!findBash()) return;
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'dnd-seed-skill-integration-'));
+  const target = path.join(tempRoot, 'target');
+  const profilePath = path.join(tempRoot, 'profile.json');
+  const profile = baseProfile(bashPath(target));
+  profile.agent_runtime = 'generic';
+  profile.risk_tolerance = 'safe';
+  profile.capability_allowlist = ['faculty-router'];
+  profile.write_policy = 'target_write';
+  writeJson(profilePath, profile);
+
+  const installResult = runBash('install.sh', [profilePath]);
+  assert(installResult && installResult.status === 0, (installResult?.stdout || '') + (installResult?.stderr || ''));
+  const skill = path.join(target, '.claude', 'skills', 'faculty-router');
+  const statePath = path.join(target, '.seed', 'seed_skill_state.json');
+  assert(fs.existsSync(path.join(skill, 'SKILL.md')), 'selected skill was not installed');
+  assert(fs.existsSync(statePath), 'skill provenance state was not installed');
+  const state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+  assert(state.capabilities['faculty-router'], 'faculty-router provenance is missing');
+
+  fs.appendFileSync(path.join(skill, 'SKILL.md'), '\nlocal fixture customization\n');
+  const customized = fs.readFileSync(path.join(skill, 'SKILL.md'), 'utf8');
+  const updateResult = runBash('update.sh', [target]);
+  assert(updateResult && updateResult.status === 0, (updateResult?.stdout || '') + (updateResult?.stderr || ''));
+  assert((updateResult.stdout + updateResult.stderr).includes('locally_modified -> staged_for_review'), 'local modification was not classified for review');
+  assert(fs.readFileSync(path.join(skill, 'SKILL.md'), 'utf8') === customized, 'updater overwrote a locally modified skill');
+  const updatedState = JSON.parse(fs.readFileSync(statePath, 'utf8'));
+  const pending = updatedState.pending['faculty-router'];
+  assert(pending && fs.existsSync(path.join(target, pending.staged_path)), 'review tree was not staged');
+});
+
 test('Bash updater cannot bypass a saved plan-only profile with legacy-all', () => {
   if (!findBash()) return;
   const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'dnd-seed-update-policy-'));
@@ -352,7 +384,8 @@ test('update dry-run does not write update plan', () => {
   const update = fs.readFileSync(path.join(root, 'update.sh'), 'utf8');
   assert(update.includes('[DRY-RUN] Would save update plan'), 'update dry-run plan message missing');
   assert(update.includes('[DRY-RUN] Would save neutral update plan'), 'update dry-run neutral plan message missing');
-  assert(/else\s*\n\s*mkdir -p "\$CLAUDE_TARGET" "\$NEUTRAL_TARGET"\s*\n\s*node "\$SEED_DIR\/scripts\/installer_option_router\.js" "\$PROFILE" --json > "\$CLAUDE_TARGET\/seed_update_plan\.json"\s*\n\s*cp "\$CLAUDE_TARGET\/seed_update_plan\.json" "\$NEUTRAL_TARGET\/seed_update_plan\.json"/.test(update), 'update plan writes are not confined to non-dry-run branch');
+  assert(update.includes('node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$PLAN_FILE"'), 'temporary update plan generation missing');
+  assert(/else\s*\n\s*mkdir -p "\$CLAUDE_TARGET" "\$NEUTRAL_TARGET"\s*\n\s*cp "\$PLAN_FILE" "\$CLAUDE_TARGET\/seed_update_plan\.json"\s*\n\s*cp "\$CLAUDE_TARGET\/seed_update_plan\.json" "\$NEUTRAL_TARGET\/seed_update_plan\.json"/.test(update), 'update plan writes are not confined to non-dry-run branch');
   assert(update.includes('NEUTRAL_PROFILE="$NEUTRAL_TARGET/seed_profile.json"'), 'update is missing neutral profile path');
   assert(update.includes('if [ -f "$NEUTRAL_PROFILE" ]; then'), 'update does not prefer neutral profile when available');
 });

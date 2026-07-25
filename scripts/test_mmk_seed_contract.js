@@ -56,7 +56,9 @@ function runEnvironmentPlan(profile, evidence) {
 test('MMK Seed compatibility contract validates exact registry coverage', () => {
   const result = runNode(['scripts/validate_mmk_seed_contract.js']);
   assert(result.status === 0, result.stdout + result.stderr);
-  assert(result.stdout.includes('65/65 classified'), 'validator did not prove 65/65 coverage');
+  const registry = JSON.parse(fs.readFileSync(path.join(root, 'capabilities', 'registry.json'), 'utf8'));
+  const count = registry.capabilities.length;
+  assert(result.stdout.includes(`${count}/${count} classified`), `validator did not prove ${count}/${count} coverage`);
 });
 
 test('dedicated OpenCode profile validates in read-only mode', () => {

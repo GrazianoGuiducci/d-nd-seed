@@ -1,0 +1,480 @@
+{
+  "schema": "dnd.seed.faculty_registry.v1",
+  "version": "2026-07-24",
+  "scope": "Public-neutral faculty contracts derived from the D-ND workspace; no private state, credentials, runtime topology, or external authority is transferred.",
+  "source_inventory": {
+    "workspace_faculties": 41,
+    "kernel_faculties": 1,
+    "adjacent_workspace_skills": 1,
+    "total": 43,
+    "internal_identity_map_included": false,
+    "evidence_status": "maintainer_attested",
+    "publicly_reproducible": false
+  },
+  "policy": {
+    "automatic_activation": false,
+    "selection_model": "one_primary_plus_bounded_support",
+    "authority_ceiling": "method_and_plan_only",
+    "private_adapter_code_included": false,
+    "source_runtime_state_included": false,
+    "contract_license": "unknown",
+    "contract_license_status": "not_declared_per_capability",
+    "repository_license_reference": "repository_level_declaration_only",
+    "source_adapter_license": "not_transferred",
+    "effect_review_required": true
+  },
+  "related_resources": {
+    "dnd-ux-ai-seed": {
+      "title": "D-ND UX/AI Seed",
+      "url": "https://github.com/GrazianoGuiducci/d-nd-ux-ai-seed",
+      "revision_status": "not_pinned",
+      "license_status": "separate_review_required"
+    }
+  },
+  "bundle_definitions": {
+    "foundation": "Orientation, faculty routing, safety, topology, continuity, and learning.",
+    "software": "Diagnosis, architecture, repository setup, node capability transfer, and recovery.",
+    "design": "UX, agentic interaction, design systems, communication surfaces, and learning from demonstrations.",
+    "research": "Evidence intake, scenarios, archives, laboratories, media, and critical-factor control.",
+    "product": "Capability productization, client setup, business movement, editorial work, and operating-form decisions.",
+    "interaction": "Delegation, external review, browser work, conversational surfaces, and personal workflows.",
+    "operations": "Mutation control, runtime work, publication, synchronization, and recovery."
+  },
+  "result_contracts": {
+    "agentic-ux": "A state-aware interaction model with visible intent, progress, action, recovery, and accessibility checks.",
+    "business-routing": "A classified business lane, selected owner, evidence boundary, useful next move, and explicit non-actions.",
+    "cognitive-delegation": "A source-bounded delegation packet and an integration review that preserves local decision authority.",
+    "autoevolutive-projects": "The smallest additive reentry and evolution scaffold, with sources, state, first safe action, and validation.",
+    "deep-module-design": "A stable interface, hidden policy boundary, dependency direction, migration seam, and focused tests.",
+    "failure-diagnosis": "A reproduction, ranked hypotheses, discriminating evidence, verified mechanism, and regression proof.",
+    "ai-capability-productization": "A capability-to-product map with user, proof, package, delivery boundary, maturity, and next test.",
+    "business-portfolio-management": "A bounded business decision capsule with positioning, evidence, opportunity, risk, and next action.",
+    "client-setup-orchestration": "A transferable setup packet with context, sources, requested result, artifacts, gates, and handoff receipt.",
+    "capability-node-sync": "A source/destination comparison, portable delta, excluded state, validation plan, and synchronization receipt.",
+    "community-contribution": "A selected contribution opportunity, source-backed draft, review state, send boundary, and learning receipt.",
+    "design-element-routing": "A justified pattern and primitive selection tied to user task, state, hierarchy, responsive behavior, and constraints.",
+    "demonstration-learning": "An observation record, inferred method, uncertainty, competence candidate, evaluation, and application gate.",
+    "research-lab-operations": "A project-local experiment or operation plan with inputs, runtime boundary, deterministic evidence, and receipt.",
+    "operational-noise-control": "A smaller decisive source set, residue classification, preserved evidence, and lower-cost next action.",
+    "possibility-horizon": "A scenario map with signals, branches, impacts, options, reversible preparations, and evidence triggers.",
+    "repository-observation": "A read-only repository diagnosis and minimal retrofit proposal with sources, gaps, boundaries, and first safe move.",
+    "public-surface-publication": "A reviewed artifact, target binding, publication gate, expected live effect, verification plan, and delivery receipt.",
+    "skill-evolution": "A reusable delta classified to its correct owner, with source, trigger, proof, compatibility, and evolution receipt.",
+    "capability-level-routing": "A placement decision across residue, state, template, skill, metaskill, project rule, Seed, or product.",
+    "conversational-surface": "A conversation-layer diagnosis or design with context, reasoning, tool, action, privacy, and recovery boundaries.",
+    "system-topology": "An entity and relation map with roles, state providers, write owners, drift, parity gaps, and bounded evolution proposal.",
+    "ux-engineering": "An implementable UI contract with hierarchy, states, responsive rules, accessibility, motion, and visual QA evidence.",
+    "editorial-writing": "A source-faithful artifact with reader movement, claim classes, revision notes, material boundary, and available action.",
+    "external-review": "A review packet, returned-proposal assessment, accepted and rejected deltas, evidence gaps, and local next action.",
+    "intent-first-coordination": "A resultant-first packet with intent, context, roles, sources, non-actions, quality gates, and return receipt.",
+    "recovery-continuity": "A recovery-surface assessment, freshness evidence, restore sequence, protected configuration list, and reentry receipt.",
+    "autological-ux": "A journey from bounded intake to one consequential choice, effect preview, recoverable action, and inspectable result.",
+    "research-business-boundary": "A research-to-value translation with protected scientific claims, viable offer forms, evidence, and realization gates.",
+    "critical-factor-control": "A prioritized factor map with performance dimensions, risks, horizons, faculty owners, and validation cadence.",
+    "operating-form": "A current-form statement with stable nucleus, verified present, selected direction, boundaries, and next owner.",
+    "semantic-bridge": "A simplifying semantic relation with preserved identities, scope, non-equivalences, downstream uses, and failure test.",
+    "communication-design": "A public communication contract aligning product truth, copy, hierarchy, navigation, metadata, actions, and review gate.",
+    "personal-workflow-administration": "A private obligation and evidence summary, drafted response or plan, missing data, deadlines, and no-send boundary.",
+    "meta-skill-routing": "A faculty architecture with entity, plane, role, relation, mutation, gate, receipt, and reusable delta placement.",
+    "meta-skill-presence": "A compact cross-surface check that prevents identity, authority, state, source, and execution from being fused.",
+    "browser-assistance": "A verified browser-surface snapshot, source/destination distinction, staged action, submission gate, and visible-state receipt.",
+    "archive-retrieval": "A bounded source digest with provenance, reusable mechanism, present-authority limit, destination, and promotion decision.",
+    "runtime-node-operations": "A verified node and service map, intended operation, risk class, commands or checks, rollback, and runtime receipt.",
+    "mutation-routine": "A pre-mutation gate plus the smallest reusable procedure, script, manifest, checklist, or explicit no-routine decision.",
+    "curated-media-intelligence": "A source-quality assessment, extracted signal, project relevance, evidence need, residue filter, and promotion level.",
+    "youtube-transcript-intake": "A transcript-backed signal card with source quality, extracted mechanism, project delta, boundary, and promotion proposal.",
+    "observer-kernel": "An observation capsule covering entities, planes, roles, relations, state, uncertainty, mutation, gates, and useful resultant."
+  },
+  "faculties": [
+    {
+      "id": "agentic-ux",
+      "title": "Agentic UX",
+      "public_function": "Design human-AI workspaces that expose state, intent, progress, recovery, and action boundaries.",
+      "bundles": ["design", "interaction"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "related_resource",
+      "resource_ids": ["dnd-ux-ai-seed"],
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "business-routing",
+      "title": "Business Routing",
+      "public_function": "Distinguish strategy, offer, partnership, outreach, communication, and product work before choosing an action.",
+      "bundles": ["product"],
+      "roles": ["primary", "support"],
+      "portability": "adapted_contract",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "cognitive-delegation",
+      "title": "Cognitive Delegation",
+      "public_function": "Prepare bounded packets for another model or agent and reintegrate the returned work without transferring authority.",
+      "bundles": ["interaction", "research"],
+      "roles": ["primary", "support"],
+      "portability": "gated_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "autoevolutive-projects",
+      "title": "Autoevolutive Project Setup",
+      "public_function": "Add reentry, source, state, semantic-kernel, evidence, and memory-delta layers to a repository without replacing its native structure.",
+      "bundles": ["software", "foundation"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "deep-module-design",
+      "title": "Deep Module Design",
+      "public_function": "Shape a small stable interface that hides dependency policy and change complexity behind a coherent seam.",
+      "bundles": ["software"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "failure-diagnosis",
+      "title": "Software Failure Diagnosis",
+      "public_function": "Diagnose bugs and regressions through reproduction, ranked falsifiable hypotheses, discriminating probes, and regression proof.",
+      "bundles": ["software"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "ai-capability-productization",
+      "title": "AI Capability Productization",
+      "public_function": "Turn a demonstrated capability into a reviewable product, proof, package, service, or integration path without overclaiming.",
+      "bundles": ["product"],
+      "roles": ["primary", "support"],
+      "portability": "adapted_contract",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "business-portfolio-management",
+      "title": "Business And Portfolio Management",
+      "public_function": "Coordinate positioning, offers, partnerships, portfolio evidence, opportunity review, and bounded next business actions.",
+      "bundles": ["product"],
+      "roles": ["primary", "support"],
+      "portability": "adapted_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "client-setup-orchestration",
+      "title": "Client Setup Orchestration",
+      "public_function": "Convert an ambiguous client or product request into a transferable setup packet with sources, boundaries, artifacts, gates, and next actions.",
+      "bundles": ["product", "software"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "capability-node-sync",
+      "title": "Capability Node Synchronization",
+      "public_function": "Compare and transfer reusable capability packages between agent nodes without cloning local state, secrets, or identity.",
+      "bundles": ["software", "operations"],
+      "roles": ["primary", "support"],
+      "portability": "gated_contract",
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "community-contribution",
+      "title": "Community Contribution",
+      "public_function": "Select, draft, review, and learn from useful public contributions while keeping posting and sending explicitly supervised.",
+      "bundles": ["product", "interaction"],
+      "roles": ["primary", "support", "surface_adapter", "learning"],
+      "portability": "gated_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "design-element-routing",
+      "title": "Design Element Routing",
+      "public_function": "Choose suitable interface patterns and primitives from a design seed before composing a new surface.",
+      "bundles": ["design"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "related_resource",
+      "resource_ids": ["dnd-ux-ai-seed"],
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "demonstration-learning",
+      "title": "Learning From Demonstration",
+      "public_function": "Transform observed interaction and correction into a bounded competence candidate, implementation delta, and evaluation plan.",
+      "bundles": ["design", "research"],
+      "roles": ["primary", "support", "learning"],
+      "portability": "portable_method",
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "research-lab-operations",
+      "title": "Research Lab Operations",
+      "public_function": "Operate a computational research surface through project-local authority, deterministic receipts, and explicit runtime gates.",
+      "bundles": ["research", "operations"],
+      "roles": ["primary", "support", "learning"],
+      "portability": "adapted_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "operational-noise-control",
+      "title": "Operational Noise Control",
+      "public_function": "Reduce context entropy, duplicate state, generated residue, and repeated decision cost while preserving decisive evidence.",
+      "bundles": ["foundation", "software"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "possibility-horizon",
+      "title": "Possibility Horizon",
+      "public_function": "Turn uncertainty into observable signals, scenario branches, risks, reversible preparations, and capability gaps.",
+      "bundles": ["research", "product"],
+      "roles": ["primary", "support", "learning"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "repository-observation",
+      "title": "Repository Observation And Setup",
+      "public_function": "Inspect an existing repository and propose a non-invasive continuity, evidence, source, state, and semantic-kernel retrofit.",
+      "bundles": ["software"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "public-surface-publication",
+      "title": "Public Surface Publication",
+      "public_function": "Prepare and verify public content changes while separating editorial approval, repository writes, publication, and live verification.",
+      "bundles": ["operations", "product"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "gated_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "skill-evolution",
+      "title": "Skill Evolution",
+      "public_function": "Capture reusable corrections as bounded skill, state, template, or capability updates with an owner, proof, and receipt.",
+      "bundles": ["foundation", "research"],
+      "roles": ["support", "learning"],
+      "portability": "portable_method",
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "capability-level-routing",
+      "title": "Capability Level Routing",
+      "public_function": "Decide whether a lesson belongs as residue, state, trigger, skill, metaskill, project rule, public seed, or product capability.",
+      "bundles": ["foundation"],
+      "roles": ["binder", "primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "conversational-surface",
+      "title": "Conversational Surface Control",
+      "public_function": "Diagnose and evolve a public or administrative AI conversation while separating page context, reasoning, tools, and external actions.",
+      "bundles": ["interaction", "operations"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "adapted_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "system-topology",
+      "title": "System Topology Evolution",
+      "public_function": "Keep nodes, applications, providers, repositories, roles, and competence ownership distinct while detecting drift and parity gaps.",
+      "bundles": ["foundation", "operations"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "ux-engineering",
+      "title": "UX And Interface Engineering",
+      "public_function": "Design and review frontend systems for hierarchy, accessibility, responsive behavior, state legibility, motion, and cross-surface coherence.",
+      "bundles": ["design", "software"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "related_resource",
+      "resource_ids": ["dnd-ux-ai-seed"],
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "editorial-writing",
+      "title": "Editorial Writing",
+      "public_function": "Recover source truth, shape reader movement, discipline claims, write, revise, subtract, and preserve reusable editorial learning.",
+      "bundles": ["product", "interaction"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "adapted_contract",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "external-review",
+      "title": "External Frontier Review",
+      "public_function": "Prepare a high-leverage review packet for another capable model and validate returned proposals against local truth and boundaries.",
+      "bundles": ["interaction", "research"],
+      "roles": ["primary", "support"],
+      "portability": "gated_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "intent-first-coordination",
+      "title": "Intent-First Agent Coordination",
+      "public_function": "Describe the intended resultant, context, sources, roles, gates, and receipt so another agent can act without inheriting hidden authority.",
+      "bundles": ["foundation", "interaction"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "recovery-continuity",
+      "title": "Recovery Continuity",
+      "public_function": "Assess backup and recovery surfaces, preserve change reasons, plan restore work, and keep reentry evidence current.",
+      "bundles": ["software", "operations"],
+      "roles": ["primary", "support"],
+      "portability": "gated_contract",
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "autological-ux",
+      "title": "Autological UX",
+      "public_function": "Guide unfamiliar users from bounded context to one consequential decision, visible authority, recoverable action, and inspectable result.",
+      "bundles": ["design", "product"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "adapted_contract",
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "research-business-boundary",
+      "title": "Research-To-Business Boundary",
+      "public_function": "Translate frontier research into support, pilots, offers, or distribution without reducing the research to marketing claims.",
+      "bundles": ["product", "research"],
+      "roles": ["primary", "support"],
+      "portability": "adapted_contract",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "critical-factor-control",
+      "title": "Critical Factor Control",
+      "public_function": "Track critical factors, performance dimensions, possibility horizons, and competence routing across a multilayer project.",
+      "bundles": ["research", "product"],
+      "roles": ["primary", "support", "learning"],
+      "portability": "adapted_contract",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "operating-form",
+      "title": "Operating Form Clarification",
+      "public_function": "Clarify what a changing system currently is, why it exists, what it is becoming, and which boundary owns the next action.",
+      "bundles": ["product", "foundation"],
+      "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "semantic-bridge",
+      "title": "Semantic Bridge",
+      "public_function": "Use productive ambiguity to connect related concepts and layers while keeping identities, repositories, and authority distinct.",
+      "bundles": ["product", "foundation"],
+      "roles": ["binder", "primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "communication-design",
+      "title": "Public Communication Design",
+      "public_function": "Bind public copy, visual hierarchy, navigation, metadata, maturity, and available actions to one verified product truth.",
+      "bundles": ["design", "product"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "adapted_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "personal-workflow-administration",
+      "title": "Personal Workflow Administration",
+      "public_function": "Reconcile private messages, documents, obligations, evidence, and draft replies without silently sending, paying, moving, or deleting.",
+      "bundles": ["interaction"],
+      "roles": ["primary", "support"],
+      "portability": "gated_contract",
+      "effect_class": "sensitive_data_gated"
+    },
+    {
+      "id": "meta-skill-routing",
+      "title": "Meta-Skill Routing",
+      "public_function": "Architect and route faculties, competences, project kernels, public capability packages, update candidates, and receipts.",
+      "bundles": ["foundation"],
+      "roles": ["binder", "primary"],
+      "portability": "adapted_contract",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "meta-skill-presence",
+      "title": "Meta-Skill Presence",
+      "public_function": "Keep entity, role, relation, mutation, authority, and receipt distinctions present when a task crosses capabilities or surfaces.",
+      "bundles": ["foundation"],
+      "roles": ["binder", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "browser-assistance",
+      "title": "Browser Assistance",
+      "public_function": "Orient within a selected browser surface, distinguish source from destination, and stage actions without submitting them implicitly.",
+      "bundles": ["interaction", "operations"],
+      "roles": ["primary", "support", "surface_adapter"],
+      "portability": "gated_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "archive-retrieval",
+      "title": "Archive And Metaprompt Retrieval",
+      "public_function": "Retrieve bounded source material from an archive, distill reusable mechanisms, and route them without turning archival text into present authority.",
+      "bundles": ["research"],
+      "roles": ["primary", "support", "learning"],
+      "portability": "adapted_contract",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "runtime-node-operations",
+      "title": "Runtime Node Operations",
+      "public_function": "Inspect and operate a remote or local runtime only after verifying node identity, project owner, service boundary, and side-effect gate.",
+      "bundles": ["operations", "software"],
+      "roles": ["primary", "support"],
+      "portability": "gated_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "mutation-routine",
+      "title": "Mutation And Routine Guard",
+      "public_function": "Classify the target, authority, reversibility, validation, and receipt before mutation, then extract repeated work into the smallest useful routine.",
+      "bundles": ["foundation", "operations"],
+      "roles": ["binder", "support"],
+      "portability": "portable_method",
+      "effect_class": "local_write_gated"
+    },
+    {
+      "id": "curated-media-intelligence",
+      "title": "Curated Media Intelligence",
+      "public_function": "Evaluate curated media streams as weak signals, compare them with project needs, and preserve only evidence-backed deltas.",
+      "bundles": ["research"],
+      "roles": ["primary", "support", "learning"],
+      "portability": "gated_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "youtube-transcript-intake",
+      "title": "YouTube Transcript Intake",
+      "public_function": "Extract a transcript before analysis, assess source quality, and convert useful content into a low-noise signal or promotion proposal.",
+      "bundles": ["research"],
+      "roles": ["primary", "support", "learning"],
+      "portability": "gated_contract",
+      "effect_class": "external_action_gated"
+    },
+    {
+      "id": "observer-kernel",
+      "title": "Observer Kernel",
+      "public_function": "Observe entities, planes, roles, relations, state, uncertainty, mutation, gates, and receipts before selecting a bounded resultant.",
+      "bundles": ["foundation", "research"],
+      "roles": ["binder", "primary", "support"],
+      "portability": "adapted_contract",
+      "effect_class": "reasoning_only"
+    }
+  ]
+}

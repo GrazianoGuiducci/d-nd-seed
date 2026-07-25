@@ -15,14 +15,14 @@
 #
 # What it updates:
 #   - Hook templates → project hooks (only if template is newer)
-#   - New skills → project skills (only adds, never overwrites)
+#   - Selected skills → provenance-aware reconciliation with atomic replacement
 #   - Kernel updates → project kernel (merges new sections)
 #
 # What it never touches:
 #   - CLAUDE.md (user-customized)
 #   - MEMORY.md (user data)
 #   - settings.json (user-configured hooks)
-#   - Any file the user has modified since install
+#   - Any skill the user modified since its recorded install baseline
 # ============================================================================
 
 set -e
@@ -160,16 +160,19 @@ elif [ -z "$LEGACY_ALL" ]; then
     exit 1
 fi
 
+PLAN_FILE=""
 INCLUDED_PATHS_FILE=""
 if [ -z "$LEGACY_ALL" ]; then
+    PLAN_FILE=$(make_temp)
     INCLUDED_PATHS_FILE=$(make_temp)
+    node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$PLAN_FILE"
     node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --paths > "$INCLUDED_PATHS_FILE"
     if [ -n "$DRY_RUN" ]; then
         echo "[DRY-RUN] Would save update plan to $CLAUDE_TARGET/seed_update_plan.json"
         echo "[DRY-RUN] Would save neutral update plan to $NEUTRAL_TARGET/seed_update_plan.json"
     else
         mkdir -p "$CLAUDE_TARGET" "$NEUTRAL_TARGET"
-        node "$SEED_DIR/scripts/installer_option_router.js" "$PROFILE" --json > "$CLAUDE_TARGET/seed_update_plan.json"
+        cp "$PLAN_FILE" "$CLAUDE_TARGET/seed_update_plan.json"
         cp "$CLAUDE_TARGET/seed_update_plan.json" "$NEUTRAL_TARGET/seed_update_plan.json"
     fi
     echo "Registry gate: enabled"
@@ -187,6 +190,25 @@ capability_selected() {
         return 0
     fi
     grep -Fxq "$rel" "$INCLUDED_PATHS_FILE"
+}
+
+reconcile_skill() {
+    local name="$1"
+    local source="$2"
+    local target="$3"
+    local mode="--apply"
+    [ -n "$DRY_RUN" ] && mode="--dry-run"
+    local result
+    result=$(node "$SEED_DIR/scripts/skill_reconcile.js" \
+        "--seed-root=$SEED_DIR" \
+        "--project=$PROJECT_DIR" \
+        "--source=$source" \
+        "--target=$target" \
+        "--state=$NEUTRAL_TARGET/seed_skill_state.json" \
+        "--capability=$name" \
+        "--plan=$PLAN_FILE" \
+        "$mode")
+    printf '%s' "$result"
 }
 
 tracked_target_is_unmodified() {
@@ -273,7 +295,7 @@ NODE
 done
 echo ""
 
-# --- Add new skills ---
+# --- Reconcile selected skills ---
 echo "## Skills"
 for skill_dir in "$SEED_DIR"/plugins/d-nd-core/skills/*/; do
     [ -d "$skill_dir" ] || continue
@@ -284,17 +306,28 @@ for skill_dir in "$SEED_DIR"/plugins/d-nd-core/skills/*/; do
     fi
     target="$PROJECT_DIR/.claude/skills/$name"
 
-    if [ ! -d "$target" ]; then
-        echo "  + $name (new skill)"
-        if [ -n "$DRY_RUN" ]; then
-            echo "    [DRY-RUN] would copy to $target"
-        else
-            mkdir -p "$(dirname "$target")"
-            cp -r "$skill_dir" "$target"
-            ADDED=$((ADDED + 1))
-        fi
+    result=$(reconcile_skill "$name" "$skill_dir" "$target")
+    classification=$(printf '%s' "$result" | node -e "const fs=require('fs'); process.stdout.write(JSON.parse(fs.readFileSync(0,'utf8')).classification)")
+    action=$(printf '%s' "$result" | node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync(0,'utf8')); process.stdout.write(r.action+(r.review_path?' review='+r.review_path:''))")
+    echo "  $name: $classification -> $action"
+    if [ -z "$DRY_RUN" ]; then
+        case "$classification" in
+            new) ADDED=$((ADDED + 1)) ;;
+            upstream_changed) UPDATED=$((UPDATED + 1)) ;;
+            locally_modified|baseline_unknown) SKIPPED=$((SKIPPED + 1)) ;;
+        esac
     fi
 done
+if [ -z "$LEGACY_ALL" ] && [ -f "$NEUTRAL_TARGET/seed_skill_state.json" ]; then
+    audit=$(node "$SEED_DIR/scripts/skill_reconcile.js" \
+        --audit-selection \
+        "--state=$NEUTRAL_TARGET/seed_skill_state.json" \
+        "--selected-paths=$INCLUDED_PATHS_FILE")
+    removed=$(printf '%s' "$audit" | node -e "const fs=require('fs'); const r=JSON.parse(fs.readFileSync(0,'utf8')); process.stdout.write(r.selection_removed.join(', '))")
+    if [ -n "$removed" ]; then
+        echo "  selection_removed (preserved; explicit removal required): $removed"
+    fi
+fi
 echo ""
 
 # --- Update projector tools ---

@@ -1,0 +1,31 @@
+{
+  "schema": "dnd.seed.update_candidate.v1",
+  "candidate_id": "example-neutral-method",
+  "title": "Example Neutral Method",
+  "observed_date": "2026-07-25",
+  "origin": {
+    "disclosure": "withheld_private_source",
+    "public_url": null,
+    "revision": null,
+    "evidence_status": "maintainer_attested"
+  },
+  "proposal": {
+    "classification": "seed_public_candidate",
+    "public_function": "Describe one reusable method without exposing its private source adapter.",
+    "expected_result": "A bounded neutral contract, validation plan, effect boundary, and promotion receipt.",
+    "transfer_mode": "neutral_method_only"
+  },
+  "safety": {
+    "private_residue_removed": true,
+    "source_code_included": false,
+    "authority_transfer": false,
+    "automatic_publication": false,
+    "effect_class": "reasoning_only",
+    "effect_review": "complete",
+    "license_status": "not_applicable_method_only"
+  },
+  "promotion": {
+    "status": "queued",
+    "target": "capability_registry"
+  }
+}

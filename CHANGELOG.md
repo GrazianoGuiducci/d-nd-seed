@@ -6,11 +6,30 @@ All notable public changes to `d-nd-seed` are tracked here.
 
 ### Added
 
+- Added provenance-aware core-skill reconciliation shared by
+  `install.sh --update` and `update.sh`: deterministic tree hashes, atomic whole-directory
+  replacement for unchanged baselines, review staging for modified or unknown
+  targets, selection-removal reporting, and a neutral installed-skill state.
+- Added the Seed freshness candidate contract, deterministic reducer, example,
+  tests, documentation and GitHub CI. Automation may detect and stage neutral
+  proposals but cannot update registries, merge or publish by itself.
+- Added the installable `faculty-router`, a 43-entry public-neutral faculty
+  registry, seven discovery bundles, a read-only planner, validator, focused
+  tests, integration guide, and local receipt. The package transfers reusable
+  methods without copying private adapters, runtime state, paths, credentials,
+  client data, or authority.
+- Registered `faculty-router` as an opt-in recent candidate with no false
+  runtime dependencies. Its capability-level license remains unknown under the
+  repository license boundary; source adapters and related resources remain
+  separate review surfaces.
+- Linked the legacy coder/thinker taxonomy to the new faculty registry without
+  giving either taxonomy installer or activation authority.
+
 - Added a minimal repository `AGENTS.md` and `CURRENT_STATE.md` continuity gate
   without applying the full autoevolutive scaffold.
 - Added `docs/mmk-seed-contract.md` and
   `capabilities/mmk-compatibility.json`: a mapping-only MMK/RepoKernel contract,
-  65/65 capability classification, three cumulative selection levels,
+  67/67 capability classification, three cumulative selection levels,
   profile/contract/source provenance hashes, composed authority/effect gates
   and an explicit license compatibility boundary.
 - Added a dedicated, plan-only `profiles/example-opencode.json`,

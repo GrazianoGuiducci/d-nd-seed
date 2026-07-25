@@ -1,13 +1,13 @@
 {
   "schema": "dnd.seed.mmk_compatibility.v1",
   "status": "local_candidate_unreleased",
-  "updated": "2026-07-16",
+  "updated": "2026-07-25",
   "scope": "MMK-native consumption classification; not a global install, removal, or release decision",
   "inventory": {
     "path": "capabilities/registry.json",
     "schema": "dnd.seed.capability_registry.v1",
-    "version": "2026-06-28",
-    "sha256": "d32ca9a897fa0a607973a89389a4f70b6794e753aa8986298baa086b30db1682",
+    "version": "2026-07-25",
+    "sha256": "f94cf3d4d14ab5c39db3eb4089ba215ad50066c31d06c7247dca2c1800ae84f9",
     "source_hash_policy": "sha256-tree-v1-computed-at-plan-time"
   },
   "consumer_mappings": {
@@ -119,7 +119,8 @@
     {"id":"meta-skill-awareness-layer","classification":"supersede","selection_level":"environment-selected","rationale":"For MMK routing use the canonical ExtensionEnvelope mapping; retain neutral questions pending review."},
     {"id":"repokernel-project-kernel-bridge","classification":"adapt","selection_level":"environment-selected","rationale":"Map selected manifests with provenance into RepoKernel stage-only contracts."},
     {"id":"capability-manifest-runtime-contract","classification":"keep","selection_level":"environment-selected","rationale":"Portable manifest/receipt boundary for autonomous consumers."},
-    {"id":"external-service-bridge-contract","classification":"unknown","selection_level":"environment-selected","rationale":"Service owner, provider, runtime, network, and license compatibility remain unverified."}
-  ],
-  "capability_license_overrides": {}
+    {"id":"external-service-bridge-contract","classification":"unknown","selection_level":"environment-selected","rationale":"Service owner, provider, runtime, network, and license compatibility remain unverified."},
+    {"id":"faculty-router","classification":"keep","selection_level":"environment-selected","rationale":"Public-neutral method catalog and read-only routing contract; no private adapter, activation, or authority transfer."},
+    {"id":"seed-freshness-protocol","classification":"keep","selection_level":"environment-selected","rationale":"Deterministic candidate intake and review gates; no automatic registry mutation, publication, or authority transfer."}
+  ]
 }
