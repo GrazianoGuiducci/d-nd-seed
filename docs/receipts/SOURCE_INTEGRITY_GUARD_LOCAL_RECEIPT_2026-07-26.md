@@ -1,7 +1,7 @@
 # Source Integrity Guard — Local Receipt
 
 Date: 2026-07-26
-State: local candidate validated; independent review and source push pending
+State: candidate validated; source capability commit `0d5d132` pushed to main
 
 ## Movement
 
@@ -71,5 +71,6 @@ this Seed lane.
 
 ## Next review gate
 
-Independent source-diff review, then commit and push only if the candidate
-remains public-neutral, opt-in, source-preserving and non-mutating.
+Consumer-host behavioral validation after explicit selection. Source presence
+does not authorize installation, activation, cleanup, runtime action or public
+deployment.

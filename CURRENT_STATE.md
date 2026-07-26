@@ -1,16 +1,16 @@
 # d-nd-seed Current State
 
 updated: 2026-07-26
-status: source-integrity recent candidate validated locally; independent re-review and source push pending
+status: source-integrity recent candidate validated and published on source main
 
 ```text
 active_surface:
   d-nd-seed public capability inventory and portable distribution contracts.
 
 current_next:
-  review the corrected source-integrity candidate as one complete diff. If the
-  independent verdict is GO, commit and push the source-only Seed update, then
-  verify remote reachability. Treat seed.d-nd.com as a separate owner surface.
+  no further repository mutation is required for this work unit. Evaluate
+  behavior only in an explicitly selected consumer host after its own loading
+  and effect gates. Treat seed.d-nd.com as a separate owner surface.
 
 preserved_angle:
   Seed transfers reusable public-neutral methods, not the originating system's
@@ -19,8 +19,9 @@ preserved_angle:
   publication.
 
 verified_now_or_last_verified:
-  The clean candidate lane began at public main c241d24 and adds the opt-in
-  source-integrity-interference-guard without changing installer defaults.
+  Source capability commit 0d5d132 reached origin/main after an independent GO.
+  It adds the opt-in source-integrity-interference-guard without changing
+  installer defaults.
   68 capabilities validate with two declared reference-only warnings; all 68
   have an MMK disposition. The faculty catalog contains 44 contracts. Faculty
   tests pass 13/13, skill reconciliation 11/11, candidate reduction 5/5,
@@ -43,8 +44,8 @@ source_of_truth:
   docs/receipts/FACULTY_SYSTEM_PRE_PUSH_CHECKPOINT_2026-07-24.md.
 
 boundary:
-  the pending d-nd-seed push is classified source_remote_only. It would publish
-  repository source but would not by itself update seed.d-nd.com. No target installation,
+  the d-nd-seed push is classified source_remote_only. It publishes repository
+  source but does not by itself update seed.d-nd.com. No target installation,
   global skill mutation, private source disclosure, automatic merge/release,
   adjacent repository write, site deploy, VPS/runtime action, or license grant
   is implied. The separate seed-landing checkout is behind its remote and has
@@ -56,12 +57,12 @@ residue_not_to_follow:
   external consumer adoption and the Seed landing are separate owner surfaces.
 
 first_safe_action:
-  obtain an independent GO on the complete corrected diff before commit or
-  push. Do not turn candidate presence into automatic installation or cleanup.
+  stop source mutation. A consuming host may explicitly select and test the
+  candidate without turning presence into automatic installation or cleanup.
 
 validation_needed:
-  independent re-review and post-push reachability if approved. Fresh-process
-  host routing, external runtime adoption and seed.d-nd.com remain unverified.
+  fresh-process host routing, external runtime adoption and seed.d-nd.com
+  remain unverified, separate surfaces.
 ```
 
 ## Faculty and freshness transfer matrix
