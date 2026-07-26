@@ -13,7 +13,7 @@ All notable public changes to `d-nd-seed` are tracked here.
 - Added the Seed freshness candidate contract, deterministic reducer, example,
   tests, documentation and GitHub CI. Automation may detect and stage neutral
   proposals but cannot update registries, merge or publish by itself.
-- Added the installable `faculty-router`, a 43-entry public-neutral faculty
+- Added the installable `faculty-router`, a 44-entry public-neutral faculty
   registry, seven discovery bundles, a read-only planner, validator, focused
   tests, integration guide, and local receipt. The package transfers reusable
   methods without copying private adapters, runtime state, paths, credentials,
@@ -24,6 +24,11 @@ All notable public changes to `d-nd-seed` are tracked here.
   separate review surfaces.
 - Linked the legacy coder/thinker taxonomy to the new faculty registry without
   giving either taxonomy installer or activation authority.
+- Added the opt-in `source-integrity-interference-guard` v0.1.0. It preserves
+  exact source, exposes instruction-layer interference and proposes reversible
+  cleanup without automatic mutation, policy bypass or provider accusations.
+- Registered the skill as a recent candidate, added its MMK disposition and
+  public-neutral faculty contract, and added focused boundary tests.
 
 - Added a minimal repository `AGENTS.md` and `CURRENT_STATE.md` continuity gate
   without applying the full autoevolutive scaffold.

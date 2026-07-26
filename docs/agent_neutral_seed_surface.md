@@ -95,7 +95,7 @@ may consume it as documented operating protocol.
 The public faculty system adds a compact cross-runtime discovery layer:
 
 ```text
-faculty-router skill -> bundled 43-faculty registry -> bounded faculty plan
+faculty-router skill -> bundled 44-faculty registry -> bounded faculty plan
 ```
 
 Claude Code can load the installed router natively. Other runtimes can read the

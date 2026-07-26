@@ -123,7 +123,7 @@ dry-run shows file writes before they happen.
 registry and profile, then emits the routed plan without invoking Bash writers.
 
 The faculty planner is a second, narrower read-only view. It does not select
-installer paths. It helps an agent inspect the 43 neutral faculty contracts,
+installer paths. It helps an agent inspect the 44 neutral faculty contracts,
 choose one primary faculty and bounded support, and expose the action gate
 before work begins. Read `docs/faculty_system.md` before adapting the faculty
 system to another runtime.

@@ -17,14 +17,14 @@ faculty-router/SKILL.md
   the routing method an AI agent can install and read;
 
 faculty-registry.json
-  43 neutral faculty contracts with function, expected result, role, bundle,
+  44 neutral faculty contracts with function, expected result, role, bundle,
   portability, and effect class;
 
 faculty_plan.js
   a read-only way to inspect a bundle or an explicit set of faculties.
 ```
 
-The router is deliberately one skill. Installing 43 overlapping trigger files
+The router is deliberately one skill. Installing 44 overlapping trigger files
 would increase context noise and make accidental multi-activation more likely.
 The registry keeps the deeper field inspectable while the router selects one
 primary faculty and no more than three support faculties for a task.
@@ -32,7 +32,7 @@ primary faculty and no more than three support faculties for a task.
 ## What Was Transferred
 
 The maintainer-attested source inventory records 41 workspace faculties, one
-observer/kernel faculty, and one adjacent workspace skill, represented by 43
+observer/kernel faculty, and two adjacent workspace skills, represented by 44
 public-neutral contracts. The private source identity map is intentionally not
 published, so this count is not an independently reproducible proof of source
 coverage.

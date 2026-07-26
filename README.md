@@ -56,7 +56,7 @@ installer or MMK selection authority. Capability selection is owned by
 
 ## Public Faculty System
 
-Seed includes one installable `faculty-router` over 43 public-neutral faculty
+Seed includes one installable `faculty-router` over 44 public-neutral faculty
 contracts. It transfers the reusable methods of the current D-ND competence
 field without copying private adapters, runtime state, credentials, local
 paths, client data, or authority.
@@ -258,7 +258,7 @@ installable. Each directory must either be promoted into
 `templates/skills/reference-only.json` with the reason it is withheld.
 
 The `faculty-router` is the compact entry for the newer competence field. Its
-bundled registry keeps 43 methods inspectable without installing 43 competing
+bundled registry keeps 44 methods inspectable without installing 44 competing
 trigger files or treating every method as active.
 
 **Cognitive kernels** shape how the AI thinks:

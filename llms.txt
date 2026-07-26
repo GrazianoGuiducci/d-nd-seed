@@ -34,7 +34,7 @@ Key guides:
 - App-hosted runtime profile: profiles/example-app-runtime.json
 - Governed self-improvement turns verified corrections into dynamic crystals,
   condensates, bounded implementation plans and testable local rules.
-- One installable faculty router exposes 43 public-neutral competence contracts
+- One installable faculty router exposes 44 public-neutral competence contracts
   across 7 discovery bundles without transferring private adapters or authority.
 - Provenance-aware skill reconciliation updates unchanged installed skills
   atomically and stages user-modified or unknown baselines for review.
@@ -57,7 +57,7 @@ cd d-nd-seed
 - scripts/installer_option_router.js — Install plan generator
 - scripts/validate_capability_registry.js — Registry validator
 - plugins/d-nd-core/skills/faculty-router/ — Installable faculty router and registry
-- scripts/faculty_plan.js — Read-only 43-faculty discovery planner
+- scripts/faculty_plan.js — Read-only 44-faculty discovery planner
 - scripts/validate_faculty_registry.js — Public-neutral faculty registry validator
 - templates/hooks/ — 19 hook templates
 - skills/coder/ — 33 coding agent skills

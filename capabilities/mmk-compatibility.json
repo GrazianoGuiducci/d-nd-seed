@@ -1,13 +1,13 @@
 {
   "schema": "dnd.seed.mmk_compatibility.v1",
   "status": "local_candidate_unreleased",
-  "updated": "2026-07-25",
+  "updated": "2026-07-26",
   "scope": "MMK-native consumption classification; not a global install, removal, or release decision",
   "inventory": {
     "path": "capabilities/registry.json",
     "schema": "dnd.seed.capability_registry.v1",
-    "version": "2026-07-25",
-    "sha256": "f94cf3d4d14ab5c39db3eb4089ba215ad50066c31d06c7247dca2c1800ae84f9",
+    "version": "2026-07-26",
+    "sha256": "0138cef75df16ef2b753ca808b5804410df7d9118f9d21aae6379dc39d02bce1",
     "source_hash_policy": "sha256-tree-v1-computed-at-plan-time"
   },
   "consumer_mappings": {
@@ -121,6 +121,7 @@
     {"id":"capability-manifest-runtime-contract","classification":"keep","selection_level":"environment-selected","rationale":"Portable manifest/receipt boundary for autonomous consumers."},
     {"id":"external-service-bridge-contract","classification":"unknown","selection_level":"environment-selected","rationale":"Service owner, provider, runtime, network, and license compatibility remain unverified."},
     {"id":"faculty-router","classification":"keep","selection_level":"environment-selected","rationale":"Public-neutral method catalog and read-only routing contract; no private adapter, activation, or authority transfer."},
-    {"id":"seed-freshness-protocol","classification":"keep","selection_level":"environment-selected","rationale":"Deterministic candidate intake and review gates; no automatic registry mutation, publication, or authority transfer."}
+    {"id":"seed-freshness-protocol","classification":"keep","selection_level":"environment-selected","rationale":"Deterministic candidate intake and review gates; no automatic registry mutation, publication, or authority transfer."},
+    {"id":"source-integrity-interference-guard","classification":"adapt","selection_level":"environment-selected","rationale":"Preserve source and alert semantics; the consumer owns its instruction hierarchy, evidence, cleanup gate and behavioral validation."}
   ]
 }

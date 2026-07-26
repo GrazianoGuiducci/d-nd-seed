@@ -30,8 +30,8 @@ const registry = readJson(defaultRegistryPath);
 test('registry validates and covers the declared inventory', () => {
   const result = validateRegistry(registry);
   assert.deepStrictEqual(result.errors, []);
-  assert.strictEqual(result.count, 43);
-  assert.strictEqual(result.resultContractCount, 43);
+  assert.strictEqual(result.count, 44);
+  assert.strictEqual(result.resultContractCount, 44);
 });
 
 test('all public ids are unique and every bundle is populated', () => {
@@ -129,6 +129,51 @@ test('installed router points to the bundled registry', () => {
   const skill = fs.readFileSync(skillPath, 'utf8');
   assert(skill.includes('name: faculty-router'));
   assert(skill.includes('references/faculty-registry.json'));
+});
+
+test('source-integrity guard is opt-in, bounded, and publicly neutral', () => {
+  const capabilityRegistry = JSON.parse(fs.readFileSync(path.join(root, 'capabilities', 'registry.json'), 'utf8'));
+  const capability = capabilityRegistry.capabilities.find(item => item.id === 'source-integrity-interference-guard');
+  assert(capability);
+  assert.strictEqual(capability.stratum, 'recent_candidate');
+  assert.strictEqual(capability.visibility, 'optional');
+  assert.strictEqual(capability.risk, 'safe');
+  assert.deepStrictEqual(capability.requires, []);
+
+  const faculty = registry.faculties.find(item => item.id === 'source-integrity-interference-guard');
+  assert(faculty);
+  assert.strictEqual(faculty.effect_class, 'reasoning_only');
+
+  const skillPath = path.join(root, capability.path, 'SKILL.md');
+  const skill = fs.readFileSync(skillPath, 'utf8');
+  for (const token of [
+    '## Positive Triggers',
+    '## Negative Triggers',
+    '## Public Claim Boundary',
+    '### Fidelity',
+    '### Collision and authority',
+    'None is automatic.'
+  ]) {
+    assert(skill.includes(token), token);
+  }
+  assert(!skill.includes('/opt/'));
+});
+
+test('source-integrity guard enters only explicit recent or expert modes', () => {
+  const id = 'source-integrity-interference-guard';
+  for (const mode of ['minimal', 'recommended', 'contextual']) {
+    const result = run(['scripts/installer_option_router.js', 'profiles/example-dev-node.json', `--mode=${mode}`, '--json']);
+    assert.strictEqual(result.status, 0, result.stderr);
+    const plan = JSON.parse(result.stdout);
+    assert(!plan.included.some(capability => capability.id === id), mode);
+    assert(plan.available.some(capability => capability.id === id), mode);
+  }
+  for (const mode of ['recent', 'expert']) {
+    const result = run(['scripts/installer_option_router.js', 'profiles/example-dev-node.json', `--mode=${mode}`, '--json']);
+    assert.strictEqual(result.status, 0, result.stderr);
+    const plan = JSON.parse(result.stdout);
+    assert(plan.included.some(capability => capability.id === id), mode);
+  }
 });
 
 console.log(`OK: ${passed} faculty system tests passed`);

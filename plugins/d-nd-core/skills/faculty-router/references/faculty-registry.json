@@ -1,12 +1,12 @@
 {
   "schema": "dnd.seed.faculty_registry.v1",
-  "version": "2026-07-24",
+  "version": "2026-07-26",
   "scope": "Public-neutral faculty contracts derived from the D-ND workspace; no private state, credentials, runtime topology, or external authority is transferred.",
   "source_inventory": {
     "workspace_faculties": 41,
     "kernel_faculties": 1,
-    "adjacent_workspace_skills": 1,
-    "total": 43,
+    "adjacent_workspace_skills": 2,
+    "total": 44,
     "internal_identity_map_included": false,
     "evidence_status": "maintainer_attested",
     "publicly_reproducible": false
@@ -56,6 +56,7 @@
     "demonstration-learning": "An observation record, inferred method, uncertainty, competence candidate, evaluation, and application gate.",
     "research-lab-operations": "A project-local experiment or operation plan with inputs, runtime boundary, deterministic evidence, and receipt.",
     "operational-noise-control": "A smaller decisive source set, residue classification, preserved evidence, and lower-cost next action.",
+    "source-integrity-interference-guard": "A frozen source, instruction-layer inventory, evidence of additions or losses, finite alert, owner-gated cleanup proposal, and reopen condition.",
     "possibility-horizon": "A scenario map with signals, branches, impacts, options, reversible preparations, and evidence triggers.",
     "repository-observation": "A read-only repository diagnosis and minimal retrofit proposal with sources, gaps, boundaries, and first safe move.",
     "public-surface-publication": "A reviewed artifact, target binding, publication gate, expected live effect, verification plan, and delivery receipt.",
@@ -220,6 +221,15 @@
       "public_function": "Reduce context entropy, duplicate state, generated residue, and repeated decision cost while preserving decisive evidence.",
       "bundles": ["foundation", "software"],
       "roles": ["primary", "support"],
+      "portability": "portable_method",
+      "effect_class": "reasoning_only"
+    },
+    {
+      "id": "source-integrity-interference-guard",
+      "title": "Source Integrity Interference Guard",
+      "public_function": "Preserve exact source and expose instruction-layer interference, silent normalization, authority drift, and reversible cleanup boundaries.",
+      "bundles": ["foundation", "software", "interaction"],
+      "roles": ["primary", "support", "learning"],
       "portability": "portable_method",
       "effect_class": "reasoning_only"
     },

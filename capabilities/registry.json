@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.capability_registry.v1",
-  "version": "2026-07-25",
+  "version": "2026-07-26",
   "policy": "docs/installer_option_router.md",
   "capabilities": [
     {
@@ -2854,7 +2854,7 @@
       "superseded_by": null,
       "requires": [],
       "conflicts_with": [],
-      "why": "Provides one self-contained, opt-in public-neutral router over 43 bounded D-ND faculty contracts without transferring private adapters, state, or authority.",
+      "why": "Provides one self-contained, opt-in public-neutral router over 44 bounded D-ND faculty contracts without transferring private adapters, state, or authority.",
       "agent_support": {
         "claude-code": {
           "status": "native"
@@ -2905,6 +2905,51 @@
         },
         "codex": {
           "status": "documented"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
+    },
+    {
+      "id": "source-integrity-interference-guard",
+      "type": "skill",
+      "path": "plugins/d-nd-core/skills/source-integrity-interference-guard",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "dev-node",
+        "team"
+      ],
+      "intents": [
+        "source-integrity",
+        "prompt-injection",
+        "instruction-routing",
+        "cleanup",
+        "verification"
+      ],
+      "risk": "safe",
+      "visibility": "optional",
+      "introduced": "2026-07-26",
+      "reviewed": "2026-07-26",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [],
+      "conflicts_with": [],
+      "why": "Preserves exact source, exposes instruction-layer drift and prepares owner-gated reversible cleanup without bypassing policy or mutating automatically.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
         },
         "cursor": {
           "status": "documented"

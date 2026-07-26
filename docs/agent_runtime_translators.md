@@ -68,7 +68,7 @@ When Codex enters a Seed-enabled repo:
 5. Read `.claude/skills/*/SKILL.md` as capability manuals, not as automatic
    native skill activation.
    If `faculty-router` is present, read its bundled registry and select one
-   primary faculty with bounded support rather than treating all 43 contracts
+   primary faculty with bounded support rather than treating all 44 contracts
    as active.
 6. Treat `.claude/hooks/*.sh` as executable reference workflows. Do not assume
    they have fired automatically.
