@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.capability_registry.v1",
-  "version": "2026-07-26",
+  "version": "2026-07-31",
   "policy": "docs/installer_option_router.md",
   "capabilities": [
     {
@@ -1061,7 +1061,7 @@
       "risk": "safe",
       "visibility": "recommended",
       "introduced": "2026-06-12",
-      "reviewed": "2026-06-12",
+      "reviewed": "2026-07-31",
       "supersedes": [],
       "superseded_by": null,
       "requires": [
@@ -2654,7 +2654,7 @@
       "risk": "safe",
       "visibility": "optional",
       "introduced": "2026-06-28",
-      "reviewed": "2026-06-28",
+      "reviewed": "2026-07-31",
       "supersedes": [],
       "superseded_by": null,
       "requires": [
@@ -2893,7 +2893,7 @@
       "risk": "safe",
       "visibility": "optional",
       "introduced": "2026-07-25",
-      "reviewed": "2026-07-25",
+      "reviewed": "2026-07-31",
       "supersedes": [],
       "superseded_by": null,
       "requires": [],

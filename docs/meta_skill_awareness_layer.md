@@ -107,3 +107,44 @@ compatible with Codex, Claude Code, Cursor and generic AI coders.
 
 It may become recommended later only after repeated use proves that it reduces
 confusion without adding excessive latency.
+
+## Update Discovery
+
+An installation must distinguish the public-neutral core, any separately
+authorized private overlay and its own node adapter. Seed is authoritative only
+for the public-neutral core.
+
+```text
+public core:
+  this repository and capabilities/meta-skill-update-index.v1.json
+
+private overlay:
+  separate owner-selected source; never inferred or fetched by Seed
+
+node adapter:
+  local identity, paths, runtime boundaries and temporal state
+```
+
+Check the update index after an explicit request, an accepted meta-evolution
+event, a coordination packet, or when the local 24-hour freshness window has
+expired at boot. The check is read-only and returns `current`,
+`update_available`, `incompatible` or `unknown`. It does not install, merge,
+publish or grant authority.
+
+## Emergence Capture
+
+When a node recognizes an autological, autopoietic or meta-instructional
+improvement, it should always preserve a local candidate before closure. This
+is `mandatory capture, optional promotion`:
+
+```text
+recognized emergence
+-> node-local candidate with evidence, scope, privacy and owner
+-> local verification
+-> optional private integration
+-> optional neutral Seed candidate
+```
+
+Seed receives only the reviewed neutral invariant through the existing Seed
+freshness candidate contract. It never receives private state, topology,
+identity, authority or raw node memory.

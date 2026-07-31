@@ -143,6 +143,12 @@ chat memory or stale session context.
 
 Track each candidate improvement until it is proven or rejected.
 
+For an explicitly recognized autological, autopoietic or meta-instructional
+emergence, candidate capture is required before closure even when promotion is
+deferred. The node-local candidate must name evidence, scope, privacy, affected
+competence and owner. This requirement preserves the emergence; it does not
+authorize a Seed change or self-rewrite.
+
 Shape:
 
 ```text

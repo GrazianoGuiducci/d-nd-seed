@@ -81,3 +81,26 @@ integrated: registry/docs/tests and receipt identify the accepted delta
 ```
 
 Only `integrated` capability entries are publicly available Seed inventory.
+
+## Meta-Skill Channel Index
+
+The neutral Meta Skill layer publishes a small, machine-readable freshness
+index at `capabilities/meta-skill-update-index.v1.json`. A node may compare its
+installed public contract versions with that index when a relevant event occurs
+or its 24-hour read-only freshness window expires.
+
+The index covers only Seed-owned public-neutral capabilities. It does not
+advertise, locate or authorize a private organization overlay. Fetch, install,
+target writes, canonical-source updates, publication and push remain separate
+actions.
+
+Node-side emergence uses the complementary invariant:
+
+```text
+mandatory local capture;
+optional owner-reviewed private integration;
+optional neutral Seed promotion.
+```
+
+Do not make every observation a registry diff. Seed sees only a validated,
+neutralized candidate produced through the existing candidate contract.

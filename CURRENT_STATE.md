@@ -1,7 +1,22 @@
 # d-nd-seed Current State
 
-updated: 2026-07-26
-status: source-integrity recent candidate validated and published on source main
+updated: 2026-07-31
+status: source-integrity published plus validated Meta Skill update-channel candidate
+
+```text
+local_candidate:
+  public-neutral Meta Skill update index, 24-hour read-only freshness fallback
+  and mandatory-capture/optional-promotion invariant.
+
+boundary:
+  the index owns only the public-neutral channel. It does not expose or locate
+  a private overlay, install updates, mutate a target, publish or push.
+
+validation_state:
+  the source-integrity capability remains in the published baseline. Registry
+  strict coverage, candidate tests, reconciliation tests, JSON parse and diff
+  checks passed for the Meta Skill channel; publication remains a separate gate.
+```
 
 ```text
 active_surface:
