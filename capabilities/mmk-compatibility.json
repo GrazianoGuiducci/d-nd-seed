@@ -1,13 +1,13 @@
 {
   "schema": "dnd.seed.mmk_compatibility.v1",
   "status": "local_candidate_unreleased",
-  "updated": "2026-07-26",
+  "updated": "2026-07-31",
   "scope": "MMK-native consumption classification; not a global install, removal, or release decision",
   "inventory": {
     "path": "capabilities/registry.json",
     "schema": "dnd.seed.capability_registry.v1",
-    "version": "2026-07-26",
-    "sha256": "0138cef75df16ef2b753ca808b5804410df7d9118f9d21aae6379dc39d02bce1",
+    "version": "2026-07-31",
+    "sha256": "402d90290a91f6bfbf73f59c600a76eb9ce0ad4c00889a5a2869065e079d319c",
     "source_hash_policy": "sha256-tree-v1-computed-at-plan-time"
   },
   "consumer_mappings": {
