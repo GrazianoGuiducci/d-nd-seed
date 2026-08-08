@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.faculty_registry.v1",
-  "version": "2026-07-26",
+  "version": "2026-08-08",
   "scope": "Public-neutral faculty contracts derived from the D-ND workspace; no private state, credentials, runtime topology, or external authority is transferred.",
   "source_inventory": {
     "workspace_faculties": 41,
@@ -55,7 +55,7 @@
     "design-element-routing": "A justified pattern and primitive selection tied to user task, state, hierarchy, responsive behavior, and constraints.",
     "demonstration-learning": "An observation record, inferred method, uncertainty, competence candidate, evaluation, and application gate.",
     "research-lab-operations": "A project-local experiment or operation plan with inputs, runtime boundary, deterministic evidence, and receipt.",
-    "operational-noise-control": "A smaller decisive source set, residue classification, preserved evidence, and lower-cost next action.",
+    "operational-noise-control": "A bounded active working set, recoverable cold-memory boundary, persistence-admission decision, preserved evidence, and lower-cost next action.",
     "source-integrity-interference-guard": "A frozen source, instruction-layer inventory, evidence of additions or losses, finite alert, owner-gated cleanup proposal, and reopen condition.",
     "possibility-horizon": "A scenario map with signals, branches, impacts, options, reversible preparations, and evidence triggers.",
     "repository-observation": "A read-only repository diagnosis and minimal retrofit proposal with sources, gaps, boundaries, and first safe move.",
@@ -76,7 +76,7 @@
     "semantic-bridge": "A simplifying semantic relation with preserved identities, scope, non-equivalences, downstream uses, and failure test.",
     "communication-design": "A public communication contract aligning product truth, copy, hierarchy, navigation, metadata, actions, and review gate.",
     "personal-workflow-administration": "A private obligation and evidence summary, drafted response or plan, missing data, deadlines, and no-send boundary.",
-    "meta-skill-routing": "A faculty architecture with entity, plane, role, relation, mutation, gate, receipt, and reusable delta placement.",
+    "meta-skill-routing": "A faculty architecture with entity, plane, role, relation, immediate coherent-axiom reach, native incarnation, mutation gate, receipt, and reusable delta placement.",
     "meta-skill-presence": "A compact cross-surface check that prevents identity, authority, state, source, and execution from being fused.",
     "browser-assistance": "A verified browser-surface snapshot, source/destination distinction, staged action, submission gate, and visible-state receipt.",
     "archive-retrieval": "A bounded source digest with provenance, reusable mechanism, present-authority limit, destination, and promotion decision.",
@@ -218,7 +218,7 @@
     {
       "id": "operational-noise-control",
       "title": "Operational Noise Control",
-      "public_function": "Reduce context entropy, duplicate state, generated residue, and repeated decision cost while preserving decisive evidence.",
+      "public_function": "Separate active attention from recoverable cold memory, admit durable state only when it changes future behavior, proof, recovery or reentry, and preserve decisive evidence without recurring context cost.",
       "bundles": ["foundation", "software"],
       "roles": ["primary", "support"],
       "portability": "portable_method",
@@ -408,7 +408,7 @@
     {
       "id": "meta-skill-routing",
       "title": "Meta-Skill Routing",
-      "public_function": "Architect and route faculties, competences, project kernels, public capability packages, update candidates, and receipts.",
+      "public_function": "Architect and route faculties, competences, project kernels, public capability packages, update candidates and receipts; let coherent invariants act across every relevant relation now while exact effects retain their gates.",
       "bundles": ["foundation"],
       "roles": ["binder", "primary"],
       "portability": "adapted_contract",

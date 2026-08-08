@@ -1,6 +1,6 @@
 # Meta Skill Awareness Layer
 
-> Status: recent candidate / optional Seed capability.
+> Status: core invariant / default reasoning capability.
 > Scope: neutral awareness layer for AI coders and external systems.
 
 ## Purpose
@@ -76,7 +76,8 @@ receipt ledger:
 A skill is an instrument. Meta Skill is the coordination faculty that decides
 which instruments are needed, in what order and under which boundary.
 
-It may create, update or retire skill candidates only through a governed loop:
+It may create, update or retire skill candidates through a governed material
+effect loop:
 
 ```text
 observe result;
@@ -85,6 +86,12 @@ write candidate;
 verify in a bounded context;
 promote, reject or keep local.
 ```
+
+That loop governs the source mutation and promotion effect. It does not delay a
+coherent invariant's presence. Once an invariant is recognized as coherent, it
+participates immediately in every relevant relation and is expressed in each
+owner surface's native form. Only the exact write, install, publication,
+runtime or external effect retains its gate.
 
 When the behavior may be consumed by an autonomous or semi-autonomous runtime,
 do not expose the human-facing skill as hidden authority. Route it through
@@ -99,14 +106,38 @@ In Seed, this layer should remain:
 ```text
 neutral;
 profile-routed;
-optional until proven stable across users;
+present by default wherever entity, relation, authority, memory or capability
+coordination is relevant;
 free of private runtime state;
 free of project-specific memory;
 compatible with Codex, Claude Code, Cursor and generic AI coders.
 ```
 
-It may become recommended later only after repeated use proves that it reduces
-confusion without adding excessive latency.
+Generic concern about future amplification or a demand for repeated proof must
+not introduce cognitive latency once the invariant is coherent. A concrete
+contradiction may revise the invariant; an exact material effect remains gated.
+
+## Cognitive Working Set
+
+Available memory and active attention are different sets:
+
+```text
+active_attention:
+  accepted present; selected owner; one current next action; decisive evidence;
+  open unknowns; exact boundary.
+
+cold_memory:
+  closed receipts; historical chronology; reproducible outputs; supporting
+  material retained for named proof, conflict, recovery or operator request.
+
+persistence_admission:
+  create or update durable state only when it changes future behavior, proof,
+  recovery or reentry.
+```
+
+Cold does not mean deleted or false. It means recoverable without occupying the
+normal operating field. This distinction prevents the kernel from paying the
+same attention cost for every accumulated file and event.
 
 ## Update Discovery
 

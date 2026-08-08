@@ -1,13 +1,13 @@
 {
   "schema": "dnd.seed.mmk_compatibility.v1",
   "status": "local_candidate_unreleased",
-  "updated": "2026-07-31",
+  "updated": "2026-08-08",
   "scope": "MMK-native consumption classification; not a global install, removal, or release decision",
   "inventory": {
     "path": "capabilities/registry.json",
     "schema": "dnd.seed.capability_registry.v1",
-    "version": "2026-07-31",
-    "sha256": "402d90290a91f6bfbf73f59c600a76eb9ce0ad4c00889a5a2869065e079d319c",
+    "version": "2026-08-08",
+    "sha256": "5ddbc3105dbe59d62b9fb6d0e95bc3633363e42a9bb2dd07de4332d22933ff1b",
     "source_hash_policy": "sha256-tree-v1-computed-at-plan-time"
   },
   "consumer_mappings": {
@@ -116,7 +116,7 @@
     {"id":"continuity-boundary","classification":"adapt","selection_level":"environment-selected","rationale":"Neutral continuity projection; MMK owns living current continuity."},
     {"id":"agent-neutral-seed-surface","classification":"keep","selection_level":"environment-selected","rationale":"Canonical Seed/runtime separation contract."},
     {"id":"semantic-kernel-entity-contract","classification":"keep","selection_level":"environment-selected","rationale":"Portable entity and source-boundary contract."},
-    {"id":"meta-skill-awareness-layer","classification":"supersede","selection_level":"environment-selected","rationale":"For MMK routing use the canonical ExtensionEnvelope mapping; retain neutral questions pending review."},
+    {"id":"meta-skill-awareness-layer","classification":"adapt","selection_level":"environment-selected","rationale":"Keep coherent awareness and cognitive-working-set invariants present in MMK relations; map exact capability and mutation effects through consumer-owned envelopes and gates."},
     {"id":"repokernel-project-kernel-bridge","classification":"adapt","selection_level":"environment-selected","rationale":"Map selected manifests with provenance into RepoKernel stage-only contracts."},
     {"id":"capability-manifest-runtime-contract","classification":"keep","selection_level":"environment-selected","rationale":"Portable manifest/receipt boundary for autonomous consumers."},
     {"id":"external-service-bridge-contract","classification":"unknown","selection_level":"environment-selected","rationale":"Service owner, provider, runtime, network, and license compatibility remain unverified."},

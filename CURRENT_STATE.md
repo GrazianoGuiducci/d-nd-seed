@@ -1,21 +1,24 @@
 # d-nd-seed Current State
 
-updated: 2026-07-31
-status: source-integrity published plus validated Meta Skill update-channel candidate
+updated: 2026-08-08
+status: coherent-axiom propagation and cognitive working-set capability integrated locally; publication remains separate
 
 ```text
 local_candidate:
-  public-neutral Meta Skill update index, 24-hour read-only freshness fallback
-  and mandatory-capture/optional-promotion invariant.
+  public-neutral Meta Skill awareness is now a core/default reasoning invariant;
+  it includes immediate coherent-axiom presence, owner-native incarnation,
+  active-attention versus cold-memory separation and persistence admission.
 
 boundary:
   the index owns only the public-neutral channel. It does not expose or locate
-  a private overlay, install updates, mutate a target, publish or push.
+  a private overlay, install updates, mutate a target, publish or push. These
+  exact effects remain gated without limiting the invariant's cognitive reach.
 
 validation_state:
-  the source-integrity capability remains in the published baseline. Registry
-  strict coverage, candidate tests, reconciliation tests, JSON parse and diff
-  checks passed for the Meta Skill channel; publication remains a separate gate.
+  68/68 capability registry coverage validates with two declared reference-only
+  warnings; 44/44 faculty contracts validate; faculty 13/13, candidate 5/5,
+  reconciliation 11/11, MMK 15/15 and installer safety 24/24 pass. Publication
+  and consumer source-lock advancement remain separate effects.
 ```
 
 ```text
@@ -23,9 +26,8 @@ active_surface:
   d-nd-seed public capability inventory and portable distribution contracts.
 
 current_next:
-  no further repository mutation is required for this work unit. Evaluate
-  behavior only in an explicitly selected consumer host after its own loading
-  and effect gates. Treat seed.d-nd.com as a separate owner surface.
+  let the core invariant participate in every relevant Seed relation now;
+  publish or install only through their separately selected owner gates.
 
 preserved_angle:
   Seed transfers reusable public-neutral methods, not the originating system's
@@ -72,8 +74,8 @@ residue_not_to_follow:
   external consumer adoption and the Seed landing are separate owner surfaces.
 
 first_safe_action:
-  stop source mutation. A consuming host may explicitly select and test the
-  candidate without turning presence into automatic installation or cleanup.
+  validate the local public-neutral incarnation and update index without
+  installing into a consumer or touching seed.d-nd.com.
 
 validation_needed:
   fresh-process host routing, external runtime adoption and seed.d-nd.com

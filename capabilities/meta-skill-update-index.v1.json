@@ -1,7 +1,7 @@
 {
   "schema": "dnd.seed.meta-skill-update-index.v1",
   "contract_version": "1.0.0",
-  "updated": "2026-07-31",
+  "updated": "2026-08-08",
   "channel": "public-neutral",
   "repository": "https://github.com/GrazianoGuiducci/d-nd-seed.git",
   "branch": "main",
@@ -10,7 +10,7 @@
     {
       "id": "meta-skill-awareness-layer",
       "path": "docs/meta_skill_awareness_layer.md",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     {
       "id": "governed-self-improvement",

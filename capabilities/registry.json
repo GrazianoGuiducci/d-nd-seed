@@ -1,6 +1,6 @@
 {
   "schema": "dnd.seed.capability_registry.v1",
-  "version": "2026-07-31",
+  "version": "2026-08-08",
   "policy": "docs/installer_option_router.md",
   "capabilities": [
     {
@@ -1041,8 +1041,8 @@
       "id": "governed-self-improvement",
       "type": "doc",
       "path": "docs/governed_self_improvement.md",
-      "stratum": "recent_candidate",
-      "maturity": "candidate",
+      "stratum": "core_invariant",
+      "maturity": "established",
       "profiles": [
         "coder",
         "researcher",
@@ -1281,7 +1281,7 @@
         "awareness"
       ],
       "risk": "safe",
-      "visibility": "optional",
+      "visibility": "default",
       "introduced": "2026-06-01",
       "reviewed": "2026-06-01",
       "supersedes": [],
@@ -2654,7 +2654,7 @@
       "risk": "safe",
       "visibility": "optional",
       "introduced": "2026-06-28",
-      "reviewed": "2026-07-31",
+      "reviewed": "2026-08-08",
       "supersedes": [],
       "superseded_by": null,
       "requires": [
@@ -2662,7 +2662,7 @@
         "semantic-kernel-entity-contract"
       ],
       "conflicts_with": [],
-      "why": "Adds a neutral awareness layer for recognizing entities, surfaces, roles, authority and next safe action before an AI coder mutates a system.",
+      "why": "Keeps coherent entity, surface, relation, authority and cognitive-working-set invariants present across every relevant reasoning relation while exact material effects remain owner-gated.",
       "agent_support": {
         "claude-code": {
           "status": "documented"
