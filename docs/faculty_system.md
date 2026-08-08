@@ -26,8 +26,11 @@ faculty_plan.js
 
 The router is deliberately one skill. Installing 44 overlapping trigger files
 would increase context noise and make accidental multi-activation more likely.
-The registry keeps the deeper field inspectable while the router selects one
-primary faculty and no more than three support faculties for a task.
+The registry keeps the deeper field inspectable while the router selects the
+smallest coherent faculty composition for the task. One primary faculty with
+up to three supports is the normal compact profile, not a universal ceiling;
+co-primary and wider support relations remain available when they materially
+change the resultant.
 
 ## What Was Transferred
 

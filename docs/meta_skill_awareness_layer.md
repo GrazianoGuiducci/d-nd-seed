@@ -123,8 +123,9 @@ Available memory and active attention are different sets:
 
 ```text
 active_attention:
-  accepted present; selected owner; one current next action; decisive evidence;
-  open unknowns; exact boundary.
+  accepted present; selected owner; smallest decision-relevant movement set;
+  decisive evidence; open unknowns; exact boundary. One action is a compact
+  default when the field supports it, not a ceiling.
 
 cold_memory:
   closed receipts; historical chronology; reproducible outputs; supporting

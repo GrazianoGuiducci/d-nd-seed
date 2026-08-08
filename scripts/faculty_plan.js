@@ -95,7 +95,7 @@ function main() {
     gates_required: [...new Set(gated.map(faculty => faculty.effect_class))],
     activates_faculties: false,
     writes_files: false,
-    next: 'Choose one primary faculty and no more than three support faculties, then apply the target project and runtime gates.'
+    next: 'Choose the smallest coherent faculty composition; one primary with up to three supports is the normal compact profile, not a ceiling. Then apply the target project and runtime gates.'
   };
 
   if (process.argv.includes('--json')) console.log(JSON.stringify(result, null, 2));

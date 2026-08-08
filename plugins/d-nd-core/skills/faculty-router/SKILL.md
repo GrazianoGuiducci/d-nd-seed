@@ -1,6 +1,6 @@
 ---
 name: faculty-router
-description: Select and coordinate the smallest useful palette from the public D-ND faculty registry. Use when a task crosses skills, competences, repositories, products, research, design, business, external systems, authority boundaries, or when the user asks what capabilities should be installed or combined. Route one primary faculty with bounded support; never activate every faculty at once.
+description: Select and coordinate the smallest useful palette from the public D-ND faculty registry. Use when a task crosses skills, competences, repositories, products, research, design, business, external systems, authority boundaries, or when the user asks what capabilities should be installed or combined. Route the smallest coherent faculty composition; never activate faculties that do not change the result.
 ---
 
 # Faculty Router
@@ -13,8 +13,10 @@ the user. Read `references/faculty-registry.json` before routing.
 Start from the useful result the user needs. Then select:
 
 ```text
-one primary faculty
-+ zero to three support faculties
+one primary faculty as the normal compact profile, or co-primary faculties
+  when the object requires them
++ the smallest result-changing support set (zero to three is the normal profile,
+  not a ceiling)
 + one surface adapter when a specific UI, repository, runtime or channel owns truth
 + one learning faculty only when the work creates a reusable correction
 ```
@@ -76,7 +78,8 @@ validation. Selection never implies activation.
 
 1. Identify runtime, project surface, requested result and effect boundary.
 2. Use the registry or `scripts/faculty_plan.js` to inspect a bundle or faculty.
-3. Select one primary faculty and bounded support.
+3. Select the smallest coherent composition; use the compact one-primary
+   profile when it holds, without treating its count as a ceiling.
 4. Read the target project's own instructions and current state.
 5. Perform only the action authorized by that project and runtime.
 6. Validate the result and preserve only a reusable, source-linked delta.

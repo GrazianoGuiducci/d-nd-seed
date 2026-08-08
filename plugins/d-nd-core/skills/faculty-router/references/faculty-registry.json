@@ -13,7 +13,7 @@
   },
   "policy": {
     "automatic_activation": false,
-    "selection_model": "one_primary_plus_bounded_support",
+    "selection_model": "situated_smallest_coherent_palette",
     "authority_ceiling": "method_and_plan_only",
     "private_adapter_code_included": false,
     "source_runtime_state_included": false,

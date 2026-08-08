@@ -95,6 +95,7 @@ test('bundle planning is read-only and machine-readable', () => {
   assert(plan.selected.every(faculty => typeof faculty.result_contract === 'string'));
   assert.strictEqual(plan.activates_faculties, false);
   assert.strictEqual(plan.writes_files, false);
+  assert(plan.next.includes('not a ceiling'));
 });
 
 test('list output exposes public functions and result contracts', () => {
