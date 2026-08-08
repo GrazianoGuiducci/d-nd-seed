@@ -1,7 +1,7 @@
 # d-nd-seed Current State
 
 updated: 2026-08-08
-status: possibility-evolution recursion integrated locally in the public-neutral awareness and faculty surfaces
+status: possibility-evolution recursion published in the public-neutral awareness and faculty surfaces
 
 ## Possibility-Evolution Recursion — 2026-08-08
 
@@ -25,9 +25,10 @@ validation:
   registry 44/44 and faculty system 14/14; candidate 5/5; reconciliation
   11/11; MMK 15/15; installer safety 24/24; faculty-router quick-valid;
 current_next:
-  review and publish the owner source, then include its exact revision in the
-  next immutable TMx bundle. Release, site update and consumer installation
-  remain separate effects.
+  use d-nd-seed main at 22fca6d59d327d934100feae7bc31dcf21fe8118 as
+  the public-neutral source. The internal TMx incarnation is published as
+  core_tmx 2026.08.08.5; site update and consumer installation remain separate
+  effects.
 ```
 
 ## Previous youtube-transcript movement — superseded as current authority
