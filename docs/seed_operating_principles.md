@@ -150,6 +150,16 @@ Before collapsing to a plan, expose the field:
 This applies A16 operationally: an event is not only an outcome; it is the
 collapse of potential through conditions into possible/non-possible.
 
+Before accepting a material movement, also ask whether it limits the
+possibilities or evolution of the system it produces, now or in a later resulting state. Project the causally
+relevant resulting states and distinguish possibilities opened, preserved,
+constrained or eliminated. Classify every closure by its real basis; correct
+agent-introduced closures and re-examine the resulting state while another
+decision-relevant closure emerges. Stop when another pass changes no material
+relation. This does not invalidate necessary invariants, verified limits,
+effect gates or deliberate operator choices, and it does not require every
+branch to remain active.
+
 ## 12. Installer Boundary
 
 The installer should know only what helps a new node become coherent.

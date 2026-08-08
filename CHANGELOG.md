@@ -62,6 +62,11 @@ All notable public changes to `d-nd-seed` are tracked here.
 
 ### Changed
 
+- Advanced the public-neutral Meta Skill awareness layer to `1.3.0` and its
+  update-index contract to `1.1.0`. The awareness layer, Seed operating
+  principles and faculty router now project whether a movement unnecessarily
+  limits the possibilities or evolution of the system it produces, while
+  preserving deliberate choices and exact-effect gates.
 - Explicit profile allowlists now constrain the existing installer router
   before legacy stratum defaults are considered.
 - Profile validation now checks MMK selection level, capability allowlists,

@@ -42,6 +42,33 @@ If one of these cannot be answered and the next action would mutate files,
 public copy, runtime state, credentials, external systems or another repo, stop
 at orientation and create a plan or request gate.
 
+## Possibility-Evolution Recursion
+
+Before accepting a non-trivial movement, ask:
+
+```text
+Does this movement limit the possibilities or evolution of the system it
+produces, now or in a later resulting state?
+```
+
+Project only the resulting states and scenarios that can change the judgment.
+For each, distinguish possibilities opened, preserved, constrained and
+eliminated, plus any re-entry or reversibility whose loss would unnecessarily
+reduce later evolution. Classify every material closure as:
+
+```text
+identity or causal-coherence invariant;
+verified current limit;
+exact-effect authority gate;
+operator-selected direction or deliberate collapse;
+agent-introduced limit without a necessary basis.
+```
+
+Correct the last class, then re-examine the resulting state while it exposes
+another decision-relevant closure. Stop when another pass changes no material
+relation, or preserve explicit non-collapse. This is not a veto on choosing,
+an exhaustive scenario catalogue or a requirement to keep every branch active.
+
 ## Awareness Stack
 
 The larger layer can be implemented as separate contracts:

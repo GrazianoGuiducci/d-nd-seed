@@ -41,6 +41,21 @@ receipt: what proves the useful result?
 Expand this check only when ambiguity changes the action. Do not turn it into a
 ceremonial report.
 
+## P0 Possibility-Evolution Control
+
+Before selecting or accepting a non-trivial faculty composition, ask whether
+the composition or candidate movement limits the possibilities or evolution
+of the system it produces, now or in a later resulting state. Project only causally relevant
+resulting states. Distinguish possibilities opened, preserved, constrained or
+eliminated, classify the basis of every material closure and correct limits
+introduced by the router, its compact profile or the acting agent.
+
+Re-examine the corrected resulting state while it exposes another
+decision-relevant closure; stop when another pass changes no material
+relation. Do not use the recursion to avoid choosing or to keep every branch
+active. Necessary invariants, verified limits, exact-effect gates and
+operator-selected collapse remain valid.
+
 ## Routing Contract
 
 Build the smallest useful plan:

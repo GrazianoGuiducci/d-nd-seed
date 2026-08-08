@@ -1,7 +1,36 @@
 # d-nd-seed Current State
 
 updated: 2026-08-08
-status: portable youtube-transcript capability committed locally; push and VPS installation await explicit effect approval
+status: possibility-evolution recursion integrated locally in the public-neutral awareness and faculty surfaces
+
+## Possibility-Evolution Recursion — 2026-08-08
+
+```text
+source:
+  operator correction neutralized through the Meta Skill awareness owner;
+result:
+  the default awareness layer, Seed operating principles and faculty router now
+  ask whether a candidate movement makes the resulting system limit its
+  possibilities or evolution. They project only causally relevant states,
+  distinguish possibilities opened, preserved, constrained or eliminated and
+  recurse while a new decision-relevant agent-introduced closure appears;
+non_limit:
+  the recursion stops when another pass changes no material relation. It is not
+  a veto on choosing and preserves necessary invariants, verified limits,
+  exact-effect gates and operator-selected collapse;
+version_delta:
+  public-neutral meta-skill-awareness-layer 1.3.0; update-index contract 1.1.0;
+validation:
+  capability registry 69/69 with one declared reference-only warning; faculty
+  registry 44/44 and faculty system 14/14; candidate 5/5; reconciliation
+  11/11; MMK 15/15; installer safety 24/24; faculty-router quick-valid;
+current_next:
+  review and publish the owner source, then include its exact revision in the
+  next immutable TMx bundle. Release, site update and consumer installation
+  remain separate effects.
+```
+
+## Previous youtube-transcript movement — superseded as current authority
 
 ```text
 local_candidate:

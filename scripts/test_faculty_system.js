@@ -132,6 +132,23 @@ test('installed router points to the bundled registry', () => {
   assert(skill.includes('references/faculty-registry.json'));
 });
 
+test('portable routing carries possibility-evolution recursion without making it a veto', () => {
+  const skillPath = path.join(root, 'plugins', 'd-nd-core', 'skills', 'faculty-router', 'SKILL.md');
+  const skill = fs.readFileSync(skillPath, 'utf8');
+  const awareness = fs.readFileSync(path.join(root, 'docs', 'meta_skill_awareness_layer.md'), 'utf8');
+  const principles = fs.readFileSync(path.join(root, 'docs', 'seed_operating_principles.md'), 'utf8');
+  const possibility = registry.faculties.find(item => item.id === 'possibility-horizon');
+  const meta = registry.faculties.find(item => item.id === 'meta-skill-routing');
+
+  assert(skill.includes('P0 Possibility-Evolution Control'));
+  assert(skill.includes('another pass changes no material'));
+  assert(awareness.includes('system it'));
+  assert(awareness.includes('not a veto on choosing'));
+  assert(principles.includes('system it produces'));
+  assert(possibility.public_function.includes('later possibility and evolution'));
+  assert(meta.public_function.includes('recursively remove agent-introduced limits'));
+});
+
 test('source-integrity guard is opt-in, bounded, and publicly neutral', () => {
   const capabilityRegistry = JSON.parse(fs.readFileSync(path.join(root, 'capabilities', 'registry.json'), 'utf8'));
   const capability = capabilityRegistry.capabilities.find(item => item.id === 'source-integrity-interference-guard');
