@@ -61,6 +61,11 @@ contracts. It transfers the reusable methods of the current D-ND competence
 field without copying private adapters, runtime state, credentials, local
 paths, client data, or authority.
 
+Seed also includes the opt-in `youtube-transcript` skill: a self-contained
+Python extractor with structured JSON output, isolated dependency setup,
+offline tests, and no Google OAuth or YouTube API key requirement. Network
+availability and downstream use remain consumer-owned gates.
+
 The simple entry is:
 
 ```bash

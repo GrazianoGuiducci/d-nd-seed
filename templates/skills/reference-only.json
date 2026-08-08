@@ -3,11 +3,6 @@
   "reviewed": "2026-05-31",
   "items": [
     {
-      "path": "templates/skills/youtube-transcript",
-      "reason": "Reference template only: it depends on a project-local tools/youtube_transcript.js implementation that is not packaged by Seed.",
-      "reviewed": "2026-05-31"
-    },
-    {
       "path": "templates/skills/geo-seo",
       "reason": "Reference tool bundle only: it writes public web artifacts and includes nginx runtime guidance, so it needs an explicit promotion package before installer exposure.",
       "reviewed": "2026-05-31"

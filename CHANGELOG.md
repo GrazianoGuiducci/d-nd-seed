@@ -6,6 +6,13 @@ All notable public changes to `d-nd-seed` are tracked here.
 
 ### Added
 
+- Promoted `youtube-transcript` from a project-bound reference template to an
+  opt-in, self-contained public-neutral skill with a stable JSON contract,
+  cross-platform instructions, isolated dependency setup, offline tests, and
+  explicit network/failure boundaries. It requires no Google OAuth or API key.
+- Registered the skill as a network-using recent candidate and added its MMK
+  disposition. Selection never implies dependency installation, ingestion,
+  project mutation, publication, cookies, proxy use, or access-control bypass.
 - Added provenance-aware core-skill reconciliation shared by
   `install.sh --update` and `update.sh`: deterministic tree hashes, atomic whole-directory
   replacement for unchanged baselines, review staging for modified or unknown

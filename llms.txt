@@ -36,6 +36,9 @@ Key guides:
   condensates, bounded implementation plans and testable local rules.
 - One installable faculty router exposes 44 public-neutral competence contracts
   across 7 discovery bundles without transferring private adapters or authority.
+- The opt-in youtube-transcript skill packages transcript extraction, a stable
+  JSON contract, dependency declaration and offline tests without Google OAuth,
+  API keys, project-local paths or automatic downstream writes.
 - Provenance-aware skill reconciliation updates unchanged installed skills
   atomically and stages user-modified or unknown baselines for review.
 - The Seed freshness protocol converts validated source changes into neutral

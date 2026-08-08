@@ -7,7 +7,7 @@
     "path": "capabilities/registry.json",
     "schema": "dnd.seed.capability_registry.v1",
     "version": "2026-08-08",
-    "sha256": "5ddbc3105dbe59d62b9fb6d0e95bc3633363e42a9bb2dd07de4332d22933ff1b",
+    "sha256": "1407afd349a5ddf534804dfaa340695f25fc94baab855f87b33532c89391d010",
     "source_hash_policy": "sha256-tree-v1-computed-at-plan-time"
   },
   "consumer_mappings": {
@@ -122,6 +122,7 @@
     {"id":"external-service-bridge-contract","classification":"unknown","selection_level":"environment-selected","rationale":"Service owner, provider, runtime, network, and license compatibility remain unverified."},
     {"id":"faculty-router","classification":"keep","selection_level":"environment-selected","rationale":"Public-neutral method catalog and read-only routing contract; no private adapter, activation, or authority transfer."},
     {"id":"seed-freshness-protocol","classification":"keep","selection_level":"environment-selected","rationale":"Deterministic candidate intake and review gates; no automatic registry mutation, publication, or authority transfer."},
-    {"id":"source-integrity-interference-guard","classification":"adapt","selection_level":"environment-selected","rationale":"Preserve source and alert semantics; the consumer owns its instruction hierarchy, evidence, cleanup gate and behavioral validation."}
+    {"id":"source-integrity-interference-guard","classification":"adapt","selection_level":"environment-selected","rationale":"Preserve source and alert semantics; the consumer owns its instruction hierarchy, evidence, cleanup gate and behavioral validation."},
+    {"id":"youtube-transcript","classification":"unknown","selection_level":"environment-selected","rationale":"Transcript extraction uses the network and depends on current YouTube reachability; the consumer owns dependency installation, host evidence and every downstream write or publication."}
   ]
 }

@@ -672,12 +672,6 @@ for tmpl in "$SCRIPT_DIR"/templates/hooks/*.tmpl; do
     fi
 done
 
-# youtube-transcript is currently reference-only. This branch stays registry-gated
-# so a future promotion cannot bypass the routed install contract.
-if ! skip_unselected "youtube-transcript" "templates/skills/youtube-transcript/SKILL.md.tmpl"; then
-    apply_template "$SCRIPT_DIR/templates/skills/youtube-transcript/SKILL.md.tmpl" "$TARGET/skills/youtube-transcript/SKILL.md"
-fi
-
 # --- Core skills from seed ---
 echo ""
 echo "Installing core skills..."

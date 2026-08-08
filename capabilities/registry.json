@@ -2958,6 +2958,54 @@
           "status": "documented"
         }
       }
+    },
+    {
+      "id": "youtube-transcript",
+      "type": "skill",
+      "path": "plugins/d-nd-core/skills/youtube-transcript",
+      "stratum": "recent_candidate",
+      "maturity": "candidate",
+      "profiles": [
+        "coder",
+        "researcher",
+        "operator",
+        "publisher",
+        "dev-node",
+        "team",
+        "lab",
+        "app-runtime"
+      ],
+      "intents": [
+        "youtube",
+        "transcript",
+        "research",
+        "media-intelligence",
+        "knowledge-intake"
+      ],
+      "risk": "uses_network",
+      "visibility": "optional",
+      "introduced": "2026-08-08",
+      "reviewed": "2026-08-08",
+      "supersedes": [],
+      "superseded_by": null,
+      "requires": [],
+      "conflicts_with": [],
+      "why": "Provides a self-contained, transcript-first YouTube extractor with a stable JSON contract, explicit dependency setup and no Google OAuth, API key, project-local tool path or automatic ingestion.",
+      "agent_support": {
+        "claude-code": {
+          "status": "native"
+        },
+        "codex": {
+          "status": "adapter",
+          "adapter": "docs/agent_runtime_translators.md#codex-reading-claude-surfaces"
+        },
+        "cursor": {
+          "status": "documented"
+        },
+        "generic": {
+          "status": "documented"
+        }
+      }
     }
   ]
 }

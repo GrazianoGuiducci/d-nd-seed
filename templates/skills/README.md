@@ -16,7 +16,8 @@ add it to `templates/skills/reference-only.json` with a reason.
 
 Current reference-only material:
 
-- `youtube-transcript`: depends on a project-local transcript extractor that
-  Seed does not package.
 - `geo-seo`: writes public web artifacts and includes nginx runtime guidance;
   promote only after packaging the skill, tool files and deployment boundary.
+
+`youtube-transcript` was promoted to the self-contained installable package at
+`plugins/d-nd-core/skills/youtube-transcript` on 2026-08-08.
