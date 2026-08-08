@@ -1,24 +1,25 @@
 # d-nd-seed Current State
 
 updated: 2026-08-08
-status: coherent-axiom propagation and cognitive working-set capability integrated locally; publication remains separate
+status: portable youtube-transcript capability committed locally; push and VPS installation await explicit effect approval
 
 ```text
 local_candidate:
-  public-neutral Meta Skill awareness is now a core/default reasoning invariant;
-  it includes immediate coherent-axiom presence, owner-native incarnation,
-  active-attention versus cold-memory separation and persistence admission.
+  youtube-transcript is now a self-contained opt-in Seed skill with a stable
+  JSON contract, pinned dependency, offline tests and no THIA-local path,
+  Google OAuth or YouTube API key requirement.
 
 boundary:
-  the index owns only the public-neutral channel. It does not expose or locate
-  a private overlay, install updates, mutate a target, publish or push. These
-  exact effects remain gated without limiting the invariant's cognitive reach.
+  local source commits exist in THIA and d-nd-seed. Push, consumer installation,
+  VPS runtime mutation and downstream ingestion/publication remain exact
+  separate effects. The VPS /opt/THIA checkout is dirty and must not be pulled,
+  patched or reset from this lane.
 
 validation_state:
-  68/68 capability registry coverage validates with two declared reference-only
-  warnings; 44/44 faculty contracts validate; faculty 13/13, candidate 5/5,
-  reconciliation 11/11, MMK 15/15 and installer safety 24/24 pass. Publication
-  and consumer source-lock advancement remain separate effects.
+  69/69 capability registry coverage validates with one declared reference-only
+  warning; 44/44 faculty contracts validate; transcript 5/5, faculty 13/13,
+  candidate 5/5, reconciliation 11/11, MMK 15/15 and installer safety 24/24
+  pass. A local network smoke extracted 14,147 words from the selected video.
 ```
 
 ```text
@@ -26,8 +27,9 @@ active_surface:
   d-nd-seed public capability inventory and portable distribution contracts.
 
 current_next:
-  let the core invariant participate in every relevant Seed relation now;
-  publish or install only through their separately selected owner gates.
+  after explicit approval, push THIA ef1b857 and Seed 8ccfced plus this state
+  receipt, then install the versioned Seed skill on VPS outside /opt/THIA and
+  verify doctor, offline tests and one public-video transcript.
 
 preserved_angle:
   Seed transfers reusable public-neutral methods, not the originating system's
@@ -36,10 +38,18 @@ preserved_angle:
   publication.
 
 verified_now_or_last_verified:
-  Source capability commit 0d5d132 reached origin/main after an independent GO.
-  It adds the opt-in source-integrity-interference-guard without changing
-  installer defaults.
-  68 capabilities validate with two declared reference-only warnings; all 68
+  Local capability commits are THIA ef1b857 and d-nd-seed 8ccfced. Push was
+  attempted through the canonical ephemeral token path but was not executed
+  because the publication reviewer requires explicit operator approval.
+  The portable skill passes 5/5 offline tests, skill-creator validation and a
+  live local extraction of xgkjtF89-44: English generated captions, 14,147
+  words and 1,980 segments.
+  Source capability commits through
+  5bdecddb1cb60fc74bcc988367aa09f08f97db22 reached origin/main. The published
+  baseline includes the coherent working-set propagation and immutable TMx
+  source relation; this pass corrects the remaining closed count and attention
+  formulations without changing installer defaults.
+  69 capabilities validate with one declared reference-only warning; all 69
   have an MMK disposition. The faculty catalog contains 44 contracts. Faculty
   tests pass 13/13, skill reconciliation 11/11, candidate reduction 5/5,
   installer safety 24/24, MMK 15/15, and the nested kernel 4/4. The reconciler
@@ -53,6 +63,8 @@ verified_now_or_last_verified:
 source_of_truth:
   repository AGENTS.md and this state; capabilities/registry.json;
   capabilities/mmk-compatibility.json; docs/faculty_system.md;
+  plugins/d-nd-core/skills/youtube-transcript/SKILL.md;
+  docs/receipts/YOUTUBE_TRANSCRIPT_LOCAL_RECEIPT_2026-08-08.md;
   docs/seed_freshness_protocol.md;
   plugins/d-nd-core/skills/source-integrity-interference-guard/SKILL.md;
   docs/receipts/SOURCE_INTEGRITY_GUARD_LOCAL_RECEIPT_2026-07-26.md;
@@ -69,17 +81,18 @@ boundary:
   untracked operator work; do not mutate it from this release.
 
 residue_not_to_follow:
-  the legacy coder/thinker catalog remains a separate taxonomy. The two
-  reference-only warnings are declared baseline. OpenCode behavioral routing,
-  external consumer adoption and the Seed landing are separate owner surfaces.
+  the legacy coder/thinker catalog remains a separate taxonomy. The remaining
+  geo-seo reference-only warning is declared baseline. The pre-existing open
+  working-set correction is preserved but is not part of this transcript
+  movement. Seed landing and public-site updates remain separate owner surfaces.
 
 first_safe_action:
-  validate the local public-neutral incarnation and update index without
-  installing into a consumer or touching seed.d-nd.com.
+  obtain explicit operator approval for the authenticated pushes and the
+  versioned VPS consumer installation; do not mutate /opt/THIA.
 
 validation_needed:
-  fresh-process host routing, external runtime adoption and seed.d-nd.com
-  remain unverified, separate surfaces.
+  authenticated remote branch identity, VPS doctor/offline tests/network smoke,
+  fresh-process host routing and seed.d-nd.com remain separate evidence layers.
 ```
 
 ## Faculty and freshness transfer matrix
