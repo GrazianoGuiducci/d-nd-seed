@@ -1,7 +1,26 @@
 # d-nd-seed Current State
 
-updated: 2026-08-08
-status: possibility-evolution recursion published in the public-neutral awareness and faculty surfaces
+updated: 2026-09-08
+status: local source contributions reconciled with accepted remote history
+
+## Source reconciliation — 2026-09-08
+
+The maintainer selected repository alignment, including useful local work.
+The local continuity-boundary document, registry entry, boot/procedure
+additions, crystallization and coder-kernel changes are already represented
+in accepted `f4b13ef`; receive that source rather than duplicate them.
+
+The remaining local Lab interruption relation now continues in
+`docs/LAB_PATTERN.md`, reconciled with the present possibility field:
+an attempted interruption may inform its owning method but does not classify
+unexecuted branches or require a rerun. `CHANGELOG.md` records this portable
+documentation difference. Registry, installer, runtime and release versions
+are unchanged; no target installation or site deployment is selected.
+
+Validation: registry strict coverage and install/update check modes pass.
+The existing reference-only geo-seo warning remains baseline debt. Original
+local contributions remain recoverable in the maintainer's private checkpoint;
+private runtime state is not part of the public source payload.
 
 ## Possibility-Evolution Recursion — 2026-08-08
 

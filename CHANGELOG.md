@@ -4,6 +4,12 @@ All notable public changes to `d-nd-seed` are tracked here.
 
 ## Unreleased
 
+### Clarified
+
+- Preserve blocked Lab attempts as source-bound learning without classifying
+  unexecuted branches or requiring a retry. Distinguish upstream correction,
+  observed execution and exact effect authority.
+
 ### Added
 
 - Promoted `youtube-transcript` from a project-bound reference template to an

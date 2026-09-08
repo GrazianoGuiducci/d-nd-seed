@@ -84,6 +84,27 @@ Default mode is `warn`: gate decision is logged in `data/<lab>/aeternitas/aetern
 
 This closes the autopoietic loop concretely (axioms A8 — autologic, A15 — vehicle without driver). The system corrects itself between cycles without operator intervention. Lower-confidence or `trigger_cycle`-only decisions are skipped (logged), preserving operator authority over architectural REDESIGN.
 
+### Block as autological input
+
+A blocked attempt can expose a missing condition in the model or its operating
+path. Preserve where the interruption appeared, which upstream relation may
+own it, the evidence available, and what would justify reopening that exact
+effect. Distinguish a repair that addresses the cause from a workaround that
+only hides its manifestation.
+
+A provider failure, missing report, timeout, veto, synchronization failure or
+excessive cost is evidence about that attempted effect. It does not by itself
+classify an unexecuted control or the wider field as productive, unproductive,
+possible or impossible. Independent evidence can still establish a scoped
+limit. Keep execution, observation and authority distinct.
+
+When a useful correction emerges, let it change the owning method and its
+next authorized use. Preserve only what future reconstruction needs; another
+cycle, diagnosis or retry is not required merely to fill an empty next action.
+Protect accepted runtime/public surfaces and retain their exact effect gates.
+Learning from a block does not authorize forced synchronization, lowered guards
+or automatic provider calls.
+
 ### Narrative writer
 
 `narrative_writer` (movement 22) takes the cycle's technical artifacts (agent report, falsifier flags, veritas vectors, aeternitas decision, trajectory verdict, bicono) and asks an LLM (via the standard provider chain) to produce a ~200-word narrative for non-technical readers. No jargon, three-act structure: what was tested → what the system found → what changes now.
